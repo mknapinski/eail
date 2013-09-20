@@ -30,7 +30,6 @@ eail/Makefile.in
 install-sh
 ltmain.sh
 missing
-*.m4
 
 # Files modified by git
 stamp-h1
