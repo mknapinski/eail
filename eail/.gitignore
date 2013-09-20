@@ -1,0 +1,36 @@
+# Object files
+*.o
+*.lo
+
+# Libraries
+*.lib
+*.a
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Files modified by autotools
+INSTALL
+Makefile.in
+aclocal.m4
+config.guess
+config.log
+config.sub
+configure
+depcomp
+eail/Makefile.in
+install-sh
+ltmain.sh
+missing
+*.m4
+
+# Files modified by git
+stamp-h1

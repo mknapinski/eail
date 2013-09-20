@@ -1,0 +1,32 @@
+Eail 1.0.0
+------------------------------------------------------------------------------
+Enlightenment Accessibility Implementation Library
+
+An implementation of ATK interfaces library for Elementary.
+
+------------------------------------------------------------------------------
+COMPILING AND INSTALLING:
+
+  ./autogen.sh
+(optionally use ./configure --with-elementary-modules=/usr/local/lib/elementary/modules/eail/linux-gnu-i686-1.7.99/  )
+  ./configure
+  make -j4
+(do this as root unless you are installing in your users directories):
+  make install
+
+------------------------------------------------------------------------------
+TESTING
+
+  ./autogen.sh
+(optionally use ./configure --with-elementary-modules=/usr/local/lib/elementary/modules/eail/linux-gnu-i686-1.7.99/  )
+  ./configure
+  make -j4
+(do this as root unless you are installing in your users directories):
+  make install
+  make check -j4
+
+------------------------------------------------------------------------------
+NOTE FOR TIZEN
+
+To use on Tizen 2.2 you have to set proper ELM_MODULES variable:
+export ELM_MODULES="prefs>prefs_iface:access_output>access/api:datetime_input_ctxpopup>datetime/api:eail>eail/api"
