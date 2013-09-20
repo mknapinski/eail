@@ -79,6 +79,22 @@ _eail_entry_handle_pressed_event(void *data,
 }
 
 /**
+ * @brief handler for event which is raised when entry cusror position is being changed
+ *
+ * @param data passed to callback
+ * @param obj object that raised event
+ * @param event_info additional event info
+ */
+void
+_eail_entry_handle_cursor_changed_event(void *data,
+                                 Evas_Object *obj,
+                                 void *event_info)
+{
+   g_signal_emit_by_name (ATK_OBJECT(data), "text_caret_moved",
+                                 elm_entry_cursor_pos_get(obj));
+}
+
+/**
  * @brief Initializer for AtkObject
  *
  * @param obj AtkObject instance
@@ -103,7 +119,7 @@ eail_entry_initialize(AtkObject *obj, gpointer data)
    evas_object_smart_callback_add(nested_widget, "changed",
                                   _eail_entry_handle_changed_event, obj);
    evas_object_smart_callback_add(nested_widget, "cursor,changed",
-                                  _eail_entry_handle_changed_event, obj);
+                                  _eail_entry_handle_cursor_changed_event, obj);
    evas_object_smart_callback_add(nested_widget, "press",
                                   _eail_entry_handle_pressed_event, obj);
 }
