@@ -25,6 +25,9 @@
 #include <Elementary.h>
 
 #include "eail_box.h"
+#include "eail_priv.h"
+#include "eail_utils.h"
+#include "eail_factory.h"
 
 /**
  * @brief EailBox type definition
@@ -36,6 +39,48 @@ G_DEFINE_TYPE(EailBox, eail_box, EAIL_TYPE_WIDGET);
  */
 
 /**
+ * @brief Handler for realized event, used to notify about box content
+ * changes
+ *
+ * @param data passed to callback
+ * @param obj object that raised event
+ * @param event_info additional event info (reference toobject added to box)
+ */
+void
+eail_box_children_add_event(void *data,
+                            Evas_Object *obj,
+                            void *event_info)
+{
+   AtkObject *atk_parent = NULL;
+
+   atk_parent = ATK_OBJECT(data);
+   if (!atk_parent) return;
+
+   eail_emit_children_changed_obj(TRUE, atk_parent, NULL);
+}
+
+/**
+ * @brief Handler for realized event, used to notify about box content
+ * changes
+ *
+ * @param data passed to callback
+ * @param obj object that raised event
+ * @param event_info additional event info (reference toobject added to box)
+ */
+void
+eail_box_children_rm_event(void *data,
+                            Evas_Object *obj,
+                            void *event_info)
+{
+   AtkObject *atk_parent = NULL;
+
+   atk_parent = ATK_OBJECT(data);
+   if (!atk_parent) return;
+
+   eail_emit_children_changed_obj(FALSE, atk_parent, NULL);
+}
+
+/**
  * @brief EailBox initializer
  *
  * @param obj an AtkObject
@@ -44,9 +89,23 @@ G_DEFINE_TYPE(EailBox, eail_box, EAIL_TYPE_WIDGET);
 static void
 eail_box_initialize(AtkObject *obj, gpointer data)
 {
+   Evas_Object *nested_widget = NULL;
    ATK_OBJECT_CLASS(eail_box_parent_class)->initialize(obj, data);
 
    obj->role = ATK_ROLE_FILLER;
+   g_return_if_fail(EAIL_IS_WIDGET(obj));
+
+   nested_widget = eail_widget_get_widget(EAIL_WIDGET(obj));
+   if (!nested_widget)
+     {
+        ERR("No evas object inside EailWidget was found");
+        return;
+   }
+
+   evas_object_smart_callback_add(nested_widget, "child,added",
+                                  eail_box_children_add_event, obj);
+   evas_object_smart_callback_add(nested_widget, "child,removed",
+                                  eail_box_children_rm_event, obj);
 }
 
 /**
