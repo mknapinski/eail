@@ -87,6 +87,7 @@ typedef struct _EailWindowClass EailWindowClass;
 struct _EailWindow
 {
     EailActionWidget parent;/*!< @brief Parent widget whose functionality is being extended*/
+    gint child_count_last;/**< @brief last reported count of children */
 };
 
 /** @brief Definition of object class for Atk EailWindow*/
