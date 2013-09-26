@@ -35,7 +35,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailHoversel
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_HOVERSEL(obj)            (G_TYPE_CHECK_INSTANCE_CAST((obj), \
                                        EAIL_TYPE_HOVERSEL, EailHoversel))
@@ -49,7 +49,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailHoversel class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_HOVERSEL(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
                                        EAIL_TYPE_HOVERSEL))
@@ -80,7 +80,7 @@ typedef struct _EailHoverselClass EailHoverselClass;
 /** @brief Definition of object structure for Atk EailHoversel*/
 struct _EailHoversel
 {
-   EailWidget parent;/**< @brief widget that functionality is being extended*/
+   EailWidget parent;/**< @brief Parent widget whose functionality is being extended*/
 
    char *shrink_description;/**< @brief 'shrink' action description string */
    char *expand_description;/**< @brief 'expand' action description string */

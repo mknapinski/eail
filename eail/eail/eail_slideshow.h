@@ -37,7 +37,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailSlideshow
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_SLIDESHOW(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj), \
                                          EAIL_TYPE_SLIDESHOW, EailSlideshow))
@@ -54,7 +54,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailSlideshow class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_SLIDESHOW(obj)          (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
                                          EAIL_TYPE_SLIDESHOW))
@@ -88,12 +88,12 @@ typedef struct _EailSlideshowClass EailSlideshowClass;
 /** @brief Definition of object structure for Atk EailSlideshow*/
 struct _EailSlideshow
 {
-   /** @brief Parent object that functionality is being extended*/
+   /** @brief Parent widget whose functionality is being extended*/
    EailWidget parent;
-   gchar *next_description;/*!< @brief 'next' action description*/
-   gchar *previous_description;/*!< @brief 'previous' action description*/
-   gchar *stop_description;/*!< @brief 'stop' action description*/
-   gchar *start_description;/*!< @brief 'start' action description*/
+   gchar *next_description;/*!< @brief "next" action description*/
+   gchar *previous_description;/*!< @brief "previous" action description*/
+   gchar *stop_description;/*!< @brief "stop" action description*/
+   gchar *start_description;/*!< @brief "start" action description*/
 };
 
 /** @brief Definition of object class for Atk EailSlideshow*/

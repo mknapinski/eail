@@ -35,7 +35,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailLabel
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_LABEL(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), \
                                       EAIL_TYPE_LABEL, EailLabel))
@@ -49,7 +49,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailLabel class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_LABEL(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
                                       EAIL_TYPE_LABEL))
@@ -80,7 +80,7 @@ typedef struct _EailLabelClass EailLabelClass;
 /** @brief Definition of object structure for Atk EailLabel*/
 struct _EailLabel
 {
-   /** @brief Parent object that functionality is being extended*/
+   /** @brief Parent widget whose functionality is being extended*/
    EailWidget parent;
 };
 

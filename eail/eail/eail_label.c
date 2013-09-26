@@ -62,12 +62,12 @@ eail_label_init(EailLabel *label)
 }
 
 /**
- * @brief Gets state set of the accessible.
+ * @brief Gets the state set of the accessible.
  *
  * The caller must unreference it when it is no longer needed.
  *
  * @param accessible AtkObject instance
- * @return accessible state set
+ * @return AtkStateSet containing the state set of the accessible
  */
 static AtkStateSet*
 eail_label_ref_state_set(AtkObject *accessible)
@@ -87,12 +87,10 @@ eail_label_ref_state_set(AtkObject *accessible)
 }
 
 /**
- * @brief Gets obj name
+ * @brief Gets obj's name
  *
- * Returns obj accessible name if assigned, obj text content otherwise
- *
- * @param obj an AtkObject
- * @returns accessible obj name if assigned, obj text content otherwise
+ * @param obj AtkObject instance
+ * @returns string containing obj's name or its text content if the name is not set
  */
 static const gchar*
 eail_label_get_name(AtkObject *obj)
@@ -116,7 +114,7 @@ eail_label_get_name(AtkObject *obj)
 /**
  * @brief EailLabel class initializer.
  *
- * @param klass EailLabel class
+ * @param klass EailLabelClass instance
  */
 static void
 eail_label_class_init(EailLabelClass *klass)
@@ -157,11 +155,11 @@ eail_label_get_text(AtkText   *text,
 }
 
 /**
- * @brief Gets character at offset
+ * @brief Gets the character at offset
  *
- * @param text an AtkText
+ * @param text AtkText instance
  * @param offset character offset
- * @return character at offset
+ * @return char located at the given offset
  */
 static gunichar
 eail_label_get_character_at_offset(AtkText    *text,
@@ -178,10 +176,10 @@ eail_label_get_character_at_offset(AtkText    *text,
 }
 
 /**
- * @brief Gets text length
+ * @brief Gets the length of text
  *
- * @param text an AtkText
- * @return text length
+ * @param text AtkText instance
+ * @return integer representing the length of text
  */
 static gint
 eail_label_get_character_count(AtkText *text)
@@ -202,14 +200,14 @@ eail_label_get_character_count(AtkText *text)
 /**
  * @brief Adds attribute to attribute set
  *
- * @param attrib_set The AtkAttributeSet to add the attribute to
- * @param attr The AtkTextAttrribute which identifies the attribute to be added
- * @param value The attribute value
+ * @param attrib_set AtkAttributeSet to add the attribute to
+ * @param attr AtkTextAttrribute to be added
+ * @param value attribute value
  *
  * Creates an AtkAttribute from attr and value, and adds it
  * to attrib_set.
  *
- * @returns: A pointer to the new AtkAttributeSet.
+ * @returns AtkAttributeSet containing set with added attribute
  **/
 AtkAttributeSet*
 _eail_label_add_attribute(AtkAttributeSet *attrib_set,
@@ -228,11 +226,13 @@ _eail_label_add_attribute(AtkAttributeSet *attrib_set,
  * @brief Creates an AtkAttributeSet which consists of the default values of
  * attributes for the text.
  *
- * @param text an AtkText
- *
- * @returns an AtkAttributeSet which contains the default values of attributes
- * at offset. this atkattributeset should be freed by a call to
+ * This AtkAttributeSet should be freed by a call to
  * atk_attribute_set_free()
+ *
+ * @param text AtkText instance
+ *
+ * @returns AtkAttributeSet containing default values of attributes
+ * at offset.
  */
 AtkAttributeSet *
 eail_label_get_default_attributes(AtkText *text)
@@ -255,21 +255,23 @@ eail_label_get_default_attributes(AtkText *text)
 
 /**
  * @brief Creates an AtkAttributeSet which consists of the attributes
- * explicitly set at the position offset in the text. start_offset and
- * end_offset are set to the start and end of the range around offset
- * where the attributes are invariant. Note that end_offset is the offset
- * of the first character after the range.
+ * explicitly set at the position offset in the text.
  *
- * @param text an AtkText
+ * start_offset and end_offset are set to the start and end of the range around offset
+ * where the attributes are invariant.
+ *
+ * Note that end_offset is the offset of the first character after the range.
+ *
+ * This AtkAttributeSet should be freed by a call to
+ * atk_attribute_set_free()
+ *
+ * @param text AtkText instance
  * @param offset the offset at which to get the attributes
- * @param start_offset the address to put the start offset of the range (used to
- * store output value)
- * @param end_offset the address to put the end offset of the range (used to
- * store output value)
+ * @param [out] start_offset start offset of the range
+ * @param [out] end_offset end offset of the range
  *
  * @returns an AtkAttributeSet which contains the attributes explicitly set at
- * offset. This AtkAttributeSet should be freed by a call to
- * atk_attribute_set_free()
+ * offset.
  */
 AtkAttributeSet *
 eail_label_get_run_attributes(AtkText *text,
@@ -313,7 +315,7 @@ eail_label_get_run_attributes(AtkText *text,
 /**
  * @brief Initializes AtkTextIface interface
  *
- * @param iface an AtkTextIface
+ * @param iface AtkTextIface instance
  */
 static void
 atk_text_interface_init(AtkTextIface *iface)

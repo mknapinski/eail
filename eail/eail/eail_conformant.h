@@ -37,7 +37,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailConformant
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_CONFORMANT(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), \
                                            EAIL_TYPE_CONFORMANT, EailConformant))
@@ -53,7 +53,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailConformant class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_CONFORMANT(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
                                            EAIL_TYPE_CONFORMANT))
@@ -87,7 +87,7 @@ typedef struct _EailConformantClass EailConformantClass;
 /** @brief Definition of object structure for Atk EailConformant*/
 struct _EailConformant
 {
-   /** @brief parent object that functionality is being extended */
+   /** @brief Parent widget whose functionality is being extended */
    EailLayout parent;
 };
 

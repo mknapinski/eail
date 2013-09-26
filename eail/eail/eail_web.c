@@ -19,7 +19,7 @@
 
 /**
  * @file eail_web.c
- * @brief Implementation of web widget
+ * @brief EailWeb implementation
  */
 
 #include <atk/atk.h>
@@ -38,7 +38,7 @@ G_DEFINE_TYPE(EailWeb, eail_web, EAIL_TYPE_WIDGET);
 /**
  * @brief Initializer for AtkObject
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  * @param data initializer data
  */
 static void
@@ -51,7 +51,7 @@ eail_web_initialize(AtkObject *obj, gpointer data)
 /**
  * @brief EailWeb instance initializer
  *
- * @param web an EailWeb
+ * @param web EailWeb instance
  */
 static void
 eail_web_init(EailWeb *web)
@@ -60,13 +60,13 @@ eail_web_init(EailWeb *web)
 }
 
 /**
- * @brief Implementation AtkObject->get_n_children callback
+ * @brief Gets the number of accessible children of the accessible
  *
- * ATK doc says:\n
- * Gets the number of accessible children of the accessible.
- * @param obj an AtkObject
+ * Implementation of AtkObject->get_n_children callback.
  *
- * @returns an integer representing the number of accessible children of
+ * @param obj AtkObject instance
+ *
+ * @returns integer representing the number of accessible children of
  * the accessible
  */
 static gint
@@ -77,18 +77,18 @@ eail_web_get_n_children(AtkObject *obj)
 }
 
 /**
- * @brief Implementation AtkObject->ref_child callback
+ * @brief Gets a reference to the specified accessible child of the object.
  *
- * ATK doc says:\n
- * Gets a reference to the specified accessible child of the object. The
- * accessible children are 0-based so the first accessible child is at index 0,
+ * The accessible children are 0-based so the first accessible child is at index 0,
  * the second at index 1 and so on.
  *
- * @param obj an AtkObject
+ * Implementation of AtkObject->ref_child callback
+ *
+ * @param obj AtkObject instance
  * @param i index of a child
  *
- * @returns an AtkObject representing the specified accessible child of the
- * accessible.
+ * @returns AtkObject representing the specified accessible child of the
+ * accessible
  */
 static AtkObject *
 eail_web_ref_child(AtkObject *obj, gint i)
@@ -99,7 +99,8 @@ eail_web_ref_child(AtkObject *obj, gint i)
 
 /**
  * @brief Destructor of EailWeb object
- * @param object a GObject
+ *
+ * @param object GObject instance
  */
 static void
 eail_web_finalize(GObject *object)
@@ -108,10 +109,13 @@ eail_web_finalize(GObject *object)
 }
 
 /**
- * @brief Implementation of get_name from AtkObject
+ * @brief Gets the accessible name of the accessible
  *
- * @param object EailWeb instance
- * @returns first name from the following list which is not null:
+ * Implementation of get_name from AtkObject.
+ *
+ * @param object AtkObject instance
+ * @returns a string representing the first attribute from the
+ * following list which is not null:
  * accessible name, uri, title, or NULL if all strings were NULL
  */
 static const gchar*
@@ -138,10 +142,11 @@ eail_web_get_name(AtkObject *object)
 }
 
 /**
- * @brief Initializer for EailWeb GObject class (defines callbacks for
- * base AtkObject)
+ * @brief Initializer for EailWeb GObject class
  *
- * @param klass an EailWebClass
+ * Defines callbacks for base AtkObject.
+ *
+ * @param klass EailWebClass instance
  */
 static void
 eail_web_class_init(EailWebClass *klass)

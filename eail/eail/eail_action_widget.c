@@ -19,7 +19,7 @@
 
 /**
  * @file eail_action_widget.c
- * @brief Implementation of widget that can hold atk actions
+ * @brief EailActionWidget implementation
  */
 
 #include <Elementary.h>
@@ -29,7 +29,7 @@
 
 static void atk_action_interface_init(AtkActionIface *iface);
 
-/** @brief ActionObject structure for objects stored in actions list*/
+/** @brief ActionObject structure for objects stored in actions list */
 typedef struct _EailActionObj EailActionObj;
 
 /** @brief ActionObject structure for objects stored in actions list
@@ -54,8 +54,8 @@ G_DEFINE_TYPE_WITH_CODE(EailActionWidget,
 /**
  * @brief Initializer for AtkObjectClass
  *
- * @param obj an AtkOject(EailActionWidget) to be initialized
- * @param data additional initialization data (Evas_Object*)
+ * @param obj AtkObject(EailActionWidget) instance to be initialized
+ * @param data additional initialization data
  */
 static void
 eail_action_widget_initialize(AtkObject *obj, gpointer data)
@@ -70,7 +70,7 @@ eail_action_widget_initialize(AtkObject *obj, gpointer data)
 /**
  * @brief Initializer for GObject class
  *
- * @param action_widget an AtkOject(EailActionWidget) to be initialized
+ * @param action_widget AtkOject(EailActionWidget) instance to be initialized
  */
 static void
 eail_action_widget_init(EailActionWidget *action_widget)
@@ -80,7 +80,7 @@ eail_action_widget_init(EailActionWidget *action_widget)
 /**
  * @brief Deallocates memory for EailActionObj
  *
- * @param action_obj an EailActionObj( to be freed
+ * @param action_obj EailActionObj instance to be freed
  */
 static void
 eail_action_obj_free(EailActionObj *action_obj)
@@ -94,9 +94,9 @@ eail_action_obj_free(EailActionObj *action_obj)
 }
 
 /**
- * @brief Finalize function for GObject
+ * @brief Finalizes function for GObject
  *
- * @param object an GObject(EailActionWidget) to be freed
+ * @param object GObject(EailActionWidget) instance to be freed
  */
 static void
 eail_action_widget_finalize(GObject *object)
@@ -121,9 +121,9 @@ eail_action_widget_finalize(GObject *object)
 }
 
 /**
- * @brief Init function for GObject
+ * @brief Initiates function for GObject
  *
- * @param klass an EailActionWidgetClass to be filled
+ * @param klass EailActionWidgetClass instance to be filled
  */
 static void
 eail_action_widget_class_init(EailActionWidgetClass *klass)
@@ -164,12 +164,13 @@ eail_action_widget_action_append(EailActionWidget *action_widget,
 }
 
 /**
- * @brief Returns number of implemented ATK Actions.
- * Implementation of AtkActionIface get_n_actions callback
+ * @brief Returns the number of implemented ATK actions.
  *
- * @param action object that implements AtkAction interface
+ * Implementation of AtkActionIface get_n_actions callback.
  *
- * @returns number of actions
+ * @param action AtkAction instance
+ *
+ * @returns integer containing the number of implemented ATK actions
  */
 static int
 eail_action_widget_n_actions_get(AtkAction *action)
@@ -185,12 +186,12 @@ eail_action_widget_n_actions_get(AtkAction *action)
 }
 
 /**
- * @brief Returns EailActionObj of action with given index
+ * @brief Returns EailActionObj of an action with the specified index
  *
- * @param action object that implements AtkAction interface
+ * @param action AtkAction instance
  * @param i index (number) of action
  *
- * @returns an EailActionObj* for action with given index
+ * @returns EailActionObj representing the specified action
  */
 static EailActionObj *
 eail_get_action_obj_i(AtkAction *action,
@@ -216,12 +217,12 @@ eail_get_action_obj_i(AtkAction *action,
 }
 
 /**
- * @brief Returns EailActionObj of action with given index
+ * @brief Returns EailActionObj of an action with the specified index
  *
- * @param action object that implements AtkAction interface
+ * @param action AtkAction instance
  * @param i index (number) of action
  *
- * @returns string representation of action name
+ * @returns string representing the name of the specified action
  */
 static const gchar*
 eail_action_widget_action_name_get(AtkAction *action,
@@ -234,9 +235,9 @@ eail_action_widget_action_name_get(AtkAction *action,
 }
 
 /**
- * \brief Launches action with given index
+ * @brief Launches the action with the specified index
  *
- * @param action object that implements AtkAction interface
+ * @param action AtkAction instance
  * @param i index (number) of action
  *
  * @returns TRUE if action was successfully launched, FALSE otherwise
@@ -252,13 +253,14 @@ eail_action_widget_do_action(AtkAction *action,
 }
 
 /**
- * \brief Gets description for action with given index
- * Implementation of AtkActionIface get_description callback
+ * @brief Gets the description of an action with the specified index
  *
- * @param action object that implements AtkAction interface
+ * Implementation of AtkActionIface get_description callback.
+ *
+ * @param action AtkAction instance
  * @param i index (number) of action
  *
- * @returns string representing description for action
+ * @returns string representing the description of the specified action
  */
 static const gchar*
 eail_action_widget_description_get(AtkAction *action,
@@ -271,14 +273,15 @@ eail_action_widget_description_get(AtkAction *action,
 }
 
 /**
- * \brief Sets description for action with given index
- * Implementation of AtkActionIface set_description callback
+ * @brief Sets description for action with given index
  *
- * @param action object that implements AtkAction interface
+ * Implementation of AtkActionIface set_description callback.
+ *
+ * @param action AtkAction instance
  * @param i index (number) of action
  * @param description description to set
  *
- * @returns TRUE if update operation ended with success, FALSE otherwise
+ * @returns TRUE if update operation was successful, FALSE otherwise
  */
 static gboolean
 eail_action_widget_description_set(AtkAction *action,
@@ -302,7 +305,7 @@ eail_action_widget_description_set(AtkAction *action,
  * implementation i.e hooks method pointers in the interface structure
  * to the implementing class's implementation.
  *
- * @param iface interface to be filled
+ * @param iface AtkActionIface instance to be filled
  */
 static void
 atk_action_interface_init(AtkActionIface *iface)

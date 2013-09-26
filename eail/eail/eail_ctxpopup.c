@@ -19,7 +19,7 @@
 
 /**
  * @file eail_ctxpopup.c
- * @brief Implementation of Ctxpopup widget
+ * @brief EailCtxpopup implementation
  */
 
 #include <Elementary.h>
@@ -42,8 +42,8 @@ G_DEFINE_TYPE_WITH_CODE(EailCtxpopup,
 /**
  * @brief Initializer for AtkObject
  *
- * @param obj an AtkObject
- * @param data Initialization data
+ * @param obj AtkObject instance
+ * @param data initialization data
  */
 static void
 eail_ctxpopup_initialize(AtkObject *obj, gpointer data)
@@ -56,7 +56,7 @@ eail_ctxpopup_initialize(AtkObject *obj, gpointer data)
 /**
  * @brief Destructor for EailCtxpopup class
  *
- * @param object GObject object to be finalized
+ * @param object GObject instance to be finalized
  */
 static void
 eail_ctxpopup_finalize(GObject *object)
@@ -71,7 +71,7 @@ eail_ctxpopup_finalize(GObject *object)
 /**
  * @brief EailCtxpopup GObject instance initializer
  *
- * @param ctxpopup an EailCtxpopup
+ * @param ctxpopup EailCtxpopup instance
  */
 static void
 eail_ctxpopup_init(EailCtxpopup *ctxpopup)
@@ -80,11 +80,12 @@ eail_ctxpopup_init(EailCtxpopup *ctxpopup)
 }
 
 /**
- * @brief Helper function for getting nested content in "elm_popup" widget
+ * @brief Helper function for getting nested content of elm_popup widget
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  *
- * @returns nested widget content from "elm_popup" widget
+ * @returns Evas_Object representing the nested widget content
+ * from elm_popup widget
  */
 static Evas_Object *
 _eail_get_nested_widget(AtkObject *obj)
@@ -103,13 +104,13 @@ _eail_get_nested_widget(AtkObject *obj)
 }
 
 /**
- * @brief Implementation AtkObject->get_n_children callback
+ * @brief Gets the number of accessible children of the accessible
  *
- * ATK doc says:\n
- * Gets the number of accessible children of the accessible.
- * @param obj an AtkObject
+ * Implementation AtkObject->get_n_children callback.
  *
- * @returns an integer representing the number of accessible children of
+ * @param obj AtkObject instance
+ *
+ * @returns integer representing the number of accessible children of
  * the accessible
  */
 static gint
@@ -125,18 +126,18 @@ eail_ctxpopup_get_n_children(AtkObject *obj)
 }
 
 /**
- * @brief Implementation AtkObject->ref_child callback
+ * @brief Gets a reference to the specified accessible child of the object
  *
- * ATK doc says:\n
- * Gets a reference to the specified accessible child of the object. The
- * accessible children are 0-based so the first accessible child is at index 0,
- * the second at index 1 and so on.
+ * The accessible children are 0-based so the first accessible child
+ * is at index 0, the second at index 1 and so on.
  *
- * @param obj an AtkObject
- * @param i index of a child
+ * Implementation of AtkObject->ref_child callback.
  *
- * @returns an AtkObject representing the specified accessible child of the
- * accessible.
+ * @param obj AtkObject instance
+ * @param i index of the child
+ *
+ * @returns AtkObject representing the specified accessible child of the
+ * accessible
  */
 static AtkObject *
 eail_ctxpopup_ref_child(AtkObject *obj, gint i)
@@ -154,10 +155,11 @@ eail_ctxpopup_ref_child(AtkObject *obj, gint i)
 }
 
 /**
- * @brief Initializer for EailPopup GObject class (defines callbacks for
- * base AtkObject)
+ * @brief Initializer for EailPopup GObject class
  *
- * @param klass an EailCtxpopupClass
+ * Defines callbacks for base AtkObject.
+ *
+ * @param klass EailCtxpopupClass instance
  */
 static void
 eail_ctxpopup_class_init(EailCtxpopupClass *klass)
@@ -176,11 +178,16 @@ eail_ctxpopup_class_init(EailCtxpopupClass *klass)
  */
 
 /**
- * @brief Implementation of get_n_actions from AtkAction interface
+ * @brief Gets the number of accessible actions available on the object
  *
- * @param action EailCtxpopup instance
+ * If there are more than one, the first one is considered
+ * the "default" action of the object.
  *
- * @return number of available actions
+ * Implementation of get_n_actions from AtkAction interface.
+ *
+ * @param action AtkAction instance
+ *
+ * @return integer representing the number of available actions
  */
 static int
 eail_ctxpopup_n_actions_get(AtkAction *action)
@@ -189,12 +196,14 @@ eail_ctxpopup_n_actions_get(AtkAction *action)
 }
 
 /**
- * @brief Implementation of get_description from AtkAction interface
+ * @brief Gets the description string of the specified action of the object
  *
- * @param action EailCtxpopup instance
+ * Implementation of get_description from AtkAction interface.
+ *
+ * @param action AtkAction instance
  * @param i action index
  *
- * @return action description
+ * @return string representing the specified action's description
  */
 static const char*
 eail_ctxpopup_description_get(AtkAction *action,
@@ -220,9 +229,11 @@ eail_ctxpopup_description_get(AtkAction *action,
 }
 
 /**
- * @brief Implementation of set_descritpion from AtkAction interface
+ * @brief Sets a description of the specified action of the object
  *
- * @param action EailCtxpopup instance
+ * Implementation of set_description from AtkAction interface.
+ *
+ * @param action AtkAction instance
  * @param i action index
  * @param description action description
  *
@@ -260,12 +271,14 @@ eail_ctxpopup_description_set(AtkAction *action,
 }
 
 /**
- * @brief Implementation of get_name from AtkAction interface
+ * @brief Gets the name string of the specified action of the object
  *
- * @param action EailCtxpopup instance
+ * Implementation of get_name from AtkAction interface.
+ *
+ * @param action AtkAction instance
  * @param i action index
  *
- * @return action name
+ * @return string representing the specified action's name
  */
 static const char*
 eail_ctxpopup_action_name_get(AtkAction *action,
@@ -287,9 +300,11 @@ eail_ctxpopup_action_name_get(AtkAction *action,
 }
 
 /**
- * @brief Implementation of do_action from AtkAction interface
+ * @brief Performs the specified action on the object
  *
- * @param action EailCtxpopup instance
+ * Implementation of do_action from AtkAction interface.
+ *
+ * @param action AtkAction instance
  * @param i action index
  *
  * @return TRUE on success, FALSE otherwise
@@ -324,7 +339,7 @@ eail_ctxpopup_do_action(AtkAction *action,
  * implementation i.e hooks method pointers in the interface structure
  * to the implementing class's implementation.
  *
- * @param iface an AtkActionIface
+ * @param iface AtkActionIface instance
  */
 static void
 atk_action_interface_init(AtkActionIface *iface)

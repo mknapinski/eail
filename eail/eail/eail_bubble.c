@@ -19,7 +19,7 @@
 
 /**
  * @file eail_bubble.c
- * @brief Implementation of EailBubble
+ * @brief EailBubble implementation
  */
 
 #include <Elementary.h>
@@ -44,7 +44,7 @@ G_DEFINE_TYPE_WITH_CODE(EailBubble,
 /**
  * @brief EailBubble object initialization
  *
- * @param obj EailBubble object
+ * @param obj EailBubble instance
  * @param data user set additional initialization data
  */
 static void
@@ -58,7 +58,7 @@ eail_bubble_initialize(AtkObject *obj, gpointer data)
 /**
  * @brief Class destructor
  *
- * @param object object instance
+ * @param object GObject instance
  */
 static void
 eail_bubble_finalize(GObject *object)
@@ -82,11 +82,12 @@ eail_bubble_init(EailBubble *bubble)
 }
 
 /**
- * @brief Gets list of child widget
+ * @brief Gets the list of widget's accessible children
  *
- * @param widget EailWidget object
+ * @param widget EailWidget instance
  *
- * @return list of child, NULL if no children
+ * @return Eina_List representing the list of accessible children
+ * or NULL if widget has no children
  */
 static Eina_List *
 eail_bubble_get_widget_children(EailWidget *widget)
@@ -113,7 +114,7 @@ eail_bubble_get_widget_children(EailWidget *widget)
 /**
  * @brief GObject type initialization function
  *
- * @param klass EailBubble class
+ * @param klass EailBubbleClass instance
  */
 static void
 eail_bubble_class_init(EailBubbleClass *klass)
@@ -132,11 +133,13 @@ eail_bubble_class_init(EailBubbleClass *klass)
  */
 
 /**
- * @brief Implementation of get_n_actions from AtkAction interface
+ * @brief Gets the number of accessible actions available on the object
+ *
+ * Implementation of get_n_actions from AtkAction interface.
  *
  * @param action EailBubble instance
  *
- * @returns number of actions
+ * @returns integer representing the number of available actions
  */
 static int
 eail_bubble_n_actions_get(AtkAction *action)
@@ -145,12 +148,14 @@ eail_bubble_n_actions_get(AtkAction *action)
 }
 
 /**
- * @brief Implementation of get_description from AtkAction interface
+ * @brief Gets the description string of the specified action
+ *
+ * Implementation of get_description from AtkAction interface.
  *
  * @param action EailBubble instance
  * @param i action index
  *
- * @return action description
+ * @return string representing the specified action's description
  */
 static const char*
 eail_bubble_description_get(AtkAction *action,
@@ -176,9 +181,11 @@ eail_bubble_description_get(AtkAction *action,
 }
 
 /**
- * @brief Implementation of set_descritpion from AtkAction interface
+ * @brief Sets a description of the specified action of the object
  *
- * @param action EailBubble instance
+ * Implementation of set_description from AtkAction interface.
+ *
+ * @param action AtkAction instance
  * @param i action index
  * @param description action description
  *
@@ -216,12 +223,14 @@ eail_bubble_description_set(AtkAction *action,
 }
 
 /**
- * @brief Implementation of get_name from AtkAction interface
+ * @brief Gets the name string of the specified action
  *
- * @param action EailBubble instance
+ * Implementation of get_name from AtkAction interface.
+ *
+ * @param action AtkAction instance
  * @param i action index
  *
- * @return action name
+ * @return string representing the specified action's name
  */
 static const char*
 eail_bubble_action_name_get(AtkAction *action,
@@ -243,9 +252,11 @@ eail_bubble_action_name_get(AtkAction *action,
 }
 
 /**
- * @brief Implementation of do_action from AtkAction interface
+ * @brief Performs the specified action on the object
  *
- * @param action EailBubble instance
+ * Implementation of do_action from AtkAction interface.
+ *
+ * @param action AtkAction instance
  * @param i action index
  *
  * @return TRUE on success, FALSE otherwise

@@ -7,6 +7,7 @@ An implementation of ATK interfaces library for Elementary.
 ------------------------------------------------------------------------------
 COMPILING AND INSTALLING:
 
+  autoreconf -vi
   ./autogen.sh
 (optionally use ./configure --with-elementary-modules=/usr/local/lib/elementary/modules/eail/linux-gnu-i686-1.7.99/  )
   ./configure
@@ -17,6 +18,7 @@ COMPILING AND INSTALLING:
 ------------------------------------------------------------------------------
 TESTING
 
+  autoreconf -vi
   ./autogen.sh
 (optionally use ./configure --with-elementary-modules=/usr/local/lib/elementary/modules/eail/linux-gnu-i686-1.7.99/  )
   ./configure

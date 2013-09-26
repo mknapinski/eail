@@ -35,7 +35,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailMapbuf
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_MAPBUF(obj)            (G_TYPE_CHECK_INSTANCE_CAST((obj), \
                                      EAIL_TYPE_MAPBUF, EailMapbuf))
@@ -49,7 +49,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailMapbuf class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_MAPBUF(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
                                      EAIL_TYPE_MAPBUF))
@@ -80,7 +80,7 @@ typedef struct _EailMapbufClass EailMapbufClass;
 /** @brief Definition of object structure for Atk EailMapbuf*/
 struct _EailMapbuf
 {
-   /** @brief Parent object that functionality is being extended*/
+   /** @brief Parent widget whose functionality is being extended*/
    EailWidget parent;
 };
 

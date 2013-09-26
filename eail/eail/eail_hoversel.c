@@ -76,7 +76,7 @@ static const Eina_List *eail_hoversel_items_get(EailHoversel *obj);
 /**
  * @brief EailHoverser initializer
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  * @param data initialization data
  */
 static void
@@ -117,12 +117,12 @@ eail_hoversel_init(EailHoversel *hoversel)
 }
 
 /**
- * @brief Gets state set of the accessible.
+ * @brief Gets the state set of the accessible.
  *
  * The caller must unreference it when it is no longer needed.
  *
  * @param accessible EailHoversel instance
- * @return EailHoversel state set
+ * @return AtkStateSet containing the state set of the accessible
  */
 static AtkStateSet*
 eail_hoversel_ref_state_set(AtkObject *accessible)
@@ -162,10 +162,10 @@ eail_hoversel_ref_state_set(AtkObject *accessible)
 }
 
 /**
- * @brief Gets number of obj children
+ * @brief Gets the number of accessible children of obj
  *
- * @param obj an AtkObject
- * @return obj children number
+ * @param obj AtkObject instance
+ * @return integer containing the number of obj's children
  */
 static gint
 eail_hoversel_get_n_children(AtkObject *obj)
@@ -180,13 +180,17 @@ eail_hoversel_get_n_children(AtkObject *obj)
 }
 
 /**
- * @brief Gets reference to i-th child
+ * @brief Gets a reference to the specified accessible child of the object.
  *
- * The caller must unreference it when it is no longer needed
+ * The accessible children are 0-based so the first accessible child is at index 0, the second at index 1 and so on.
  *
- * @param obj an AtkObject
+ * Implementation of ref_child from AtkObject interface.
+ *
+ * The caller must unreference it when it is no longer needed.
+ *
+ * @param obj AtkObject instance
  * @param i child index
- * @return child reference
+ * @return AtkObject containing the reference to the specified accessible child
  */
 static AtkObject *
 eail_hoversel_ref_child(AtkObject *obj,
@@ -214,7 +218,7 @@ eail_hoversel_ref_child(AtkObject *obj,
 /**
  * @brief EailHoversel class initializer.
  *
- * @param klass EailHoversel class
+ * @param klass EailHoverselClass instance
  */
 static void
 eail_hoversel_class_init(EailHoverselClass *klass)
@@ -237,7 +241,7 @@ eail_hoversel_class_init(EailHoverselClass *klass)
 /**
  * @brief AtkAction interface initializer.
  *
- * @param iface EailHoversel object
+ * @param iface EailHoversel instance
  */
 static void
 atk_action_interface_init(AtkActionIface *iface)
@@ -252,11 +256,13 @@ atk_action_interface_init(AtkActionIface *iface)
 }
 
 /**
- * @brief Gets i-th action description.
+ * @brief Gets the description of the specified action of the object.
+ *
+ * Implementation of get_description from AtkAction interface.
  *
  * @param action EailHoversel instance
  * @param i action index
- * @return action description
+ * @return string representing the description of the specified action
  */
 static const char*
 eail_hoversel_description_get(AtkAction *action,
@@ -285,10 +291,12 @@ eail_hoversel_description_get(AtkAction *action,
 }
 
 /**
- * @brief Sets i-th action description.
+ * @brief Sets a description of the specified action of the object.
  *
- * @param action an AtkAction
- * @param i the action index corresponding to the action to be performed
+ * Implementation of set_description from AtkAction interface.
+ *
+ * @param action AtkAction instance
+ * @param i index of the action to be performed
  * @param description action desciption
  * @return TRUE if description was set successfully, FALSE otherwise
  */
@@ -327,11 +335,13 @@ eail_hoversel_description_set(AtkAction *action,
 }
 
 /**
- * @brief Gets i-th action name.
+ * @brief Gets the name of the specified action of the object.
  *
- * @param action an AtkAction
- * @param i the action index corresponding to the action to be performed
- * @return action description string
+ * Implementation of get_name from AtkAction interface.
+ *
+ * @param action AtkAction instance
+ * @param i index of the action to be performed
+ * @return string representing the name of the specified action
  */
 static const char*
 eail_hoversel_action_name_get(AtkAction *action,
@@ -356,10 +366,14 @@ eail_hoversel_action_name_get(AtkAction *action,
 }
 
 /**
- * @brief Gets number of actions available on the object.
+ * @brief Gets the number of accessible actions available on the object.
+ *
+ * If there are more than one, the first one is considered the "default" action of the object.
+ *
+ * Implementation of get_n_actions from AtkAction interface.
  *
  * @param action AtkAction instance
- * @return number of implemented actions
+ * @return integer containing the number of implemented actions
  */
 static int
 eail_hoversel_n_actions_get(AtkAction *action)
@@ -368,9 +382,11 @@ eail_hoversel_n_actions_get(AtkAction *action)
 }
 
 /**
- * @brief Performs i-th action.
+ * @brief Performs the specified action on the object.
  *
- * @param action an AtkAction instance
+ * Implementation of do_action from AtkAction interface.
+ *
+ * @param action AtkAction instance
  * @param i action index
  * @return TRUE on success, FALSE otherwise
  */
@@ -414,12 +430,12 @@ eail_hoversel_do_action(AtkAction *action,
  */
 
 /**
- * @brief Gets name of hoversel child
+ * @brief Gets the name of hoversel's child
  *
- * @param parent instance
+ * @param parent parent instance
  * @param item child instance
  *
- * @returns const gchar * representing name of the child
+ * @returns string representing the name of the child
  */
 static const gchar *
 eail_hoversel_item_name_get(EailItemParent *parent, EailItem *item)
@@ -431,10 +447,12 @@ eail_hoversel_item_name_get(EailItemParent *parent, EailItem *item)
 }
 
 /**
- * @brief Implementation of EailItemParent->is_content_get_supported callback
+ * @brief Checks if content get is supported
  *
- * @param parent an EailItemParent
- * @param item an EailItem
+ * Implementation of EailItemParent->is_content_get_supported callback.
+ *
+ * @param parent EailItemParent instance
+ * @param item EailItem instance
  * @returns FALSE as there is no content support
  */
 gboolean
@@ -447,7 +465,7 @@ eail_hoversel_content_get_support(EailItemParent   *parent,
 /**
  * @brief EailItemParent interface initializer
  *
- * @param iface an EailItemParentIface
+ * @param iface EailItemParentIface instance
  */
 static void
 eail_item_parent_interface_init(EailItemParentIface *iface)
@@ -461,10 +479,10 @@ eail_item_parent_interface_init(EailItemParentIface *iface)
  */
 
 /**
- * @brief Gets obj items list.
+ * @brief Gets obj's items list.
  *
- * @param obj an EailHoversel
- * @return list with obj items
+ * @param obj EailHoversel instance
+ * @return Eina_List containing obj's items
  */
 static const Eina_List *
 eail_hoversel_items_get(EailHoversel *obj)

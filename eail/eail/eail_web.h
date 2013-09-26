@@ -37,7 +37,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailWeb
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_WEB(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj), \
                                             EAIL_TYPE_WEB, \
@@ -55,7 +55,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailWeb class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_WEB(obj)          (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
                                             EAIL_TYPE_WEB))
@@ -90,7 +90,7 @@ typedef struct _EailWebClass EailWebClass;
 /** @brief Definition of object structure for Atk EailWeb*/
 struct _EailWeb
 {
-   EailWidget parent;/**< @brief object that functionality is being extended*/
+   EailWidget parent;/**< @brief Parent widget whose functionality is being extended*/
 };
 
 /** @brief Definition of object class for Atk EailWeb*/

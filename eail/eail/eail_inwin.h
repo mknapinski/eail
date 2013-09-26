@@ -35,7 +35,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailInwin
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_INWIN(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj), \
                                      EAIL_TYPE_INWIN, EailInwin))
@@ -49,7 +49,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailInwin class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_INWIN(obj)          (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
                                      EAIL_TYPE_INWIN))
@@ -80,7 +80,7 @@ typedef struct _EailInwinClass EailInwinClass;
 /** @brief Definition of object structure for Atk EailInwin*/
 struct _EailInwin
 {
-   /** @brief Parent object that functionality is being extended*/
+   /** @brief Parent widget whose functionality is being extended*/
    EailWidget parent;
 };
 

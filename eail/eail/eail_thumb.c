@@ -42,7 +42,7 @@ G_DEFINE_TYPE_WITH_CODE(EailThumb,
 /**
  * @brief EailThumb initializer
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  * @param data initialization data
  */
 static void
@@ -54,7 +54,7 @@ eail_thumb_initialize(AtkObject *obj, gpointer data)
 /**
  * @brief EailThumb instance initializer
  *
- * @param thumb an EailThumb
+ * @param thumb EailThumb instance
  */
 static void
 eail_thumb_init(EailThumb *thumb)
@@ -62,10 +62,10 @@ eail_thumb_init(EailThumb *thumb)
 }
 
 /**
- * @brief Gets obj state set
+ * @brief Gets the state set of obj
  *
- * @param obj an AtkObject
- * @return obj state set
+ * @param obj AtkObject instance
+ * @return AtkStateSet representing the state set of obj
  */
 static AtkStateSet*
 eail_thumb_ref_state_set(AtkObject *obj)
@@ -84,7 +84,7 @@ eail_thumb_ref_state_set(AtkObject *obj)
 /**
  * @brief EailThumb class initializer
  *
- * @param klass an EailThumbClass
+ * @param klass EailThumbClass instance
  */
 static void
 eail_thumb_class_init(EailThumbClass *klass)
@@ -95,11 +95,11 @@ eail_thumb_class_init(EailThumbClass *klass)
 }
 
 /**
- * @brief Gets thumb current size
+ * @brief Gets the current size of a thumb
  *
- * @param image an AtkImage
- * @param [out] width thumb current width
- * @param [out] height thumb current height
+ * @param image AtkImage instance
+ * @param [out] width thumb's current width
+ * @param [out] height thumb's current height
  */
 static void
 eail_thumb_size_get(AtkImage *image, gint *width, gint *height)
@@ -130,7 +130,7 @@ eail_thumb_size_get(AtkImage *image, gint *width, gint *height)
 /**
  * @brief AtkImage interface initializer
  *
- * @param iface an AtkImageIface
+ * @param iface AtkImageIface instance
  */
 static void
 atk_image_iface_init(AtkImageIface *iface)

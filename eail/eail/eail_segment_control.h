@@ -35,7 +35,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailSegmentControl
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_SEGMENT_CONTROL(obj)               (G_TYPE_CHECK_INSTANCE_CAST((obj), \
                                                 EAIL_TYPE_SEGMENT_CONTROL, \
@@ -51,7 +51,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailSegmentControl class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_SEGMENT_CONTROL(obj)            (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
                                                 EAIL_TYPE_SEGMENT_CONTROL))
@@ -83,7 +83,7 @@ typedef struct _EailSegmentControlClass EailSegmentControlClass;
 /** @brief Definition of object structure for Atk EailSegmentControl*/
 struct _EailSegmentControl
 {
-   /** @brief Parent object that functionality is being extended*/
+   /** @brief Parent widget whose functionality is being extended*/
    EailWidget parent;
 };
 

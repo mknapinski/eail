@@ -37,7 +37,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailToolbar
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_TOOLBAR(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj), \
                                             EAIL_TYPE_TOOLBAR, \
@@ -55,7 +55,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailToolbar class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_TOOLBAR(obj)          (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
                                             EAIL_TYPE_TOOLBAR))
@@ -90,7 +90,7 @@ typedef struct _EailToolbarClass EailToolbarClass;
 /** @brief Definition of object structure for Atk EailToolbar*/
 struct _EailToolbar
 {
-   /** @brief Parent object that functionality is being extended*/
+   /** @brief Parent widget whose functionality is being extended*/
    EailWidget parent;
 };
 

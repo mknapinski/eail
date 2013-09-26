@@ -19,7 +19,7 @@
 
 /**
  * @file eail_entry.c
- * @brief Implementation of entry widget
+ * @brief EailEntry implementation
  */
 
 #include <Elementary.h>
@@ -36,7 +36,8 @@ static void atk_editable_text_interface_init(AtkEditableTextIface *iface);
  * @brief Definition of EailEntry as GObject
  *
  * EailEntry is extended EAIL_TYPE_TEXT with ATK_TYPE_TEXT and
- * ATK_TYPE_EDITABLE_TEXT interfaces implemented
+ * ATK_TYPE_EDITABLE_TEXT interfaces implemented.
+ *
  */
 G_DEFINE_TYPE_WITH_CODE(EailEntry,
                         eail_entry,
@@ -47,10 +48,10 @@ G_DEFINE_TYPE_WITH_CODE(EailEntry,
                                               atk_editable_text_interface_init));
 
 /**
- * @brief handler for event which is raised when entry content is being changed
+ * @brief Handler for event which is raised when entry content has changed
  *
- * @param data passed to callback
- * @param obj object that raised event
+ * @param data data passed to callback
+ * @param obj Evas_Object that raised event
  * @param event_info additional event info
  */
 void
@@ -80,8 +81,8 @@ _eail_entry_handle_pressed_event(void *data,
 /**
  * @brief Initializer for AtkObject
  *
- * @param obj an AtkObject
- * @param data Initialization data
+ * @param obj AtkObject instance
+ * @param data initialization data
  */
 static void
 eail_entry_initialize(AtkObject *obj, gpointer data)
@@ -110,7 +111,7 @@ eail_entry_initialize(AtkObject *obj, gpointer data)
 /**
  * @brief Class destructor
  *
- * @param obj object instance
+ * @param obj GObject instance
  */
 static void
 eail_entry_finalize(GObject *obj)
@@ -118,16 +119,16 @@ eail_entry_finalize(GObject *obj)
 }
 
 /**
- * @brief Implementation of AtkObject->ref_state_set callback
+ * @brief Gets a reference to the state set of the accessible
  *
- * ATK doc says:\n
- * Gets a reference to the state set of the accessible; the caller must
- * unreference it when it is no longer needed.
+ * The caller must unreference it when it is no longer needed.
  *
- * @param obj an AtkObject
+ * Implementation of AtkObject->ref_state_set callback.
  *
- * @returns a reference to an AtkStateSet which is the state set of the
- * accessible.
+ * @param obj AtkObject instance
+ *
+ * @returns AtkStateSet representing the state set of the
+ * accessible
  */
 static AtkStateSet *
 eail_entry_ref_state_set(AtkObject *obj)
@@ -154,7 +155,7 @@ eail_entry_ref_state_set(AtkObject *obj)
 /**
  * @brief Initializer for EailEntry GObject implementation
  *
- * @param entry an EailEntry
+ * @param entry EailEntry instance
  */
 static void
 eail_entry_init(EailEntry *entry)
@@ -164,10 +165,11 @@ eail_entry_init(EailEntry *entry)
 }
 
 /**
- * @brief Initializer for EailPopup GObject class (defines callbacks for
- * base AtkObject)
+ * @brief Initializer for EailPopup GObject class
  *
- * @param klass an EailEntryClass
+ * Defines callbacks for base AtkObject.
+ *
+ * @param klass EailEntryClass instance
  */
 static void
 eail_entry_class_init(EailEntryClass *klass)
@@ -181,10 +183,10 @@ eail_entry_class_init(EailEntryClass *klass)
 }
 
 /**
- * @brief Gets caret offset
+ * @brief Gets the caret offset
  *
- * @param text an AtkText
- * @return caret offset
+ * @param text AtkText instance
+ * @return integer representing the caret offset
  */
 static gint
 eail_entry_get_caret_offset(AtkText *text)
@@ -199,16 +201,14 @@ eail_entry_get_caret_offset(AtkText *text)
 }
 
 /**
- * @brief Sets offset for caret
+ * @brief Sets the caret (cursor) position to the specified offset.
  *
- * Implementation of AtkTextIface->set_caret_offset callback<br>
- * ATK doc says:
- * Sets the caret (cursor) position to the specified offset.
+ * Implementation of AtkTextIface->set_caret_offset callback.
  *
- * @param text an AtkText
+ * @param text AtkText instance
  * @param offset starting position
  *
- * @returns TRUE if success, FALSE otherwise.
+ * @returns TRUE on success, FALSE otherwise
  */
 static gboolean
 eail_entry_set_caret_offset (AtkText *text,
@@ -228,8 +228,9 @@ eail_entry_set_caret_offset (AtkText *text,
 /**
  * @brief Gets the number of selected text regions
  *
- * @param text an AtkText
- * @returns number of selected text regions
+ * @param text AtkText instance
+ * @returns integer representing the number of
+ * selected text regions
  */
 static gint
 eail_entry_get_n_selections(AtkText *text)
@@ -247,19 +248,22 @@ eail_entry_get_n_selections(AtkText *text)
 /**
  * @brief Gets text selection from entry
  *
- * Implementation of AtkTextIface->get_selection callback
+ * Use g_free() to free the returned string.
  *
- * @param text an AtkText
- * @param selection_num The selection number. The selected regions are assigned
+ * The selected regions are assigned
  * numbers that correspond to how far the region is from the start of the text.
  * The selected region closest to the beginning of the text region is assigned
  * the number 0, etc. Note that adding, moving or deleting a selected region can
- *  change the numbering.
- * @param start_offset passes back the start position of the selected region
- * @param end_offset passes back the end position of the selected region
+ * change the numbering.
  *
- * @returns a newly allocated string containing the selected text. Use g_free()
- * to free the returned string.
+ * Implementation of AtkTextIface->get_selection callback.
+ *
+ * @param text AtkText instance
+ * @param selection_num selection number
+ * @param start_offset start position of the selected region
+ * @param end_offset end position of the selected region
+ *
+ * @returns newly allocated string containing the selected text
  */
 static gchar *
 eail_entry_get_selection(AtkText *text,
@@ -291,7 +295,7 @@ eail_entry_get_selection(AtkText *text,
 /**
  * @brief Adds a selection bounded by the specified offsets
  *
- * @param text an AtkText
+ * @param text AtkText instance
  * @param start_offset start position of the selection
  * @param end_offset offset of the first character after selection
  * @returns TRUE on success, FALSE otherwise
@@ -321,9 +325,9 @@ eail_entry_add_selection(AtkText *text,
  * @brief Removes text selection
  *
  * Only one selection is supported, so
- * selection_number equals 0.
+ * selection number equals 0.
  *
- * @param text an AtkText
+ * @param text AtkText instance
  * @param selection_num selection number
  * @return TRUE on success, FALSE otherwise
  */
@@ -348,18 +352,20 @@ eail_entry_remove_selection(AtkText *text,
 /**
  * @brief Sets text selection for entry
  *
- * Implementation of AtkTextIface->set_selection callback
- *
- * @param text an AtkText
- * @param selection_num The selection number. The selected regions are assigned
+ * The selected regions are assigned
  * numbers that correspond to how far the region is from the start of the text.
  * The selected region closest to the beginning of the text region is assigned
  * the number 0, etc. Note that adding, moving or deleting a selected region can
- *  change the numbering.
+ * change the numbering.
+ *
+ * Implementation of AtkTextIface->set_selection callback.
+ *
+ * @param text AtkText instance
+ * @param selection_num selection number
  * @param start_pos start position of the selected region
  * @param end_pos end position of the selected region
  *
- * @returns TRUE if success, FALSE otherwise
+ * @returns TRUE on success, FALSE otherwise
  */
 static gboolean
 eail_entry_set_selection(AtkText *text,
@@ -376,13 +382,13 @@ eail_entry_set_selection(AtkText *text,
 /**
  * @brief Gets text bounded by start_offset and end_offset
  *
- * Use g_free() to free the returned string
+ * Use g_free() to free the returned string.
  *
- * @param text an AtkText
+ * @param text AtkText instance
  * @param start_offset start position
  * @param end_offset end position, -1 for the end of the string
- * @return string containing text from start_offset up to, but not including
- * end_offset
+ * @return string containing text from start_offset up to,
+ * but not including end_offset
  */
 static gchar*
 eail_entry_get_text(AtkText   *text,
@@ -401,15 +407,15 @@ eail_entry_get_text(AtkText   *text,
 
 
 /**
- * @brief Returns the position that is count characters from the
- * given offset.
+ * @brief Returns the position that is obtained by adding count to the
+ * given offset
  *
- * count may be positive or negative.
+ * Count may be positive or negative.
  *
- * @param textblock an evas textblock
- * @param offset a character offset
- * @param count the number of characters to move from offset
- * @returns a new position
+ * @param textblock Evas textblock
+ * @param offset character offset
+ * @param count number of characters to move from offset
+ * @returns integer representing the new position
  */
 static gint
 _eail_move_chars(const Evas_Object *textblock,
@@ -440,11 +446,11 @@ _eail_move_chars(const Evas_Object *textblock,
 }
 
 /**
- * @brief Gets utf8 character at offset
+ * @brief Gets the utf8 character at offset
  *
- * @param textblock an evas textblock
- * @param offset a character offset
- * @returns a utf8 character
+ * @param textblock Evas textblock
+ * @param offset character offset
+ * @returns char representing the utf8 character
  */
 static gunichar
 _eail_get_unichar_at_offset(const Evas_Object *textblock,
@@ -466,10 +472,10 @@ _eail_get_unichar_at_offset(const Evas_Object *textblock,
 }
 
 /**
- * @brief Checks whether character at offset in textblock is a word start
+ * @brief Checks whether the character at offset in textblock is a word's start
  *
- * @param textblock an evas textblock
- * @param offset a character offset
+ * @param textblock Evas textblock
+ * @param offset character offset
  * @returns TRUE on success, FALSE otherwise
  */
 static gboolean
@@ -487,10 +493,10 @@ _eail_is_word_start(const Evas_Object *textblock,
 }
 
 /**
- * @brief Checks whether character at offset in textblock is a word end
+ * @brief Checks whether the character at offset in textblock is a word's end
  *
- * @param textblock an evas textblock
- * @param offset a character offset
+ * @param textblock Evas textblock
+ * @param offset character offset
  * @return TRUE on success, FALSE otherwise
  */
 static gboolean
@@ -508,10 +514,10 @@ _eail_is_word_end(const Evas_Object *textblock,
 }
 
 /**
- * @brief Check whether character at offset in textblock is inside a word
+ * @brief Checks whether the character at offset in textblock is inside a word
  *
- * @param textblock an evas textblock
- * @param offset a character offset
+ * @param textblock Evas textblock
+ * @param offset character offset
  * @returns TRUE on success, FALSE otherwise
  */
 static gboolean
@@ -539,10 +545,10 @@ _eail_is_inside_word(const Evas_Object *textblock,
 }
 
 /**
- * @brief Gets texblock length
+ * @brief Gets the texblock length
  *
- * @param textblock an evas textblock
- * @returns a textblock length
+ * @param textblock Evas textblock
+ * @returns integer representing the textblock length
  */
 static gint
 _eail_get_len(const Evas_Object *textblock)
@@ -560,15 +566,15 @@ _eail_get_len(const Evas_Object *textblock)
 }
 
 /**
- * @brief Returns the position that is count words from the given offset.
+ * @brief Returns the position that is count words from the given offset
  *
- * count may  be positive or negative. If count is positive, the returned
+ * Count may  be positive or negative. If count is positive, the returned
  * position will be a word end, otherwise it will be a word start.
  *
- * @param textblock an evas textblock
- * @param offset a cahracter offset
+ * @param textblock Evas textblock
+ * @param offset a character offset
  * @param count the number of words to move from offset
- * @returns a new position
+ * @returns integer representing the new position
  */
 static gint
 _eail_move_words(const Evas_Object *textblock,
@@ -598,9 +604,9 @@ _eail_move_words(const Evas_Object *textblock,
 }
 
 /**
- * @brief Gets position of first character in line
+ * @brief Gets the position of the first character in line
  *
- * @param cur an Evas_Textblock_Cursor
+ * @param cur Evas_Textblock_Cursor instance
  * @returns TRUE on success, FALSE otherwise
  */
 static gint
@@ -618,9 +624,9 @@ _eail_get_line_start(Evas_Textblock_Cursor *cur)
 }
 
 /**
- * @brief Gets position of last character in line
+ * @brief Gets the position of the last character in line
  *
- * @param cur an Evas_Textblock_Cursor
+ * @param cur Evas_Textblock_Cursor instance
  * @returns TRUE on success, FALSE otherwise
  */
 static gint
@@ -638,9 +644,9 @@ _eail_get_line_end(Evas_Textblock_Cursor *cur)
 }
 
 /**
- * @brief Moves cursor to the beginning of the next line
+ * @brief Moves the cursor to the beginning of the next line
  *
- * @param cur an Evas_Textblock_Cursor
+ * @param cur Evas_Textblock_Cursor instance
  * @returns TRUE on success, FALSE otherwise
  */
 static gboolean
@@ -652,10 +658,10 @@ _eail_iter_next_line(Evas_Textblock_Cursor *cur)
 }
 
 /**
- * @brief Gets length of the line shown by cursor cur
+ * @brief Gets the length of the line shown by cursor cur
  *
- * @param cur an Evas_Textblock_Cursor
- * @return line length
+ * @param cur Evas_Textblock_Cursor instance
+ * @return integer representing the length of the line
  */
 static gint
 _eail_get_line_length(Evas_Textblock_Cursor *cur)
@@ -670,13 +676,13 @@ _eail_get_line_length(Evas_Textblock_Cursor *cur)
 }
 
 /**
- * @brief Gets before at offset
+ * @brief Gets the line before offset
  *
- * @param entry an Evas_Object
- * @param boundary_type an AtkTextBoundary
- * @param offset position
- * @param [out] start_offset the start offset of the returned string
- * @param [out] end_offset the offset of the first character after the
+ * @param entry Evas_Object instance
+ * @param boundary_type AtkTextBoundary instance
+ * @param offset character offset
+ * @param [out] start_offset start offset of the returned string
+ * @param [out] end_offset offset of the first character after the
  * returned substring
  */
 static void
@@ -752,13 +758,13 @@ _eail_get_line_before(Evas_Object     *entry,
 }
 
 /**
- * @brief Gets line after offset
+ * @brief Gets the line after offset
  *
- * @param entry an Evas_Object
- * @param boundary_type an AtkTextBoundary
- * @param offset position
- * @param [out] start_offset the start offset of the returned string
- * @param [out] end_offset the offset of the first character after the
+ * @param entry Evas_Object instance
+ * @param boundary_type AtkTextBoundary instance
+ * @param offset character offset
+ * @param [out] start_offset start offset of the returned string
+ * @param [out] end_offset offset of the first character after the
  * returned substring
  */
 static void
@@ -832,13 +838,13 @@ _eail_get_line_after (Evas_Object     *entry,
 }
 
 /**
- * @brief Gets line at offset
+ * @brief Gets the line at offset
  *
- * @param entry an Evas_Object
- * @param boundary_type an AtkTextBoundary
- * @param offset position
- * @param [out] start_offset the start offset of the returned string
- * @param [out] end_offset the offset of the first character after the
+ * @param entry Evas_Object instance
+ * @param boundary_type AtkTextBoundary instance
+ * @param offset character offset
+ * @param [out] start_offset start offset of the returned string
+ * @param [out] end_offset offset of the first character after the
  * returned substring
  */
 static void
@@ -908,13 +914,14 @@ _eail_get_line_at (Evas_Object *entry,
 /**
  * @brief Gets a slice of the text from entry after offset
  *
- * @param entry an entry widget
- * @param offset a character offset
- * @param boundary_type an AtkTextBoundary
- * @param [out] start_offset return location for the start of the returned text
- * @param [out] end_offset return location for the end of the returned text
- * @returns a newly allocated string containg a slice of text from textblock.
- * Free with g_free()
+ * Use g_free() to free the returned string.
+ *
+ * @param entry entry widget
+ * @param offset character offset
+ * @param boundary_type AtkTextBoundary instance
+ * @param [out] start_offset start position of the returned text
+ * @param [out] end_offset end position of the returned text
+ * @returns newly allocated string containg a slice of text from textblock
  */
 static gchar *
 _eail_get_text_after(Evas_Object *entry,
@@ -994,13 +1001,14 @@ _eail_get_text_after(Evas_Object *entry,
 /**
  * @brief Gets a slice of the text from entry at offset
  *
- * @param entry an entry widget
- * @param offset a character offset in entry
- * @param boundary_type an AtkTextBoundary
- * @param [out] start_offset return location for the start of the returned text
- * @param [out] end_offset return location for the end of the return text
- * @returns a newly allocated string containing a slice of text from entry.
- * Free with g_free().
+ * Use g_free() to free the returned string.
+ *
+ * @param entry entry widget instance
+ * @param offset character offset
+ * @param boundary_type AtkTextBoundary instance
+ * @param [out] start_offset start position of the returned text
+ * @param [out] end_offset end position of the return text
+ * @returns newly allocated string containing a slice of text from entry
  */
 static gchar *
 _eail_get_text_at(Evas_Object *entry,
@@ -1075,13 +1083,14 @@ _eail_get_text_at(Evas_Object *entry,
 /**
  * @brief Gets a slice of the text from entry before offset
  *
- * @param entry an entry widget
- * @param offset a character offset
- * @param boundary_type an AtkTextBoundary
- * @param start_offset return location for the start of the returned text
- * @param end_offset return location for the end of the returned text
- * @returns a newly allocated string containing a slice of text from entry.
- * Free with g_free().
+ * Use g_free() to free the returned string.
+ *
+ * @param entry entry widget instance
+ * @param offset character offset
+ * @param boundary_type AtkTextBoundary instance
+ * @param [out] start_offset start position of the returned text
+ * @param [out] end_offset end position of the returned text
+ * @returns newly allocated string containing a slice of text from entry
  */
 static gchar *
 _eail_get_text_before(Evas_Object *entry,
@@ -1153,16 +1162,18 @@ _eail_get_text_before(Evas_Object *entry,
 }
 
 /**
- * @brief Gets the specified text
+ * @brief Gets the specified text after offset
  *
- * @param text an AtkText
- * @param offset position
- * @param boundary_type an AtkTextBoundary
- * @param [out] start_offset the start offset of the returned string
- * @param [out] end_offset the offset of the first character after the returned
+ * Use g_free() to free the returned string.
+ *
+ * @param text AtkText instance
+ * @param offset character offset
+ * @param boundary_type AtkTextBoundary instance
+ * @param [out] start_offset start offset of the returned string
+ * @param [out] end_offset offset of the first character after the returned
  * substring
- * @returns a newly allocated string containing the text after offset bounded
- * by the specified boundary_type. Use g_free() to free the returned string.
+ * @returns newly allocated string containing the text after offset bounded
+ * by the specified boundary_type
  */
 static gchar *
 eail_entry_get_text_after_offset(AtkText *text,
@@ -1182,16 +1193,18 @@ eail_entry_get_text_after_offset(AtkText *text,
 }
 
 /**
- * @brief Gets the specified text
+ * @brief Gets the specified text at offset
  *
- * @param text an AtkText
- * @param offset position
- * @param boundary_type an AtkTextBoundary
- * @param [out] start_offset the start offset of the returned string
- * @param [out] end_offset the offset of the first character after the returned
+ * Use g_free() to free the returned string.
+ *
+ * @param text AtkText instance
+ * @param offset character offset
+ * @param boundary_type AtkTextBoundary instance
+ * @param [out] start_offset start offset of the returned string
+ * @param [out] end_offset offset of the first character after the returned
  * substring
- * @returns a newly allocated string containing the text after offset bounded
- * by the specified boundary_type. Use g_free() to free the returned string.
+ * @returns newly allocated string containing the text after offset bounded
+ * by the specified boundary_type
  */
 static gchar *
 eail_entry_get_text_at_offset(AtkText *text,
@@ -1210,16 +1223,18 @@ eail_entry_get_text_at_offset(AtkText *text,
 }
 
 /**
- * @brief Gets the specified text
+ * @brief Gets the specified text before offset
  *
- * @param text an AtkText
- * @param offset position
- * @param boundary_type an AtkTextBoundary
- * @param [out] start_offset the start offset of the returned string
- * @param [out] end_offset the offset of the first character after the returned
+ * Use g_free() to free the returned string.
+ *
+ * @param text AtkText instance
+ * @param offset character offset
+ * @param boundary_type AtkTextBoundary instance
+ * @param [out] start_offset start offset of the returned string
+ * @param [out] end_offset offset of the first character after the returned
  * substring
- * @returns a newly allocated string containing the text after offset bounded
- * by the specified boundary_type. Use g_free() to free the returned string.
+ * @returns newly allocated string containing the text after offset bounded
+ * by the specified boundary_type
  */
 static gchar *
 eail_entry_get_text_before_offset(AtkText *text,
@@ -1238,11 +1253,11 @@ eail_entry_get_text_before_offset(AtkText *text,
 }
 
 /**
- * @brief Gets character at offset
+ * @brief Gets the character at offset
  *
- * @param text an AtkText
+ * @param text AtkText instance
  * @param offset character offset
- * @return character at offset
+ * @return char representing the character at offset
  */
 static gunichar
 eail_entry_get_character_at_offset(AtkText    *text,
@@ -1259,10 +1274,10 @@ eail_entry_get_character_at_offset(AtkText    *text,
 }
 
 /**
- * @brief Gets text length
+ * @brief Gets the text's length
  *
- * @param text an AtkText
- * @return text length
+ * @param text AtkText instance
+ * @return integer representing the text length
  */
 static gint
 eail_entry_get_character_count(AtkText *text)
@@ -1285,14 +1300,14 @@ eail_entry_get_character_count(AtkText *text)
 /**
  * @brief Adds attribute to attribute set
  *
- * @param attrib_set The AtkAttributeSet to add the attribute to
- * @param attr The AtkTextAttrribute which identifies the attribute to be added
- * @param value The attribute value
- *
  * Creates an AtkAttribute from attr and value, and adds it
  * to attrib_set.
  *
- * @returns: A pointer to the new AtkAttributeSet.
+ * @param attrib_set AtkAttributeSet instance to add the attribute to
+ * @param attr AtkTextAttrribute instance which identifies the attribute to be added
+ * @param value attribute value
+ *
+ * @returns: AtkAttributeSet representing the new attribute set
  **/
 AtkAttributeSet*
 eail_entry_add_attribute(AtkAttributeSet *attrib_set,
@@ -1309,13 +1324,15 @@ eail_entry_add_attribute(AtkAttributeSet *attrib_set,
 
 /**
  * @brief Creates an AtkAttributeSet which consists of the default values of
- * attributes for the text.
+ * attributes for the text
  *
- * @param text an AtkText
+ * The returned AtkAttributeSet should be freed by a call to
+ * atk_attribute_set_free().
  *
- * @returns an AtkAttributeSet which contains the default values of attributes
- * at offset. this atkattributeset should be freed by a call to
- * atk_attribute_set_free()
+ * @param text AtkText instance
+ *
+ * @returns AtkAttributeSet which contains the default values of attributes
+ * at offset
  */
 AtkAttributeSet *
 eail_entry_get_default_attributes(AtkText *text)
@@ -1338,21 +1355,22 @@ eail_entry_get_default_attributes(AtkText *text)
 
 /**
  * @brief Creates an AtkAttributeSet which consists of the attributes
- * explicitly set at the position offset in the text. start_offset and
- * end_offset are set to the start and end of the range around offset
- * where the attributes are invariant. Note that end_offset is the offset
- * of the first character after the range.
+ * explicitly set at the position offset in the text
  *
- * @param text an AtkText
- * @param offset the offset at which to get the attributes
- * @param start_offset the address to put the start offset of the range (used to
- * store output value)
- * @param end_offset the address to put the end offset of the range (used to
- * store output value)
+ * start_offset and end_offset are set to the start and end of the range
+ * around offset where the attributes are invariant. Note that end_offset
+ * is the offset of the first character after the range.
  *
- * @returns an AtkAttributeSet which contains the attributes explicitly set at
- * offset. This AtkAttributeSet should be freed by a call to
+ * The returned AtkAttributeSet should be freed by a call to
  * atk_attribute_set_free()
+ *
+ * @param text AtkText instance
+ * @param offset offset at which to get the attributes
+ * @param [out] start_offset start offset of the range
+ * @param [out] end_offset end offset of the range
+ *
+ * @returns AtkAttributeSet which contains the attributes explicitly set at
+ * offset
  */
 AtkAttributeSet *
 eail_entry_get_run_attributes(AtkText *text,
@@ -1396,7 +1414,7 @@ eail_entry_get_run_attributes(AtkText *text,
 /**
  * @brief Initializes AtkTextIface interface
  *
- * @param iface an AtkTextIface
+ * @param iface AtkTextIface instance
  */
 static void
 atk_text_interface_init(AtkTextIface *iface)
@@ -1423,9 +1441,10 @@ atk_text_interface_init(AtkTextIface *iface)
  */
 
 /**
- * @brief Set text content for entry
- * @param text an AtkEditableText
- * @param string string to be set
+ * @brief Sets text content of entry
+ *
+ * @param text AtkEditableText instance
+ * @param string string to be set as the content of entry
  */
 static void
 eail_entry_set_text_contents(AtkEditableText *text,
@@ -1441,9 +1460,9 @@ eail_entry_set_text_contents(AtkEditableText *text,
 /**
  * @brief Copies text content from entry to clipboard
  *
- * @param text an AtkEditableText
- * @param start_pos start position of cursor
- * @param end_pos end position of cursor
+ * @param text AtkEditableText instance
+ * @param start_pos start position of the cursor
+ * @param end_pos end position of the cursor
  */
 static void
 eail_entry_copy_text(AtkEditableText *text,
@@ -1466,9 +1485,9 @@ eail_entry_copy_text(AtkEditableText *text,
 /**
  * @brief Cuts text content from entry to clipboard
  *
- * @param text an AtkEditableText
- * @param start_pos start position of cursor
- * @param end_pos end position of cursor
+ * @param text AtkEditableText instance
+ * @param start_pos start position of the cursor
+ * @param end_pos end position of the cursor
  */
 static void
 eail_entry_cut_text(AtkEditableText *text,
@@ -1499,8 +1518,8 @@ eail_entry_cut_text(AtkEditableText *text,
 /**
  * @brief Pastes text content from clipboard into entry
  *
- * @param text an AtkEditableText
- * @param position start position of cursor
+ * @param text AtkEditableText instance
+ * @param position start position of the cursor
  */
 static void
 eail_entry_paste_text(AtkEditableText *text,
@@ -1527,7 +1546,7 @@ eail_entry_paste_text(AtkEditableText *text,
  * @brief Deletes text between start_pos and end_pos but not
  * including end_pos
  *
- * @param text an AtkEditableText
+ * @param text AtkEditableText instance
  * @param start_pos start position
  * @param end_pos end position
  */
@@ -1551,13 +1570,14 @@ eail_entry_delete_text(AtkEditableText *text,
 }
 
 /**
- * @brief Inserts text at given position
+ * @brief Inserts text at the specified position
  *
- * @param text an AtkEditableText
+ * After the call position points to the position after the newly inserted text.
+ *
+ * @param text AtkEditableText instance
  * @param string string to insert
- * @param length string length
- * @param [out] position at witch text is inserted.
- * After the call it points at the position after the newly inserted text.
+ * @param length string's length
+ * @param [out] position position at which text is inserted
  */
 static void
 eail_entry_insert_text(AtkEditableText *text,
@@ -1587,7 +1607,7 @@ eail_entry_insert_text(AtkEditableText *text,
  * implementation i.e hooks method pointers in the interface structure
  * to the implementing class's implementation.
  *
- * @param iface an AtkEditableTextIface
+ * @param iface AtkEditableTextIface instance
  */
 static void
 atk_editable_text_interface_init(AtkEditableTextIface *iface)

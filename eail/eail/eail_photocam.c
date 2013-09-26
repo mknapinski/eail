@@ -28,17 +28,17 @@
 #include "eail_photocam.h"
 
 /**
- * @brief ZoomIn action name
+ * @brief 'zoom in' action name
  */
 #define EAIL_PHOTOCAM_ACTION_ZOOM_IN "zoom_in"
 
 /**
- * @brief ZoomOut action name
+ * @brief 'zoom out' action name
  */
 #define EAIL_PHOTOCAM_ACTION_ZOOM_OUT "zoom_out"
 
 /**
- * @brief Click action name
+ * @brief 'click' action name
  */
 #define EAIL_PHOTOCAM_ACTION_CLICK "click"
 
@@ -58,9 +58,9 @@ G_DEFINE_TYPE_WITH_CODE(EailPhotocam, eail_photocam,
                                               atk_image_iface_init));
 
 /**
- * @brief ZoomIn action callback
+ * @brief 'zoom in' action callback
  *
- * @param action an AtkAction
+ * @param action AtkAction instance
  * @param data data passed to callback
  * @return TRUE on success, FALSE otherwise
  */
@@ -84,9 +84,9 @@ _eail_photocam_action_zoom_in(AtkAction *action, void *data)
 }
 
 /**
- * @brief ZoomOut action callback
+ * @brief 'zoom out' action callback
  *
- * @param action an AtkAction
+ * @param action AtkAction instance
  * @param data data passed to callback
  * @return TRUE on success, FALSE otherwise
  */
@@ -107,9 +107,9 @@ _eail_photocam_action_zoom_out(AtkAction *action, void *data)
 }
 
 /**
- * @brief Click action callback
+ * @brief 'click' action callback
  *
- * @param action an AtkAction
+ * @param action AtkAction instance
  * @param data data passed to callback
  * @return TRUE on success, FALSE otherwise
  */
@@ -129,7 +129,7 @@ _eail_photocam_action_click(AtkAction *action, void *data)
 /**
  * @brief EailPhotocam initializer
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  * @param data initialization data
  */
 static void
@@ -154,12 +154,12 @@ eail_photocam_initialize(AtkObject *obj, gpointer data)
 }
 
 /**
- * @brief Gets obj state set
+ * @brief Gets the state set of obj
  *
- * The caller must unreference it when it is no longer needed
+ * The caller must unreference it when it is no longer needed.
  *
- * @param obj an AtkObject
- * @return obj state set
+ * @param obj AtkObject instance
+ * @return AtkStateSet representing the state set of obj
  */
 static AtkStateSet*
 eail_photocam_ref_state_set(AtkObject *obj)
@@ -173,9 +173,9 @@ eail_photocam_ref_state_set(AtkObject *obj)
 /**
  * @brief EailPhotocam finalizer
  *
- * Frees allocated resources
+ * Frees allocated resources.
  *
- * @param object a GObject
+ * @param object GObject instance
  */
 static void
 eail_photocam_finalize(GObject *object)
@@ -190,7 +190,7 @@ eail_photocam_finalize(GObject *object)
 /**
  * @brief EailPhotocam class initializer
  *
- * @param klass an EailPhotocamClass
+ * @param klass EailPhotocamClass instance
  */
 static void
 eail_photocam_class_init(EailPhotocamClass *klass)
@@ -207,7 +207,7 @@ eail_photocam_class_init(EailPhotocamClass *klass)
 /**
  * @brief EailPhotocam instance intializer
  *
- * @param photocam an EailPhotocam
+ * @param photocam EailPhotocam instance
  */
 static void eail_photocam_init(EailPhotocam *photocam)
 {
@@ -215,11 +215,11 @@ static void eail_photocam_init(EailPhotocam *photocam)
 }
 
 /**
- * @brief Gets image size
+ * @brief Gets the image's size
  *
- * @param image an AtkImage
- * @param [out] width image width
- * @param [out] height image height
+ * @param image AtkImage instance
+ * @param [out] width image width or -1 if value cannot be obtained
+ * @param [out] height image height or -1 if value cannot be obtained
  */
 static void
 eail_photocam_image_size_get(AtkImage *image, gint *width, gint *height)
@@ -236,10 +236,10 @@ eail_photocam_image_size_get(AtkImage *image, gint *width, gint *height)
 }
 
 /**
- * @brief Gets image description
+ * @brief Gets the image's description
  *
- * @param image an AtkImage
- * @return description
+ * @param image AtkImage instance
+ * @return string representing the image's description
  */
 static const char*
 eail_photocam_image_description_get(AtkImage* image)
@@ -253,11 +253,11 @@ eail_photocam_image_description_get(AtkImage* image)
 }
 
 /**
- * @brief Sets image description
+ * @brief Sets the image's description
  *
- * @param image an AtkImage
+ * @param image AtkImage instance
  * @param description new image description
- * @return TRUE if description is set successfully, FALSE otherwise
+ * @return TRUE if description was set successfully, FALSE otherwise
  */
 static gboolean
 eail_photocam_image_description_set(AtkImage *image, const char *description)
@@ -274,14 +274,15 @@ eail_photocam_image_description_set(AtkImage *image, const char *description)
 }
 
 /**
- * @brief Gets image position
+ * @brief Gets the image's position
  *
- * Position is in the form of a point specifying background top-left corner
+ * Position is in the form of a point specifying background top-left corner.
  *
- * @param image an AtkImage
- * @param [out] x x coordinate
- * @param [out] y y coordinate
- * @param coord_type xy coordinate interpretation
+ * @param image AtkImage instance
+ * @param [out] x x coordinate or -1 if value cannot be obtained
+ * @param [out] y y coordinate or -1 if value cannot be obtained
+ * @param coord_type specifies whether the coordinates are relative to the screen
+ * or to the components top level window
  */
 static void
 eail_photocam_image_position_get(AtkImage *image,
@@ -295,7 +296,7 @@ eail_photocam_image_position_get(AtkImage *image,
 /**
  * @brief AktImage interface initializer
  *
- * @param iface an AtkImage interface
+ * @param iface AtkImageIface instance
  */
 static void
 atk_image_iface_init(AtkImageIface *iface)

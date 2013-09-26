@@ -35,7 +35,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailEntry
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_ENTRY(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), \
                                       EAIL_TYPE_ENTRY, EailEntry))
@@ -49,7 +49,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailEntry class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_ENTRY(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
                                       EAIL_TYPE_ENTRY))
@@ -80,7 +80,7 @@ typedef struct _EailEntryClass EailEntryClass;
 /** @brief Definition of object structure for Atk EailEntry*/
 struct _EailEntry
 {
-   /** @brief Parent object that functionality is being extended*/
+   /** @brief Parent object whose functionality is being extended*/
    EailWidget parent;
    /** @brief Selection region start */
    gint selection_start;

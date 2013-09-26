@@ -61,7 +61,7 @@ static void eail_background_get_image_size(AtkImage *image,
 /**
  * @brief EailBackground class initializer
  *
- * @param klass an EailBackgroundClass
+ * @param klass EailBackgroundClass instance
  */
 static void
 eail_background_class_init(EailBackgroundClass *klass)
@@ -78,8 +78,8 @@ eail_background_class_init(EailBackgroundClass *klass)
 /**
  * @brief EailBackground initializer
  *
- * @param obj an AtkObject (EailBackground) to be initialized
- * @param data additional data (Evas_Object*)
+ * @param obj AtkObject (EailBackground) instance to be initialized
+ * @param data additional data
  */
 static void
 eail_background_initialize(AtkObject *obj, gpointer data)
@@ -92,9 +92,9 @@ eail_background_initialize(AtkObject *obj, gpointer data)
 /**
  * @brief EailBackground finalizer
  *
- * Destroys object and allocated resources
+ * Destroys the object and allocated resources.
  *
- * @param object an EailBackground object to be finalized
+ * @param object EailBackground instance to be finalized
  */
 static void
 eail_background_finalize(GObject *object)
@@ -109,7 +109,7 @@ eail_background_finalize(GObject *object)
 /**
  * @brief EailBackground instance initializer
  *
- * @param background an EailBackground
+ * @param background EailBackground instance
  */
 static void
 eail_background_init(EailBackground *background)
@@ -118,12 +118,12 @@ eail_background_init(EailBackground *background)
 }
 
 /**
- * @brief Gets obj attributes set
+ * @brief Gets obj's attributes set
  *
  * The caller must unreference it when it is no longer needed.
  *
- * @param obj an AtkObject
- * @return attributes set
+ * @param obj AtkObject instance
+ * @return AtkAttributeSet containing obj's attributes
  */
 static AtkAttributeSet *
 eail_background_get_attributes(AtkObject *obj)
@@ -193,7 +193,7 @@ eail_background_get_attributes(AtkObject *obj)
 /**
  * @brief AtkImage interface initializer
  *
- * @param iface an AtkImageIface
+ * @param iface AtkImageIface instance
  */
 static void
 atk_image_interface_init(AtkImageIface *iface)
@@ -207,14 +207,14 @@ atk_image_interface_init(AtkImageIface *iface)
 }
 
 /**
- * @brief Gets background image position.
+ * @brief Gets background's image position.
  *
- * Position is in the form of a point specifying background top-left corner
+ * Position is in the form of a point specifying background top-left corner.
  *
- * @param image an AtkImage instance
- * @param [out] x x coordinate 
- * @param [out] y y coordinate 
- * @param coord_type xy coordinate interpretation
+ * @param image AtkImage instance
+ * @param [out] x x coordinate or -1 if value cannot be obtained
+ * @param [out] y y coordinate or -1 if value cannot be obtained
+ * @param coord_type specifies whether the coordinates are relative to the screen or to the component's top level window
  */
 static void
 eail_background_get_image_position(AtkImage *image,
@@ -226,10 +226,10 @@ eail_background_get_image_position(AtkImage *image,
 }
 
 /**
- * @brief Gets background image description
+ * @brief Gets background image's description
  *
- * @param image an AtkImage
- * @return description
+ * @param image AtkImage instance
+ * @return string representing image's description
  */
 static const gchar *
 eail_background_get_image_description(AtkImage *image)
@@ -248,11 +248,11 @@ eail_background_get_image_description(AtkImage *image)
 }
 
 /**
- * @brief Sets background image description
+ * @brief Sets background image's description
  *
- * @param image an AtkImage
+ * @param image AtkImage instance
  * @param description new image description
- * @return TRUE if description is set successfully, FALSE otherwise
+ * @return TRUE if description was set successfully, FALSE otherwise
  */
 static gboolean
 eail_background_set_image_description(AtkImage *image,
@@ -275,11 +275,11 @@ eail_background_set_image_description(AtkImage *image,
 }
 
 /**
- * @brief Gets background widget size
+ * @brief Gets background's widget size
  *
- * @param image an AtkImage
- * @param [out] width background width 
- * @param [out] height background height 
+ * @param image AtkImage instance
+ * @param [out] width background's width or -1 if value cannot be obtained
+ * @param [out] height background's height or -1 if value cannot be obtained
  */
 static void
 eail_background_get_image_size(AtkImage *image,

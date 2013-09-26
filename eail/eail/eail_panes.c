@@ -42,7 +42,7 @@ G_DEFINE_TYPE_WITH_CODE(EailPanes,
 /**
  * @brief EailPanes initializer
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  * @param data initialization data
  */
 static void
@@ -55,7 +55,7 @@ eail_panes_initialize(AtkObject *obj, gpointer data)
 /**
  * @brief EailPanes instance initializer
  *
- * @param panes an EailPanes
+ * @param panes EailPanes instance
  */
 static void
 eail_panes_init(EailPanes *panes)
@@ -63,10 +63,10 @@ eail_panes_init(EailPanes *panes)
 }
 
 /**
- * @brief Gets obj children number
+ * @brief Gets the number of children of obj
  *
- * @param obj an AtkObject
- * @returns children number
+ * @param obj AtkObject instance
+ * @returns integer representing the number of children
  */
 static gint
 eail_panes_n_children_get(AtkObject *obj)
@@ -77,10 +77,10 @@ eail_panes_n_children_get(AtkObject *obj)
 }
 
 /**
- * @brief Gets obj state set
+ * @brief Gets the state set of obj
  *
- * @param obj an AtkObject
- * @return obj state set
+ * @param obj AtkObject instance
+ * @return AtkStateSet representing the state set of obj
  */
 static AtkStateSet*
 eail_panes_ref_state_set(AtkObject *obj)
@@ -102,13 +102,13 @@ eail_panes_ref_state_set(AtkObject *obj)
 }
 
 /**
- * @brief Gets obj i-th child reference
+ * @brief Gets the specified child of obj
  *
- * The caller must unreference it when it is no longer needed
+ * The caller must unreference it when it is no longer needed.
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  * @param i child index
- * @return child reference
+ * @return AtkObject representing the specified child of obj
  */
 static AtkObject*
 eail_panes_ref_child(AtkObject *obj, int i)
@@ -142,9 +142,9 @@ eail_panes_ref_child(AtkObject *obj, int i)
 }
 
 /**
- * @brief an EailPanes class initializer
+ * @brief EailPanes class initializer
  *
- * @param klass an EailPanes class
+ * @param klass EailPanesClass instance
  */
 static void
 eail_panes_class_init(EailPanesClass *klass)
@@ -158,10 +158,10 @@ eail_panes_class_init(EailPanesClass *klass)
 }
 
 /**
- * @brief Gets obj maximum value
+ * @brief Gets the maximum value of obj
  *
- * @param obj an AtkValue
- * @param value obj maxiumum value
+ * @param obj AtkValue instance
+ * @param [out] value maxiumum value of obj
  */
 static void
 eail_panes_maximum_value_get(AtkValue *obj, GValue *value)
@@ -174,10 +174,10 @@ eail_panes_maximum_value_get(AtkValue *obj, GValue *value)
 }
 
 /**
- * @brief Gets obj minimum value
+ * @brief Gets the minimum value of obj
  *
- * @param obj an AtkValue
- * @param value obj minimum value
+ * @param obj AtkValue instance
+ * @param [out] value minimum value of obj
  */
 static void
 eail_panes_minimum_value_get(AtkValue *obj, GValue *value)
@@ -190,10 +190,10 @@ eail_panes_minimum_value_get(AtkValue *obj, GValue *value)
 }
 
 /**
- * @brief Sets obj current value
+ * @brief Sets the current value of obj
  *
- * @param obj an AtkValue
- * @param value obj new value
+ * @param obj AtkValue instance
+ * @param value new value of obj
  * @return TRUE if value is set successfully, FALSE otherwise
  */
 static gboolean
@@ -222,10 +222,10 @@ eail_panes_current_value_set(AtkValue *obj, const GValue *value)
 }
 
 /**
- * @brief Gets obj current value
+ * @brief Gets the current value of obj
  *
- * @param obj an AtkValue
- * @param value obj current value
+ * @param obj AtkValue instance
+ * @param [out] value current value of obj
  */
 static void
 eail_panes_current_value_get(AtkValue *obj, GValue *value)
@@ -246,7 +246,7 @@ eail_panes_current_value_get(AtkValue *obj, GValue *value)
 /**
  * @brief AtkValue interface initializer
  *
- * @param iface an AtkValueIface
+ * @param iface AtkValueIface instance
  */
 static void
 atk_value_interface_init(AtkValueIface *iface)

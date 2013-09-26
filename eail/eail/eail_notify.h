@@ -35,7 +35,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailNotify
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_NOTIFY(obj)             (G_TYPE_NOTIFY_INSTANCE_CAST((obj), \
                                             EAIL_TYPE_NOTIFY, EailNotify))
@@ -49,7 +49,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailNotify class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_NOTIFY(obj)          (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
                                             EAIL_TYPE_NOTIFY))
@@ -80,7 +80,7 @@ typedef struct _EailNotifyClass EailNotifyClass;
 /** @brief Definition of object structure for Atk EailNotify*/
 struct _EailNotify
 {
-   /** @brief Parent object that functionality is being extended*/
+   /** @brief Parent widget whose functionality is being extended*/
    EailWidget parent;
 };
 

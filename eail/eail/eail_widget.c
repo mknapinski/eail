@@ -41,10 +41,10 @@ G_DEFINE_TYPE_WITH_CODE(EailWidget, eail_widget, ATK_TYPE_OBJECT,
                                               atk_component_interface_init));
 
 /**
- * @brief Gets EvasObject from EailWidget
+ * @brief Gets Evas_Object from EailWidget
  *
- * @param widget an EailWidget
- * @return Evas_Object widget
+ * @param widget EailWidget instance
+ * @return Evas_Object widget representing the EailWidget
  */
 Evas_Object *
 eail_widget_get_widget(EailWidget *widget)
@@ -55,10 +55,10 @@ eail_widget_get_widget(EailWidget *widget)
 }
 
 /**
- * @brief Gets EailWidget children
+ * @brief Gets EailWidget's children
  *
- * @param widget an EailWidget
- * @return children list
+ * @param widget EailWidget instance
+ * @return Eina_List representing the EailWidget's children list
  */
 Eina_List *
 eail_widget_get_widget_children(EailWidget *widget)
@@ -72,11 +72,11 @@ eail_widget_get_widget_children(EailWidget *widget)
 }
 
 /**
- * @brief Callback used to tracking focus-in changes for widgets
+ * @brief Callback used for tracking focus-in changes for widgets
  *
  * @param data data passed to callback
- * @param e an Evas that has been focused in
- * @param obj an Evas_Object that has been focused in
+ * @param e Evas instance that has been focused in
+ * @param obj Evas_Object instance that has been focused in
  * @param event_info additional event info
  */
 void
@@ -89,11 +89,11 @@ eail_widget_on_focused_in(void *data, Evas *e, Evas_Object *obj, void *event_inf
 }
 
 /**
- * @brief Callback used to tracking "show"-changes for widgets
+ * @brief Callback used for tracking show-changes for widgets
  *
  * @param data data passed to callback
- * @param e an Evas that has been shown
- * @param obj an Evas_Object that has been shown
+ * @param e Evas instance that has been shown
+ * @param obj Evas_Object instance that has been shown
  * @param event_info additional event info
  */
 void
@@ -105,11 +105,11 @@ eail_widget_on_show(void *data, Evas *e, Evas_Object *obj, void *event_info)
 }
 
 /**
- * @brief Callback used to tracking "hide"-changes for widgets
+ * @brief Callback used for tracking hide-changes for widgets
  *
  * @param data data passed to callback
- * @param e an Evas that has been shown
- * @param obj an Evas_Object that has been shown
+ * @param e Evas instance that has been shown
+ * @param obj Evas_Object instance that has been shown
  * @param event_info additional event info
  */
 void
@@ -121,11 +121,11 @@ eail_widget_on_hide(void *data, Evas *e, Evas_Object *obj, void *event_info)
 }
 
 /**
- * @brief Callback used to tracking focus-out changes for widgets
+ * @brief Callback used for tracking focus-out changes for widgets
  *
  * @param data data passed to callback
- * @param e an Evas that has been focused out
- * @param obj an Evas_Object that has been focused out
+ * @param e Evas instance that has been focused out
+ * @param obj Evas_Object instance that has been focused out
  * @param event_info additional event info
  */
 void
@@ -140,11 +140,11 @@ eail_widget_on_focused_out(void *data, Evas *e, Evas_Object *obj, void *event_in
 }
 
 /**
- * @brief on_focused default callback used to tracking focus changes of
+ * @brief Default callback for on_focused used for tracking focus changes of
  * smart widgets
  *
  * @param data data passed to callback
- * @param obj an Evas_Object that has been shown
+ * @param obj Evas_Object instance that has been shown
  * @param event_info additional event info
  */
 void eail_widget_on_focused_smart(void *data,
@@ -181,7 +181,7 @@ void eail_widget_on_focused_out_smart(void *data,
 /**
  * @brief EailWidget initializer
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  * @param data initialization data
  */
 static void
@@ -226,7 +226,7 @@ eail_widget_initialize(AtkObject *obj, gpointer data)
 /**
  * @brief Default get_widget_children callback
  *
- * @param widget an EailWidget
+ * @param widget EailWidget instance
  * @return NULL
  */
 static Eina_List *
@@ -236,11 +236,11 @@ eail_widget_get_real_widget_children(EailWidget *widget)
 }
 
 /**
- * @brief Gets obj children count
+ * @brief Gets the number of children of obj
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  *
- * @returns number of widget children
+ * @returns integer representing the number of widget's children
  */
 static gint
 eail_widget_get_n_children(AtkObject *obj)
@@ -257,13 +257,13 @@ eail_widget_get_n_children(AtkObject *obj)
 }
 
 /**
- * @brief Gets reference to obj i-th child
+ * @brief Gets reference to specified child of obj
  *
- * The caller must unreference it when it is no longer needed
+ * The caller must unreference it when it is no longer needed.
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  * @param i child index
- * @return child reference
+ * @return AtkObject representing the specified child of obj
  */
 static AtkObject *
 eail_widget_ref_child(AtkObject *obj, gint i)
@@ -283,10 +283,10 @@ eail_widget_ref_child(AtkObject *obj, gint i)
 }
 
 /**
- * @brief Gets obj parent
+ * @brief Gets the parent of obj
  *
- * @param obj an AtkObject
- * @return obj parent
+ * @param obj AtkObject instance
+ * @return AtkObject representing the parent of obj
  */
 static AtkObject *
 eail_widget_get_parent(AtkObject *obj)
@@ -307,10 +307,10 @@ eail_widget_get_parent(AtkObject *obj)
 /**
  * @brief Gets the 0-based index of this accessible in its parent
  *
- * Returns -1 if the accessible does not have an accessible parent
+ * Returns -1 if the accessible does not have an accessible parent.
  *
- * @param obj an AtkObject
- * @return obj index in its parent
+ * @param obj AtkObject instance
+ * @return integer representing obj's index in its parent
  */
 static gint
 eail_widget_get_index_in_parent(AtkObject *obj)
@@ -351,10 +351,10 @@ eail_widget_get_index_in_parent(AtkObject *obj)
 }
 
 /**
- * @brief Gets obj state set
+ * @brief Gets the state set of obj
  *
- * @param obj an AtkObject
- * @return obj state set
+ * @param obj AtkObject instance
+ * @return AtkState representing the state set of obj
  */
 static AtkStateSet *
 eail_widget_ref_state_set(AtkObject *obj)
@@ -368,10 +368,10 @@ eail_widget_ref_state_set(AtkObject *obj)
 }
 
 /**
- * @brief Gets obj attribute set
+ * @brief Gets the attribute set of obj
  *
- * @param obj an AtkObject
- * @return obj attribute set
+ * @param obj AtkObject instance
+ * @return AtkAttributeSet representing obj's attribute set
  */
 static AtkAttributeSet *
 eail_widget_get_attributes(AtkObject *obj)
@@ -396,7 +396,7 @@ eail_widget_get_attributes(AtkObject *obj)
 /**
  * @brief EailWidget instance initializer
  *
- * @param widget an EailWidget
+ * @param widget EailWidget instance
  */
 static void
 eail_widget_init(EailWidget *widget)
@@ -406,9 +406,9 @@ eail_widget_init(EailWidget *widget)
 /**
  * @brief EailWidget finalizer
  *
- * Frees memory assigned to object
+ * Frees memory assigned to object.
  *
- * @param obj a GObject
+ * @param obj GObject instance
  */
 static void
 eail_widget_class_finalize(GObject *obj)
@@ -428,7 +428,7 @@ eail_widget_class_finalize(GObject *obj)
  * Function called upon instance creation. It initializes AtkObject class
  * callbacks for EailWidget.
  *
- * @param klass an EailWidgetClass
+ * @param klass EailWidgetClass instance
  */
 static void
 eail_widget_class_init(EailWidgetClass *klass)
@@ -450,9 +450,9 @@ eail_widget_class_init(EailWidgetClass *klass)
 }
 
 /**
- * @brief Grabs focus for component
+ * @brief Grabs focus of a component
  *
- * @param component an AtkComponent
+ * @param component AtkComponent instance
  * @return TRUE on success, FALSE otherwise
  */
 static gboolean
@@ -464,10 +464,10 @@ eail_widget_grab_focus(AtkComponent *component)
 }
 
 /**
- * @brief Gets component layer
+ * @brief Gets component's layer
  *
- * @param component an AtkComponent
- * @return component layer
+ * @param component AtkComponent instance
+ * @return AtkLayer representing the component's layer
  */
 static AtkLayer
 eail_widget_get_layer(AtkComponent *component)
@@ -478,11 +478,11 @@ eail_widget_get_layer(AtkComponent *component)
 /**
  * @brief Gets the rectangle which gives the extent of the component
  *
- * @param component an AtkComponent
- * @param [out] x rectangle upper left x coordinate
- * @param [out] y rectangle upper left y coordinate
- * @param [out] width component width
- * @param [out] height component height
+ * @param component AtkComponent instance
+ * @param [out] x upper left x coordinate of the rectangle
+ * @param [out] y upper left y coordinate of the rectangle
+ * @param [out] width width of the rectangle
+ * @param [out] height height of the rectangle
  * @param coord_type coordinates type
  */
 static void
@@ -516,7 +516,7 @@ eail_widget_get_extents(AtkComponent  *component,
 /**
  * @brief Sets component position
  *
- * @param component an AtkComponent
+ * @param component AtkComponent instance
  * @param x upper left x coordinate
  * @param y upper left y coordinate
  * @param coord_type coordinates type
@@ -551,9 +551,9 @@ eail_widget_set_position(AtkComponent *component,
 /**
  * @brief Sets component size
  *
- * @param component an AtkComponent
- * @param width new width
- * @param height new height
+ * @param component AtkComponent instance
+ * @param width new width of component
+ * @param height new height of component
  * @return TRUE on success, FALSE otherwise
  */
 static gboolean
@@ -575,11 +575,11 @@ eail_widget_set_size(AtkComponent *component,
 /**
  * @brief Sets component extents
  *
- * @param component an AtkComponent
- * @param x upper left x coordinate
- * @param y upper left y coordinate
- * @param width new width
- * @param height new height
+ * @param component AtkComponent instance
+ * @param x new upper left x coordinate
+ * @param y new upper left y coordinate
+ * @param width new width of component
+ * @param height new height of component
  * @param coord_type coordinates type
  * @return TRUE on success, FALSE otherwise
  */
@@ -619,9 +619,9 @@ eail_widget_set_extents(AtkComponent  *component,
 /**
  * @brief Sets function to execute whenever component gets focus
  *
- * @param component an AtkComponent
- * @param handler an AtkFocusHandler
- * @returns handler id
+ * @param component AtkComponent instance
+ * @param handler AtkFocusHandler instance
+ * @returns integer representing the handler's id
  */
 static guint
 eail_widget_add_focus_handler(AtkComponent *component,
@@ -654,7 +654,7 @@ eail_widget_add_focus_handler(AtkComponent *component,
 /**
  * @brief AtkComponent interface initialization
  *
- * @param iface EailNaviframPage object
+ * @param iface EailNaviframPage instance
  */
 static void
 atk_component_interface_init(AtkComponentIface *iface)

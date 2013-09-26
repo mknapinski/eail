@@ -30,7 +30,7 @@
 #include "eail_priv.h"
 
 /**
- * @brief Number of max selections
+ * @brief Maximum number of selections
  */
 #define FLIPSELECTOR_MAX_SELECTIONS 1
 
@@ -68,9 +68,9 @@ _on_selected(void *data,
 }
 
 /**
- * @brief EailFlipselector initializer.
+ * @brief EailFlipselector initializer
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  * @param data initialization data
  */
 static void
@@ -88,7 +88,8 @@ eail_flipselector_initialize(AtkObject *obj, gpointer data)
 }
 
 /**
- * @brief EailFlipselector finalizer.
+ * @brief EailFlipselector finalizer
+ *
  * Frees memory assigned to object.
  *
  * @param object GObject instance
@@ -105,10 +106,10 @@ eail_flipselector_finalize(GObject *object)
 }
 
 /**
- * @brief Gets obj items list.
+ * @brief Gets obj's items list
  *
- * @param obj an EailFlipselector
- * @return list with obj items
+ * @param obj EailFlipselector instance
+ * @return Eina_List representing the list of obj's items
  */
 static const Eina_List *
 eail_flipselector_items_get(EailFlipselector *obj)
@@ -128,13 +129,13 @@ eail_flipselector_items_get(EailFlipselector *obj)
 }
 
 /**
- * @brief Gets reference to i-th child
+ * @brief Gets a reference to the i-th child of the accessible
  *
- * The caller must unreference it when it is no longer needed
+ * The caller must unreference it when it is no longer needed.
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  * @param i child index
- * @return child reference
+ * @return AtkObject representing the i-th child of the accessible
  */
 static AtkObject *
 eail_flipselector_ref_child(AtkObject *obj,
@@ -160,10 +161,10 @@ eail_flipselector_ref_child(AtkObject *obj,
 }
 
 /**
- * @brief Gets number of obj children
+ * @brief Gets the number of children of the accessible
  *
- * @param obj an AtkObject
- * @return obj children number
+ * @param obj AtkObject instance
+ * @return integer representing the number children of the accessible
  */
 static gint
 eail_flipselector_get_n_children(AtkObject *obj)
@@ -178,7 +179,7 @@ eail_flipselector_get_n_children(AtkObject *obj)
 }
 
 /**
- * @brief EailFlipselector interface initializer.
+ * @brief EailFlipselector interface initializer
  *
  * @param flipselector EailFlipselector instance
  */
@@ -192,12 +193,12 @@ eail_flipselector_init(EailFlipselector *flipselector)
 
 
 /**
- * @brief Get name of flipselector child
+ * @brief Gets the name of a flipselector's child
  *
- * @param parent instance
- * @param item child instance
+ * @param parent EailItemParent instance
+ * @param item EailItem instance
  *
- * @returns const gchar * representing name of the child
+ * @returns string representing the name of the child
  */
 static const gchar *
 eail_flipselector_item_name_get(EailItemParent *parent, EailItem *item)
@@ -209,10 +210,12 @@ eail_flipselector_item_name_get(EailItemParent *parent, EailItem *item)
 }
 
 /**
- * @brief Implementation of EailItemParent->is_content_get_supported callback
+ * @brief Checks if content get is supported
  *
- * @param parent an EailItemParent
- * @param item an EailItemParent
+ * Implementation of EailItemParent->is_content_get_supported callback.
+ *
+ * @param parent EailItemParent instance
+ * @param item EailItem instance
  * @returns FALSE as there is no content support
  */
 gboolean
@@ -225,7 +228,7 @@ eail_flipselector_content_get_support(EailItemParent   *parent,
 /**
  * @brief EailItemParent interface initializer
  *
- * @param iface an EailItemParentIface
+ * @param iface EailItemParentIface instance
  */
 static void
 eail_item_parent_interface_init(EailItemParentIface *iface)
@@ -237,7 +240,7 @@ eail_item_parent_interface_init(EailItemParentIface *iface)
 /**
  * @brief EailFlipselector class initializer
  *
- * @param klass EailFlipselector class
+ * @param klass EailFlipselectorClass instance
  */
 static void
 eail_flipselector_class_init(EailFlipselectorClass *klass)
@@ -252,11 +255,11 @@ eail_flipselector_class_init(EailFlipselectorClass *klass)
 }
 
 /**
- * @brief Selects i-th item.
+ * @brief Selects the i-th item of the accessible
  *
- * @param selection an AtkSelection
+ * @param selection AtkSelection instance
  * @param i item index
- * @return TRUE if item is selected, FALSE otherwise
+ * @return TRUE if item was successfully selected, FALSE otherwise
  */
 static gboolean
 eail_flipselector_add_selection(AtkSelection *selection,
@@ -281,10 +284,10 @@ eail_flipselector_add_selection(AtkSelection *selection,
 }
 
 /**
- * @brief Clears selections.
+ * @brief Clears selections
  *
- * @param selection an AtkSelection
- * @return FALSE
+ * @param selection AtkSelection instance
+ * @return always FALSE
  */
 static gboolean
 eail_flipselector_clear_selection(AtkSelection *selection)
@@ -293,10 +296,10 @@ eail_flipselector_clear_selection(AtkSelection *selection)
 }
 
 /**
- * @brief Gets the number of currently selected children.
+ * @brief Gets the number of currently selected children
  *
- * @param selection AtkSelection
- * @return number of selected children
+ * @param selection AtkSelection instance
+ * @return integer representing the number of selected children
  */
 static gint
 eail_flipselector_get_selection_count(AtkSelection *selection)
@@ -305,11 +308,11 @@ eail_flipselector_get_selection_count(AtkSelection *selection)
 }
 
 /**
- * @brief Determines if i-th child is selected.
+ * @brief Determines if the i-th child of the accessible is selected
  *
- * @param selection an AtkSelection
+ * @param selection AtkSelection instance
  * @param i child index
- * @return TRUE if child is selected, FALSE otherwise
+ * @return TRUE if the i-th child is selected, FALSE otherwise
  */
 static gboolean
 eail_flipselector_is_child_selected(AtkSelection *selection,
@@ -339,11 +342,11 @@ eail_flipselector_is_child_selected(AtkSelection *selection,
 }
 
 /**
- * @brief Removes i-th selection.
+ * @brief Removes the i-th selection of the accessible
  *
- * @param selection an AtkSelection
+ * @param selection AtkSelection instance
  * @param i selection index
- * @return TRUE if selection is removed, FALSE otherwise
+ * @return TRUE if selection was successfully removed, FALSE otherwise
  */
 static gboolean
 eail_flipselector_remove_selection(AtkSelection *selection,
@@ -379,10 +382,10 @@ eail_flipselector_remove_selection(AtkSelection *selection,
 }
 
 /**
- * @brief Selects all children.
+ * @brief Selects all children of the accessible
  *
- * @param selection an AtkSelection
- * @returns FALSE
+ * @param selection AtkSelection instance
+ * @returns always FALSE
  */
 static gboolean
 eail_flipselector_select_all_selection(AtkSelection *selection)
@@ -391,9 +394,9 @@ eail_flipselector_select_all_selection(AtkSelection *selection)
 }
 
 /**
- * @brief AtkSelection interface initializer.
+ * @brief AtkSelection interface initializer
  *
- * @param iface an AtkSelectionIface
+ * @param iface AtkSelectionIface instance
  */
 static void atk_selection_interface_init(AtkSelectionIface *iface)
 {
@@ -410,9 +413,9 @@ static void atk_selection_interface_init(AtkSelectionIface *iface)
  */
 
 /**
- * @brief Performs i-th action.
+ * @brief Performs the i-th action
  *
- * @param action an AtkAction
+ * @param action AtkAction instance
  * @param i action index
  * @return TRUE on success, FALSE otherwise
  */
@@ -443,10 +446,10 @@ eail_flipselector_action_do_action(AtkAction *action,
 }
 
 /**
- * @brief Gets number of actions available on the object.
+ * @brief Gets the number of actions available on the object
  *
- * @param action an AtkAction
- * @return number of implemented actions
+ * @param action AtkAction instance
+ * @return integer representing the number of implemented actions
  */
 static gint
 eail_flipselector_action_get_n_actions(AtkAction *action)
@@ -455,11 +458,13 @@ eail_flipselector_action_get_n_actions(AtkAction *action)
 }
 
 /**
- * @brief Gets description for action with given index
- * @param action an AtkAction (EailFlipselector) object
+ * @brief Gets the description string of an action with the given index
+ *
+ * @param action AtkAction instance
  * @param i index of action
  *
- * @returns string representing action name or NULL if not found
+ * @returns string representing the specified action's description
+ * or NULL if one was not found
  */
 static const gchar *
 eail_flipselector_action_get_description(AtkAction *action,
@@ -490,11 +495,12 @@ eail_flipselector_action_get_description(AtkAction *action,
 }
 
 /**
- * @brief Gets i-th action name.
+ * @brief Gets the name string of an action with the given index
  *
- * @param action an AtkAction
+ * @param action AtkAction instance
  * @param i action index
- * @return action description
+ * @return string representing the specified action's name
+ * or NULL if one was not found
  */
 static const gchar *
 eail_flipselector_action_get_name(AtkAction *action,
@@ -523,12 +529,12 @@ eail_flipselector_action_get_name(AtkAction *action,
 }
 
 /**
- * @brief Sets i-th action description.
+ * @brief Sets the description of the specified action
  *
- * @param action an AtkAction
- * @param i action number
- * @param desc action description
- * @return TRUE if description is set successfully, FALSE otherwise
+ * @param action AtkAction instance
+ * @param i action's number
+ * @param desc action's description
+ * @return TRUE if description was set successfully, FALSE otherwise
  */
 static gboolean
 eail_flipselector_action_set_description(AtkAction *action,
@@ -568,9 +574,9 @@ eail_flipselector_action_set_description(AtkAction *action,
 }
 
 /**
- * @brief AtkAction interface initializer.
+ * @brief AtkAction interface initializer
  *
- * @param iface an AtkActionIface
+ * @param iface AtkActionIface instance
  */
 static void
 atk_action_interface_init(AtkActionIface *iface)

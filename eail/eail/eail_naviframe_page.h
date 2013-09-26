@@ -36,7 +36,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailNaviframePage
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_NAVIFRAME_PAGE(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj),\
                                              EAIL_TYPE_NAVIFRAME_PAGE, EailNaviframePage))
@@ -50,7 +50,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailNaviframePage class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_NAVIFRAME_PAGE(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj),\
                                              EAIL_TYPE_NAVIFRAME_PAGE))
@@ -81,16 +81,20 @@ typedef struct _EailNaviframePageClass EailNaviframePageClass;
 /** @brief Definition of object structure for Atk EailNaviframePage*/
 struct _EailNaviframePage
 {
-   AtkObject parent; /*!< EailNaviframePage parent*/
-
-   AtkObject *parent_naviframe; /*!< EailNaviframe to which page belongs to*/
-   Evas_Object *naviframe; /*!< elm_naviframe instance*/
-   Elm_Object_Item *page; /*!< elm_naviframe item instance*/
-
-   Evas_Object *content[4]; /*!< holds content of page*/
-
-   gint child_count; /*!< number of children*/
-   const char *name; /*!< title of page*/
+   /** @brief Parent AtkObject whose functionality is being extended*/
+   AtkObject parent;
+   /** @brief EailNaviframe which page belongs to*/
+   AtkObject *parent_naviframe;
+   /** @brief elm_naviframe instance*/
+   Evas_Object *naviframe;
+   /** @brief elm_naviframe_item instance*/
+   Elm_Object_Item *page;
+   /** @brief Holds the content of a page*/
+   Evas_Object *content[4];
+   /** @brief Number of children*/
+   gint child_count;
+   /** @brief Title of the page*/
+   const char *name;
 };
 
 /** @brief Definition of object class for Atk EailNaviframePage*/

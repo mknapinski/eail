@@ -45,7 +45,7 @@ G_DEFINE_TYPE_WITH_CODE(EailClock,
  * @brief EailClock object initialization
  *
  * @param obj EailClock object
- * @param data user set additional initialization data
+ * @param data additional initialization data
  */
 static void
 eail_clock_initialize(AtkObject *obj, gpointer data)
@@ -68,7 +68,7 @@ eail_clock_init(EailClock *clock)
 /**
  * @brief GObject type initialization function
  *
- * @param klass EailClock class
+ * @param klass EailClockClass instance
  */
 static void
 eail_clock_class_init(EailClockClass *klass)
@@ -83,10 +83,10 @@ eail_clock_class_init(EailClockClass *klass)
  */
 
 /**
- * @brief Gets obj current value
+ * @brief Gets obj's current value
  *
  * @param obj EailClock instance
- * @param [out] value EailClock current value
+ * @param [out] value obj's current value
  */
 static void
 eail_clock_get_current_value(AtkValue *obj,
@@ -109,10 +109,10 @@ eail_clock_get_current_value(AtkValue *obj,
 }
 
 /**
- * @brief Gets obj maxiumum value
+ * @brief Gets obj's maxiumum value
  *
  * @param obj EailClock instance
- * @param [out] value EailClock maxiumum value
+ * @param [out] value obj's maxiumum value
  */
 static void
 eail_clock_get_maximum_value(AtkValue *obj,
@@ -129,10 +129,10 @@ eail_clock_get_maximum_value(AtkValue *obj,
 }
 
 /**
- * @brief Gets obj minimum value
+ * @brief Gets obj's minimum value
  *
  * @param obj EailClock instance
- * @param [out] value EailClock minimum value
+ * @param [out] value obj's minimum value
  */
 static void
 eail_clock_get_minimum_value(AtkValue *obj,
@@ -149,11 +149,11 @@ eail_clock_get_minimum_value(AtkValue *obj,
 }
 
 /**
- * @brief Sets obj value
+ * @brief Sets obj's value
  *
  * @param obj EailClock instance
- * @param value EailClock new value
- * @return TRUE if new value is set successfully, FALSE otherwise
+ * @param value obj's new value
+ * @return TRUE if new value was set successfully, FALSE otherwise
  */
 static gboolean
 eail_clock_set_current_value(AtkValue     *obj,
@@ -184,10 +184,10 @@ eail_clock_set_current_value(AtkValue     *obj,
 }
 
 /**
- * @brief Gets obj minimum increment
+ * @brief Gets obj's minimum increment
  *
  * @param obj EailClock instance
- * @param [out] value EailClock minimum increment
+ * @param [out] value obj's minimum increment
  */
 static void
 eail_clock_get_minimum_increment(AtkValue *obj,
@@ -206,11 +206,13 @@ eail_clock_get_minimum_increment(AtkValue *obj,
 /**
  * @brief Initialization of AtkValue interface
  *
- * Function called upon instance creation. It initializes AtkValue interface
+ * @brief Function called upon instance creation.
+ *
+ * It initializes AtkValue interface
  * implementation i.e hooks method pointers in the interface structure
  * to the implementing class's implementation.
  *
- * @param iface an AtkObject than implements AtkValueInterface
+ * @param iface AtkObject that implements AtkValueInterface
  */
 static void
 atk_value_interface_init(AtkValueIface *iface)

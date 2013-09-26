@@ -56,10 +56,10 @@ G_DEFINE_TYPE_WITH_CODE(EailWindow,
                                           eail_dynamic_content_interface_init));
 
 /**
- * @brief Maximize event handler
+ * @brief Maximizes event handler
  *
- * @param data passed to callback
- * @param obj object that raised event
+ * @param data data passed to callback
+ * @param obj Evas_Object instance that raised event
  * @param event_info additional event info
  */
 void
@@ -71,10 +71,10 @@ _eail_window_handle_maximize_event(void *data,
 }
 
 /**
- * @brief Minimize event handler
+ * @brief Minimizes event handler
  *
- * @param data passed to callback
- * @param obj object that raised event
+ * @param data data passed to callback
+ * @param obj Evas_Object instance that raised event
  * @param event_info additional event info
  */
 void
@@ -86,10 +86,10 @@ _eail_window_handle_minimize_event(void *data,
 }
 
 /**
- * @brief Move event handler
+ * @brief Moves event handler
  *
- * @param data passed to callback
- * @param obj object that raised event
+ * @param data data passed to callback
+ * @param obj Evas_Object instance that raised event
  * @param event_info additional event info
  */
 void
@@ -101,11 +101,11 @@ _eail_window_handle_move_event(void *data,
 }
 
 /**
- * @brief Callback used to tracking "resize"-changes for window
+ * @brief Callback used for tracking resize-changes for window
  *
  * @param data data passed to callback
- * @param e an Evas that has been shown
- * @param obj an Evas_Object that has been shown
+ * @param e Evas instance that has been shown
+ * @param obj Evas_Object instance that has been shown
  * @param event_info additional event info
  */
 void
@@ -134,9 +134,9 @@ _eail_window_handle_delete_event(void *data,
 }
 
 /**
- * @brief Initialize window focus handler
+ * @brief Initializes window focus handler
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 static void
 eail_window_init_focus_handler(AtkObject *obj)
@@ -168,7 +168,7 @@ eail_window_init_focus_handler(AtkObject *obj)
 /**
  * @brief EailWindow initializer
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  * @param data initialization data
  */
 static void
@@ -193,10 +193,10 @@ eail_window_initialize(AtkObject *obj, gpointer data)
 }
 
 /**
- * @brief Gets children list from given edje
+ * @brief Gets the children list from given edje
  *
  * @param edje lowest (stacked) Evas object
- * @return children list
+ * @return Eina_List representing the children list
  */
 static Eina_List *
 _parse_edje(const Evas_Object *edje)
@@ -226,10 +226,10 @@ _parse_edje(const Evas_Object *edje)
 }
 
 /**
- * @brief Gets widget children
+ * @brief Gets widget's children
  *
- * @param widget an EailWidget
- * @return widget list
+ * @param widget EailWidget instance
+ * @return Eina_List representing the list of widget's children
  */
 static Eina_List *
 eail_window_get_widget_children(EailWidget *widget)
@@ -279,10 +279,10 @@ eail_window_get_widget_children(EailWidget *widget)
 }
 
 /**
- * @brief Gets obj state set
+ * @brief Gets the state set of the accessible
  *
- * @param obj an AtkObject
- * @return obj state set
+ * @param obj AtkObject instance
+ * @return AtkStateSet representing the state set of the accessible
  */
 static AtkStateSet *
 eail_window_ref_state_set(AtkObject *obj)
@@ -335,7 +335,7 @@ eail_window_ref_state_set(AtkObject *obj)
 /**
  * @brief EailWindow instance initializer
  *
- * @param window an EailWindow
+ * @param window EailWindow instance
  */
 static void
 eail_window_init(EailWindow *window)
@@ -345,7 +345,7 @@ eail_window_init(EailWindow *window)
 /**
  * @brief EailWindow class initializer
  *
- * @param klass an EailWindowClass
+ * @param klass EailWindowClass instance
  */
 static void
 eail_window_class_init(EailWindowClass *klass)
@@ -360,9 +360,9 @@ eail_window_class_init(EailWindowClass *klass)
 }
 
 /**
- * @brief Handle for action minimize
+ * @brief Handle for minimize action
  *
- * @param action an AtkAction
+ * @param action AtkAction instance
  * @param data additional action data (not used here)
  *
  * @return TRUE if action was triggered successfully, FALSE otherwise
@@ -387,9 +387,9 @@ eail_action_minimize(AtkAction *action, void *data)
 }
 
 /**
- * @brief Handle for action maximize
+ * @brief Handle for maximize action
  *
- * @param action an AtkAction
+ * @param action AtkAction instance
  * @param data additional action data (not used here)
  *
  * @return TRUE if action was triggered successfully, FALSE otherwise
@@ -413,7 +413,7 @@ eail_action_maximize(AtkAction *action, void *data)
 }
 
 /**
- * @brief Adds window actions to actions table
+ * @brief Adds window actions to the actions table
  *
  * @param action_widget widget that implements EailActionWidget interface
  */
@@ -434,7 +434,7 @@ eail_window_actions_init(EailActionWidget *action_widget)
  * It is empty because at the moment
  * AtkWindow is just about signals
  *
- * @param iface an AtkWindowIface
+ * @param iface AtkWindowIface instance
  */
 static void
 atk_window_interface_init(AtkWindowIface *iface)
@@ -442,11 +442,12 @@ atk_window_interface_init(AtkWindowIface *iface)
 }
 
 /**
- * @brief Returns first found widget from EvasObjectBox
+ * @brief Returns the first found widget from EvasObjectBox
  *
- * @param evas_obj an EvasObjectBox to search in
+ * @param evas_obj EvasObjectBox instance to search in
  *
- * @returns Evas_Object* widget or NULL if none has been found
+ * @returns Evas_Object that represents the found widget
+ * or NULL if none has been found
  */
 static Evas_Object*
 _eail_get_first_widget_from_evas_box(Evas_Object *evas_obj)
@@ -469,11 +470,12 @@ _eail_get_first_widget_from_evas_box(Evas_Object *evas_obj)
 }
 
 /**
- * @brief Returns first found widget from given edje object
+ * @brief Returns the first found widget from given edje object
  *
  * @param evas_obj edje object to search in
  *
- * @returns Evas_Object* widget or NULL if none has been found
+ * @returns Evas_Object that represents the found widget
+ * or NULL if none has been found
  */
 static Evas_Object *
 _eail_get_first_widget_from_edje(Evas_Object *evas_obj)
@@ -503,15 +505,15 @@ _eail_get_first_widget_from_edje(Evas_Object *evas_obj)
 
 /**
  * @brief Gets a reference to the accessible child, if one exists, at the
- * coordinate point specified by x and y.
+ * coordinate point specified by x and y
  *
- * @param component the AtkComponent
+ * @param component AtkComponent instance
  * @param x x coordinate
  * @param y y coordinate
  * @param coord_type specifies whether the coordinates are relative to the
  * screen or to the components top level window
  *
- * @returns a reference to the accessible child, if one exists.
+ * @returns AtkObject representing the accessible child, if one exists
  */
 static AtkObject *
 eail_window_ref_accessible_at_point(AtkComponent *component,
@@ -565,7 +567,7 @@ eail_window_ref_accessible_at_point(AtkComponent *component,
  * reference object at given coordinates. Rest of implementation is default
  * so no overriding-callbacks is needed.
  *
- * @param iface EailWindow object
+ * @param iface EailWindow instance
  */
 static void
 atk_component_interface_init(AtkComponentIface *iface)

@@ -45,14 +45,38 @@ struct _EailFactoryObj
    Elm_Object_Item *obj_item;/**< @brief Elm_Object_Item that needs atk representation*/
 };
 
+/**
+ * @brief Creates an accessible EAIL widget that represents the given Evas_Object*
+ */
 AtkObject * eail_factory_get_accessible    (Evas_Object *widget);
+
+/**
+ * @brief Returns an instance of AtkObject for the given item
+ */
 AtkObject * eail_factory_get_item_atk_obj  (Elm_Object_Item *item,
                                             AtkRole role,
                                             AtkObject *parent);
+
+/**
+ * @brief Creates an EailFactoryObj instance for the given item and adds it to cache
+ */
 void eail_factory_append_item_to_cache     (AtkObject *atk_obj,
                                             Elm_Object_Item *item);
+/**
+ * @brief Tries to find an AtkObject representing the given Elm_Object_Item * in cache
+ */
 EailFactoryObj *eail_factory_find_obj_for_item (const Elm_Object_Item *item);
+
+/**
+ * @brief Unregisters a widget and associated AtkObject* representation from
+ * factory cache
+ */
 void eail_factory_unregister_wdgt_from_cache(Evas_Object *widget);
+
+/**
+ * @brief Unregisters an item and associated AtkObject* representation from
+ * factory cache
+ */
 void eail_factory_unregister_item_from_cache(Elm_Object_Item *item);
 Eina_List * eail_factory_find_objects_with_role(AtkRole role);
 

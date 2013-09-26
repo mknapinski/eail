@@ -35,14 +35,14 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailItemParent
  * interface
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_ITEM_PARENT(obj)           (G_TYPE_CHECK_INSTANCE_CAST((obj), \
                                          EAIL_TYPE_ITEM_PARENT, EailItemParent))
 /**
  * @brief Tests whether object (obj) implements EailItemParent interface
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_ITEM_PARENT(obj)        (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
                                          EAIL_TYPE_ITEM_PARENT))
@@ -66,41 +66,41 @@ typedef struct _EailItemParentIface EailItemParentIface;
 /** @brief Definition of interface structure for Atk EailItemParent*/
 struct _EailItemParentIface
 {
-   GTypeInterface parent;/**< @brief parent interface that is being extended*/
+   GTypeInterface parent;/**< @brief Parent interface that is being extended*/
 
-   /**@brief callback definition for eail_item_parent_get_item_name func*/
+   /**@brief Callback definition for eail_item_parent_get_item_name function*/
    const gchar *(*get_item_name)            (EailItemParent   *parent,
                                             EailItem         *item);
 
-   /**@brief callback definition for eail_item_parent_get_item_role func*/
+   /**@brief Callback definition for eail_item_parent_get_item_role function*/
    AtkRole      (*get_item_role)            (EailItemParent   *parent,
                                             EailItem         *item);
 
-   /**@brief callback definition for eail_item_parent_get_index_in_parent func*/
+   /**@brief Callback definition for eail_item_parent_get_index_in_parent function*/
    gint         (*get_item_index_in_parent) (EailItemParent   *parent,
                                             EailItem         *item);
 
-   /**@brief callback definition for eail_item_parent_get_n_children func*/
+   /**@brief Callback definition for eail_item_parent_get_n_children function*/
    gint         (*get_n_children)           (EailItemParent   *parent,
                                             EailItem         *item);
 
-   /**@brief callback definition for eail_item_parent_ref_n_child func*/
+   /**@brief Callback definition for eail_item_parent_ref_n_child function*/
    AtkObject *  (*ref_n_child)              (EailItemParent   *parent,
                                             EailItem         *item,
                                             gint             index);
 
-   /**@brief callback definition for eail_item_parent_ref_item_state_set func*/
+   /**@brief Callback definition for eail_item_parent_ref_item_state_set function*/
    AtkStateSet *
                 (*ref_item_state_set)       (EailItemParent   *parent,
                                             EailItem         *item,
                                             AtkStateSet      *state_set);
 
    /* AtkComponent interface */
-   /**@brief callback definition for eail_item_parent_grab_item_focus func*/
+   /**@brief Callback definition for eail_item_parent_grab_item_focus function*/
    gboolean    (*grab_item_focus)          (EailItemParent   *parent,
                                             EailItem         *item);
 
-   /**@brief callback definition for eail_item_parent_get_item_extents func*/
+   /**@brief Callback definition for eail_item_parent_get_item_extents function*/
    void        (*get_item_extents)         (EailItemParent   *parent,
                                             EailItem         *item,
                                             gint             *x,
@@ -109,22 +109,22 @@ struct _EailItemParentIface
                                             gint             *height,
                                             AtkCoordType      coord_type);
 
-   /**@brief callback definition for eail_item_parent_get_evas_obj func*/
+   /**@brief Callback definition for eail_item_parent_get_evas_obj function*/
    Evas_Object * (*get_evas_obj)           (EailItemParent   *parent,
                                             EailItem         *item);
 
-   /**@brief callback definition for eail_item_parent_get_actions_supported
-    * func*/
+   /**@brief Callback definition for eail_item_parent_get_actions_supported
+    * function*/
    gboolean    (*get_actions_supported)       (EailItemParent   *parent,
                                                EailItem         *item);
 
-   /**@brief callback definition for eail_item_parent_is_content_get_supported
-    * func*/
+   /**@brief Callback definition for eail_item_parent_is_content_get_supported
+    * function*/
    gboolean    (*is_content_get_supported) (EailItemParent   *parent,
                                             EailItem         *item);
 };
 
-/** @brief Enum that is used to represent supported actions by item*/
+/** @brief Enum that is used for representing supported actions by item*/
 enum EailActionSupported
 {
     EAIL_ACTION_SUPPORTED_NONE = 1 << 0,

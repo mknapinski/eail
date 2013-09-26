@@ -35,7 +35,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailSeparator
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_SEPARATOR(obj)            (G_TYPE_CHECK_INSTANCE_CAST((obj), \
                                         EAIL_TYPE_SEPARATOR, EailSeparator))
@@ -49,7 +49,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailSeparator class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_SEPARATOR(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
                                         EAIL_TYPE_SEPARATOR))
@@ -80,7 +80,7 @@ typedef struct _EailSeparatorClass EailSeparatorClass;
 /** @brief Definition of object structure for Atk EailActionSlider*/
 struct _EailSeparator
 {
-   /** @brief Parent object that functionality is being extended*/
+   /** @brief Parent widget whose functionality is being extended*/
    EailWidget parent;
 };
 

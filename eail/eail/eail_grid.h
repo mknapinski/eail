@@ -35,7 +35,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailGrid
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_GRID(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), \
                                      EAIL_TYPE_GRID, EailGrid))
@@ -49,7 +49,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailGrid class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_GRID(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
                                      EAIL_TYPE_GRID))
@@ -80,7 +80,7 @@ typedef struct _EailGridClass EailGridClass;
 /** @brief Definition of object structure for Atk EailGrid*/
 struct _EailGrid
 {
-   /** @brief Parent object that functionality is being extended*/
+   /** @brief Parent widget whose functionality is being extended*/
    EailWidget parent;
 };
 

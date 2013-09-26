@@ -33,7 +33,7 @@ G_DEFINE_TYPE(EailFrame, eail_frame, EAIL_TYPE_WIDGET);
 /**
  * @brief EailFrame initializer
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  * @param data initialization data
  */
 static void
@@ -45,10 +45,10 @@ eail_frame_initialize(AtkObject *obj, gpointer data)
 }
 
 /**
- * @brief Gets widget children
+ * @brief Gets widget's children
  *
- * @param widget an EailWidget
- * @return widget children list
+ * @param widget EailWidget instance
+ * @return Eina_List representing the list of widget's children
  */
 static Eina_List *
 eail_frame_get_widget_children(EailWidget *widget)
@@ -69,12 +69,10 @@ eail_frame_get_widget_children(EailWidget *widget)
 }
 
 /**
- * @brief Gest obj name
+ * @brief Gets obj's name
  *
- *
- *
- * @param obj an AtkObject
- * @return obj name
+ * @param obj AtkObject instance
+ * @return string representing obj's name
  */
 static const gchar*
 eail_frame_get_name(AtkObject *obj)
@@ -96,7 +94,7 @@ eail_frame_get_name(AtkObject *obj)
 /**
  * @brief EailFrame instance initializer
  *
- * @param frame an EailFrame
+ * @param frame EailFrame instance
  */
 static void
 eail_frame_init(EailFrame *frame)
@@ -106,7 +104,7 @@ eail_frame_init(EailFrame *frame)
 /**
  * @brief EailFrame class initializer
  *
- * @param klass an EailFrame class
+ * @param klass EailFrameClass instance
  */
 static void
 eail_frame_class_init(EailFrameClass *klass)

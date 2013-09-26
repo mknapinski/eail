@@ -37,7 +37,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailApp
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_APP(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj), \
                                    EAIL_TYPE_APP, EailApp))
@@ -53,7 +53,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailApp class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_APP(obj)          (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
                                    EAIL_TYPE_APP))
@@ -85,7 +85,7 @@ typedef struct _EailAppClass EailAppClass;
 /** @brief Definition of object structure for Atk EailBackground*/
 struct _EailApp
 {
-   /** @brief parent AtkObject that functionality is being extended */
+   /** @brief Parent AtkObject whose functionality is being extended */
    AtkObject parent;
    gint child_count_last;/**< @brief last reported count of children */
 };

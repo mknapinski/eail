@@ -35,7 +35,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailMenu
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_MENU(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), \
                                     EAIL_TYPE_MENU, EailMenu))
@@ -49,7 +49,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailMenu class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_MENU(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), \
                                     EAIL_TYPE_MENU))
@@ -80,7 +80,7 @@ typedef struct _EailMenuClass EailMenuClass;
 /** @brief Definition of object structure for Atk EailMenu*/
 struct _EailMenu
 {
-   /** @brief Parent object that functionality is being extended*/
+   /** @brief Parent widget whose functionality is being extended*/
    EailWidget parent;
 };
 

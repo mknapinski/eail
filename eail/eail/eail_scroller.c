@@ -19,7 +19,7 @@
 
 /**
  * @file eail_scroller.c
- * @brief Scroller implementation
+ * @brief EailScroller implementation
  */
 
 #include <Eina.h>
@@ -37,7 +37,7 @@ G_DEFINE_TYPE(EailScroller, eail_scroller, EAIL_TYPE_SCROLLABLE_WIDGET);
 /**
  * @brief Initializer for AtkObjectClass
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  * @param data initialization data
  */
 static void
@@ -52,10 +52,11 @@ eail_scroller_initialize(AtkObject *obj, gpointer data)
  * @brief Prepares Eina_List filled with Evas_Object* objects
  * representing content of the widget
  *
- * @param widget an EailWidget
+ * Call eina_list_free on the returned list when results processing has been finished.
  *
- * @return filled list with list items. Call eina_list_free on that list when
- * results processing has been finished
+ * @param widget EailWidget instance
+ *
+ * @return Eina_List representing the list of the widget's children
  */
 static Eina_List *
 eail_scroller_get_widget_children(EailWidget *widget)
@@ -74,17 +75,14 @@ eail_scroller_get_widget_children(EailWidget *widget)
 }
 
 /**
- * @brief Gets name of EailItem
+ * @brief Gets the accessible name of the accessible
  *
- * Implementation of AtkObject->get_name callback
+ * Implementation of AtkObject->get_name callback.
  *
- * ATK doc says:\n
- * Gets the accessible name of the accessible.
+ * @param obj AtkObject instance
  *
- * @param obj an AtkObject
- *
- * @returns a character string representing the accessible description of
- * the accessible.
+ * @returns string representing the accessible name of
+ * the accessible
  */
 static const gchar*
 eail_scroller_get_name(AtkObject *obj)
@@ -106,7 +104,7 @@ eail_scroller_get_name(AtkObject *obj)
 /**
  * @brief EailFileselector GObject instance initializer
  *
- * @param scroller an EailScroller
+ * @param scroller EailScroller instance
  */
 static void
 eail_scroller_init(EailScroller *scroller)
@@ -114,10 +112,11 @@ eail_scroller_init(EailScroller *scroller)
 }
 
 /**
- * @brief Initializer for EailScroller GObject class (defines callbacks for
- * base AtkObject)
+ * @brief Initializer for EailScroller GObject class
  *
- * @param klass an EailScroller class
+ * Defines callbacks for base AtkObject.
+ *
+ * @param klass EailScrollerClass instance
  */
 static void
 eail_scroller_class_init(EailScrollerClass *klass)

@@ -28,37 +28,37 @@
 #include "eail_utils.h"
 
 /**
- * @brief Press action name
+ * @brief 'press' action name
  */
 #define EAIL_MAP_ACTION_PRESS "press"
 
 /**
- * @brief ScrollUp action name
+ * @brief 'scroll up' action name
  */
 #define EAIL_MAP_ACTION_SCROLL_UP "scroll_up"
 
 /**
- * @brief ScrollDown action name
+ * @brief 'scroll down' action name
  */
 #define EAIL_MAP_ACTION_SCROLL_DOWN "scroll_down"
 
 /**
- * @brief ScrollLeft action name
+ * @brief 'scroll left' action name
  */
 #define EAIL_MAP_ACTION_SCROLL_LEFT "scroll_left"
 
 /**
- * @brief ScrollRight action name
+ * @brief 'scroll right' action name
  */
 #define EAIL_MAP_ACTION_SCROLL_RIGHT "scroll_right"
 
 /**
- * @brief ZoomIn action name
+ * @brief 'zoom in' action name
  */
 #define EAIL_MAP_ACTION_ZOOM_IN "zoom_in"
 
 /**
- * @brief ZoomOut action name
+ * @brief 'zoom out' action name
  */
 #define EAIL_MAP_ACTION_ZOOM_OUT "zoom_out"
 
@@ -83,7 +83,7 @@ static void eail_map_set_actions(AtkObject *obj);
 /**
  * @brief EailMap initializer
  *
- * @param object an AtkObject
+ * @param object AtkObject instance
  * @param data initialization data
  */
 static void
@@ -98,7 +98,7 @@ eail_map_initialize(AtkObject *object, gpointer data)
 /**
  * @brief EailMap finalizer
  *
- * @param object a GObject
+ * @param object GObject instance
  */
 static void
 eail_map_finalize(GObject *object)
@@ -110,10 +110,10 @@ eail_map_finalize(GObject *object)
 }
 
 /**
- * @brief Gets object name
+ * @brief Gets obj's name
  *
- * @param object an AtkObject
- * @return EailMap name if name is assigned, map path otherwise
+ * @param object AtkObject instance
+ * @return string containing obj's name if a name is assigned, map path otherwise
  */
 static const gchar*
 eail_map_name_get(AtkObject *object)
@@ -145,7 +145,7 @@ eail_map_name_get(AtkObject *object)
 /**
  * @brief EailMap instance initializer
  *
- * @param map an EailMap
+ * @param map EailMap instance
  */
 static void
 eail_map_init(EailMap *map)
@@ -156,7 +156,7 @@ eail_map_init(EailMap *map)
 /**
  * @brief EailMap class initializer
  *
- * @param klass an EailMapClass
+ * @param klass EailMapClass instance
  */
 static void
 eail_map_class_init(EailMapClass *klass)
@@ -175,9 +175,9 @@ eail_map_class_init(EailMapClass *klass)
  *
  * Image size is the same as window size
  *
- * @param image an AtkImage
- * @param [out] width image width
- * @param [out] height image height
+ * @param image AtkImage instance
+ * @param [out] width image width or -1 if the value cannot be obtained
+ * @param [out] height image height or -1 if the value cannot be obtained
  */
 static void
 eail_map_image_size_get(AtkImage *image, gint *width, gint *height)
@@ -188,7 +188,7 @@ eail_map_image_size_get(AtkImage *image, gint *width, gint *height)
 /**
  * @brief AtkImage interface initializer
  *
- * @param iface an AtkImage interface
+ * @param iface AtkImageIface instance
  */
 static void
 akt_image_interface_init(AtkImageIface *iface)
@@ -203,9 +203,9 @@ akt_image_interface_init(AtkImageIface *iface)
  */
 
 /**
- * @brief ScrollUp action callback
+ * @brief 'scroll up' action callback
  *
- * @param action an AtkAction
+ * @param action AtkAction instance
  * @param data callback data
  * @return TRUE on success, FALSE otherwise
  */
@@ -221,7 +221,7 @@ _eail_map_action_scroll_up(AtkAction *action, void *data)
 }
 
 /**
- * @brief ScrollDown action callback
+ * @brief 'scroll down' action callback
  *
  * @param action an AtkAction
  * @param data callback data
@@ -239,9 +239,9 @@ _eail_map_action_scroll_down(AtkAction *action, void *data)
 }
 
 /**
- * @brief ScrollLeft action callback
+ * @brief 'scroll left' action callback
  *
- * @param action an AtkAction
+ * @param action AtkAction instance
  * @param data callback data
  * @return TRUE on success, FALSE otherwise
  */
@@ -257,7 +257,7 @@ _eail_map_action_scroll_left(AtkAction *action, void *data)
 }
 
 /**
- * @brief ScrollRight action callback
+ * @brief 'scroll right' action callback
  *
  * @param action an AtkAction
  * @param data callback data
@@ -275,9 +275,9 @@ _eail_map_action_scroll_right(AtkAction *action, void *data)
 }
 
 /**
- * @brief ZoomIn action callback
+ * @brief 'zoom in' action callback
  *
- * @param action an AtkAction
+ * @param action AtkAction instance
  * @param data data passed to callback
  * @return TRUE on success, FALSE otherwise
  */
@@ -299,9 +299,9 @@ _eail_map_action_zoom_in(AtkAction *action, void *data)
 }
 
 /**
- * @brief ZoomOut action callback
+ * @brief 'zoom out' action callback
  *
- * @param action an AtkAction
+ * @param action AtkAction instance
  * @param data data passed to callback
  * @return TRUE on success, FALSE otherwise
  */
@@ -323,9 +323,9 @@ _eail_map_action_zoom_out(AtkAction *action, void *data)
 }
 
 /**
- * @brief Press action callback
+ * @brief 'press' action callback
  *
- * @param action an AtkAction
+ * @param action AtkAction instance
  * @param data data passed to callback
  * @return TRUE on success, FALSE otherwise
  */
@@ -346,7 +346,7 @@ _eail_map_action_press(AtkAction *action, void *data)
 /**
  * @brief Sets EailMap actions
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 static void
 eail_map_set_actions(AtkObject *obj)

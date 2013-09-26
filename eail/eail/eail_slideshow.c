@@ -46,12 +46,17 @@ G_DEFINE_TYPE_WITH_CODE(EailSlideshow, eail_slideshow, EAIL_TYPE_WIDGET,
                                               atk_action_interface_init));
 
 /**
- * @brief Implementation of ref_child from AtkObject interface
+ * @brief Gets a reference to the specified accessible child of the object.
  *
- * @param obj EailSlideshow instance
+ * The accessible children are 0-based so the first accessible child
+ * is at index 0, the second at index 1 and so on.
+ *
+ * Implementation of ref_child from AtkObject interface.
+ *
+ * @param obj AtkObject instance
  * @param i index of a child object
  *
- * @returns child object
+ * @returns AtkObject representing the specified accessible child
  */
 static AtkObject*
 eail_slideshow_ref_child(AtkObject *obj, gint i)
@@ -79,10 +84,12 @@ eail_slideshow_ref_child(AtkObject *obj, gint i)
 }
 
 /**
- * @brief Implementation of get_n_children from AtkObject interface
+ * @brief Gets the number of accessible children of the accessible
  *
- * @param obj EailSlideshow instance
- * @returns number of widget childs
+ * Implementation of get_n_children from AtkObject interface.
+ *
+ * @param obj AtkObject instance
+ * @returns integer representing the number of widget's children
  */
 static gint
 eail_slideshow_n_children_get(AtkObject *obj)
@@ -102,9 +109,9 @@ eail_slideshow_n_children_get(AtkObject *obj)
 }
 
 /**
- * @brief Initialize EailSlideshow as a AtkObject
+ * @brief Initialize EailSlideshow as AtkObject
  *
- * @param obj EailSlideshow instance
+ * @param obj AtkObject instance
  * @param data user data passed to initialization
  */
 static void
@@ -131,7 +138,7 @@ eail_slideshow_init(EailSlideshow *slideshow)
 /**
  * @brief Destructor of EailSlideshow object
  *
- * @param object EailSlideshow instance
+ * @param object GObject instance
  */
 static void
 eail_slideshow_finalize(GObject *object)
@@ -149,7 +156,7 @@ eail_slideshow_finalize(GObject *object)
 /**
  * @brief EailSlideshow class initialization
  *
- * @param klass EailSlideshowClass object
+ * @param klass EailSlideshowClass instance
  */
 static void
 eail_slideshow_class_init(EailSlideshowClass *klass)
@@ -165,11 +172,13 @@ eail_slideshow_class_init(EailSlideshowClass *klass)
 }
 
 /**
- * @brief Implementation of selection_count from AtkSelection interface
+ * @brief Gets the number of accessible children currently selected.
  *
- * @param selection EailSlideshow instance
+ * Implementation of get_selection_count from AtkSelection interface.
  *
- * @returns number of actions
+ * @param selection AtkSelection instance
+ *
+ * @returns integer representing the number of currently selected children
  */
 static gint
 eail_slideshow_selection_count(AtkSelection *selection)
@@ -180,12 +189,14 @@ eail_slideshow_selection_count(AtkSelection *selection)
 }
 
 /**
- * @brief Implementation of add_selection from AtkSelection interface
+ * @brief Adds the specified accessible child of the object to the object's selection
  *
- * @param selection EailSlideshow instance
+ * Implementation of add_selection from AtkSelection interface.
+ *
+ * @param selection AtkSelection instance
  * @param i index of object to select
  *
- * @returns TRUE on success FALSE otherwise
+ * @returns TRUE on success, FALSE otherwise
  */
 static gboolean
 eail_slideshow_add_selection(AtkSelection *selection, gint i)
@@ -207,12 +218,15 @@ eail_slideshow_add_selection(AtkSelection *selection, gint i)
 }
 
 /**
- * @brief Implementation ref_selecton from AtkSelection
+ * @brief Gets a reference to the accessible object representing
+ * the specified selected child of the object.
  *
- * @param selection EailSlideshow instance
+ * Implementation of ref_selecton from AtkSelection.
+ *
+ * @param selection AtkSelection instance
  * @param i index of selection
  *
- * @returns selected AtkObject
+ * @returns AtkObject representing the specified selected child
  */
 static AtkObject*
 eail_slideshow_ref_selection(AtkSelection *selection, gint i)
@@ -232,12 +246,14 @@ eail_slideshow_ref_selection(AtkSelection *selection, gint i)
 }
 
 /**
- * @brief Implementation of is_child_selected from AtkSelection
+ * @brief Determines if the current child of this object is selected.
  *
- * @param selection EailSlideshow instace
+ * Implementation of is_child_selected from AtkSelection.
+ *
+ * @param selection AtkSelection instance
  * @param i index of selection
  *
- * @return TRUE if object is selected FALSE otherwise
+ * @return TRUE if object is selected, FALSE otherwise
  */
 static gboolean
 eail_slideshow_is_child_selected(AtkSelection *selection, gint i)
@@ -263,7 +279,7 @@ eail_slideshow_is_child_selected(AtkSelection *selection, gint i)
  * implementation i.e hooks method pointers in the interface structure
  * to the implementing class's implementation.
  *
- * @param iface an AtkObject than implements AtkSelectionInterface
+ * @param iface AtkObject instance that implements AtkSelectionInterface
  */
 static void atk_selection_interface_init(AtkSelectionIface *iface)
 {
@@ -276,10 +292,14 @@ static void atk_selection_interface_init(AtkSelectionIface *iface)
 }
 
 /**
- * @brief Implementation of get_n_action from AtkAction interface
+ * @brief Gets the number of accessible actions available on the object
  *
- * @param action EailSlideshow instance
- * @returns number of implemented actions
+ * If there are more than one, the first one is considered the "default" action of the object.
+ *
+ * Implementation of get_n_actions from AtkAction interface.
+ *
+ * @param action AtkAction instance
+ * @returns integer representing the number of implemented actions
  */
 static gint
 eail_slideshow_n_actions_get(AtkAction *action)
@@ -290,12 +310,14 @@ eail_slideshow_n_actions_get(AtkAction *action)
 }
 
 /**
- * @brief Implementation of get_action_name from AtkAction interface
+ * @brief Gets the name of the specified action of the object
  *
- * @param action EailSlideshow instance
+ * Implementation of get_name from AtkAction interface.
+ *
+ * @param action AtkAction instance
  * @param i action index
  *
- * @returns acton name
+ * @returns string representing the name of the specified action
  */
 static const gchar*
 eail_slideshow_action_name_get(AtkAction *action, int i)
@@ -330,10 +352,11 @@ eail_slideshow_action_name_get(AtkAction *action, int i)
 
 /**
  * @brief Compares two doubles
+ *
  * @param A first number
  * @param B second number
  * @param max_ulps number of doubles between A and B
- * @returns TRUE if A == B, FALSE otherwise
+ * @returns TRUE if A equals B, FALSE otherwise
  */
 static gboolean
 _double_cmp(double A, double B, gint max_ulps)
@@ -360,9 +383,11 @@ _double_cmp(double A, double B, gint max_ulps)
 }
 
 /**
- * @brief Implementation of do action from AtkAction interface
+ * @brief Performs the specified action on the object
  *
- * @param action EailSlideshow instance
+ * Implementation of do_action from AtkAction interface.
+ *
+ * @param action AtkAction instance
  * @param i action index
  *
  * @returns TRUE on success, FALSE otherwise
@@ -415,12 +440,14 @@ eail_slideshow_do_action(AtkAction *action, gint i)
 }
 
 /**
- * @brief Implementation of get_description from AtkAction interface
+ * @brief Gets the description of the specified action of the object
  *
- * @param action EailSlideshow instance
+ * Implementation of get_description from AtkAction interface.
+ *
+ * @param action AtkAction instance
  * @param i action index
  *
- * @returns action description
+ * @returns string representing the description of the specified action
  */
 static const gchar *
 eail_slidshow_description_get(AtkAction *action, gint i)
@@ -453,11 +480,13 @@ eail_slidshow_description_get(AtkAction *action, gint i)
 }
 
 /**
- * @brief Implementation of set_description from AtkAction interface
+ * @brief Sets a description of the specified action of the object
  *
- * @param action EailSlideshow instance
+ * Implementation of set_description from AtkAction interface.
+ *
+ * @param action AtkAction instance
  * @param i action index
- * @param description action description to set
+ * @param description action's description to set
  *
  * @returns TRUE on success, FALSE otherwise
  */
@@ -501,7 +530,7 @@ eail_slideshow_description_set(AtkAction *action, gint i,
 /**
  * @brief AtkAction interface initialization
  *
- * @param iface EailSlideshow object
+ * @param iface AtkActionIface instance
  */
 static void
 atk_action_interface_init(AtkActionIface *iface)

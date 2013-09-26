@@ -35,7 +35,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailCalendar
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_CALENDAR(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), \
                                          EAIL_TYPE_CALENDAR, EailCalendar))
@@ -49,7 +49,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailCalendar class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_CALENDAR(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
                                          EAIL_TYPE_CALENDAR))
@@ -80,7 +80,7 @@ typedef struct _EailCalendarClass EailCalendarClass;
 /** @brief Definition of object structure for Atk EailCalendar*/
 struct _EailCalendar
 {
-   EailWidget parent; /*!< @brief parent object that functionality is being extended*/
+   EailWidget parent; /*!< @brief Parent widget whose functionality is being extended*/
 };
 
 /** @brief Definition of class structure for Atk EailCalendar*/

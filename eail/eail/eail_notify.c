@@ -19,7 +19,7 @@
 
 /**
  * @file eail_notify.c
- * @brief Implementation of notify widget
+ * @brief EailNotify implementation
  */
 
 #include <atk/atk.h>
@@ -40,7 +40,7 @@ G_DEFINE_TYPE(EailNotify, eail_notify, EAIL_TYPE_WIDGET);
 /**
  * @brief Initializer for AtkObject
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  * @param data initialization data
  */
 static void
@@ -53,7 +53,7 @@ eail_notify_initialize(AtkObject *obj, gpointer data)
 /**
  * @brief Initializer for GObject EailNotify instance
  *
- * @param button an EailNotify
+ * @param button EailNotify instance
  */
 static void
 eail_notify_init(EailNotify *button)
@@ -62,11 +62,11 @@ eail_notify_init(EailNotify *button)
 }
 
 /**
- * @brief Helper function for getting nested content in notify widget
+ * @brief Helper function for getting nested content in a notify widget
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  *
- * @returns nested widget content from notify widget
+ * @returns Evas_Object representing nested content in the notify widget
  */
 static Evas_Object *
 _eail_get_nested_widget(AtkObject *obj)
@@ -85,13 +85,13 @@ _eail_get_nested_widget(AtkObject *obj)
 }
 
 /**
- * @brief Implementation AtkObject->get_n_children callback
+ * @brief Gets the number of accessible children of the accessible.
  *
- * ATK doc says:\n
- * Gets the number of accessible children of the accessible.
- * @param obj an AtkObject
+ * Implementation of AtkObject->get_n_children callback.
  *
- * @returns an integer representing the number of accessible children of
+ * @param obj AtkObject instance
+ *
+ * @returns integer representing the number of accessible children of
  * the accessible
  */
 static gint
@@ -107,18 +107,18 @@ eail_notify_get_n_children(AtkObject *obj)
 }
 
 /**
- * @brief Implementation AtkObject->ref_child callback
+ * @brief Gets a reference to the specified accessible child of the object.
  *
- * ATK doc says:\n
- * Gets a reference to the specified accessible child of the object. The
- * accessible children are 0-based so the first accessible child is at index 0,
+ * The accessible children are 0-based so the first accessible child is at index 0,
  * the second at index 1 and so on.
  *
- * @param obj an AtkObject
+ * Implementation of AtkObject->ref_child callback.
+ *
+ * @param obj AtkObject instance
  * @param i index of child to ref
  *
- * @returns an AtkObject representing the specified accessible child of the
- * accessible.
+ * @returns AtkObject representing the specified accessible child of the
+ * accessible
  */
 static AtkObject *
 eail_notify_ref_child(AtkObject *obj, gint i)
@@ -147,10 +147,11 @@ eail_notify_finalize(GObject *object)
 }
 
 /**
- * @brief Initializer for EailNotify GObject class (defines callbacks for
- * base AtkObject)
+ * @brief Initializer for EailNotify GObject class
  *
- * @param klass an EailNotify class
+ * Defines callbacks for base AtkObject.
+ *
+ * @param klass EailNotifyClass instance
  */
 static void
 eail_notify_class_init(EailNotifyClass *klass)

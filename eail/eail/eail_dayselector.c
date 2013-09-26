@@ -19,7 +19,7 @@
 
 /**
  * @file eail_dayselector.c
- * @brief Implementation of eail representation of dayselector elementary widget
+ * @brief EailDayselector implementation
  */
 
 #include <Elementary.h>
@@ -42,8 +42,8 @@ G_DEFINE_TYPE(EailDayselector, eail_dayselector, EAIL_TYPE_WIDGET);
 /**
  * @brief Initializer for AtkObjectClass
  *
- * @param obj an AtkObject
- * @param data initialization data (Evas_Object*)
+ * @param obj AtkObject instance
+ * @param data initialization data
  */
 static void
 eail_dayselector_initialize(AtkObject *obj, gpointer data)
@@ -55,7 +55,7 @@ eail_dayselector_initialize(AtkObject *obj, gpointer data)
 /**
  * @brief GObject-initializer for EailDayselector
  *
- * @param button an EailDayselector
+ * @param button EailDayselector instance
  */
 static void
 eail_dayselector_init(EailDayselector *button)
@@ -63,14 +63,13 @@ eail_dayselector_init(EailDayselector *button)
 }
 
 /**
- * @brief Implementation AtkObject->get_n_children callback
+ * @brief Gets the number of accessible children of the accessible.
  *
- * ATK doc says:\n
- * Gets the number of accessible children of the accessible.
+ * Implementation of AtkObject->get_n_children callback.
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  *
- * @returns an integer representing the number of accessible children of
+ * @returns integer representing the number of accessible children of
  * the accessible
  */
 static gint
@@ -80,10 +79,10 @@ eail_dayselector_get_n_children(AtkObject *obj)
 }
 
 /**
- * @brief Helper func for generating content string name for given day number
- * @param day_num number of day in week
+ * @brief Helper function for generating content string name for given day number
+ * @param day_num integer which represents a particular day of the week
  *
- * @returns an Eina_Strbuf* object filled with content day-name
+ * @returns Eina_Strbuf object filled with content day-name
  */
 static Eina_Strbuf *
 _eail_dayselector_gen_day_str(int day_num)
@@ -97,13 +96,14 @@ _eail_dayselector_gen_day_str(int day_num)
 }
 
 /**
- * @brief Helper func for creating dayselector child content
+ * @brief Helper function for creating the content of dayselector's child
+ *
+ * Unref it when it is no longer needed.
  *
  * @param day_check_widget check widget that represents a day in dayselector
  * widget
  *
- * @returns an AtkObject representation of given day in dayselector. Unref
- * it when it is no longer needed.
+ * @returns AtkObject representing a given day in dayselector.
  */
 static AtkObject *
 _eail_create_dayselector_child(Evas_Object *day_check_widget)
@@ -117,18 +117,18 @@ _eail_create_dayselector_child(Evas_Object *day_check_widget)
 }
 
 /**
- * @brief Implementation AtkObject->ref_child callback
+ * @brief Gets a reference to the specified accessible child of the object.
  *
- * ATK doc says:\n
- * Gets a reference to the specified accessible child of the object. The
- * accessible children are 0-based so the first accessible child is at index 0,
+ * The accessible children are 0-based so the first accessible child is at index 0,
  * the second at index 1 and so on.
  *
- * @param obj an AtkObject
+ * Implementation of AtkObject->ref_child callback.
+ *
+ * @param obj AtkObject instance
  * @param i child index
  *
- * @returns an AtkObject representing the specified accessible child of the
- * accessible.
+ * @returns AtkObject representing the specified accessible child of the
+ * accessible
  */
 static AtkObject *
 eail_dayselector_ref_child(AtkObject *obj, gint i)
@@ -163,10 +163,11 @@ eail_dayselector_finalize(GObject *object)
 }
 
 /**
- * @brief Initializer for GObject EailDayselectorClass class (defines callbacks
- * for base AtkObject)
+ * @brief Initializer for GObject EailDayselectorClass class
  *
- * @param klass an EailDayselectorClass
+ * Defines callbacks for base AtkObject.
+ *
+ * @param klass EailDayselectorClass instance
  */
 static void
 eail_dayselector_class_init(EailDayselectorClass *klass)

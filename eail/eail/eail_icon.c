@@ -34,7 +34,7 @@ G_DEFINE_TYPE(EailIcon, eail_icon, EAIL_TYPE_IMAGE);
 /**
  * @brief EailIcon initializer
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  * @param data initialization data
  */
 static void
@@ -46,13 +46,14 @@ eail_icon_initialize(AtkObject *obj, gpointer data)
 }
 
 /**
- * @brief Gets obj name
+ * @brief Gets the name of obj
  *
- * Returns obj name or obj icon file path if obj has no assigned name
- * or null if none of the previous applies
+ * Returns obj's name or obj's icon file path if obj has no assigned name,
+ * or null if none of the previous applies.
  *
- * @param obj an AtkObject
- * @returns obj name or obj icon file path
+ * @param obj AtkObject instance
+ * @returns string representing obj's name or its file path,
+ * or null if obj doesn't have a name or an a file path
  */
 static const gchar*
 eail_icon_get_name(AtkObject *obj)
@@ -76,7 +77,7 @@ eail_icon_get_name(AtkObject *obj)
 /**
  * @brief EailIcon instance initializer
  *
- * @param icon an EailIcon
+ * @param icon EailIcon instance
  */
 static void
 eail_icon_init(EailIcon *icon)
@@ -85,7 +86,7 @@ eail_icon_init(EailIcon *icon)
 
 /**
  * @brief EailItem class initializer
- * @param klass an EailIcon class
+ * @param klass EailIconClass instance
  */
 static void
 eail_icon_class_init(EailIconClass *klass)

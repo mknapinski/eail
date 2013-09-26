@@ -35,7 +35,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailFileselector
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_FILESELECTOR(obj)            (G_TYPE_CHECK_INSTANCE_CAST((obj), \
                                            EAIL_TYPE_FILESELECTOR, EailFileselector))
@@ -49,7 +49,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailFileselector class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_FILESELECTOR(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
                                            EAIL_TYPE_FILESELECTOR))
@@ -80,7 +80,7 @@ typedef struct _EailFileselectorClass EailFileselectorClass;
 /** @brief Definition of object structure for Atk EailFileselector*/
 struct _EailFileselector
 {
-   /** @brief Parent object that functionality is being extended*/
+   /** @brief Parent widget whose functionality is being extended*/
    EailLayout parent;
 };
 

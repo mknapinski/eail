@@ -35,7 +35,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailGengrid
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_GENGRID(obj)            (G_TYPE_CHECK_INSTANCE_CAST((obj), \
                                       EAIL_TYPE_GENGRID, EailGengrid))
@@ -49,7 +49,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailGengrid class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_GENGRID(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
                                       EAIL_TYPE_GENGRID))
@@ -80,7 +80,7 @@ typedef struct _EailGengridClass EailGengridClass;
 /** @brief Definition of object structure for Atk EailGengrid*/
 struct _EailGengrid
 {
-   /** @brief Parent object that functionality is being extended*/
+   /** @brief Parent widget whose functionality is being extended*/
    EailWidget parent;
 };
 

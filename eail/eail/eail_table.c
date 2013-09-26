@@ -19,14 +19,14 @@
 
 /**
  * @file eail_table.c
- * @brief Implementation of elm_table as AtkObject
+ * @brief EailTable implementation
  */
 #include <Elementary.h>
 
 #include "eail_table.h"
 
 /**
- * @brief Smart type used by elm_table to get internal content of widget
+ * @brief Smart type used by elm_table to get internal content of the widget
  */
 #define TABLE_SMART_TYPE "Evas_Object_Table"
 
@@ -38,11 +38,11 @@
 G_DEFINE_TYPE(EailTable, eail_table, EAIL_TYPE_WIDGET);
 
 /**
- * @brief EailTable initialize
+ * @brief Initialize EailTable
  *
  * Initialization of parent object, role etc.
  *
- * @param object EailTable instance
+ * @param object AtkObject instance
  * @param data user data passed to initialize
  */
 static void
@@ -54,7 +54,7 @@ eail_table_initialize(AtkObject *object, gpointer data)
 }
 
 /**
- * @brief EailTable init
+ * @brief EailTable initialization
  *
  * @param table EailTable instance
  */
@@ -64,11 +64,13 @@ eail_table_init(EailTable *table)
 }
 
 /**
- * @brief Implementation of get_widget_children from EailWidget
+ * @brief Gets a list of accessible children of widget
+ *
+ * Implementation of get_widget_children from EailWidget.
  *
  * @param widget EailTable instance
  *
- * @returns list of widgets
+ * @returns Eina_List representing the list of widget's children
  */
 static Eina_List *
 eail_table_children_get(EailWidget *widget)
@@ -96,9 +98,9 @@ eail_table_children_get(EailWidget *widget)
 }
 
 /**
- * @brief EailTable class initialize
+ * @brief EailTable class initialization
  *
- * @param klass EailTable class
+ * @param klass EailTableClass instance
  */
 static void
 eail_table_class_init(EailTableClass *klass)

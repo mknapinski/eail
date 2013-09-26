@@ -19,7 +19,7 @@
 
 /**
  * @file eail_gengrid.c
- * @brief Implementation of gengrid widget
+ * @brief EailGengrid implementation
  */
 
 #include <Elementary.h>
@@ -108,10 +108,10 @@ eail_gengrid_item_handle_unrealized_event(void *data,
 }
 
 /**
- * @brief Initialize EailGengrid object
+ * @brief Initializes EailGengrid object
  *
  * @param obj EailGengrid instance
- * @param data user data passed to initialization
+ * @param data user data passed for initialization
  */
 static void
 eail_gengrid_initialize(AtkObject *obj, gpointer data)
@@ -138,11 +138,11 @@ eail_gengrid_initialize(AtkObject *obj, gpointer data)
 }
 
 /**
- * @brief Get list of created widgets
+ * @brief Gets the list of created widgets
  *
  * @param gengrid EailGengrid instance
  *
- * @returns list of widgets elm_gengrid holds
+ * @returns Eina_List representing the list of widgets elm_gengrid holds
  */
 static Eina_List *
 eail_gengrid_items_get(EailGengrid *gengrid)
@@ -155,11 +155,11 @@ eail_gengrid_items_get(EailGengrid *gengrid)
 }
 
 /**
- * @brief Get number of created widgets
+ * @brief Gets the number of created widgets
  *
- * @param obj EailGengrid instance
+ * @param obj AtkObject instance
  *
- * @returns number of created widgets
+ * @returns integer representing the number of created widgets
  */
 static gint
 eail_gengrid_n_items_get(AtkObject *obj)
@@ -173,12 +173,12 @@ eail_gengrid_n_items_get(AtkObject *obj)
 }
 
 /**
- * @brief Get reference to elm_gengrid child as AtkObject
+ * @brief Gets the reference to the specified elm_gengrid's child
  *
- * @param obj EailGengrid instance
+ * @param obj AtkObject instance
  * @param i child index
  *
- * @returns reference to AtkObject
+ * @returns AtkObject representing the elm_gengrid's child
  */
 static AtkObject *
 eail_gengrid_ref_child(AtkObject *obj, gint i)
@@ -200,11 +200,15 @@ eail_gengrid_ref_child(AtkObject *obj, gint i)
 }
 
 /**
- * @brief Implementation of ref_state_set from AtkObject
+ * @brief Gets a reference to the state set of the accessible
  *
- * @param obj EailGengrid instance
+ * The caller must unreference it when it is no longer needed.
  *
- * @returns reference to an state set of accessible
+ * Implementation of ref_state_set from AtkObject.
+ *
+ * @param obj AtkObject instance
+ *
+ * @returns AtkStateSet representing the state set of the accessible
  */
 static AtkStateSet *
 eail_gengrid_ref_state_set(AtkObject *obj)
@@ -222,7 +226,7 @@ eail_gengrid_ref_state_set(AtkObject *obj)
 }
 
 /**
- * @brief Init EailGengrid object
+ * @brief Initializes EailGengrid object
  *
  * @param gengrid EailGengrid instance
  */
@@ -232,9 +236,9 @@ eail_gengrid_init(EailGengrid *gengrid)
 }
 
 /**
- * @brief Init EailGengrid class
+ * @brief Initializes EailGengrid class
  *
- * @param klass EailGengrid class
+ * @param klass EailGengridClass instance
  */
 static void
 eail_gengrid_class_init(EailGengridClass *klass)
@@ -248,12 +252,12 @@ eail_gengrid_class_init(EailGengridClass *klass)
 }
 
 /**
- * @brief Get name of elm_gengrid child
+ * @brief Gets the name of elm_gengrid child
  *
- * @param parent EailGengrid instance
- * @param item EailGengrid child instance
+ * @param parent EailItemParent instance
+ * @param item EailItem child instance
  *
- * @returns string representing item name
+ * @returns string representing the item's name
  */
 static const gchar *
 eail_gengrid_item_name_get(EailItemParent *parent, EailItem *item)
@@ -266,12 +270,12 @@ eail_gengrid_item_name_get(EailItemParent *parent, EailItem *item)
 }
 
 /**
- * @brief Get item index in parent object
+ * @brief Gets the item's index in parent object
  *
- * @param parent EailGengrid instance
- * @param item EailGengrid child
+ * @param parent EailItemParent instance
+ * @param item EailItem child instance
  *
- * @returns child index in parent object
+ * @returns integer representing the child's index in parent
  */
 static int
 eail_gengrid_item_index_in_parent_get(EailItemParent *parent, EailItem *item)
@@ -284,13 +288,13 @@ eail_gengrid_item_index_in_parent_get(EailItemParent *parent, EailItem *item)
 }
 
 /**
- * @brief Get state set of EailGengrid item
+ * @brief Gets the state set of EailGengrid item
  *
- * @param parent EailGengrid instance
- * @param item EailGengrid child instance
+ * @param parent EailItemParent instance
+ * @param item EailItem child instance
  * @param state_set AtkStateSet to fill
  *
- * @returns state set of EailGengrid child
+ * @returns AtkStateSet representing the state set of the child
  */
 static AtkStateSet *
 eail_gengrid_ref_item_state_set(EailItemParent *parent,
@@ -321,7 +325,7 @@ eail_gengrid_ref_item_state_set(EailItemParent *parent,
 }
 
 /**
- * @brief Grabs focus on EailGengrid item
+ * @brief Grabs focus of EailGengrid item
  *
  * @param parent EailGengrid instance
  * @param item EailGengrid child instance
@@ -344,14 +348,16 @@ eail_gengrid_grab_item_focus(EailItemParent *parent,
 }
 
 /**
- * @brief Implementation of get_extents from AtkComponent for EailGengrid child
+ * @brief Gets the rectangle which gives the extent of the component
+ *
+ * Implementation of get_extents from AtkComponent for EailGengrid child.
  *
  * @param parent EailGengrid instance
  * @param item EailGengrid child instance
- * @param x address to store x coordinate
- * @param y address to store y coordinate
- * @param width address to store width
- * @param height address to store height
+ * @param [out] x x coordinate
+ * @param [out] y coordinate
+ * @param [out] width width of the rectangle
+ * @param [out] height height of the rectangle
  * @param coord_type specifies whether the coordinates are relative to the screen or to the components top level window
  */
 static void
@@ -383,11 +389,13 @@ eail_gengrid_item_extents_get(EailItemParent *parent,
 }
 
 /**
- * @brief Implementation of EailItemParent->get_actions_supported callback
+ * @brief Gets supported actions
  *
- * @param parent an EailItemParent
- * @param item an EailItem
- * @returns enum representing supported actions
+ * Implementation of EailItemParent->get_actions_supported callback.
+ *
+ * @param parent EailItemParent instance
+ * @param item EailItem instance
+ * @returns implementation representing supported actions
  */
 static gint
 eail_gengrid_get_actions_supported(EailItemParent   *parent,
@@ -398,9 +406,9 @@ eail_gengrid_get_actions_supported(EailItemParent   *parent,
 }
 
 /**
- * @brief EailItemParent iterface initialization
+ * @brief EailItemParent interface initialization
  *
- * @param iface EailItemParentIface iterface instace
+ * @param iface EailItemParentIface instance
  */
 static void
 eail_item_parent_interface_init(EailItemParentIface *iface)
@@ -416,11 +424,11 @@ eail_item_parent_interface_init(EailItemParentIface *iface)
 }
 
 /**
- * @brief Helper function to get rows and columns count
+ * @brief Helper function for getting rows and columns count
  *
  * @param object elm_gengrid instance
- * @param rows address to store rows count
- * @param columns address to store columns count
+ * @param [out] rows rows count
+ * @param [out] columns columns count
  */
 static void
 _get_n_rows_columns(const Evas_Object *object,
@@ -453,11 +461,13 @@ _get_n_rows_columns(const Evas_Object *object,
 
 
 /**
- * @brief Implementation of get_n_rows from AtkTable
+ * @brief Gets the number of rows in the table
  *
- * @param table EailGengrid instance
+ * Implementation of get_n_rows from AtkTable.
  *
- * @returns number of rows
+ * @param table AtkTable instance
+ *
+ * @returns integer representing the number of rows
  */
 static gint
 eail_gengrid_n_rows_get(AtkTable *table)
@@ -476,11 +486,13 @@ eail_gengrid_n_rows_get(AtkTable *table)
 }
 
 /**
- * @brief Implementation of get_n_columns from AtkTable
+ * @brief Gets the number of columns in the table
  *
- * @param table EailGengrid instance
+ * Implementation of get_n_columns from AtkTable.
  *
- * @returns number of columns
+ * @param table AtkTable instance
+ *
+ * @returns integer representing the number of columns
  */
 static gint
 eail_gengrid_n_columns_get(AtkTable *table)
@@ -499,13 +511,15 @@ eail_gengrid_n_columns_get(AtkTable *table)
 }
 
 /**
- * @brief Implementation of get_index_at from AtkTable
+ * @brief Gets a gint representing the index at the specified row and column
  *
- * @param table EailGengrid instance
+ * Implementation of get_index_at from AtkTable.
+ *
+ * @param table AtkTable instance
  * @param row number of row in table
  * @param column number of column in table
  *
- * @returns index at specified position
+ * @returns integer representing the index of the specified position
  */
 static gint
 eail_gengrid_index_at_get(AtkTable *table, gint row, gint column)
@@ -535,13 +549,15 @@ eail_gengrid_index_at_get(AtkTable *table, gint row, gint column)
 }
 
 /**
- * @brief Implementation of ref_at from AtkTable
+ * @brief Get a reference to the table cell at row, column
  *
- * @param table EailGengrid instance
+ * Implementation of ref_at from AtkTable.
+ *
+ * @param table AtkTable instance
  * @param row number of row in table
  * @param column number of column in table
  *
- * @returns referred child object
+ * @returns AtkObject representing the child object
  */
 static AtkObject *
 eail_gengrid_ref_at(AtkTable *table, gint row, gint column)
@@ -557,11 +573,11 @@ eail_gengrid_ref_at(AtkTable *table, gint row, gint column)
 }
 
 /**
- * @brief Helper function to get object position in table at given index
+ * @brief Helper function for getting object's position in table at given index
  *
- * @param widget elm_gengrid widget
- * @param row address to store row number
- * @param column address to store column number
+ * @param widget Evas_Object instance
+ * @param [out] row row number
+ * @param [out] column column number
  * @param index index of child item
  */
 static void
@@ -585,12 +601,14 @@ _get_item_pos(const Evas_Object *widget, gint *row, gint *column, gint index)
 }
 
 /**
- * @brief Implementation of get_column_at_index from AtkTable
+ * @brief Gets an integer representing the column at the specified index
  *
- * @param table EailGengrid instance
- * @param index number of child index
+ * Implementation of get_column_at_index from AtkTable.
  *
- * @returns column number in table
+ * @param table AtkTable instance
+ * @param index child index
+ *
+ * @returns integer representing the column number in table
  */
 static gint
 eail_gengrid_column_at_index_get(AtkTable *table, gint index)
@@ -609,12 +627,14 @@ eail_gengrid_column_at_index_get(AtkTable *table, gint index)
 }
 
 /**
- * @brief Implementation of get_row_at_index from AtkTable
+ * @brief Gets a gint representing the row at the specified index
  *
- * @param table EailGengrid instance
- * @param index index of child
+ * Implementation of get_row_at_index from AtkTable.
  *
- * @returns row number in table
+ * @param table AtkTable instance
+ * @param index child index
+ *
+ * @returns integer representing the row number in table
  */
 static gint
 eail_gengrid_row_at_index_get(AtkTable *table, gint index)
@@ -633,13 +653,16 @@ eail_gengrid_row_at_index_get(AtkTable *table, gint index)
 }
 
 /**
- * @brief Implementation of is_selected from AtkTable
+ * @brief Gets a boolean value indicating whether the accessible object
+ * at the specified row and column is selected
  *
- * @param table EailGengrid instance
- * @param row row number
- * @param column column number
+ * Implementation of is_selected from AtkTable.
  *
- * @returns TRUE if selected FALSE otherwise
+ * @param table AtkTable instance
+ * @param row row's number
+ * @param column column's number
+ *
+ * @returns TRUE if selected, FALSE otherwise
  */
 static gboolean
 eail_gengrid_is_selected(AtkTable *table, gint row, gint column)
@@ -664,9 +687,11 @@ eail_gengrid_is_selected(AtkTable *table, gint row, gint column)
 }
 
 /**
- * @brief Implementation of is_row_selected from AtkTable interface
+ * @brief Gets a boolean value indicating whether the specified row is selected
  *
- * @param table EailGengrid instance
+ * Implementation of is_row_selected from AtkTable interface.
+ *
+ * @param table AtkTable instance
  * @param row number of row in table
  *
  * @returns TRUE if selected, FALSE otherwise
@@ -713,12 +738,17 @@ eail_gengrid_is_row_selected(AtkTable *table, gint row)
 }
 
 /**
- * @brief Implementation of get_selected_rows from AtkTable interface
+ * @brief Gets the selected rows of the table by initializing selected
+ * with the selected row numbers
  *
- * @param table EailGengrid instace
- * @param selected address to gint* for store selected rows number
+ * This array should be freed by the caller.
  *
- * @returns selected rows count
+ * Implementation of get_selected_rows from AtkTable interface.
+ *
+ * @param table AtkTable instance
+ * @param [out] selected selected rows number
+ *
+ * @returns integer representing the selected rows count
  */
 static gint
 eail_gengrid_selected_rows_get(AtkTable *table, gint **selected)
@@ -746,11 +776,11 @@ eail_gengrid_selected_rows_get(AtkTable *table, gint **selected)
 }
 
 /**
- * @brief Helper function to set row selection
+ * @brief Helper function for setting row selection
  *
- * @param table EailGengrid instance
+ * @param table AtkTable instance
  * @param row row number
- * @param selection EINA_TRUE on selection, EINA_FALSE on remove selection
+ * @param selection EINA_TRUE for selection, EINA_FALSE for removing selection
  */
 static void
 _set_row_selection(AtkTable *table, int row, Eina_Bool selection)
@@ -774,9 +804,11 @@ _set_row_selection(AtkTable *table, int row, Eina_Bool selection)
 }
 
 /**
- * @brief Implementation of add_row_selection from AtkTable
+ * @brief Adds the specified row to the selection
  *
- * @param table EailGengrid instance
+ * Implementation of add_row_selection from AtkTable.
+ *
+ * @param table AtkTable instance
  * @param row row number in table
  *
  * @returns TRUE on success, FALSE otherwise
@@ -800,9 +832,11 @@ eail_gengrid_add_row_selection(AtkTable *table, gint row)
 }
 
 /**
- * @brief Implementation of remove_row_selection from AtkTable interface
+ * @brief Removes the specified row from the selection
  *
- * @param table EailGengrid instance
+ * Implementation of remove_row_selection from AtkTable interface.
+ *
+ * @param table AtkTable instance
  * @param row number of row in table
  *
  * @returns TRUE on success, FALSE otherwise
@@ -827,9 +861,11 @@ eail_gengrid_remove_row_selection(AtkTable *table, gint row)
 }
 
 /**
- * @brief Implementation of is_column_selected from AtkTable interface
+ * @brief Gets a boolean value indicating whether the specified column is selected
  *
- * @param table EailGengrid implementation
+ * Implementation of is_column_selected from AtkTable interface.
+ *
+ * @param table AtkTable implementation
  * @param column number of column in table
  *
  * @returns TRUE on selection, FALSE otherwise
@@ -871,11 +907,11 @@ eail_gengrid_is_column_selected(AtkTable *table, gint column)
 }
 
 /**
- * @brief Helper function to set column selection in elm_gengrid
+ * @brief Helper function for setting column selection in elm_gengrid
  *
- * @param table EailGengrid instance
+ * @param table AtkTable instance
  * @param column number of column in table
- * @param selection EINA_TRUE on selection, EINA_FALSE otherwise
+ * @param selection EINA_TRUE for selection, EINA_FALSE otherwise
  */
 static void
 _set_column_selection(AtkTable *table, int column, Eina_Bool selection)
@@ -899,9 +935,11 @@ _set_column_selection(AtkTable *table, int column, Eina_Bool selection)
 }
 
 /**
- * @brief Implementation of add_column_selection from AtkTable interface
+ * @brief Adds the specified column to the selection
  *
- * @param table EailGengrid instance
+ * Implementation of add_column_selection from AtkTable interface.
+ *
+ * @param table AtkTable instance
  * @param column number of column in table
  *
  * @returns TRUE on success, FALSE otherwise
@@ -924,9 +962,11 @@ eail_gengrid_add_column_selection(AtkTable *table, gint column)
 }
 
 /**
- * @brief Implementation remove_column_selection from AtkTable
+ * @brief Removes the specified column from the selection
  *
- * @param table EailGengrid instance
+ * Implementation of remove_column_selection from AtkTable.
+ *
+ * @param table AtkTable instance
  * @param column column number in table
  *
  * @returns TRUE on success, FALSE otherwise
@@ -952,7 +992,7 @@ eail_gengrid_remove_column_selection(AtkTable *table, gint column)
 /**
  * @brief AtkTable interface initialization
  *
- * @param iface EailGengrid instance
+ * @param iface AtkTableIface instance
  */
 static void
 atk_table_interface_init(AtkTableIface *iface)
@@ -982,9 +1022,11 @@ atk_table_interface_init(AtkTableIface *iface)
 }
 
 /**
- * @brief Implementation of add_selection from AtkSelection interface
+ * @brief Adds the specified accessible child of the object to the object's selection
  *
- * @param selection EailGengrid instance
+ * Implementation of add_selection from AtkSelection interface.
+ *
+ * @param selection AtkSelection instance
  * @param i index of child to select
  *
  * @returns TRUE on success, FALSE otherwise
@@ -1017,11 +1059,13 @@ eail_gengrid_selection_add(AtkSelection *selection, gint i)
 }
 
 /**
- * @brief Implementation of clear_selection from AtkSelection
+ * @brief Clears the selection in the object so that no children in the object are selected
  *
- * @param selection EailGengrid instance
+ * Implementation of clear_selection from AtkSelection.
  *
- * @returns TRUE on success FALSE otherwise
+ * @param selection AtkSelection instance
+ *
+ * @returns TRUE on success, FALSE otherwise
  */
 static gboolean
 eail_gengrid_selection_clear(AtkSelection *selection)
@@ -1052,12 +1096,20 @@ eail_gengrid_selection_clear(AtkSelection *selection)
 
 
 /**
- * @brief Implementation of ref_selection from AtkSelection interface
+ * @brief Gets a reference to the accessible object representing the specified
+ * selected child of the object
  *
- * @param selection EailGengrid instance
+ * Note: callers should not rely on NULL
+ * or on a zero value for indication of whether AtkSelectionIface is
+ * implemented, they should use type checking/interface checking macros
+ * or the atk_get_accessible_value() convenience method.
+ *
+ * Implementation of ref_selection from AtkSelection interface.
+ *
+ * @param selection AtkSelection instance
  * @param i index of selected child
  *
- * @returns reffered selected object
+ * @returns AtkObject representing the selected object
  */
 static AtkObject *
 eail_gengrid_selection_ref(AtkSelection *selection, gint i)
@@ -1096,11 +1148,18 @@ eail_gengrid_selection_ref(AtkSelection *selection, gint i)
 }
 
 /**
- * @brief Implementation of get_selection_count from AtkSelection interface
+ * @brief Gets the number of accessible children currently selected.
  *
- * @param selection EailGengrid instance
+ * Note: callers should not rely on NULL or on a zero value
+ * for indication of whether AtkSelectionIface is implemented,
+ * they should use type checking/interface checking macros or
+ * the atk_get_accessible_value() convenience method.
  *
- * @returns number of selected items
+ * Implementation of get_selection_count from AtkSelection interface.
+ *
+ * @param selection AtkSelection instance
+ *
+ * @returns integer representing the number of selected items
  */
 static gint
 eail_gengrid_selection_count_get(AtkSelection *selection)
@@ -1127,12 +1186,19 @@ eail_gengrid_selection_count_get(AtkSelection *selection)
 }
 
 /**
- * @brief Implementation of is_child_selected from AtkSelection interface
+ * @brief Determines if the current child of this object is selected.
  *
- * @param selection EailGengrid instance
+ * Note: callers should not rely on NULL or on a zero value for
+ * indication of whether AtkSelectionIface is implemented, they
+ * should use type checking/interface checking macros or
+ * the atk_get_accessible_value() convenience method.
+ *
+ * Implementation of is_child_selected from AtkSelection interface.
+ *
+ * @param selection AtkSelection instance
  * @param i index of child
  *
- * @returns TRUE on selction, FALSE otherwise
+ * @returns TRUE on selection, FALSE otherwise
  */
 static gboolean
 eail_gengrid_selection_is_child_selected(AtkSelection *selection, int i)
@@ -1160,9 +1226,11 @@ eail_gengrid_selection_is_child_selected(AtkSelection *selection, int i)
 }
 
 /**
- * @brief Implementation of remove_selection from AtkSelection
+ * @brief Removes the specified child of the object from the object's selection
  *
- * @param selection  EailGengrid instance
+ * Implementation of remove_selection from AtkSelection.
+ *
+ * @param selection AtkSelection instance
  * @param i index of selected child
  *
  * @returns TRUE on success, FALSE otherwise
@@ -1198,9 +1266,11 @@ eail_gengrid_selection_remove(AtkSelection *selection, gint i)
 }
 
 /**
- * @brief Implementation of select_all from AtkSelection interface
+ * @brief Causes every child of the object to be selected if the object supports multiple selections
  *
- * @param selection EailGengrid instance
+ * Implementation of select_all from AtkSelection interface.
+ *
+ * @param selection AtkSelection instance
  *
  * @return TRUE on success, FALSE otherwise
  */
@@ -1226,7 +1296,7 @@ eail_gengrid_selection_select_all(AtkSelection *selection)
 /**
  * @brief AtkSelection interface initialization
  *
- * @param iface EailGengrid instance
+ * @param iface AtkSelectionIface instance
  */
 static void
 atk_selection_interface_init(AtkSelectionIface *iface)

@@ -36,7 +36,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailItem
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_ITEM(obj)            (G_TYPE_CHECK_INSTANCE_CAST((obj), \
                                    EAIL_TYPE_ITEM, EailItem))
@@ -50,7 +50,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailItem class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_ITEM(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
                                    EAIL_TYPE_ITEM))
@@ -81,7 +81,7 @@ typedef struct _EailItemClass EailItemClass;
 /** @brief Definition of object structure for Atk EailItem*/
 struct _EailItem
 {
-   /** @brief Parent object that functionality is being extended*/
+   /** @brief Parent AtkObject whose functionality is being extended*/
    AtkObject parent;
 
    /** @brief Elementary item that is being represented by EailItem accessible

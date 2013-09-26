@@ -19,7 +19,7 @@
 
 /**
  * @file eail_naviframe.c
- * @brief Implementation of Naviframe widget
+ * @brief EailNaviframe implementation
  */
 
 #include "eail_naviframe.h"
@@ -39,14 +39,13 @@
 G_DEFINE_TYPE(EailNaviframe, eail_naviframe, EAIL_TYPE_ACTION_WIDGET);
 
 /**
- * @brief Implementation AtkObject->get_n_children callback
+ * @brief Gets the number of accessible children of the accessible
  *
- * ATK doc says:\n
- * Gets the number of accessible children of the accessible.
+ * Implementation of AtkObject->get_n_children callback.
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  *
- * @returns an integer representing the number of accessible children of
+ * @returns integer representing the number of accessible children of
  * the accessible
  */
 static gint
@@ -69,9 +68,9 @@ eail_naviframe_n_children_get(AtkObject *obj)
 }
 
 /**
- * @brief click action callback
+ * @brief 'click' action callback
  *
- * @param action an AtkAction
+ * @param action AtkAction instance
  * @param data user data
  * @return TRUE on success, FALSE otherwise
  */
@@ -99,9 +98,9 @@ eail_naviframe_action_click(AtkAction *action, void *data)
 }
 
 /**
- * @brief Inits Action interface for Naviframe
+ * @brief Initializes Action interface for Naviframe
  *
- * @param action_widget an EailActionWidget
+ * @param action_widget EailActionWidget instance
  */
 static void eail_naviframe_actions_init(EailActionWidget *action_widget)
 {
@@ -113,7 +112,7 @@ static void eail_naviframe_actions_init(EailActionWidget *action_widget)
 /**
  * @brief Initializer for GObject EailNaviframe instance
  *
- * @param naviframe an EailNaviframe
+ * @param naviframe EailNaviframe instance
  */
 static void
 eail_naviframe_init(EailNaviframe *naviframe)
@@ -123,10 +122,10 @@ eail_naviframe_init(EailNaviframe *naviframe)
 /**
  * @brief Returns naviframe-page implementation for given object item
  *
- * @param naviframe an naviframe AtkObject
- * @param item an Elm_Object_Item for naviframe-page
+ * @param naviframe AtkObject instance
+ * @param item Elm_Object_Item for naviframe-page
  *
- * @returns an AtkObject* representation for naviframe-page
+ * @returns AtkObject representation of naviframe-page
  */
 static AtkObject *
 _eail_naviframe_get_naviframe_page_for_item(AtkObject *naviframe,
@@ -152,18 +151,18 @@ _eail_naviframe_get_naviframe_page_for_item(AtkObject *naviframe,
 }
 
 /**
- * @brief Implementation AtkObject->ref_child callback
+ * @brief Gets a reference to the specified accessible child of the object.
  *
- * ATK doc says:\n
- * Gets a reference to the specified accessible child of the object. The
- * accessible children are 0-based so the first accessible child is at index 0,
+ * The accessible children are 0-based so the first accessible child is at index 0,
  * the second at index 1 and so on.
  *
- * @param obj an AtkObject
+ * Implementation of AtkObject->ref_child callback.
+ *
+ * @param obj AtkObject instance
  * @param i child index
  *
- * @returns an AtkObject representing the specified accessible child of the
- * accessible.
+ * @returns AtkObject representing the specified accessible child of the
+ * accessible
  */
 static AtkObject *
 eail_naviframe_ref_child(AtkObject *obj, gint i)
@@ -197,7 +196,8 @@ eail_naviframe_ref_child(AtkObject *obj, gint i)
 }
 
 /**
- * @brief Destructor for naviframe object
+ * @brief Destructor of naviframe object
+ * @param obj GObject instance
  */
 static void
 eail_naviframe_finalize(GObject *obj)
@@ -256,11 +256,11 @@ _eail_naviframe_emit_signals_changed(AtkObject *naviframe)
 }
 
 /**
- * @brief handler for event which is raised when naviframe page is changed
+ * @brief Handler for event which is raised when naviframe page is changed
  * ("transition,finished" event)
  *
- * @param data passed to callback
- * @param obj object that raised event
+ * @param data data passed to callback
+ * @param obj Evas_Object that raised event
  * @param event_info additional event info
  */
 void
@@ -298,7 +298,7 @@ _eail_naviframe_handle_page_changed_event(void *data,
 /**
  * @brief Initializer for AtkObjectClass
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  * @param data initialization data
  */
 static void
@@ -330,10 +330,11 @@ eail_naviframe_initialize(AtkObject *obj, gpointer data)
 }
 
 /**
- * @brief Initializer for GObject naviframe class (defines callbacks for base
- * AtkObject)
+ * @brief Initializer for GObject naviframe class
  *
- * @param klass an EailNaviframeClass
+ * Defines callbacks for base AtkObject.
+ *
+ * @param klass EailNaviframeClass instance
  */
 static void
 eail_naviframe_class_init(EailNaviframeClass *klass)

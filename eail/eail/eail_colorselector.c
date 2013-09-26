@@ -40,8 +40,8 @@ G_DEFINE_TYPE_WITH_CODE(EailColorselector,
 /**
  * @brief EailColorselector initializer
  *
- * @param obj an AtkObject
- * @param data initialization data (Evas_Object*)
+ * @param obj AtkObject instance
+ * @param data initialization data
  */
 static void
 eail_colorselector_initialize(AtkObject *obj, gpointer data)
@@ -53,7 +53,7 @@ eail_colorselector_initialize(AtkObject *obj, gpointer data)
 /**
  * @brief EailColorselector instance initializer
  *
- * @param selector an EailColorselector
+ * @param selector EailColorselector instance
  */
 static void
 eail_colorselector_init(EailColorselector *selector)
@@ -63,7 +63,7 @@ eail_colorselector_init(EailColorselector *selector)
 /**
  * @brief EailColorselector class initializer
  *
- * @param klass an EailColorselector class
+ * @param klass EailColorselectorClass instance
  */
 static void
 eail_colorselector_class_init(EailColorselectorClass *klass)
@@ -73,10 +73,10 @@ eail_colorselector_class_init(EailColorselectorClass *klass)
 }
 
 /**
- * @brief Gets obj current value
+ * @brief Gets obj's current value
  *
- * @param obj an AtkValue
- * @param [out] value obj current value
+ * @param obj AtkValue instance
+ * @param [out] value obj's current value
  */
 static void
 eail_colorselector_get_current_value(AtkValue *obj,
@@ -101,10 +101,10 @@ eail_colorselector_get_current_value(AtkValue *obj,
 }
 
 /**
- * @brief Gets obj maxiumum value
+ * @brief Gets obj's maxiumum value
  *
- * @param obj an AtkValue
- * @param [out] value obj maximum value
+ * @param obj AtkValue instance
+ * @param [out] value obj's maximum value
  */
 static void
 eail_colorselector_get_maximum_value(AtkValue *obj,
@@ -122,10 +122,10 @@ eail_colorselector_get_maximum_value(AtkValue *obj,
 }
 
 /**
- * @brief Gets obj minimum value
+ * @brief Gets obj's minimum value
  *
- * @param obj an AtkValue
- * @param [out] value obj minimum value
+ * @param obj AtkValue instance
+ * @param [out] value obj's minimum value
  */
 static void
 eail_colorselector_get_minimum_value(AtkValue *obj,
@@ -143,11 +143,11 @@ eail_colorselector_get_minimum_value(AtkValue *obj,
 }
 
 /**
- * @brief Sets obj current value
+ * @brief Sets obj's current value
  *
- * @param obj an AtkValue
- * @param value obj current value
- * @return TRUE if value is set successfully, FALSE otherwise
+ * @param obj AtkValue instance
+ * @param value obj's current value
+ * @return TRUE if value was set successfully, FALSE otherwise
  */
 static gboolean
 eail_colorselector_set_current_value(AtkValue *obj,
@@ -174,10 +174,10 @@ eail_colorselector_set_current_value(AtkValue *obj,
 }
 
 /**
- * @brief Gets obj minimum increment
+ * @brief Gets obj's minimum increment
  *
- * @param obj an AtkValue
- * @param [out] value obj minimum increment
+ * @param obj AtkValue instance
+ * @param [out] value obj's minimum increment
  */
 static void
 eail_colorselector_get_minimum_increment(AtkValue *obj,
@@ -193,7 +193,7 @@ eail_colorselector_get_minimum_increment(AtkValue *obj,
 /**
  * @brief AtkValue interface initializer
  *
- * @param iface AtkValueIface
+ * @param iface AtkValueIface instance
  */
 static void atk_value_interface_init(AtkValueIface *iface)
 {

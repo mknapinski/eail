@@ -85,15 +85,24 @@ typedef struct _EailVideoClass  EailVideoClass;
 /** @brief Definition of object structure for Atk EailVideo*/
 struct _EailVideo
 {
-    EailWidget parent; /*!< EailVideo parent that functionality is being extended*/
-    char *forward_desc; /*!< forward action description*/
-    char *next_desc; /*!< next action descritpion*/
-    char *pause_desc; /*!< pause action descirption*/
-    char *play_desc; /*!< play action description*/
-    char *prev_desc; /*!< prev action description*/
-    char *rewind_desc; /*!< rewind action description*/
-    char *stop_desc; /*!< stop action description*/
-    char *uri; /*!< video file URI*/
+    /** @brief Parent widget whose functionality is being extended*/
+    EailWidget parent;
+    /** @brief 'forward' action description*/
+    char *forward_desc;
+    /** @brief 'next' action descritpion*/
+    char *next_desc;
+    /** @brief 'pause' action descirption*/
+    char *pause_desc;
+    /** @brief 'play' action description*/
+    char *play_desc;
+    /** @brief 'prev' action description*/
+    char *prev_desc;
+    /** @brief 'rewind' action description*/
+    char *rewind_desc;
+    /** @brief 'stop' action description*/
+    char *stop_desc;
+    /** @brief Video file URI*/
+    char *uri;
 };
 
 /** @brief Definition of object structure for Atk EailVideo*/

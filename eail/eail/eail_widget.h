@@ -40,7 +40,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailWidget
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_WIDGET(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), \
                                        EAIL_TYPE_WIDGET, EailWidget))
@@ -56,7 +56,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailWidget class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_WIDGET(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
                                        EAIL_TYPE_WIDGET))
@@ -89,10 +89,10 @@ typedef struct _EailWidgetClass EailWidgetClass;
 /** @brief Definition of object structure for Atk EailWidget*/
 struct _EailWidget
 {
-   AtkObject parent;/**< @brief AtkObject that is being extended*/
+   AtkObject parent;/**< @brief Parent AtkObject whose functionality is being extended*/
 
-   Evas_Object *widget;/**< @brief internal widget that is represented by EailWidget */
-   AtkLayer layer;/**< @brief describes layer of a component (eg. ATK_LAYER_WIDGET) */
+   Evas_Object *widget;/**< @brief Internal widget that is represented by EailWidget */
+   AtkLayer layer;/**< @brief Describes layer of a component (eg. ATK_LAYER_WIDGET) */
 };
 
 /** @brief Definition of object class for Atk EailWidget*/

@@ -46,7 +46,7 @@ G_DEFINE_TYPE_WITH_CODE(EailText,
 /**
  * @brief EailText initializer
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  * @param data initialization data
  */
 static void
@@ -58,12 +58,13 @@ eail_text_initialize(AtkObject *obj, gpointer data)
 }
 
 /**
- * @brief Gets obj name
+ * @brief Gets the accessible name of obj
  *
  * Returns obj accessible name if assigned, obj text content otherwise
  *
- * @param obj an AtkObject
- * @returns accessible obj name if assigned, obj text content otherwise
+ * @param obj AtkObject instance
+ * @returns string representing the accessible name of obj if assigned,
+ * obj text content otherwise
  */
 static const gchar*
 eail_text_get_name(AtkObject *obj)
@@ -85,7 +86,7 @@ eail_text_get_name(AtkObject *obj)
 /**
  * @brief EailText instance initializer
  *
- * @param text an EailText
+ * @param text EailText instance
  */
 static void
 eail_text_init(EailText *text)
@@ -95,7 +96,7 @@ eail_text_init(EailText *text)
 /**
  * @brief EailText class initializer
  *
- * @param klass an EailTextClass
+ * @param klass EailTextClass instance
  */
 static void
 eail_text_class_init(EailTextClass *klass)
@@ -115,7 +116,7 @@ eail_text_class_init(EailTextClass *klass)
  *
  * Use g_free() to free the returned string
  *
- * @param text an AtkText
+ * @param text AtkText instance
  * @param start_offset start position
  * @param end_offset end position, -1 for the end of the string
  * @return string containing text from start_offset up to, but not including
@@ -136,11 +137,11 @@ eail_text_get_text(AtkText   *text,
 }
 
 /**
- * @brief Gets character at offset
+ * @brief Gets the character at offset
  *
- * @param text an AtkText
+ * @param text AtkText instance
  * @param offset character offset
- * @return character at offset
+ * @return char representing the character at offset
  */
 static gunichar
 eail_text_get_character_at_offset(AtkText    *text,
@@ -157,10 +158,10 @@ eail_text_get_character_at_offset(AtkText    *text,
 }
 
 /**
- * @brief Gets text length
+ * @brief Gets the text's length
  *
- * @param text an AtkText
- * @return text length
+ * @param text AtkText instance
+ * @return integer representing the text length
  */
 static gint
 eail_text_get_character_count(AtkText *text)
@@ -183,7 +184,7 @@ eail_text_get_character_count(AtkText *text)
 /**
  * @brief AtkText interface initializer
  *
- * @param iface an AtkTextIface
+ * @param iface AtkTextIface instance
  */
 static void
 atk_text_interface_init(AtkTextIface *iface)

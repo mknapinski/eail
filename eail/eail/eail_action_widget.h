@@ -36,7 +36,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailActionWidget
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 
 #define EAIL_ACTION_WIDGET(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj), \
@@ -96,9 +96,10 @@ void eail_action_widget_action_append(EailActionWidget *action_widget,
  * */
 struct _EailActionWidget
 {
-   EailWidget parent;/*!< widget that is being extended */
-
-   Eina_List *action_objs;/*!< list of action objects (EailActionObj*) */
+   /** @brief Parent widget whose functionality is being extended */
+   EailWidget parent;
+   /** @brief List of action objects (EailActionObj*) */
+   Eina_List *action_objs;
 };
 
 /** @brief Definition of class structure for Atk EailActionWidget

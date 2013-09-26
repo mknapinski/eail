@@ -19,7 +19,7 @@
 
 /**
  * @file eail_check.c
- * @brief EailChceck implementation
+ * @brief EailCheck implementation
  */
 
 #include <Elementary.h>
@@ -45,10 +45,13 @@ G_DEFINE_TYPE_WITH_CODE(EailCheck,
 /**
  * @brief Implementation of get_image_position from AtkImage interface
  *
- * @param image Eailcheck instance
- * @param [out] x horizontal coordinate
- * @param [out] y vertical coordinate
- * @param coord_type coord type
+ * Gets the position of the image in the form of a point specifying the images top-left corner.
+ *
+ * @param image AtkImage instance
+ * @param [out] x horizontal coordinate or -1 if value cannot be obtained
+ * @param [out] y vertical coordinate or -1 if value cannot be obtained
+ * @param coord_type specifies whether the coordinates are relative to the screen
+ * or to the component's top level window
  */
 static void
 eail_check_get_image_position(AtkImage     *image,
@@ -82,11 +85,16 @@ eail_check_get_image_position(AtkImage     *image,
 }
 
 /**
- * @brief Implementation of get_image_size from AtkImage interface
+ * @brief Gets the width and height in pixels for the specified image
  *
- * @param image Eailcheck instance
- * @param [out] width width image
- * @param [out] height height image
+ * The values of width and height are returned as -1 if they
+ * cannot be obtained (for instance, if the object is not onscreen).
+ *
+ * Implementation of get_image_size from AtkImage interface.
+ *
+ * @param image AtkImage instance
+ * @param [out] width image width or -1 if value cannot be obtained
+ * @param [out] height image height or -1 if value cannot be obtained
  */
 static void
 eail_check_get_image_size(AtkImage *image,
@@ -119,9 +127,9 @@ eail_check_get_image_size(AtkImage *image,
 }
 
 /**
- * @brief AtkImage iterface initializer
+ * @brief AtkImage interface initializer
  *
- * @param iface an AtkImageIface
+ * @param iface AtkImageIface instance
  */
 static void
 atk_image_interface_init(AtkImageIface *iface)
@@ -133,13 +141,13 @@ atk_image_interface_init(AtkImageIface *iface)
 /**
  * @brief Gets text bounded by start_offset and end_offset
  *
- * Use g_free() to free the returned string
+ * Use g_free() to free the returned string.
  *
- * @param text an AtkText
+ * @param text AtkText instance
  * @param start_offset start position
  * @param end_offset end position, -1 for the end of the string
- * @return string containing text from start_offset up to, but not including
- * end_offset
+ * @return string containing text from start_offset up to,
+ * but not including end_offset
  */
 static gchar*
 eail_check_get_text(AtkText   *text,
@@ -156,11 +164,11 @@ eail_check_get_text(AtkText   *text,
 }
 
 /**
- * @brief Gets character at offset
+ * @brief Gets the character at offset
  *
- * @param text an AtkText
+ * @param text AtkText instance
  * @param offset character offset
- * @return character at offset
+ * @return char representing the character at offset
  */
 static gunichar
 eail_check_get_character_at_offset(AtkText    *text,
@@ -177,10 +185,10 @@ eail_check_get_character_at_offset(AtkText    *text,
 }
 
 /**
- * @brief Gets text length
+ * @brief Gets the text length
  *
- * @param text an AtkText
- * @return text length
+ * @param text AtkText instance
+ * @return integer representing the text length
  */
 static gint
 eail_check_get_character_count(AtkText *text)
@@ -207,7 +215,7 @@ eail_check_get_character_count(AtkText *text)
  * implementation i.e hooks method pointers in the interface structure
  * to the implementing class's implementation.
  *
- * @param iface an AtkTextIface
+ * @param iface AtkTextIface instance
  */
 static void
 atk_text_interface_init(AtkTextIface *iface)
@@ -220,10 +228,11 @@ atk_text_interface_init(AtkTextIface *iface)
 
 /**
  * @brief Callback for on_changed event
- * This will be called to notify AtkObject about object state change
+ *
+ * Called to notify AtkObject about an object's state change.
  *
  * @param data callback data
- * @param obj object source
+ * @param obj source object
  * @param event_info event info
  */
 static void
@@ -238,7 +247,7 @@ eail_check_atk_notify_change(void *data, Evas_Object *obj, void *event_info)
 /**
  * @brief Action handler for 'click'
  *
- * @param action an AtkAction object (EailCheck)
+ * @param action AtkAction instance (EailCheck)
  * @param data additional data (unused here)
  *
  * @returns TRUE on success, FALSE otherwise
@@ -267,7 +276,7 @@ eail_check_action_click_cb(AtkAction *action, void *data)
 /**
  * @brief Initializer for actions defined in EailCheck
  *
- * @param action_widget an EailActionWidget implementation to be filled
+ * @param action_widget EailActionWidget implementation to be filled
  */
 static void
 eail_check_actions_init(EailActionWidget *action_widget)
@@ -277,11 +286,16 @@ eail_check_actions_init(EailActionWidget *action_widget)
 }
 
 /**
- * @brief Implementation of ref_state_set from AtkObject
+ * @brief Gets a reference to the state set of the accessible
  *
- * @param obj EailCheck instance
+ * The caller must unreference it when it is no longer needed.
  *
- * @returns AtkStateSet for EailCheck instance
+ * Implementation of ref_state_set from AtkObject.
+ *
+ * @param obj AtkObject instance
+ *
+ * @returns AtkStateSet representing the state set
+ * of the accessible
  */
 static AtkStateSet*
 eail_check_ref_state_set(AtkObject *obj)
@@ -304,11 +318,11 @@ eail_check_ref_state_set(AtkObject *obj)
 }
 
 /**
- * @brief Gets obj accessible name
+ * @brief Gets the accessible name of obj
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  *
- * @returns obj name
+ * @returns string representing the accessible name of obj
  */
 static const gchar*
 eail_check_get_name(AtkObject *obj)
@@ -329,11 +343,12 @@ eail_check_get_name(AtkObject *obj)
 }
 
 /**
- * @brief Gets list of child widget
+ * @brief Gets the list of widget's children
  *
- * @param widget EailWidget object
+ * @param widget EailWidget instance
  *
- * @return list of children, NULL if no children
+ * @return Eina_list representing the list of children
+ * or NULL if widget has no children
  */
 static Eina_List *
 eail_check_get_widget_children(EailWidget *widget)
@@ -355,7 +370,7 @@ eail_check_get_widget_children(EailWidget *widget)
 /**
  * @brief EailCheck instance initialization
  *
- * @param check Eailheck instance
+ * @param check AtkObject instance
  */
 static void
 eail_check_init(EailCheck *check)
@@ -363,9 +378,9 @@ eail_check_init(EailCheck *check)
 }
 
 /**
- * @brief EailCheck object initializiation
+ * @brief EailCheck object initialization
  *
- * @param obj EailCheck object
+ * @param obj EailCheck instance
  * @param data user set addtional initailization data
  */
 static void
@@ -384,7 +399,7 @@ eail_check_initialize(AtkObject *obj, gpointer data)
 /**
  * @brief GObject type initialization function
  *
- * @param klass EailCheck class
+ * @param klass EailCheckClass instance
  */
 static void
 eail_check_class_init(EailCheckClass *klass)

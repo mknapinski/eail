@@ -33,7 +33,7 @@ G_DEFINE_TYPE(EailGlview, eail_glview, EAIL_TYPE_WIDGET);
 /**
  * @brief EailGlview initializer.
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  * @param data initialization data
  */
 static void
@@ -46,7 +46,7 @@ eail_glview_initialize(AtkObject *obj, gpointer data)
 /**
  * @brief EailGlview interface initializer.
  *
- * @param glview an EailGlview
+ * @param glview EailGlview instance
  * */
 static void
 eail_glview_init(EailGlview *glview)
@@ -56,7 +56,7 @@ eail_glview_init(EailGlview *glview)
 /**
  * @brief EailGlview class initializer.
  *
- * @param klass EailGlview class
+ * @param klass EailGlviewClass instance
  */
 static void
 eail_glview_class_init(EailGlviewClass *klass)

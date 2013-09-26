@@ -36,7 +36,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailActionSlider
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_ACTION_SLIDER(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj), \
                                              EAIL_TYPE_ACTION_SLIDER, EailActionSlider))
@@ -50,7 +50,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailActionSlider class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_ACTION_SLIDER(obj)          (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
                                              EAIL_TYPE_ACTION_SLIDER))
@@ -81,7 +81,7 @@ typedef struct _EailActionSliderClass EailActionSliderClass;
 /** @brief Definition of object structure for Atk EailActionSlider*/
 struct _EailActionSlider
 {
-   /** @brief parent object that functionality is being extended*/
+   /** @brief Parent widget whose functionality is being extended*/
    EailWidget parent;
 };
 

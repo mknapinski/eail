@@ -19,7 +19,7 @@
 
 /**
  * @file eail_separator.c
- * @brief EailSeparator implementation.
+ * @brief EailSeparator implementation
  */
 
 #include <Elementary.h>
@@ -31,12 +31,12 @@
 G_DEFINE_TYPE(EailSeparator, eail_separator, EAIL_TYPE_WIDGET);
 
 /**
- * @brief Gets state set reference of the accessible.
+ * @brief Gets the state set of the accessible
  *
  * The caller must unreference it when it is no longer needed.
  *
- * @param accessible an AtkObject instance
- * @return accessible state set
+ * @param accessible AtkObject instance
+ * @return AtkStateSet representing the state set of the accessible
  */
 static AtkStateSet*
 eail_separator_ref_state_set(AtkObject *accessible)
@@ -58,10 +58,10 @@ eail_separator_ref_state_set(AtkObject *accessible)
 }
 
 /**
- * @brief EailSeparator initializer.
+ * @brief EailSeparator initializer
  *
- * @param obj an AtkObject instance
- * @param data initialize data
+ * @param obj AtkObject instance
+ * @param data initialization data
  */
 static void
 eail_separator_initialize(AtkObject *obj, gpointer data)
@@ -71,7 +71,7 @@ eail_separator_initialize(AtkObject *obj, gpointer data)
 }
 
 /**
- * @brief EailSeparator interface initializer.
+ * @brief EailSeparator interface initializer
  *
  * @param separator EailSeparator instance
  */
@@ -81,9 +81,9 @@ eail_separator_init(EailSeparator *separator)
 }
 
 /**
- * @brief EailSeparator class initializer.
+ * @brief EailSeparator class initializer
  *
- * @param klass EailSeparator class
+ * @param klass EailSeparatorClass instance
  */
 static void
 eail_separator_class_init(EailSeparatorClass *klass)

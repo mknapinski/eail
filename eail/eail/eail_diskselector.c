@@ -19,7 +19,7 @@
 
 /**
  * @file eail_diskselector.c
- * @brief Implementation of Diskselector widget
+ * @brief EailDiskselector implementation
  */
 
 #include <Elementary.h>
@@ -53,8 +53,8 @@ G_DEFINE_TYPE_WITH_CODE(EailDiskselector,
 /**
  * @brief Initializer for AtkObjectClass
  *
- * @param obj an AtkObject
- * @param data Initialization data
+ * @param obj AtkObject instance
+ * @param data initialization data
  */
 static void
 eail_diskselector_initialize(AtkObject *obj, gpointer data)
@@ -80,7 +80,7 @@ eail_diskselector_initialize(AtkObject *obj, gpointer data)
 /**
  * @brief Initializer for GObject EailList instance
  *
- * @param diskselector an EailDiskselector
+ * @param diskselector EailDiskselector instance
  */
 static void
 eail_diskselector_init(EailDiskselector *diskselector)
@@ -88,14 +88,13 @@ eail_diskselector_init(EailDiskselector *diskselector)
 }
 
 /**
- * @brief Implementation AtkObject->get_n_children callback
+ * @brief Gets the number of accessible children of the accessible.
  *
- * ATK doc says:\n
- * Gets the number of accessible children of the accessible.
+ * Implementation of AtkObject->get_n_children callback.
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  *
- * @returns an integer representing the number of accessible children of
+ * @returns integer representing the number of accessible children of
  * the accessible
  */
 static gint
@@ -110,18 +109,18 @@ eail_diskselector_get_n_children(AtkObject *obj)
 }
 
 /**
- * @brief Implementation AtkObject->ref_child callback
+ * @brief Gets a reference to the specified accessible child of the object.
  *
- * ATK doc says:\n
- * Gets a reference to the specified accessible child of the object. The
- * accessible children are 0-based so the first accessible child is at index 0,
+ * The accessible children are 0-based so the first accessible child is at index 0,
  * the second at index 1 and so on.
  *
- * @param obj an AtkObject
+ * Implementation of AtkObject->ref_child callback.
+ *
+ * @param obj AtkObject instance
  * @param i child index
  *
- * @returns an AtkObject representing the specified accessible child of the
- * accessible.
+ * @returns AtkObject representing the specified accessible child of the
+ * accessible
  */
 static AtkObject *
 eail_diskselector_ref_child(AtkObject *obj, gint i)
@@ -158,10 +157,11 @@ eail_diskselector_finalize(GObject *object)
 }
 
 /**
- * @brief Initializer for GObject EailDiskselectorClass class (defines callbacks
- * for base AtkObject)
+ * @brief Initializer for GObject EailDiskselectorClass class
  *
- * @param klass an EailDiskselectorClass
+ * Defines callbacks for base AtkObject.
+ *
+ * @param klass EailDiskselectorClass instance
  */
 static void
 eail_diskselector_class_init(EailDiskselectorClass *klass)
@@ -179,15 +179,14 @@ eail_diskselector_class_init(EailDiskselectorClass *klass)
  */
 
 /**
- * @brief Implementation of AtkSelection->add_selection callback
+ * @brief Adds the specified accessible child of the object to the object's selection.
  *
- * As described in ATK doc:\n
- * Adds the specified accessible child of the object to the object's selection.
+ * Implementation of AtkSelection->add_selection callback.
  *
- * @param selection an AtkSelection
+ * @param selection AtkSelection instance
  * @param i selection index
  *
- * @returns TRUE if operation ended successfully, FALSE otherwise
+ * @returns TRUE if operation was successful, FALSE otherwise
  */
 static gboolean
 eail_selection_add_selection(AtkSelection *selection,
@@ -203,13 +202,12 @@ eail_selection_add_selection(AtkSelection *selection,
 }
 
 /**
- * @brief Implementation of AtkSelection->clear_selection callback
- *
- * As described in ATK doc:\n
- * Clears the selection in the object so that no children in the object are
+ * @brief Clears the selection in the object so that no children in the object are
  * selected.
  *
- * @param selection an AtkSelection
+ * Implementation of AtkSelection->clear_selection callback.
+ *
+ * @param selection AtkSelection instance
  *
  * @returns always FALSE - this operation is not supported for Diskselector
  */
@@ -220,19 +218,20 @@ eail_selection_clear_selection(AtkSelection *selection)
 }
 
 /**
- * @brief Implementation of AtkSelection->ref_selection callback
+ * @brief Gets a reference to the accessible object representing the specified selected
+ * child of the object.
  *
- * As described in ATK doc:\n
- * Gets a reference to the accessible object representing the specified selected
- * child of the object. Note: callers should not rely on NULL or on a zero value
+ * Note: callers should not rely on NULL or on a zero value
  * for indication of whether AtkSelectionIface is implemented, they should use
  * type checking/interface checking macros or the atk_get_accessible_value()
  * convenience method.
  *
- * @param selection an AtkSelection
+ * Implementation of AtkSelection->ref_selection callback.
+ *
+ * @param selection AtkSelection instance
  * @param i selection index
  *
- * @returns an AtkObject representing the selected accessible , or NULL if
+ * @returns AtkObject representing the selected accessible or NULL if
  * selection does not implement this interface
  */
 static AtkObject *
@@ -259,15 +258,15 @@ eail_selection_ref_selection(AtkSelection *selection,
 }
 
 /**
- * @brief Implementation of AtkSelection->get_selection_count callback
+ * @brief Gets the number of accessible children currently selected.
  *
- * As described in ATK doc:\n
- * Gets the number of accessible children currently selected. Note: callers
- * should not rely on NULL or on a zero value for indication of whether
+ * Note: callers should not rely on NULL or on a zero value for indication of whether
  * AtkSelectionIface is implemented, they should use type checking/interface
  * checking macros or the atk_get_accessible_value() convenience method.
  *
- * @param selection an AtkSelection
+ * Implementation of AtkSelection->get_selection_count callback.
+ *
+ * @param selection AtkSelection instance
  *
  * @returns always '1' - in Diskselector widget something is always selected
  */
@@ -278,19 +277,19 @@ eail_selection_get_selection_count(AtkSelection *selection)
 }
 
 /**
- * @brief Implementation of AtkSelection->is_child_selected callback
+ * @brief  Determines if the current child of this object is selected.
  *
- * As described in ATK doc:\n
- * Determines if the current child of this object is selected Note: callers
- * should not rely on NULL or on a zero value for indication of whether
+ * Note: callers should not rely on NULL or on a zero value for indication of whether
  * AtkSelectionIface is implemented, they should use type checking/interface
  * checking macros or the atk_get_accessible_value() convenience method.
  *
- * @param selection an AtkSelection
+ * Implementation of AtkSelection->is_child_selected callback.
+ *
+ * @param selection AtkSelection instance
  * @param i child index
  *
- * @returns a gboolean representing the specified child is selected, or 0 if
- * selection does not implement this interface.
+ * @returns gboolean representing the specified child is selected, or 0 if
+ * selection does not implement this interface
  */
 static gboolean
 eail_selection_is_child_selected(AtkSelection *selection,
@@ -312,15 +311,14 @@ eail_selection_is_child_selected(AtkSelection *selection,
 }
 
 /**
- * @brief Implementation of AtkSelection->remove_selection callback
+ * @brief Removes the specified child of the object from the object's selection.
  *
- * As described in ATK doc:\n
- * Removes the specified child of the object from the object's selection.
+ * Implementation of AtkSelection->remove_selection callback.
  *
- * @param selection an AtkSelection
+ * @param selection AtkSelection instance
  * @param i selection index
  *
- * @returns TRUE if success, FALSE otherwise.
+ * @returns TRUE on success, FALSE otherwise
  */
 static gboolean
 eail_selection_remove_selection(AtkSelection *selection,
@@ -334,13 +332,12 @@ eail_selection_remove_selection(AtkSelection *selection,
 }
 
 /**
- * @brief Implementation of AtkSelection->select_all_selection callback
- *
- * As described in ATK doc:\n
- * Causes every child of the object to be selected if the object supports
+ * @brief Causes every child of the object to be selected if the object supports
  * multiple selections.
  *
- * @param selection an AtkSelection
+ * Implementation of AtkSelection->select_all_selection callback.
+ *
+ * @param selection AtkSelection instance
  *
  * @returns FALSE - this operation is not supported for Diskselector widget
  */
@@ -357,7 +354,7 @@ eail_selection_select_all_selection(AtkSelection *selection)
  * implementation i.e hooks method pointers in the interface structure
  * to the implementing class's implementation.
  *
- * @param iface an AtkSelectionIface
+ * @param iface AtkSelectionIface instance
  */
 static void atk_selection_interface_init(AtkSelectionIface *iface)
 {
@@ -371,12 +368,12 @@ static void atk_selection_interface_init(AtkSelectionIface *iface)
 }
 
 /**
- * @brief Get name of disk selector child
+ * @brief Gets the name of a diskselector's child
  *
- * @param parent EailDiskselector instance
- * @param item EailDiskselector child instance
+ * @param parent EailItemParent instance
+ * @param item EailItem child instance
  *
- * @returns const gchar * representing name of the child
+ * @returns string representing the name of the child
  */
 static const gchar *
 eail_diskselector_item_name_get(EailItemParent *parent, EailItem *item)
@@ -390,7 +387,7 @@ eail_diskselector_item_name_get(EailItemParent *parent, EailItem *item)
 /**
  * @brief Initialization of EailItemParentIface callbacks
  *
- * @param iface an EailItemParentIface
+ * @param iface EailItemParentIface instance
  */
 static void
 eail_item_parent_interface_init(EailItemParentIface *iface)
@@ -399,9 +396,9 @@ eail_item_parent_interface_init(EailItemParentIface *iface)
 }
 
 /**
- * @brief Next action callback
+ * @brief 'next' action callback
  *
- * @param action an AtkAction
+ * @param action AtkAction instance
  * @param data data passed to callback
  * @return TRUE on success, FALSE otherwise
  */
@@ -429,9 +426,9 @@ _eail_diskselector_action_next(AtkAction *action, void *data)
 }
 
 /**
- * @brief Prev action callback
+ * @brief 'prev' action callback
  *
- * @param action an AtkAction
+ * @param action AtkAction instance
  * @param data data passed to callback
  * @return TRUE on success, FALSE otherwise
  */
@@ -460,7 +457,7 @@ _eail_diskselector_action_prev(AtkAction *action, void *data)
 
 /**
  * @brief Adds actions for scrolling to actions table
- * @param widget widget that implements EailScrollable interface
+ * @param widget EailDiskselector instance
  */
 static void
 eail_diskselector_actions_table_init(EailDiskselector *widget)

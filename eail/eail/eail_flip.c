@@ -41,10 +41,10 @@ G_DEFINE_TYPE_WITH_CODE(EailFlip,
                                               atk_action_interface_init));
 
 /**
- * @brief handler for event which is raised when flips visible data is changed
+ * @brief Handler for event which is raised when flip's visible data is changed
  *
- * @param data passed to callback
- * @param obj object that raised event
+ * @param data data passed to callback
+ * @param obj Evas_Object that raised event
  * @param event_info additional event info
  */
 void
@@ -59,7 +59,7 @@ _eail_flip_handle_changed_event(void *data,
 /**
  * @brief EailFlip object initialization
  *
- * @param obj EailFlip object
+ * @param obj AtkObject instance
  * @param data user set additional initialization data
  */
 static void
@@ -85,7 +85,7 @@ eail_flip_initialize(AtkObject *obj, gpointer data)
 /**
  * @brief Class destructor
  *
- * @param object object instance
+ * @param object GObject instance
  */
 static void
 eail_flip_finalize(GObject *object)
@@ -109,11 +109,12 @@ eail_flip_init(EailFlip *flip)
 }
 
 /**
- * @brief Gets widget children
+ * @brief Gets widget's children
  *
- * @param widget EailWidget object
+ * @param widget EailWidget instance
  *
- * @return list of children, NULL if no children
+ * @return Eina_List representing the list of children,
+ * or NULL if widget has no children
  */
 static Eina_List *
 eail_flip_get_widget_children(EailWidget *widget)
@@ -140,7 +141,7 @@ eail_flip_get_widget_children(EailWidget *widget)
 /**
  * @brief GObject type initialization function
  *
- * @param klass EailFlip class
+ * @param klass EailFlipClass instance
  */
 static void
 eail_flip_class_init(EailFlipClass *klass)
@@ -159,10 +160,14 @@ eail_flip_class_init(EailFlipClass *klass)
  */
 
 /**
- * @brief Implementation of get_n_actions from AtkAction interface
+ * @brief Gets the number of accessible actions available on the object
  *
- * @param action EailFlip instance
- * @returns number of implemented actions
+ * If there are more than one, the first one is considered the "default" action of the object.
+ *
+ * Implementation of get_n_actions from AtkAction interface.
+ *
+ * @param action AtkAction instance
+ * @returns integer representing the number of implemented actions
  */
 static int
 eail_flip_n_actions_get(AtkAction *action)
@@ -171,12 +176,14 @@ eail_flip_n_actions_get(AtkAction *action)
 }
 
 /**
- * @brief Implementation of get_description from AtkAction interface
+ * @brief Gets the description string of the specified action
  *
- * @param action EailFlip instance
+ * Implementation of get_description from AtkAction interface.
+ *
+ * @param action AtkAction instance
  * @param i action index
  *
- * @return action description
+ * @return string representing the specified action's description
  */
 static const char*
 eail_flip_description_get(AtkAction *action,
@@ -202,11 +209,13 @@ eail_flip_description_get(AtkAction *action,
 }
 
 /**
- * @brief Implementation of set_descritpion from AtkAction interface
+ * @brief Sets a description of the specified action of the object
  *
- * @param action EailFlip instance
+ * Implementation of set_description from AtkAction interface.
+ *
+ * @param action AtkAction instance
  * @param i action index
- * @param description action description
+ * @param description action's description
  *
  * @return TRUE on success, FALSE otherwise
  */
@@ -242,12 +251,14 @@ eail_flip_description_set(AtkAction *action,
 }
 
 /**
- * @brief Implementation of get_name from AtkAction interface
+ * @brief Gets the name string of the specified action
  *
- * @param action EailFlip instance
+ * Implementation of get_name from AtkAction interface.
+ *
+ * @param action AtkAction instance
  * @param i action index
  *
- * @return action name
+ * @return string representing the specified action's name
  */
 static const char*
 eail_flip_action_name_get(AtkAction *action,
@@ -269,9 +280,11 @@ eail_flip_action_name_get(AtkAction *action,
 }
 
 /**
- * @brief Implementation of do_action from AtkAction interface
+ * @brief Performs the specified action on the object
  *
- * @param action EailFlip instance
+ * Implementation of do_action from AtkAction interface.
+ *
+ * @param action AtkAction instance
  * @param i action index
  *
  * @return TRUE on success, FALSE otherwise
@@ -302,7 +315,7 @@ eail_flip_do_action(AtkAction *action,
 /**
  * @brief AtkAction interface initializer
  *
- * @param iface an AtkActionIface
+ * @param iface AtkActionIface instance
  */
 static void
 atk_action_interface_init(AtkActionIface *iface)

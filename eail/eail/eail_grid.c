@@ -19,7 +19,7 @@
 
 /**
  * @file eail_grid.c
- * @brief Implementation of grid widget
+ * @brief EailGrid implementation
  */
 
 #include <Elementary.h>
@@ -34,10 +34,12 @@
 G_DEFINE_TYPE(EailGrid, eail_grid, EAIL_TYPE_WIDGET);
 
 /**
- * @brief Implementation of eail_widget_get_widget_children callback from
- * EailWidget
+ * @brief Gets EvasObject from EailWidget.
  *
- * @param widget an EailWidget
+ * Implementation of eail_widget_get_widget_children callback from
+ * EailWidget.
+ *
+ * @param widget EailWidget instance
  *
  * @returns Eina_List filled with Evas_Object* objects contained in grid widget
  */
@@ -57,7 +59,7 @@ eail_grid_children_get(EailWidget *widget)
 /**
  * @brief Initializer for AtkObjectClass
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  * @param data initialization data
  */
 static void
@@ -70,7 +72,7 @@ eail_grid_initialize(AtkObject *obj, gpointer data)
 /**
  * @brief Initializer for GObject class
  *
- * @param grid an EailGrid
+ * @param grid EailGrid instance
  */
 static void
 eail_grid_init(EailGrid *grid)
@@ -78,10 +80,11 @@ eail_grid_init(EailGrid *grid)
 }
 
 /**
- * @brief Initializer for GObject grid class (defines callbacks for base
- * AtkObject)
+ * @brief Initializer for GObject grid class
  *
- * @param klass an EailGridClass
+ * Defines callbacks for base AtkObject.
+ *
+ * @param klass EailGridClass class
  */
 static void
 eail_grid_class_init(EailGridClass *klass)

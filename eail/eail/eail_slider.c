@@ -34,7 +34,7 @@
 /**
  * @brief Initialization of AtkValue interface
  *
- * @param iface EailSlider object
+ * @param iface AtkValueIface instance
  */
 static void atk_value_interface_init(AtkValueIface *iface);
 
@@ -48,10 +48,10 @@ G_DEFINE_TYPE_WITH_CODE(EailSlider,
                                               atk_value_interface_init));
 
 /**
- * @brief handler for changed event
+ * @brief Handler for changed event
  *
  * @param data passed to callback
- * @param obj object that raised event
+ * @param obj Evas_Object that raised event
  * @param event_info additional event info
  */
 void
@@ -66,7 +66,7 @@ _eail_slider_handle_changed_event(void *data,
 /**
  * @brief EailSlider object initialization
  *
- * @param obj EailSlider object
+ * @param obj AtkObject instance
  * @param data user set additional initialization data
  */
 static void
@@ -84,11 +84,11 @@ eail_slider_initialize(AtkObject *obj, gpointer data)
 }
 
 /**
- * @brief Gets list of children widgets
+ * @brief Gets the list of child widgets
  *
- * @param widget EailWidget object
+ * @param widget EailWidget instance
  *
- * @return list of children, NULL otherwise
+ * @return Eina_List representing the list of widget's children
  */
 static Eina_List *
 eail_slider_get_widget_children(EailWidget *widget)
@@ -112,11 +112,11 @@ eail_slider_get_widget_children(EailWidget *widget)
 }
 
 /**
- * @brief Gets slider name
+ * @brief Gets the name of the slider
  *
- * @param obj EailSlider instance
+ * @param obj AtkObject instance
  *
- * @returns string representing slider name
+ * @returns string representing the name of the slider
  */
 static const gchar*
 eail_slider_get_name(AtkObject *obj)
@@ -147,7 +147,7 @@ eail_slider_init(EailSlider *slider)
 /**
  * @brief GObject type initialization function
  *
- * @param klass EailSlider class
+ * @param klass EailSliderClass instance
  */
 static void
 eail_slider_class_init(EailSliderClass *klass)
@@ -165,10 +165,10 @@ eail_slider_class_init(EailSliderClass *klass)
  */
 
 /**
- * @brief Gets obj current value
+ * @brief Gets the current value of obj
  *
- * @param obj EailSlider instance
- * @param [out] value EailSlider current value
+ * @param obj AtkValue instance
+ * @param [out] value obj's current value
  */
 static void
 eail_slider_get_current_value(AtkValue *obj,
@@ -185,10 +185,10 @@ eail_slider_get_current_value(AtkValue *obj,
 }
 
 /**
- * @brief Gets obj maxiumum value
+ * @brief Gets the maxiumum value of obj
  *
- * @param obj EailSlider instance
- * @param [out] value EailSlider maxiumum value
+ * @param obj AtkValue instance
+ * @param [out] value obj's maxiumum value
  */
 static void
 eail_slider_get_maximum_value(AtkValue *obj,
@@ -207,10 +207,10 @@ eail_slider_get_maximum_value(AtkValue *obj,
 }
 
 /**
- * @brief Gets obj minimum value
+ * @brief Gets the minimum value of obj
  *
- * @param obj EailSlider instance
- * @param [out] value EailSlider minimum value
+ * @param obj AtkValue instance
+ * @param [out] value obj's minimum value
  */
 static void
 eail_slider_get_minimum_value(AtkValue *obj,
@@ -229,11 +229,11 @@ eail_slider_get_minimum_value(AtkValue *obj,
 }
 
 /**
- * @brief Sets obj value
+ * @brief Sets the value of obj
  *
- * @param obj EailSlider instance
- * @param value EailSlider new value
- * @return TRUE if new value is set successfully, FALSE otherwise
+ * @param obj AtkValue instance
+ * @param value obj's new value
+ * @return TRUE if new value was set successfully, FALSE otherwise
  */
 static gboolean
 eail_slider_set_current_value(AtkValue     *obj,
@@ -257,10 +257,10 @@ eail_slider_set_current_value(AtkValue     *obj,
 }
 
 /**
- * @brief Gets obj minimum increment
+ * @brief Gets the minimum increment of obj
  *
- * @param obj EailSlider instance
- * @param [out] value EailSlider minimum increment
+ * @param obj AtkValue instance
+ * @param [out] value obj's minimum increment
  */
 static void
 eail_slider_get_minimum_increment(AtkValue *obj,
@@ -276,6 +276,11 @@ eail_slider_get_minimum_increment(AtkValue *obj,
    g_value_set_double(value, 0);
 }
 
+/**
+ * @brief AtkValue interface initializer
+ *
+ * @param iface AtkValueIface instance
+ */
 static void
 atk_value_interface_init(AtkValueIface *iface)
 {

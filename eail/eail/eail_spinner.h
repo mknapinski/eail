@@ -38,7 +38,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailSpinner
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_SPINNER(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj), \
                                        EAIL_TYPE_SPINNER, EailSpinner))
@@ -54,7 +54,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailSpinner class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_SPINNER(obj)          (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
                                        EAIL_TYPE_SPINNER))
@@ -88,7 +88,7 @@ typedef struct _EailSpinnerClass EailSpinnerClass;
 /** @brief Definition of object structure for Atk EailSpinner*/
 struct _EailSpinner
 {
-   /** @brief Parent object that functionality is being extended*/
+   /** @brief Parent widget whose functionality is being extended*/
    EailWidget parent;
 };
 

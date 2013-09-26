@@ -36,7 +36,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailFlip
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_FLIP(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj), \
                                     EAIL_TYPE_FLIP, EailFlip))
@@ -50,7 +50,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailFlip class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_FLIP(obj)          (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
                                     EAIL_TYPE_FLIP))
@@ -81,7 +81,7 @@ typedef struct _EailFlipClass EailFlipClass;
 /** @brief Definition of object structure for Atk EailFlip*/
 struct _EailFlip
 {
-   /** @brief Parent object that functionality is being extended*/
+   /** @brief Parent object whose functionality is being extended*/
    EailWidget parent;
 
    char *flip_description; /*!< @brief 'flip' action description*/

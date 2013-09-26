@@ -35,7 +35,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailBackground
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_BACKGROUND(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj), \
                                           EAIL_TYPE_BACKGROUND, EailBackground))
@@ -49,7 +49,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailBackground class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_BACKGROUND(obj)          (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
                                           EAIL_TYPE_BACKGROUND))
@@ -63,7 +63,7 @@
 /**
  * @brief Gets EailBackground class structure from an obj (class instance)
  *
- * @param obj
+ * @param obj object instance to get EailBackground class from
  */
 #define EAIL_BACKGROUND_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS((obj), \
                                           EAIL_TYPE_BACKGROUND, EailBackgroundClass))
@@ -80,9 +80,9 @@ typedef struct _EailBackgroundClass EailBackgroundClass;
 /** @brief Definition of object structure for Atk EailBackground*/
 struct _EailBackground
 {
-   EailWidget parent;/*!< @brief widget that functionality is being extended*/
+   EailWidget parent;/*!< @brief Parent widget whose functionality is being extended*/
 
-   char *description;/*!< @brief background description */
+   char *description;/*!< @brief Background description */
 };
 
 /** @brief Definition of class structure for Atk EailBackground*/

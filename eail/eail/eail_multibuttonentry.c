@@ -49,11 +49,13 @@ G_DEFINE_TYPE_WITH_CODE(EailMultibuttonentry,
                                               eail_item_parent_interface_init));
 
 /**
- * @brief Implementation of EailItemParent->is_content_get_supported callback
+ * @brief Checks if content get is supported
  *
- * @param parent an EailItemParent
- * @param item an EailItem
- * @returns FALSE
+ * Implementation of EailItemParent->is_content_get_supported callback.
+ *
+ * @param parent EailItemParent instance
+ * @param item EailItem instance
+ * @returns always FALSE
  */
 gboolean
 eail_multibuttonentry_content_get_support(EailItemParent   *parent,
@@ -63,14 +65,14 @@ eail_multibuttonentry_content_get_support(EailItemParent   *parent,
 }
 
 /**
- * @brief Get name of Multibuttonentry child
+ * @brief Gets the name of a multibuttonentry's child
  *
- * Implementation of get_item_name callback of EailItemParent interface
+ * Implementation of get_item_name callback of EailItemParent interface.
  *
- * @param parent Multibuttonentry instance
- * @param item Multibuttonentry child instance
+ * @param parent EailItemParent instance representing a multibuttonentry
+ * @param item Multibuttonentry EailItem instance representing a child
  *
- * @returns const gchar * representing name of the child
+ * @returns string representing the name of the child
  */
 static const gchar *
 eail_multibuttonentry_item_name_get(EailItemParent *parent, EailItem *item)
@@ -87,7 +89,7 @@ eail_multibuttonentry_item_name_get(EailItemParent *parent, EailItem *item)
  *
  * Initialization of callbacks used by EailItemParent interface.
  *
- * @param iface an EailItemParentIface
+ * @param iface EailItemParentIface instance
  */
 static void
 eail_item_parent_interface_init(EailItemParentIface *iface)
@@ -129,11 +131,11 @@ _eail_multibuttonentry_get_entry_string(AtkText *text)
 /**
  * @brief Gets text bounded by start_offset and end_offset
  *
- * Use g_free() to free the returned string
+ * Use g_free() to free the returned string.
  *
- * @param text an AtkText
+ * @param text AtkText instance
  * @param start_offset start position
- * @param end_offset end position, -1 for the end of the string
+ * @param end_offset end position or -1 for the end of the string
  * @return string containing text from start_offset up to, but not including
  * end_offset
  */
@@ -150,11 +152,11 @@ eail_multibuttonentry_get_text(AtkText   *text,
 }
 
 /**
- * @brief Gets character at offset
+ * @brief Gets the character at offset
  *
- * @param text an AtkText
- * @param offset
- * @return character at offset
+ * @param text AtkText instance
+ * @param offset offset to obtain the character from
+ * @return char representing the character at given offset
  */
 static gunichar
 eail_multibuttonentry_get_character_at_offset(AtkText    *text,
@@ -170,10 +172,10 @@ eail_multibuttonentry_get_character_at_offset(AtkText    *text,
 }
 
 /**
- * @brief Gets text length
+ * @brief Gets the length of text
  *
- * @param text an AtkText
- * @return text length
+ * @param text AtkText instance
+ * @return integer representing text's length
  */
 static gint
 eail_multibuttonentry_get_character_count(AtkText *text)
@@ -192,7 +194,7 @@ eail_multibuttonentry_get_character_count(AtkText *text)
 /**
  * @brief AktText initialization function
  *
- * @param iface an AtkTextIface
+ * @param iface AtkTextIface instance
  */
 static void
 atk_text_interface_init(AtkTextIface *iface)
@@ -205,7 +207,7 @@ atk_text_interface_init(AtkTextIface *iface)
 /**
  * @brief Sets text contents of text
  *
- * @param text an AtkEditableText
+ * @param text AtkEditableText instance
  * @param string new text to be set
  */
 static void
@@ -228,9 +230,9 @@ eail_multibuttonentry_set_text_contents(AtkEditableText *text,
 /**
  * @brief Copies text content from entry to clipboard
  *
- * @param text an AtkEditableText
- * @param start_pos start position of cursor
- * @param end_pos end position of cursor
+ * @param text AtkEditableText instance
+ * @param start_pos index of copied text's first character
+ * @param end_pos index of last copied text's last character
  */
 static void
 eail_multibuttonentry_copy_text(AtkEditableText *text,
@@ -256,9 +258,9 @@ eail_multibuttonentry_copy_text(AtkEditableText *text,
 /**
  * @brief Cuts text content from entry to clipboard
  *
- * @param text an AtkEditableText
- * @param start_pos start position of cursor
- * @param end_pos end position of cursor
+ * @param text AtkEditableText instance
+ * @param start_pos index of cut text's first character
+ * @param end_pos index of cut text's last character
  */
 static void
 eail_multibuttonentry_cut_text(AtkEditableText *text,
@@ -291,8 +293,8 @@ eail_multibuttonentry_cut_text(AtkEditableText *text,
 /**
  * @brief Pastes text content from clipboard into entry
  *
- * @param text an AtkEditableText
- * @param position start position of cursor
+ * @param text AtkEditableText instance
+ * @param position index of pasted text's first character
  */
 static void
 eail_multibuttonentry_paste_text(AtkEditableText *text,
@@ -319,7 +321,7 @@ eail_multibuttonentry_paste_text(AtkEditableText *text,
  * @brief Deletes text between start_pos and end_pos but not
  * including end_pos
  *
- * @param text an AtkEditableText
+ * @param text AtkEditableText instance
  * @param start_pos start position
  * @param end_pos end position
  */
@@ -343,13 +345,15 @@ eail_multibuttonentry_delete_text(AtkEditableText *text,
 }
 
 /**
- * @brief Inserts text at given position
+ * @brief Inserts text at the given position
  *
- * @param text an AtkEditableText
+ * After the call it points at the position after the newly inserted text.
+ *
+ * @param text AtkEditableText instance
  * @param string string to insert
  * @param length string length
- * @param [out] position at witch text is inserted.
- * After the call it points at the position after the newly inserted text.
+ * @param [out] position position to insert the text
+ *
  */
 static void
 eail_multibuttonentry_insert_text(AtkEditableText *text,
@@ -376,11 +380,13 @@ eail_multibuttonentry_insert_text(AtkEditableText *text,
 /**
  * @brief Initialization for AtkEditableTextIface interface
  *
- * Function called upon instance creation. It initializes AtkText interface
+ * Function called upon instance creation.
+ *
+ * It initializes AtkText interface
  * implementation i.e hooks method pointers in the interface structure
  * to the implementing class's implementation.
  *
- * @param iface an AtkEditableTextIface
+ * @param iface AtkEditableTextIface instance
  */
 static void
 atk_editable_text_interface_init(AtkEditableTextIface *iface)
@@ -394,9 +400,9 @@ atk_editable_text_interface_init(AtkEditableTextIface *iface)
 }
 
 /**
- * @brief Expand action callback
+ * @brief 'expand' action callback
  *
- * @param action an AtkAction
+ * @param action AtkAction instance
  * @param data user data passed to callback
  *
  * @returns TRUE on action success, FALSE otherwise
@@ -421,9 +427,9 @@ eail_multibuttonentry_action_expand_cb(AtkAction *action, void *data)
 }
 
 /**
- * @brief Shrink action callback
+ * @brief 'shrink' action callback
  *
- * @param action an AtkAction
+ * @param action AtkAction instance
  * @param data user data passed to callback
  *
  * @returns TRUE on action success, FALSE otherwise
@@ -448,9 +454,9 @@ eail_multibuttonentry_action_shrink_cb(AtkAction *action, void *data)
 }
 
 /**
- * @brief Registers multibuttonentry actions
+ * @brief Registers multibuttonentry's actions
  *
- * @param action_widget an EailActionWidget
+ * @param action_widget EailActionWidget instance
  */
 static void eail_multibuttonentry_actions_init(EailActionWidget *action_widget)
 {
@@ -520,7 +526,7 @@ eail_multibuttonentry_item_handle_removed_event(void *data,
 
 /**
  * @brief EailMultibuttonentry type initializer
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  * @param data initialization data
  */
 void
@@ -548,7 +554,7 @@ eail_multibuttonentry_initialize(AtkObject *obj, gpointer data)
 /**
  * @brief EailMultibuttonentry instance initializer
  *
- * @param multibuttonentry an EailMultibuttonentry
+ * @param multibuttonentry EailMultibuttonentry instance
  */
 static void
 eail_multibuttonentry_init(EailMultibuttonentry *multibuttonentry)
@@ -556,12 +562,12 @@ eail_multibuttonentry_init(EailMultibuttonentry *multibuttonentry)
 }
 
 /**
- * @brief Gets obj state set
+ * @brief Gets obj's state set
  *
- * The caller must unreference it when it is no longer needed
+ * The caller must unreference it when it is no longer needed.
  *
- * @param obj an AtkObject
- * @return obj state set
+ * @param obj AtkObject instance
+ * @return AtkStateSet containing object's state set
  */
 static AtkStateSet *
 eail_multibuttonentry_ref_state_set(AtkObject *obj)
@@ -592,10 +598,10 @@ eail_multibuttonentry_ref_state_set(AtkObject *obj)
 }
 
 /**
- * @brief Gets multibuttonentry items list
+ * @brief Gets the list of multibuttonentry's items
  *
- * @param multibuttonentry an EailMultibuttonentry
- * @return multibuttonentry items list
+ * @param multibuttonentry EailMultibuttonentry instance
+ * @return Eina_List containing multibuttonentry's items
  * */
 static const Eina_List *
 eail_multibuttonentry_get_items(EailMultibuttonentry *multibuttonentry)
@@ -607,10 +613,10 @@ eail_multibuttonentry_get_items(EailMultibuttonentry *multibuttonentry)
 }
 
 /**
- * @brief Gets obj children number
+ * @brief Gets the number of accessible children of the accessible
  *
- * @param obj an AtkObject
- * @return children number
+ * @param obj AtkObject instance
+ * @return integer representing the number of accessible children of the accessible
  */
 static gint
 eail_multibuttonentry_get_n_children(AtkObject *obj)
@@ -625,13 +631,13 @@ eail_multibuttonentry_get_n_children(AtkObject *obj)
 }
 
 /**
- * @brief Gets reference to i-th obj child
+ * @brief Gets a reference to the specified child of obj
  *
- * The caller must unreference it when it is no longer needed
+ * The caller must unreference it when it is no longer needed.
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  * @param i child index
- * @return child reference
+ * @return AtkObject containing reference to the specified child of obj
  */
 static AtkObject *
 eail_multibuttonentry_ref_child(AtkObject *obj, gint i)
@@ -656,7 +662,7 @@ eail_multibuttonentry_ref_child(AtkObject *obj, gint i)
 /**
  * @brief EailMultibuttonentry class initializer
  *
- * @param klass an EailMultibuttonentry class
+ * @param klass EailMultibuttonentryClass instance
  */
 static void
 eail_multibuttonentry_class_init(EailMultibuttonentryClass *klass)

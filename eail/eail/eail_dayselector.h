@@ -35,7 +35,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailDayselector
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_DAYSELECTOR(obj)             (G_TYPE_DAYSELECTOR_INSTANCE_CAST((obj), \
                                            EAIL_TYPE_DAYSELECTOR, EailDayselector))
@@ -49,7 +49,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailDayselector class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_DAYSELECTOR(obj)          (G_TYPE_DAYSELECTOR_INSTANCE_TYPE((obj), \
                                            EAIL_TYPE_DAYSELECTOR))
@@ -80,7 +80,7 @@ typedef struct _EailDayselectorClass EailDayselectorClass;
 /** @brief Definition of object structure for Atk EailDayselector*/
 struct _EailDayselector
 {
-   /** @brief Parent object that functionality is being extended*/
+   /** @brief Parent widget whose functionality is being extended*/
    EailWidget parent;
 };
 

@@ -34,7 +34,7 @@ G_DEFINE_TYPE(EailConformant, eail_conformant, EAIL_TYPE_LAYOUT);
 /**
  * @brief EailConformant initializer
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  * @param data initialization data
  */
 static void
@@ -48,7 +48,7 @@ eail_conformant_initialize(AtkObject *obj, gpointer data)
 /**
  * @brief EailConformant instance initializer
  *
- * @param conformant an EailConformant
+ * @param conformant EailConformant instance
  */
 static void
 eail_conformant_init(EailConformant *conformant)
@@ -58,7 +58,7 @@ eail_conformant_init(EailConformant *conformant)
 /**
  * @brief EailConformant class initializer
  *
- * @param klass an EailConformantClass to be filled
+ * @param klass EailConformantClass instance to be filled
  */
 static void
 eail_conformant_class_init(EailConformantClass *klass)

@@ -35,7 +35,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailRadiobutton
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_RADIO_BUTTON(obj)              (G_TYPE_CHECK_INSTANCE_CAST ((obj),\
                                              EAIL_TYPE_RADIO_BUTTON, \
@@ -51,7 +51,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailRadiobutton class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_RADIO_BUTTON(obj)           (G_TYPE_CHECK_INSTANCE_TYPE ((obj),\
                                              EAIL_TYPE_RADIO_BUTTON))
@@ -83,10 +83,10 @@ typedef struct _EailRadioButtonClass EailRadioButtonClass;
 /** @brief Definition of object structure for Atk EailRadiobutton*/
 struct _EailRadioButton
 {
-   /** @brief Parent object that functionality is being extended*/
+   /** @brief Parent widget whose functionality is being extended*/
    EailButton parent;
    char *click_description; /*!< @brief 'click' action description*/
-   Eina_Bool state; /*!< @brief state of object (selected/unselected)*/
+   Eina_Bool state; /*!< @brief State of object (selected/unselected)*/
 };
 
 /** @brief Definition of object class for Atk EailRadiobutton*/

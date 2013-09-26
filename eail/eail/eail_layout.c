@@ -20,7 +20,7 @@
 /**
  * @file eail_layout.c
  *
- * @brief Implementation of Layout widget
+ * @brief EailLayout implementation
 */
 
 #include <Elementary.h>
@@ -42,13 +42,14 @@ G_DEFINE_TYPE_WITH_CODE(EailLayout, eail_layout, EAIL_TYPE_WIDGET,
                                           eail_dynamic_content_interface_init));
 
 /**
- * @brief Gets elementary widgets from layout edje object
- * Iterates over edje smart objects and if object is elementary widget
- * then it is append to the list
+ * @brief Gets elementary widgets from a layout edje object
  *
- * @param edje layout edje object
+ * Iterates over edje smart objects and if an object is an elementary widget
+ * then it is appended to the list.
  *
- * @returns list of Elementary widgets
+ * @param edje layout edje instance
+ *
+ * @returns Eina_List representing the list of Elementary widgets
  */
 static Eina_List *
 _get_widgets_from_edje(const Evas_Object *edje)
@@ -67,11 +68,13 @@ _get_widgets_from_edje(const Evas_Object *edje)
 }
 
 /**
- * @brief Implementations of get_widget_children from EailWidget
+ * @brief Gets accessible children of object
  *
- * @param object EailLayout instance
+ * Implementation of get_widget_children from EailWidget.
  *
- * @returns list of Evas_Objects
+ * @param object EailWidget instance
+ *
+ * @returns Eina_List representing the list of object's children
  */
 static Eina_List*
 eail_layout_widget_children_get(EailWidget *object)
@@ -86,9 +89,9 @@ eail_layout_widget_children_get(EailWidget *object)
 }
 
 /**
- * @brief Initialize EailLayout object
+ * @brief Initializes EailLayout object
  *
- * @param object EailLayout instance
+ * @param object AtkObject instance
  * @param data user data passed to initialization
  */
 static void
@@ -111,7 +114,7 @@ eail_layout_initialize(AtkObject *object, gpointer data)
 }
 
 /**
- * @brief Init EailLayout instance
+ * @brief Initiates EailLayout instance
  *
  * @param layout EailLayout instance
  */
@@ -121,9 +124,9 @@ eail_layout_init(EailLayout *layout)
 }
 
 /**
- * @brief Init EailLayout class
+ * @brief Initiates EailLayout class
  *
- * @param klass EailLayoutClass object
+ * @param klass EailLayoutClass instance
  */
 static void
 eail_layout_class_init(EailLayoutClass *klass)

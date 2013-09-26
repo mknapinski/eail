@@ -26,7 +26,7 @@
 #include "eail_image.h"
 
 /**
- * @brief click action name
+ * @brief 'click' action name
  */
 #define EAIL_IMAGE_ACTION_CLICK "click"
 
@@ -44,7 +44,7 @@ G_DEFINE_TYPE_WITH_CODE(EailImage,
 /**
  * @brief Callback for "click" action on elm_image object
  *
- * @param action EailImage instance
+ * @param action AtkAction instance
  * @param data user data passed to callback
  *
  * @returns TRUE on success, FALSE otherwise
@@ -72,9 +72,9 @@ _eail_image_action_click(AtkAction *action, void *data)
 
 /**
  *
- * @brief Initialize EailImage instance
+ * @brief Initializes AtkObject instance
  *
- * @param obj EailImage instance
+ * @param obj AtkObject instance
  * @param data user data passed to initialization
  */
 static void
@@ -91,9 +91,9 @@ eail_image_initialize(AtkObject *obj, gpointer data)
 }
 
 /**
- * @brief Finalize EailImage instance
+ * @brief Finalizes EailImage instance
  *
- * @param object EailImage instance
+ * @param object GObject instance
  */
 static void
 eail_image_finalize(GObject *object)
@@ -107,7 +107,7 @@ eail_image_finalize(GObject *object)
 }
 
 /**
- * @brief Init EailImage instance
+ * @brief Initiates EailImage instance
  *
  * @param image EalImage instance
  */
@@ -118,11 +118,15 @@ eail_image_init(EailImage *image)
 }
 
 /**
- * @brief Implementation on ref_state_set from AtkObject
+ * @brief Gets a reference to the state set of the accessible
  *
- * @param obj EailImage instance
+ * The caller must unreference it when it is no longer needed.
  *
- * @returns referred state set object
+ * Implementation of ref_state_set from AtkObject.
+ *
+ * @param obj AtkObject instance
+ *
+ * @returns AtkStateSet representing the state set of the accessible
  */
 static AtkStateSet *
 eail_image_ref_state_set(AtkObject *obj)
@@ -157,7 +161,7 @@ eail_image_ref_state_set(AtkObject *obj)
 /**
  * @brief EailImage class initialization
  *
- * @param klass EailImageClass object
+ * @param klass EailImageClass instance
  */
 static void
 eail_image_class_init(EailImageClass *klass)
@@ -176,11 +180,13 @@ eail_image_class_init(EailImageClass *klass)
  */
 
 /**
- * @brief Implementation of get_image_postition from AtkImage interface
+ * @brief Gets the position of the image in the form of a point specifying the images top-left corner
  *
- * @param image EailImage instance
- * @param x address of int to store x coordinate
- * @param y address of int to store y coordinate
+ * Implementation of get_image_postition from AtkImage interface.
+ *
+ * @param image AtkImage instance
+ * @param [out] x x coordinate or -1 if value cannot be obtained
+ * @param [out] y y coordinate or -1 if value cannot be obtained
  * @param coord_type specifies whether the coordinates are relative to the screen or to the components top level window
  */
 static void
@@ -193,11 +199,16 @@ eail_image_position_get(AtkImage *image,
 }
 
 /**
- * @brief Implementation of get_image_size from AtkImage interface
+ * @brief Gets the width and height in pixels for the specified image
+ *
+ * The values of width and height are returned as -1 if the values
+ * cannot be obtained (for instance, if the object is not onscreen).
+ *
+ * Implementation of get_image_size from AtkImage interface.
  *
  * @param image EailImage instance
- * @param width address of int to store width
- * @param height address of int to store height
+ * @param [out] width width of image or -1 if value cannot be obtained
+ * @param [out] height height of image or -1 if value cannot be obtained
  */
 static void
 eail_image_size_get(AtkImage *image, gint *width, gint *height)
@@ -216,11 +227,13 @@ eail_image_size_get(AtkImage *image, gint *width, gint *height)
 }
 
 /**
- * @brief Implementation of get_image_description from AtkImage interface
+ * @brief Gets a textual description of the image
  *
- * @param image EailImage instance
+ * Implementation of get_image_description from AtkImage interface.
  *
- * @returns image description
+ * @param image AtkImage instance
+ *
+ * @returns string representing the image description
  */
 static const gchar *
 eail_image_description_get(AtkImage *image)
@@ -230,10 +243,12 @@ eail_image_description_get(AtkImage *image)
 }
 
 /**
- * @brief Implementation of set_image_description from AtkImage interface
+ * @brief Sets the textual description for the image
  *
- * @param image EailImage instance
- * @param description image description to set
+ * Implementation of set_image_description from AtkImage interface.
+ *
+ * @param image AtkImage instance
+ * @param description image's description to set
  *
  * @returns TRUE on success
  */
@@ -251,10 +266,13 @@ eail_image_description_set(AtkImage *image, const gchar *description)
 }
 
 /**
- * @brief Gets image locale (LC_MESSAGES variable)
+ * @brief Gets image's locale (LC_MESSAGES variable)
  *
- * @param image an AtkImage
- * @return NULL if LC_MESSAGES not set, locale string otherwise
+ * @param image AtkImage instance
+ * @return string corresponding to the POSIX LC_MESSAGES
+ * locale used by the image description, or NULL if
+ * the image does not specify a locale
+ *
  */
 const gchar *
 eail_image_get_image_locale(AtkImage *image)
@@ -263,9 +281,9 @@ eail_image_get_image_locale(AtkImage *image)
 }
 
 /**
- * @brief Initialize AtkImage interface
+ * @brief Initializes AtkImage interface
  *
- * @param iface EailImage object
+ * @param iface AtkImageIface instance
  */
 static void
 atk_image_interface_init(AtkImageIface *iface)

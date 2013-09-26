@@ -35,7 +35,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailMultibuttonentry
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_MULTIBUTTONENTRY(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj), \
                                                 EAIL_TYPE_MULTIBUTTONENTRY, EailMultibuttonentry))
@@ -49,7 +49,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailMultibuttonentry class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_MULTIBUTTONENTRY(obj)          (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
                                                 EAIL_TYPE_MULTIBUTTONENTRY))
@@ -80,7 +80,7 @@ typedef struct _EailMultibuttonentryClass EailMultibuttonentryClass;
 /** @brief Definition of object structure for Atk EailMultibuttonentry*/
 struct _EailMultibuttonentry
 {
-   /** @brief widget that functionality is being extended*/
+   /** @brief Parent widget whose functionality is being extended*/
    EailActionWidget parent;
 };
 

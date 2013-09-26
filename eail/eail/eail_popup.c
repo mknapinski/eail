@@ -19,7 +19,7 @@
 
 /**
  * @file eail_popup.c
- * @brief Implementation of popup widget
+ * @brief EailPopup implementation
  */
 
 #include <atk/atk.h>
@@ -48,7 +48,7 @@ G_DEFINE_TYPE_WITH_CODE(EailPopup, eail_popup, EAIL_TYPE_NOTIFY,
  */
 #define EAIL_POPUP_BUTTON_FORMAT "button%d"
 /**
- * @brief number of popup buttons
+ * @brief Number of popup buttons
  */
 #define EAIL_POPUP_NUM_BUTTONS 3
 /**
@@ -58,7 +58,8 @@ G_DEFINE_TYPE_WITH_CODE(EailPopup, eail_popup, EAIL_TYPE_NOTIFY,
 
 /**
  * @brief Initializer for AtkObject
- * @param obj an AtkObject
+ *
+ * @param obj AtkObject instance
  * @param data initialization data
  */
 static void
@@ -70,7 +71,8 @@ eail_popup_initialize(AtkObject *obj, gpointer data)
 
 /**
  * @brief EailPopup GObject instance initializer
- * @param button an EailPopup
+ *
+ * @param button EailPopup instance
  */
 static void
 eail_popup_init(EailPopup *button)
@@ -78,11 +80,11 @@ eail_popup_init(EailPopup *button)
 }
 
 /**
- * @brief Helper function to getting "elm_popup" Evas_Object* from Atk EailPopup
+ * @brief Helper function for getting elm_popup Evas_Object* from Atk EailPopup
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  *
- * @returns nested "elm_popup" widget
+ * @returns Evas_Object representing the nested elm_popup widget
  */
 static Evas_Object *
 _eail_get_popup_widget_from_atkobj(AtkObject *obj)
@@ -99,11 +101,11 @@ _eail_get_popup_widget_from_atkobj(AtkObject *obj)
 }
 
 /**
- * @brief Helper function to getting nested content in "elm_popup" widget
+ * @brief Helper function for getting nested content in elm_popup widget
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  *
- * @returns nested widget content from "elm_popup" widget
+ * @returns Evas_Object representing the nested widget content from elm_popup widget
  */
 static Evas_Object *
 _eail_get_nested_widget(AtkObject *obj)
@@ -120,12 +122,13 @@ _eail_get_nested_widget(AtkObject *obj)
 }
 
 /**
- * @brief Helper function to getting nested button content in "elm_popup" widget
+ * @brief Helper function for getting nested button content in elm_popup widget
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  * @param index index of button in popup widget
  *
- * @returns nested button widget from "elm_popup" widget or NULL if failed
+ * @returns Evas_Object representing the nested button widget
+ * from elm_popup widget or NULL in case of a failure
  */
 static Evas_Object *
 _eail_get_nested_popup_button(AtkObject *obj, gint index)
@@ -152,10 +155,11 @@ _eail_get_nested_popup_button(AtkObject *obj, gint index)
  * @brief Prepares Eina_List filled with Evas_Object * objects
  * representing nested content in elm_popup widget
  *
- * @param obj an AtkObject
+ * Call eina_list_free on the returned list when results processing has been finished.
  *
- * @return filled list with Evas_Object* objects. Call eina_list_free on that
- * list when results processing has been finished
+ * @param obj AtkObject instance
+ *
+ * @return Eina_List representing the list of Evas_Object* objects
  */
 static Eina_List *
 _eail_popup_get_items(AtkObject *obj)
@@ -181,13 +185,13 @@ _eail_popup_get_items(AtkObject *obj)
 }
 
 /**
- * @brief Implementation AtkObject->get_n_children callback
+ * @brief Gets the number of accessible children of the accessible
  *
- * ATK doc says:\n
- * Gets the number of accessible children of the accessible.
- * @param obj an AtkObject
+ * Implementation of AtkObject->get_n_children callback.
  *
- * @returns an integer representing the number of accessible children of
+ * @param obj AtkObject instance
+ *
+ * @returns integer representing the number of accessible children of
  * the accessible
  */
 static gint
@@ -203,18 +207,18 @@ eail_popup_get_n_children(AtkObject *obj)
 }
 
 /**
- * @brief Implementation AtkObject->ref_child callback
+ * @brief Gets a reference to the specified accessible child of the object.
  *
- * ATK doc says:\n
- * Gets a reference to the specified accessible child of the object. The
- * accessible children are 0-based so the first accessible child is at index 0,
+ * The accessible children are 0-based so the first accessible child is at index 0,
  * the second at index 1 and so on.
  *
- * @param obj an AtkObject
+ * Implementation of AtkObject->ref_child callback.
+ *
+ * @param obj AtkObject instance
  * @param i index of a child
  *
- * @returns an AtkObject representing the specified accessible child of the
- * accessible.
+ * @returns AtkObject representing the specified accessible child of the
+ * accessible
  */
 static AtkObject *
 eail_popup_ref_child(AtkObject *obj, gint i)
@@ -233,17 +237,14 @@ eail_popup_ref_child(AtkObject *obj, gint i)
 }
 
 /**
- * @brief Gets name of EailItem
+ * @brief Gets the accessible name of EailItem
  *
- * Implementation of AtkObject->get_name callback
+ * Implementation of AtkObject->get_name callback.
  *
- * ATK doc says:\n
- * Gets the accessible name of the accessible.
+ * @param obj AtkObject instance
  *
- * @param obj an AtkObject
- *
- * @returns a character string representing the accessible description of
- * the accessible.
+ * @returns character string representing the accessible description of
+ * the accessible
  */
 static const gchar *
 eail_popup_get_name(AtkObject *obj)
@@ -266,6 +267,7 @@ eail_popup_get_name(AtkObject *obj)
 
 /**
  * @brief Destructor for EailPopup class
+ * @param object GObject instance
  */
 static void
 eail_popup_finalize(GObject *object)
@@ -274,8 +276,11 @@ eail_popup_finalize(GObject *object)
 }
 
 /**
- * @brief Initializer for EailPopup GObject class (defines callbacks for
- * base AtkObject)
+ * @brief Initializer for EailPopup GObject class
+ *
+ * Defines callbacks for base AtkObject.
+ *
+ * @param klass EailPopupClass instance
  */
 static void
 eail_popup_class_init(EailPopupClass *klass)
@@ -296,9 +301,9 @@ eail_popup_class_init(EailPopupClass *klass)
 /**
  * @brief Helper function that gets text from popup as Eina_Strbuf*
  *
- * @param popup an EailPopup instance
+ * @param popup AtkText instance
  *
- * @returns Eina_Strbuf* object with filled text content of a popup
+ * @returns Eina_Strbuf representing the text content of the popup
  */
 static Eina_Strbuf *
 _eail_popup_get_strbuf(AtkText *popup)
@@ -323,17 +328,18 @@ _eail_popup_get_strbuf(AtkText *popup)
 }
 
 /**
- * @brief Gets text content from popup
+ * @brief Gets the text content from popup
  *
- * Implementation of AtkTextIface->get_text callback\n
+ * Use g_free() to free the returned string.
  *
- * @param popup an AtkText
+ * Implementation of AtkTextIface->get_text callback.
+ *
+ * @param popup AtkText instance
  * @param start_offset start position
  * @param end_offset end position, or -1 for the end of the string.
  *
- * @returns a newly allocated string containing the text from start_offset
- * up to, but not including end_offset. Use g_free() to free the returned
- * string.
+ * @returns newly allocated string containing the text from start_offset
+ * up to, but not including end_offset
  */
 static gchar*
 eail_popup_get_text(AtkText          *popup,
@@ -357,14 +363,14 @@ eail_popup_get_text(AtkText          *popup,
 }
 
 /**
- * @brief Gets character from popup at given offset
+ * @brief Gets the character from popup at given offset
  *
- * Implementation of AtkTextIface->get_character_at_offset callback
+ * Implementation of AtkTextIface->get_character_at_offset callback,
  *
- * @param popup an AtkText
- * @param offset an offset
+ * @param popup AtkText instance
+ * @param offset offset
  *
- * @returns the character at offset.
+ * @returns char representing the character at offset
  */
 static gunichar
 eail_popup_get_character_at_offset(AtkText *popup, gint offset)
@@ -387,12 +393,13 @@ eail_popup_get_character_at_offset(AtkText *popup, gint offset)
 }
 
 /**
- * @brief Gets character count from text content in popup<br>
- * Implementation of AtkTextIface->get_character_count callback
+ * @brief Gets the character count from text content in popup
  *
- * @param popup an AtkText
+ * Implementation of AtkTextIface->get_character_count callback.
  *
- * @returns the character count
+ * @param popup AtkText instance
+ *
+ * @returns char representing the the character count
  */
 static gint
 eail_popup_get_character_count(AtkText *popup)
@@ -414,10 +421,11 @@ eail_popup_get_character_count(AtkText *popup)
 }
 
 /**
- * @brief Initializer for AtkTextIface interface class (defines callbacks for
- * AtkTextIface)
+ * @brief Initializer for AtkTextIface interface class
  *
- * @param iface an AtkText interface
+ * Defines callbacks for AtkTextIface.
+ *
+ * @param iface AtkTextIface instance
  */
 static void
 atk_text_interface_init(AtkTextIface *iface)

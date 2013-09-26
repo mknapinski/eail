@@ -35,7 +35,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailNaviframe
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_NAVIFRAME(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj), \
                                          EAIL_TYPE_NAVIFRAME, EailNaviframe))
@@ -49,7 +49,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailNaviframe class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_NAVIFRAME(obj)          (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
                                          EAIL_TYPE_NAVIFRAME))
@@ -80,9 +80,9 @@ typedef struct _EailNaviframeClass EailNaviframeClass;
 /** @brief Definition of object structure for Atk EailNaviframe*/
 struct _EailNaviframe
 {
-   EailActionWidget parent;/**< @brief widget that functionality is being extended*/
-   char *click_description;/**< @brief string description for 'click' action*/
-   int child_count_last;/**< @brief last reported cound of children */
+   EailActionWidget parent;/**< @brief Parent widget whose functionality is being extended*/
+   char *click_description;/**< @brief String description for 'click' action*/
+   int child_count_last;/**< @brief Last reported count of children */
 };
 
 /** @brief Definition of object class for Atk EailNaviframe*/

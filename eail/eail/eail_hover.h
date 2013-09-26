@@ -35,7 +35,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailHover
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_HOVER(obj)            (G_TYPE_CHECK_INSTANCE_CAST((obj), \
                                     EAIL_TYPE_HOVER, EailHover))
@@ -49,7 +49,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailHover class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_HOVER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
                                     EAIL_TYPE_HOVER))
@@ -80,7 +80,7 @@ typedef struct _EailHoverClass EailHoverClass;
 /** @brief Definition of object structure for Atk EailHover*/
 struct _EailHover
 {
-   EailWidget parent;/**< @brief widget that functionality is being extended*/
+   EailWidget parent;/**< @brief Parent widget whose functionality is being extended*/
 
    char *click_description;/**< @brief 'click' action description string */
 };

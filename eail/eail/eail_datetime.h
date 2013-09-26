@@ -35,7 +35,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailDatetime
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_DATETIME(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj), \
                                         EAIL_TYPE_DATETIME, EailDatetime))
@@ -49,7 +49,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailDatetime class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_DATETIME(obj)          (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
                                         EAIL_TYPE_DATETIME))
@@ -81,7 +81,7 @@ typedef struct _EailDatetimeClass EailDatetimeClass;
 /** @brief Definition of object structure for Atk EailDatetime*/
 struct _EailDatetime
 {
-   /** @brief Parent object that functionality is being extended*/
+   /** @brief Parent widget whose functionality is being extended*/
    EailWidget parent;
 };
 

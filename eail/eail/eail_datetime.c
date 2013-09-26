@@ -41,8 +41,8 @@ G_DEFINE_TYPE_WITH_CODE(EailDatetime,
 /**
  * @brief EailDatetime object initialization
  *
- * @param obj EailDatetime object
- * @param data user set additional initialization data
+ * @param obj EailDatetime instance
+ * @param data additional initialization data
  */
 static void
 eail_datetime_initialize(AtkObject *obj, gpointer data)
@@ -65,7 +65,7 @@ eail_datetime_init(EailDatetime *datetime)
 /**
  * @brief GObject type initialization function
  *
- * @param klass EailDatetime class
+ * @param klass EailDatetimeClass instance
  */
 static void
 eail_datetime_class_init(EailDatetimeClass *klass)
@@ -76,7 +76,7 @@ eail_datetime_class_init(EailDatetimeClass *klass)
 }
 
 /**
- * @brief Gets obj current value
+ * @brief Gets obj's current value
  *
  * Example:
  * @code
@@ -95,7 +95,7 @@ eail_datetime_class_init(EailDatetimeClass *klass)
  * @endcode
  *
  * @param obj EailDatetime instance
- * @param [out] value EailDatetime current value
+ * @param [out] value obj's current value
  */
 static void
 eail_datetime_get_current_value(AtkValue *obj,
@@ -115,10 +115,10 @@ eail_datetime_get_current_value(AtkValue *obj,
 }
 
 /**
- * @brief Gets obj maxiumum value
+ * @brief Gets obj's maxiumum value
  *
  * @param obj EailDatetime instance
- * @param [out] value EailDatetime maximum value
+ * @param [out] value obj's maximum value
  */
 static void
 eail_datetime_get_maximum_value(AtkValue *obj,
@@ -138,10 +138,10 @@ eail_datetime_get_maximum_value(AtkValue *obj,
 }
 
 /**
- * @brief Gets obj minimum value
+ * @brief Gets obj's minimum value
  *
  * @param obj EailDatetime instance
- * @param [out] value EailDatetime minimum value
+ * @param [out] value obj's minimum value
  */
 static void
 eail_datetime_get_minimum_value(AtkValue *obj,
@@ -161,7 +161,7 @@ eail_datetime_get_minimum_value(AtkValue *obj,
 }
 
 /**
- * @brief Sets obj value
+ * @brief Sets obj's value
  *
  * Example
  * @code
@@ -189,7 +189,7 @@ eail_datetime_get_minimum_value(AtkValue *obj,
  *
  * @param obj EailDatetime instance
  * @param value EailDatetime new value
- * @return TRUE if new value is set successfully, FALSE otherwise
+ * @return TRUE if new value was set successfully, FALSE otherwise
  */
 static gboolean
 eail_datetime_set_current_value(AtkValue     *obj,
@@ -212,10 +212,10 @@ eail_datetime_set_current_value(AtkValue     *obj,
 }
 
 /**
- * @brief Gets obj minimum increment
+ * @brief Gets obj's minimum increment
  *
  * @param obj EailDatetime instance
- * @param [out] value EailDatetime minimum increment
+ * @param [out] value obj's minimum increment
  */
 static void
 eail_datetime_get_minimum_increment(AtkValue *obj,
@@ -234,7 +234,7 @@ eail_datetime_get_minimum_increment(AtkValue *obj,
 /**
  * @brief AtkValue interface initializer
  *
- * @param iface an AtkValueIface
+ * @param iface AtkValueIface instance
  */
 static void
 atk_value_interface_init(AtkValueIface *iface)

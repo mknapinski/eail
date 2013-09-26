@@ -35,7 +35,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailBox
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_BOX(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), \
                                     EAIL_TYPE_BOX, EailBox))
@@ -49,7 +49,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailBox class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_BOX(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
                                     EAIL_TYPE_BOX))
@@ -63,7 +63,7 @@
 /**
  * @brief Gets EailBox class structure from an obj (class instance)
  *
- * @param obj obj object instance to get EailBox class from
+ * @param obj object instance to get EailBox class from
  */
 #define EAIL_BOX_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), \
                                     EAIL_TYPE_BOX, EailBoxClass))
@@ -80,7 +80,7 @@ typedef struct _EailBoxClass EailBoxClass;
 /** @brief Definition of object structure for Atk EailBox*/
 struct _EailBox
 {
-   /** @brief parent object that functionality is being extended */
+   /** @brief Parent widget whose functionality is being extended */
    EailWidget parent;
 };
 

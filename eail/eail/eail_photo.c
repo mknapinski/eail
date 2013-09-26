@@ -38,11 +38,11 @@ G_DEFINE_TYPE_WITH_CODE(EailPhoto, eail_photo, EAIL_TYPE_IMAGE,
 
 
 /**
- * @brief Gets image size
+ * @brief Gets the image size
  *
- * @param image an AtkImage
- * @param width photo width
- * @param height photo height
+ * @param image AtkImage instance
+ * @param [out] width photo width or -1 if value cannot be obtained
+ * @param [out] height photo height or -1 if value cannot be obtained
  */
 static void
 eail_photo_size_get(AtkImage *image, gint *width, gint *height)
@@ -62,7 +62,7 @@ eail_photo_size_get(AtkImage *image, gint *width, gint *height)
 /**
  * @brief EailPhoto initializer
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  * @param data initialization data
  */
 static void
@@ -74,7 +74,7 @@ eail_photo_initialize(AtkObject *obj, gpointer data)
 /**
  * @brief EailPhoto class initializer
  *
- * @param klass an EailPhotoClass
+ * @param klass EailPhotoClass instance
  */
 static void
 eail_photo_class_init(EailPhotoClass *klass)
@@ -86,7 +86,7 @@ eail_photo_class_init(EailPhotoClass *klass)
 /**
  * @brief EailPhoto instance initializer
  *
- * @param photo an EailPhoto
+ * @param photo EailPhoto instance
  */
 static void
 eail_photo_init(EailPhoto *photo)
@@ -96,7 +96,7 @@ eail_photo_init(EailPhoto *photo)
 /**
  * @brief AtkImage interface initializer
  *
- * @param iface an AtkImage interface
+ * @param iface AtkImage interface
  */
 static void
 atk_image_iface_init(AtkImageIface* iface)

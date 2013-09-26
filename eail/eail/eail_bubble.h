@@ -35,7 +35,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailBubble
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_BUBBLE(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj), \
                                       EAIL_TYPE_BUBBLE, EailBubble))
@@ -49,7 +49,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailBubble class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_BUBBLE(obj)          (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
                                       EAIL_TYPE_BUBBLE))
@@ -80,8 +80,10 @@ typedef struct _EailBubbleClass EailBubbleClass;
 /** @brief Definition of object structure for Atk EailBubble*/
 struct _EailBubble
 {
-   EailText parent; /*!< parent class object*/
-   char *click_description; /*!< click action description*/
+   /** @brief Parent widget whose functionality is being extended */
+   EailText parent;
+   /** @brief "click" action description*/
+   char *click_description;
 };
 
 /** @brief Definition of class structure for Atk EailBubble*/

@@ -43,10 +43,10 @@ G_DEFINE_TYPE_WITH_CODE(EailProgressbar,
  */
 
 /**
- * @brief handler for changed event
+ * @brief Handler for changed event
  *
- * @param data passed to callback
- * @param obj object that raised event
+ * @param data data passed to callback
+ * @param obj Evas_Object that raised event
  * @param event_info additional event info
  */
 void
@@ -61,7 +61,7 @@ _eail_progressbar_handle_changed_event(void *data,
 /**
  * @brief EailProgressbar object initialization
  *
- * @param obj EailProgressbar object
+ * @param obj AtkObject instance
  * @param data user set additional initialization data
  */
 static void
@@ -81,11 +81,12 @@ eail_progressbar_initialize(AtkObject *obj, gpointer data)
 }
 
 /**
- * @brief Gets list of child widget
+ * @brief Gets the list of child widgets
  *
  * @param widget EailWidget object
  *
- * @return list of child, NULL if no children
+ * @return Eina_List representing the list of widget's children
+ * or NULL if widget has no children
  */
 static Eina_List *
 eail_progressbar_get_widget_children(EailWidget *widget)
@@ -105,10 +106,10 @@ eail_progressbar_get_widget_children(EailWidget *widget)
 }
 
 /**
- * @brief Gets slider name
+ * @brief Gets the slider's name
  *
- * @param obj EailSlider instance
- * @returns accessible name
+ * @param obj AtkObject instance
+ * @returns string representing the accessible name of the slider
  */
 static const gchar*
 eail_progressbar_get_name(AtkObject *obj)
@@ -139,7 +140,7 @@ eail_progressbar_init(EailProgressbar *progressbar)
 /**
  * @brief GObject type initialization function
  *
- * @param klass EailProgressbar class
+ * @param klass EailProgressbarClass instance
  */
 static void
 eail_progressbar_class_init(EailProgressbarClass *klass)
@@ -157,10 +158,10 @@ eail_progressbar_class_init(EailProgressbarClass *klass)
  */
 
 /**
- * @brief Gets obj current value
+ * @brief Gets the current value of obj
  *
- * @param obj EailProgressbar instance
- * @param value EailProgressbar current value
+ * @param obj AtkValue instance
+ * @param [out] value obj's current value
  */
 static void
 eail_progressbar_get_current_value(AtkValue *obj,
@@ -177,10 +178,10 @@ eail_progressbar_get_current_value(AtkValue *obj,
 }
 
 /**
- * @brief Gets obj maxiumum value
+ * @brief Gets the maxiumum value of obj
  *
- * @param obj EailProgressbar instance
- * @param value EailProgressbar maxiumum value
+ * @param obj AtkValue instance
+ * @param [out] value obj's maxiumum value
  */
 static void
 eail_progressbar_get_maximum_value(AtkValue *obj,
@@ -197,10 +198,10 @@ eail_progressbar_get_maximum_value(AtkValue *obj,
 }
 
 /**
- * @brief Gets obj minimum value
+ * @brief Gets the minimum value of obj
  *
- * @param obj EailProgressbar instance
- * @param value EailProgressbar minimum value
+ * @param obj AtkValue instance
+ * @param [out] value obj's minimum value
  */
 static void
 eail_progressbar_get_minimum_value(AtkValue *obj,
@@ -217,10 +218,10 @@ eail_progressbar_get_minimum_value(AtkValue *obj,
 }
 
 /**
- * @brief Sets obj value
+ * @brief Sets the value of obj
  *
- * @param obj EailProgressbar instance
- * @param value EailProgressbar new value
+ * @param obj AtkValue instance
+ * @param value obj's new value
  * @return TRUE if new value is set successfully, FALSE otherwise
  */
 static gboolean
@@ -244,10 +245,10 @@ eail_progressbar_set_current_value(AtkValue *obj,
 }
 
 /**
- * @brief Gets obj minimum increment
+ * @brief Gets the minimum increment of obj
  *
- * @param obj EailProgressbar instance
- * @param value EailProgressbar minimum increment
+ * @param obj AtkValue instance
+ * @param [out] value obj's minimum increment
  */
 static void
 eail_progressbar_get_minimum_increment(AtkValue *obj,
@@ -266,7 +267,7 @@ eail_progressbar_get_minimum_increment(AtkValue *obj,
 /**
  * @brief AtkValue interface initializer
  *
- * @param iface an AtkValue interface
+ * @param iface AtkValueIface instance
  */
 static void
 atk_value_interface_init(AtkValueIface *iface)

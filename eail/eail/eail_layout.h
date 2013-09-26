@@ -35,7 +35,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailLayout
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_LAYOUT(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), \
                                        EAIL_TYPE_LAYOUT, EailLayout))
@@ -49,7 +49,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailLayout class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_LAYOUT(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
                                        EAIL_TYPE_LAYOUT))
@@ -80,7 +80,7 @@ typedef struct _EailLayoutClass EailLayoutClass;
 /** @brief Definition of object structure for Atk EailLayout*/
 struct _EailLayout
 {
-   /** @brief Parent object that functionality is being extended*/
+   /** @brief Parent widget whose functionality is being extended*/
    EailWidget parent;
    gint child_count_last;/**< @brief last reported count of children */
 };

@@ -36,7 +36,7 @@ G_DEFINE_TYPE(EailInwin, eail_inwin, EAIL_TYPE_WIDGET);
  * @brief EailInwin object initialization
  *
  * @param obj EailInwin object
- * @param data user set additional initialization data
+ * @param data additional initialization data
  */
 static void
 eail_inwin_initialize(AtkObject *obj, gpointer data)
@@ -47,11 +47,13 @@ eail_inwin_initialize(AtkObject *obj, gpointer data)
 }
 
 /**
- * @brief Implementation of get_widget_children from EailWidget
+ * @brief Gets EailWidget's children
+ *
+ * Implementation of get_widget_children from EailWidget.
  *
  * @param widget EailInwin instance
  *
- * @return list of widgets, NULL if no children
+ * @return Eina_List representing a list of widget's children, or NULL if widget has no children
  */
 static Eina_List *
 eail_inwin_get_widget_children(EailWidget *widget)

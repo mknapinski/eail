@@ -32,10 +32,10 @@
 extern "C" {
 #endif
 
-#define EAIL_STR_SCROLL_UP "scroll_up" /**< @brief String for scroll up*/
-#define EAIL_STR_SCROLL_DOWN "scroll_down" /**< @brief String for scroll down*/
-#define EAIL_STR_SCROLL_LEFT "scroll_left" /**< @brief String for scroll left*/
-#define EAIL_STR_SCROLL_RIGHT "scroll_right" /**< @brief String for scroll right*/
+#define EAIL_STR_SCROLL_UP "scroll_up" /**< @brief String for 'scroll up'*/
+#define EAIL_STR_SCROLL_DOWN "scroll_down" /**< @brief String for 'scroll down'*/
+#define EAIL_STR_SCROLL_LEFT "scroll_left" /**< @brief String for 'scroll left'*/
+#define EAIL_STR_SCROLL_RIGHT "scroll_right" /**< @brief String for 'scroll right'*/
 
 /**
  * @enum EAIL_SCROLL_TYPE Type of scroll direction
@@ -99,51 +99,51 @@ Eina_List *eail_get_edje_parts_for_item(Elm_Object_Item *item);
 Eina_List *eail_item_get_content_strings(Elm_Object_Item *item);
 
 /**
- * @brief scrolls screen to given direction
+ * @brief Scrolls screen to given direction
  */
 gboolean eail_handle_scroll(Evas_Object *widget,
                             enum EAIL_SCROLL_TYPE type);
 
 /**
- * @brief scrolls screen up
+ * @brief Scrolls screen up
  */
 gboolean eail_action_scroll_up(Evas_Object *widget,
                                void *data);
 
 /**
- * @brief scrolls screen down
+ * @brief Scrolls screen down
  */
 gboolean eail_action_scroll_down(Evas_Object *widget,
                                  void *data);
 
 /**
- * @brief scrolls screen left
+ * @brief Scrolls screen left
  */
 gboolean eail_action_scroll_left(Evas_Object *widget,
                                  void *data);
 
 /**
- * @brief scrolls screen right
+ * @brief Scrolls screen right
  */
 gboolean eail_action_scroll_right(Evas_Object *widget,
                                   void *data);
 
 /**
- * @brief emits signal for ATK Object
+ * @brief Emits signal for ATK Object
  */
 void eail_emit_atk_signal(AtkObject * atk_obj,
                           const gchar *signal_name,
                           GType object_type);
 
 /**
- * @brief handler for selected event in for list-based content
+ * @brief Handler for selected event in for list-based content
  */
 void eail_list_item_handle_selected_event(void *data,
                                           Evas_Object *obj,
                                           void *event_info);
 
 /**
- * @brief handler for unselected event for list-based content
+ * @brief Handler for unselected event for list-based content
  */
 void eail_list_item_handle_unselected_event(void *data,
                                             Evas_Object *obj,
@@ -151,12 +151,12 @@ void eail_list_item_handle_unselected_event(void *data,
 
 
 /**
- * @brief gets raw evas object list for eail item
+ * @brief Gets raw evas object list for eail item
  */
 Eina_List *eail_get_raw_evas_obj_list_from_item(Elm_Object_Item *item);
 
 /**
- * @brief Helper function for emit children changed signal when needed
+ * @brief Helper function for emitting 'children changed' signal when needed
  */
 void eail_emit_children_changed(gboolean added,
                                 AtkObject *atk_obj,

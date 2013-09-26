@@ -35,7 +35,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailPanes
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_PANES(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj), \
                                      EAIL_TYPE_PANES, EailPanes))
@@ -49,7 +49,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailPanes class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_PANES(obj)          (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
                                      EAIL_TYPE_PANES))
@@ -80,7 +80,7 @@ typedef struct _EailPanesClass EailPanesClass;
 /** @brief Definition of object structure for Atk EailPanes*/
 struct _EailPanes
 {
-   /** @brief Parent object that functionality is being extended*/
+   /** @brief Parent widget whose functionality is being extended*/
    EailWidget parent;
 };
 

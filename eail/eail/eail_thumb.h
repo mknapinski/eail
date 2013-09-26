@@ -38,7 +38,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailThumb
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_THUMB(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), \
                                      EAIL_TYPE_THUMB, EailThumb))
@@ -54,7 +54,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailThumb class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_THUMB(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), \
                                      EAIL_TYPE_THUMB))
@@ -86,7 +86,7 @@ typedef struct _EailThumbClass EailThumbClass;
 /** @brief Definition of object structure for Atk EailThumb*/
 struct _EailThumb
 {
-   /** @brief Parent object that functionality is being extended*/
+   /** @brief Parent widget whose functionality is being extended*/
    EailImage parent;
 };
 

@@ -38,9 +38,9 @@
  * @brief Definition of EailScrollableWidget as GObject
  *
  * NOTE: this class extends EAIL_TYPE_ACTION_WIDGET, which implements
- * all needed functions for ATK_ACTION interface so additional implementing
+ * all needed functions for ATK_ACTION interface so additional implementing of
  * ATK_ACTION interface here is not needed.
- * Only what is really needed, is to call:
+ * Only thing that is really needed is to call:
  * eail_action_widget_action_append(...) to register all needed additional
  * actions
  */
@@ -48,10 +48,10 @@ G_DEFINE_TYPE(EailScrollableWidget, eail_scrollable_widget,
               EAIL_TYPE_ACTION_WIDGET);
 
 /**
- * @brief Handler for scroll event
+ * @brief Handler for 'scroll' event
  *
- * @param data passed to callback
- * @param obj object that raised event
+ * @param data data passed to callback
+ * @param obj Evas_Object that raised event
  * @param event_info additional event info
  */
 static void
@@ -66,7 +66,7 @@ _eail_scrollable_handle_scroll_event(void *data,
 /**
  * @brief Initializer for GObject class
  *
- * @param scrollable_widget an EailScrollableWidget
+ * @param scrollable_widget EailScrollableWidget instance
  */
 static void
 eail_scrollable_widget_init(EailScrollableWidget *scrollable_widget)
@@ -76,7 +76,7 @@ eail_scrollable_widget_init(EailScrollableWidget *scrollable_widget)
 /**
  * @brief Finalize function for GObject
  *
- * @param object GObject object instance to finalize
+ * @param object GObject instance to finalize
  */
 static void
 eail_scrollable_widget_finalize(GObject *object)
@@ -87,9 +87,9 @@ eail_scrollable_widget_finalize(GObject *object)
 
 
 /**
- * @brief Scrollup action callback
+ * @brief 'scroll up' action callback
  *
- * @param action an AtkAction
+ * @param action AtkAction instance
  * @param data additional callback data
  * @returns TRUE on success, FALSE otherwise
  */
@@ -107,9 +107,9 @@ _action_scroll_up(AtkAction *action,
 }
 
 /**
- * @brief Scrolldown action callback
+ * @brief 'scroll down' action callback
  *
- * @param action an AtkAction
+ * @param action AtkAction instance
  * @param data additional callback data
  * @returns TRUE on success, FALSE otherwise
  */
@@ -127,9 +127,9 @@ _action_scroll_down(AtkAction *action,
 }
 
 /**
- * @brief Scrollleft action callback
+ * @brief 'scroll left' action callback
  *
- * @param action an AtkAction
+ * @param action AtkAction instance
  * @param data additional callback data
  * @returns TRUE on success, FALSE otherwise
  */
@@ -147,9 +147,9 @@ _action_scroll_left(AtkAction *action,
 }
 
 /**
- * @brief Scrollright action callback
+ * @brief 'scroll right' action callback
  *
- * @param action an AtkAction
+ * @param action AtkAction instance
  * @param data additional callback data
  * @returns TRUE on success, FALSE otherwise
  */
@@ -190,7 +190,7 @@ eail_scrollable_widget_actions_table_init(EailScrollableWidget *widget)
 /**
  * @brief Initializer for AtkObjectClass
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  * @param data initialization data
  */
 static void
@@ -231,9 +231,9 @@ eail_scrollable_widget_initialize(AtkObject *obj, gpointer data)
 }
 
 /**
- * @brief Init function for GObject
+ * @brief Initializer for GObject
  *
- * @param klass an EailScrollableWidget class
+ * @param klass EailScrollableWidgetClass instance
  */
 static void
 eail_scrollable_widget_class_init(EailScrollableWidgetClass *klass)

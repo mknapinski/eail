@@ -19,7 +19,7 @@
 
 /**
  * @file eail_panel.c
- * @brief Implementation of panel widget
+ * @brief EailPanel implementation
  */
 
 #include <atk/atk.h>
@@ -27,7 +27,7 @@
 #include "eail_panel.h"
 
 /**
- * @brief EailPanel toogle action name
+ * @brief EailPanel 'toggle' action name
  */
 #define EAIL_PANEL_TOGGLE_ACTION "toggle"
 
@@ -40,16 +40,16 @@
 G_DEFINE_TYPE(EailPanel, eail_panel, EAIL_TYPE_ACTION_WIDGET);
 
 /**
- * @brief Implementation of AtkObject->ref_state_set callback
+ * @brief Gets a reference to the state set of the accessible
  *
- * ATK doc says:
- * Gets a reference to the state set of the accessible; the caller must
- * unreference it when it is no longer needed.
+ * The caller must unreference it when it is no longer needed.
  *
- * @param obj an AtkObject
+ * Implementation of AtkObject->ref_state_set callback.
  *
- * @returns a reference to an AtkStateSet which is the state set of the
- * accessible.
+ * @param obj AtkObject instance
+ *
+ * @returns AtkStateSet representing the state set of the
+ * accessible
  */
 static AtkStateSet*
 eail_panel_ref_state_set(AtkObject *obj)
@@ -70,12 +70,14 @@ eail_panel_ref_state_set(AtkObject *obj)
 }
 
 /**
- * @brief Implementation of eail_widget_get_widget_children callback from
- * EailWidget
+ * @brief Gets accessible children of a panel
  *
- * @param widget an EailWidget
+ * Implementation of eail_widget_get_widget_children callback from
+ * EailWidget.
  *
- * @returns Eina_List filled with Evas_Object* objects contained in Panel widget
+ * @param widget EailWidget instance
+ *
+ * @returns Eina_List representing a list of the panel widget's children
  */
 static Eina_List*
 eail_panel_children_get(EailWidget *widget)
@@ -97,9 +99,9 @@ eail_panel_children_get(EailWidget *widget)
 }
 
 /**
- * @brief Inits Action interface for PANEL
+ * @brief Initializes the Action interface for panel
  *
- * @param action an AtkAction
+ * @param action AtkAction instance
  * @param data data passed to callback
  * @returns TRUE on success, FALSE otherwise
  */
@@ -121,7 +123,7 @@ eail_panel_action_toggle(AtkAction *action, void *data)
 /**
  * @brief Hooks EailPanel actions callbacks
  *
- * @param action_widget an EailActionWidget
+ * @param action_widget EailActionWidget instance
  */
 static void
 eail_panel_actions_init(EailActionWidget *action_widget)
@@ -134,7 +136,7 @@ eail_panel_actions_init(EailActionWidget *action_widget)
 /**
  * @brief Initializer for AtkObjectClass
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  * @param data initialization data
  */
 static void
@@ -149,7 +151,7 @@ eail_panel_initialize(AtkObject *obj, gpointer data)
 /**
  * @brief Initializer for GObject class
  *
- * @param panel an EailPanel
+ * @param panel EailPanel instance
  */
 static void
 eail_panel_init(EailPanel *panel)
@@ -174,10 +176,11 @@ static void eail_panel_finalize(GObject *g_object)
 }
 
 /**
- * @brief Initializer for GObject panel class (defines callbacks for base
- * AtkObject)
+ * @brief Initializer for GObject panel class
  *
- * @param klass an EailPanel class
+ * Defines callbacks for base AtkObject.
+ *
+ * @param klass EailPanelClass instance
  */
 static void
 eail_panel_class_init(EailPanelClass *klass)

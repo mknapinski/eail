@@ -18,7 +18,7 @@
  */
 /**
  * @file eail_video.c
- * @brief Implementation of elm_video as AtkObject
+ * @brief EailVideo implementation
  */
 #include <Elementary.h>
 #include <Emotion.h>
@@ -32,7 +32,7 @@ static void atk_action_interface_init(AtkActionIface *iface);
 static void atk_stremable_content_iface_init(AtkStreamableContentIface *iface);
 
 /**
- * @brief define EailVideo type
+ * @brief Define EailVideo type
  */
 G_DEFINE_TYPE_WITH_CODE(EailVideo, eail_video, EAIL_TYPE_WIDGET,
                         G_IMPLEMENT_INTERFACE(ATK_TYPE_ACTION,
@@ -42,11 +42,15 @@ G_DEFINE_TYPE_WITH_CODE(EailVideo, eail_video, EAIL_TYPE_WIDGET,
 );
 
 /**
- * @brief Implementation of ref_state_set from AtkObject
+ * @brief Gets a reference to the state set of the accessible
  *
- * @param object EailVideo instance
+ * The caller must unreference it when it is no longer needed.
  *
- * @returns referred AtkStateSet object with accessible state set
+ * Implementation of ref_state_set from AtkObject.
+ *
+ * @param object AtkObject instance
+ *
+ * @returns AtkStateSet representing the state set of the accessible
  */
 static AtkStateSet*
 eail_video_ref_state_set(AtkObject *object)
@@ -65,11 +69,14 @@ eail_video_ref_state_set(AtkObject *object)
 }
 
 /**
- * @brief Implementation of get_name from AtkObject
+ * @brief Gets the accessible name of the accessible
  *
- * @param object EailVideo instance
+ * Implementation of get_name from AtkObject.
  *
- * @returns played video file title or NULL if not set
+ * @param object AtkObject instance
+ *
+ * @returns string representing the title of played video file
+ * or NULL if name is not set
  */
 static const gchar*
 eail_video_name_get(AtkObject *object)
@@ -89,9 +96,9 @@ eail_video_name_get(AtkObject *object)
 }
 
 /**
- * @brief Initialize EailVideo object
+ * @brief Initializes EailVideo object
  *
- * @param object EailVideo instance
+ * @param object AtkObject instance
  * @param data passed user data
  */
 static void
@@ -103,7 +110,7 @@ eail_video_initialize(AtkObject *object, gpointer data)
 }
 
 /**
- * @brief Init EailVideo object
+ * @brief Initiates EailVideo object
  *
  * @param video EailVideo instance
  */
@@ -121,7 +128,7 @@ eail_video_init(EailVideo *video)
 }
 
 /**
- * @brief Finalize EailVideo object
+ * @brief Finalizes EailVideo object
  *
  * @param object EailVideo instance
  */
@@ -142,9 +149,9 @@ eail_video_finalize(GObject *object)
 }
 
 /**
- * @brief Initialize EailVideo class
+ * @brief Initializes EailVideo class
  *
- * @param klass EailVideoClass object
+ * @param klass EailVideoClass instance
  */
 static void
 eail_video_class_init(EailVideoClass *klass)
@@ -160,12 +167,14 @@ eail_video_class_init(EailVideoClass *klass)
 }
 
 /**
- * @brief Implementation of get_action_name from AtkAction interface
+ * @brief Gets the name of the specified action of the object
  *
- * @param action EailVideo instance
+ * Implementation of get_action_name from AtkAction interface.
+ *
+ * @param action AtkAction instance
  * @param i action index
  *
- * @returns action name
+ * @returns string representing the name of the specified action
  */
 static const gchar*
 eail_video_action_name_get(AtkAction *action, gint i)
@@ -212,11 +221,17 @@ eail_video_action_name_get(AtkAction *action, gint i)
 }
 
 /**
- * @brief Implementation of get_n_actions from AtkAction interface
+ * @brief Gets the number of accessible actions available on the object
  *
- * @param action EailVideo instance
+ * If there are more than one, the first one is considered
+ * the "default" action of the object.
  *
- * @returns number of actions supported by EailVideo object
+ * Implementation of get_n_actions from AtkAction interface.
+ *
+ * @param action AtkAction instance
+ *
+ * @returns integer representing the number of actions
+ * supported by EailVideo object
  */
 static gint
 eail_video_n_actions_get(AtkAction *action)
@@ -225,9 +240,11 @@ eail_video_n_actions_get(AtkAction *action)
 }
 
 /**
- * @brief Implementation of do_action from AtkAction interface
+ * @brief Performs the specified action on the object
  *
- * @param action EailVideo instance
+ * Implementation of do_action from AtkAction interface.
+ *
+ * @param action AtkAction instance
  * @param i action index
  *
  * @returns TRUE on success, FALSE otherwise
@@ -337,12 +354,14 @@ eail_video_do_action(AtkAction *action, gint i)
 }
 
 /**
- * @brief Implementation of get_description from AtkAction interface
+ * @brief Gets the description of the specified action of the object
  *
- * @param action EailVideo instance
+ * Implementation of get_description from AtkAction interface.
+ *
+ * @param action AtkAction instance
  * @param i action index
  *
- * @returns action description
+ * @returns string representing the description of the specified action
  */
 static const gchar*
 eail_video_description_get(AtkAction *action, gint i)
@@ -385,9 +404,11 @@ eail_video_description_get(AtkAction *action, gint i)
 }
 
 /**
- * @brief Implementation of set_description from AtkAction interface
+ * @brief Sets a description of the specified action of the object
  *
- * @param action EailVideo instance
+ * Implementation of set_description from AtkAction interface.
+ *
+ * @param action AtkAction instance
  * @param i action index
  * @param description action descritpion
  *
@@ -438,13 +459,13 @@ eail_video_description_set(AtkAction *action, gint i, const char *description)
 }
 
 /**
- * @brief AtkAction interface initializer.
+ * @brief AtkAction interface initializer
  *
  * Function called upon instance creation. It initializes AtkAction
  * interface implementation i.e hooks method pointers in the interface structure
  * to the implementing class's implementation.
  *
- * @param iface an AtkActionIface
+ * @param iface AtkActionIface instance
  */
 static void
 atk_action_interface_init(AtkActionIface *iface)
@@ -459,11 +480,11 @@ atk_action_interface_init(AtkActionIface *iface)
 }
 
 /**
- * @brief Helper function for matching file extension with mime type
+ * @brief Helper function for matching file extension with a mime type
  *
  * @param ext file extension
  *
- * @returns mime type
+ * @returns string representing the mime type
  */
 static const char *
 _match_mime_type(const char *ext)
@@ -523,11 +544,11 @@ _match_mime_type(const char *ext)
 }
 
 /**
- * @brief Helper function for getting extension from filename
+ * @brief Helper function for getting extension from a filename
  *
  * @param filename target filename
  *
- * @returns pointer to string with extension
+ * @returns string representing the file extension
  */
 static const char *
 _get_file_ext(const char *filename) {
@@ -538,11 +559,11 @@ _get_file_ext(const char *filename) {
 }
 
 /**
- * @brief Helper function for getting video file path
+ * @brief Helper function for getting the video's file path
  *
- * @param widget elm_video instance
+ * @param widget Evas_Object instance
  *
- * @returns path to video file
+ * @returns string representing the path to video file
  */
 static const char *
 _get_video_path(const Evas_Object *widget)
@@ -555,12 +576,16 @@ _get_video_path(const Evas_Object *widget)
 }
 
 /**
- * @brief Implementation of get_mime_type from AtkStreamableContent interface
+ * @brief Gets the character string of the specified mime type
  *
- * @param streamable EailVideo instance
+ * The first mime type is at position 0, the second at position 1, and so on.
+ *
+ * Implementation of get_mime_type from AtkStreamableContent interface.
+ *
+ * @param streamable AtkStreamableContent instance
  * @param i index of supported mime type
  *
- * @returns mime type
+ * @returns string representing the specified mime type
  */
 static const gchar*
 eail_video_mime_type_get(AtkStreamableContent *streamable, gint i)
@@ -579,16 +604,18 @@ eail_video_mime_type_get(AtkStreamableContent *streamable, gint i)
 }
 
 /**
- * @brief Implementation of get_n_mime_types from AtkStreamableContent interface
+ * @brief Gets the number of mime types supported by this object
  *
- * For Video widget implementation by ATK-EAIL, there always be maximum one
- * content type at time supported for given file.
- * So this function always will return 1 or 0.
+ * For video widget implementation by ATK-EAIL, there will always be maximum one
+ * supported content type at a time for the given file,
+ * so this function will always return 1 or 0.
  *
- * @param streamable EailVideo instance
+ * Implementation of get_n_mime_types from AtkStreamableContent interface.
  *
- * @returns number of mime_types for given streamable content ('0' in case when
- * no mime-type was matched for content file)
+ * @param streamable AtkStreamableContent instance
+ *
+ * @returns integer representing the number of mime-types for the given
+ * streamable content ('0' in case when no mime-type was matched for content file)
  */
 static gint
 eail_video_n_mime_types_get(AtkStreamableContent *streamable)
@@ -603,12 +630,20 @@ eail_video_n_mime_types_get(AtkStreamableContent *streamable)
 }
 
 /**
- * @brief Implementation of get_uri from AtkStreamableContent
+ * @brief Gets a string representing an URI
  *
- * @param streamable EailVideo instance
+ * Gets a string representing a URI in IETF standard format
+ * (see http://www.ietf.org/rfc/rfc2396.txt) from which the object's
+ * content may be streamed in the specified mime-type, if one is available.
+ * If mime_type is NULL, the URI for the default (and possibly only)
+ * mime-type is returned.
+ *
+ * Implementation of get_uri from AtkStreamableContent.
+ *
+ * @param streamable AtkStreamableContent instance
  * @param mime_type requested mime type
  *
- * @returns video file URI
+ * @returns string representing the video file's URI
  */
 static const char *
 eail_video_get_uri(AtkStreamableContent *streamable, const gchar *mime_type)
@@ -635,10 +670,12 @@ eail_video_get_uri(AtkStreamableContent *streamable, const gchar *mime_type)
 }
 
 /**
- * @brief Implementation of get_stream from AtkStreamableContent
+ * @brief Gets the content in the specified mime type
  *
- * @param streamable EailVideo instance
- * @param mime_type requested mime_type
+ * Implementation of get_stream from AtkStreamableContent.
+ *
+ * @param streamable AtkStreamableContent instance
+ * @param mime_type requested mime type
  *
  * @returns GIOChannel to video file
  */
@@ -669,9 +706,9 @@ eail_video_get_stream(AtkStreamableContent *streamable,
 }
 
 /**
- * @brief Initialize AtkStreamableContent interface
+ * @brief Initializes AtkStreamableContent interface
  *
- * @param iface EailVideo object
+ * @param iface EailVideo instance
  */
 static void
 atk_stremable_content_iface_init(AtkStreamableContentIface *iface)

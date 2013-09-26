@@ -41,7 +41,7 @@ G_DEFINE_TYPE_WITH_CODE(EailHover,
 /**
  * @brief EailHover initializer
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  * @param data initialization data
  */
 static void
@@ -54,9 +54,9 @@ eail_hover_initialize(AtkObject *obj, gpointer data)
 /**
  * @brief EailHover finalizer.
  *
- * Destroys object and allocated resources.
+ * Destroys the object and allocated resources.
  *
- * @param obj a GObject
+ * @param obj GObject instance
  */
 static void
 eail_hover_finalize(GObject *obj)
@@ -71,7 +71,7 @@ eail_hover_finalize(GObject *obj)
 /**
  * @brief EailHover instance initializer
  *
- * @param hover an EailHover
+ * @param hover EailHover instance
  */
 static void
 eail_hover_init(EailHover *hover)
@@ -82,7 +82,7 @@ eail_hover_init(EailHover *hover)
 /**
  * @brief EailHover class initializer.
  *
- * @param klass an EailHoverClass
+ * @param klass EailHoverClass instance
  */
 static void
 eail_hover_class_init(EailHoverClass *klass)
@@ -96,10 +96,10 @@ eail_hover_class_init(EailHoverClass *klass)
 }
 
 /**
- * @brief Performs i-th action.
+ * @brief Performs the specified action on the object.
  *
- * @param action an AtkAction
- * @param i the action index corresponding to the action to be performed
+ * @param action AtkAction instance
+ * @param i index of an action to be performed
  * @return TRUE on success, FALSE otherwise
  */
 static gboolean
@@ -126,8 +126,12 @@ eail_hover_action_do_action(AtkAction *action,
 /**
  * @brief Gets number of actions available on the object.
  *
- * @param action an AtkAction
- * @return actions number
+ * If there are more than one, the first one is considered the "default" action of the object.
+ *
+ * Implementation of get_n_actions from AtkAction interface.
+ *
+ * @param action AtkAction instance
+ * @return integer containing the number of implemented actions
  */
 static gint
 eail_hover_action_get_n_actions(AtkAction *action)
@@ -136,11 +140,13 @@ eail_hover_action_get_n_actions(AtkAction *action)
 }
 
 /**
- * @brief Gets i-th action description.
+ * @brief Gets the description of the specified action of the object.
  *
- * @param action an AtkAction
+ * Implementation of get_description from AtkAction interface.
+ *
+ * @param action AtkAction instance
  * @param i action number
- * @return action description string
+ * @return string representing the description of the specified action
  */
 static const gchar *
 eail_hover_action_get_description(AtkAction *action,
@@ -167,11 +173,13 @@ eail_hover_action_get_description(AtkAction *action,
 }
 
 /**
- * @brief Gets i-th action name.
+ * @brief Gets the name of the specified action of the object.
  *
- * @param action an AtkAction
+ * Implementation of get_name from AtkAction interface.
+ *
+ * @param action AtkAction instance
  * @param i action number
- * @return action description string
+ * @return string containing the name of the specified action
  */
 static const gchar *
 eail_hover_action_get_name(AtkAction *action,
@@ -194,12 +202,14 @@ eail_hover_action_get_name(AtkAction *action,
 }
 
 /**
- * @brief Sets i-th action description.
+ * @brief Sets a description of the specified action of the object.
  *
- * @param action an AtkAction
+ * Implementation of set_description from AtkAction interface.
+ *
+ * @param action AtkAction instance
  * @param i action number
  * @param desc action description
- * @return TRUE if description is set successfully, FALSE otherwise
+ * @return TRUE if description was set successfully, FALSE otherwise
  */
 static gboolean
 eail_hover_action_set_description(AtkAction *action,
@@ -237,7 +247,7 @@ eail_hover_action_set_description(AtkAction *action,
 /**
  * @brief AtkAction interface initializer
  *
- * @param iface an AtkActionIface
+ * @param iface AtkActionIface instance
  */
 static void
 atk_action_interface_init(AtkActionIface *iface)

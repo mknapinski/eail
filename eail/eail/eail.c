@@ -19,7 +19,7 @@
 
 /**
  * @file eail.c
- * @brief Eail initialization part
+ * @brief EAIL initialization
  */
 
 #include <Elementary.h>
@@ -40,7 +40,7 @@ typedef struct _EailKeyEventInfo EailKeyEventInfo;
 struct _EailUtilListenerInfo
 {
    gint key; /**< @brief key of entry */
-   guint signal_id;/**< @brief id of signal to listen on */
+   guint signal_id;/**< @brief id of the signal */
    gulong hook_id;/**< @brief emit hook value returned on signal registration*/
 };
 
@@ -48,29 +48,29 @@ struct _EailUtilListenerInfo
 struct _EailKeyEventInfo
 {
   AtkKeyEventStruct *key_event;/**< @brief key of event */
-  gpointer func_data;/**< @brief additional data passed to gobject event */
+  gpointer func_data;/**< @brief additional data passed to the event */
 };
 
-/** @brief Cache of objects used to listen and propagate signals */
+/** @brief Cache of objects used for listening and propagating signals */
 static GHashTable *listener_list = NULL;
 /** @brief Last added id of a listener */
 static gint listener_idx = 1;
 
 /**
- * @brief Domain index that will be used as the DOMAIN parameter on EINA log macros.
+ * @brief Domain index that will be used as the DOMAIN parameter on EINA log macros
  *
  * A negative value means a log occurred.
  */
 int _eail_log_dom = -1;
 
 /**
- * @brief This is used to track last focused atk object
+ * @brief A variable for tracking the last focused AtkObject
  */
 static AtkObject *eail_atk_last_focused_obj = NULL;
 
 /**
- * @brief Gets toolkit name
- * @return toolkit name
+ * @brief Gets the name of the toolkit
+ * @return string representing the name of the toolkit
  */
 static const gchar * eail_get_toolkit_name(void)
 {
@@ -78,9 +78,9 @@ static const gchar * eail_get_toolkit_name(void)
 }
 
 /**
- * @brief Gets toolkit version
+ * @brief Gets the version of the toolkit
  *
- * @return toolkit version
+ * @return string representing the version of the toolkit
  */
 static const gchar * eail_get_toolkit_version(void)
 {
@@ -90,9 +90,9 @@ static const gchar * eail_get_toolkit_version(void)
 }
 
 /**
- * @brief Gets the root accessible container for the current application
+ * @brief Gets the accessible root container for the current application
  *
- * @return root Accessible container
+ * @return AtkObject representing the accessible root container
  */
 static AtkObject * eail_get_root(void)
 {
@@ -110,7 +110,7 @@ static AtkObject * eail_get_root(void)
 /**
  * @brief Callback to be called when an object receives focus
  *
- * @param current_focused_obj an AtkObject
+ * @param current_focused_obj AtkObject instance
  */
 static void
 eail_focus_listener_cb(AtkObject *current_focused_obj)
@@ -127,7 +127,7 @@ eail_focus_listener_cb(AtkObject *current_focused_obj)
 
    g_object_ref(current_focused_obj);
 
-   /* already notyfying about focus in widget implementation so do not need
+   /* already notifying about focus in widget implementation so do not need
     * to notify here for new focus*/
    eail_atk_last_focused_obj = current_focused_obj;
 }
@@ -142,14 +142,15 @@ eail_app_focus_listener_init()
 }
 
 /**
- * @brief Creates and adds listener for given object type
- * @param listener - GObject Emission Hook (a simple function pointer to get
+ * @brief Creates and adds a listener for the given object type
+ *
+ * @param listener GObject Emission Hook (a simple function pointer to get
  * invoked when the signal is emitted)
- * @param object_type string name of object type
- * @param signal string name of signal to listen
+ * @param object_type name string representing object's type
+ * @param signal name string representing the signal to listen
  * @param hook_data GObject 'hook' info
  *
- * @returns id of a newly added listener
+ * @returns integer representing the id of the newly added listener
  */
 static guint
 add_listener (GSignalEmissionHook listener,
@@ -195,9 +196,9 @@ add_listener (GSignalEmissionHook listener,
 }
 
 /**
- * @brief Removes listener for given object type
+ * @brief Removes a listener for given object type
  *
- * @param remove_listener id of listener to remove
+ * @param remove_listener id of the listener to remove
  */
 static void
 eail_remove_global_event_listener (guint remove_listener)
@@ -240,12 +241,12 @@ eail_remove_global_event_listener (guint remove_listener)
 }
 
 /**
- * @brief initialization for global event listener
+ * @brief Initialization for global event listener
  *
- * @param listener an GSignalEmissionHook (GObject 'signal invocation hint')
- * @param event_type string representation of event type
+ * @param listener GSignalEmissionHook (GObject 'signal invocation hint')
+ * @param event_type string representing the event's type
  *
- * @return id of added listener
+ * @return integer representing the id of the added listener
  */
 static guint
 eail_add_global_event_listener(GSignalEmissionHook listener,
@@ -272,7 +273,7 @@ eail_add_global_event_listener(GSignalEmissionHook listener,
 }
 
 /**
- * @brief destructor for listener info object
+ * @brief Destructor for listener info object
  *
  * @param data data to be freed
  */
@@ -306,7 +307,7 @@ static void atk_util_install(void)
  * @brief Function to be executed by Elementary when EAIL module is loaded
  *
  * @param m Elm_Module data
- * @return 1 on success, otherwise 0
+ * @return 1 on success, 0 otherwise
  */
 int
 elm_modapi_init(void *m)
@@ -348,8 +349,8 @@ elm_modapi_init(void *m)
 /**
  * @brief Function to be executed by Elementary when EAIL module is unloaded
  *
- * @param m Elm_Module
- * @return always 1' - notifying success
+ * @param m Elm_Module data
+ * @return always 1 - notifying success
  */
 int
 elm_modapi_shutdown(void *m)

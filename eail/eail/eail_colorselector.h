@@ -80,7 +80,7 @@ typedef struct _EailColorselectorClass EailColorselectorClass;
 /** @brief Definition of object structure for Atk EailColorselector*/
 struct _EailColorselector
 {
-   /** @brief parent object that functionality is being extended */
+   /** @brief Parent widget whose functionality is being extended */
    EailWidget parent;
 };
 

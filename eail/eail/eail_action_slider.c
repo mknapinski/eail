@@ -48,9 +48,9 @@ G_DEFINE_TYPE_WITH_CODE(EailActionSlider,
  */
 
 /**
- * @brief handler for pos_changed event
+ * @brief Handler for pos_changed event
  *
- * @param data passed to callback
+ * @param data data passed to callback
  * @param obj object that raised event
  * @param event_info additional event info
  */
@@ -67,7 +67,7 @@ _eail_action_slider_handle_pos_changed_event(void *data,
  * @brief EailActionSlider object initialization
  *
  * @param obj EailActionSlider object
- * @param data user set additional initialization data
+ * @param data additional initialization data
  */
 static void
 eail_action_slider_initialize(AtkObject *obj, gpointer data)
@@ -98,7 +98,7 @@ eail_action_slider_init(EailActionSlider *action_slider)
 /**
  * @brief GObject type initialization function
  *
- * @param klass EailActionSlider class
+ * @param klass EailActionSliderClass instance
  */
 static void
 eail_action_slider_class_init(EailActionSliderClass *klass)
@@ -113,10 +113,10 @@ eail_action_slider_class_init(EailActionSliderClass *klass)
  */
 
 /**
- * @brief Gets obj current value
+ * @brief Gets obj's current value
  *
  * @param obj EailActionSlider instance
- * @param [out] value EailActionSlider current value
+ * @param [out] value obj's current value
  */
 static void
 eail_action_slider_get_current_value(AtkValue *obj,
@@ -133,10 +133,10 @@ eail_action_slider_get_current_value(AtkValue *obj,
 }
 
 /**
- * @brief Gets obj maxiumum value
+ * @brief Gets obj's maxiumum value
  *
  * @param obj EailActionSlider instance
- * @param [out] value EailActionSlider maxiumum value
+ * @param [out] value obj's maxiumum value
  */
 static void
 eail_action_slider_get_maximum_value(AtkValue *obj,
@@ -153,10 +153,10 @@ eail_action_slider_get_maximum_value(AtkValue *obj,
 }
 
 /**
- * @brief Gets obj minimum value
+ * @brief Gets obj's minimum value
  *
  * @param obj EailActionSlider instance
- * @param [out] value EailActionSlider minimum value
+ * @param [out] value obj's minimum value
  */
 static void
 eail_action_slider_get_minimum_value(AtkValue *obj,
@@ -173,11 +173,11 @@ eail_action_slider_get_minimum_value(AtkValue *obj,
 }
 
 /**
- * @brief Sets obj value
+ * @brief Sets obj's value
  *
  * @param obj EailActionSlider instance
- * @param value EailActionSlider new value
- * @return TRUE if new value is set successfully, FALSE otherwise
+ * @param value obj's new value
+ * @return TRUE if new value was set successfully, FALSE otherwise
  */
 static gboolean
 eail_action_slider_set_current_value(AtkValue *obj,
@@ -209,10 +209,10 @@ eail_action_slider_set_current_value(AtkValue *obj,
 }
 
 /**
- * @brief Gets obj minimum increment
+ * @brief Gets obj's minimum increment
  *
  * @param obj EailActionSlider instance
- * @param [out] value EailActionSlider minimum increment
+ * @param [out] value obj's minimum increment
  */
 static void
 eail_action_slider_get_minimum_increment(AtkValue *obj,
@@ -228,15 +228,7 @@ eail_action_slider_get_minimum_increment(AtkValue *obj,
    g_value_set_uint(value, ELM_ACTIONSLIDER_NONE);
 }
 
-/**
- * @brief Initialization of AtkValue interface
- *
- * Function called upon instance creation. It initializes AtkValue interface
- * implementation i.e hooks method pointers in the interface structure
- * to the implementing class's implementation.
- *
- * @param iface an AtkObject that implements AtkValueInterface
- */
+
 static void
 atk_value_interface_init(AtkValueIface *iface)
 {

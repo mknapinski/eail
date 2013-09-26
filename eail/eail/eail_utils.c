@@ -19,8 +19,7 @@
 
 /**
  * @file eail_utils.c
- * @brief Implementation of utility functions used in various places in EAIL
- * code
+ * @brief Implementation of Utility Functions
  */
 
 /* enabling beta API support for Eo parts*/
@@ -77,10 +76,10 @@ eail_get_substring(const gchar *string,
 }
 
 /**
- * @param widget Evas_Object for getting state_set
- * @param state_set current state_set taken from objects parent
+ * @param widget Evas_Object instance for getting state set
+ * @param state_set current state set taken from object's parent
  *
- * @returns filled AtkStateSet for given EvasObject
+ * @returns AtkStateSet representing the given Evas_Object
  */
 AtkStateSet *
 eail_evas_obj_ref_state_set(Evas_Object *widget, AtkStateSet *state_set)
@@ -123,7 +122,7 @@ eail_evas_obj_ref_state_set(Evas_Object *widget, AtkStateSet *state_set)
 }
 
 /**
- * @param widget an Evas_Object
+ * @param widget Evas_Object instance
  * @return TRUE if grabbing focus was successfull, FALSE otherwise
  */
 gboolean
@@ -142,9 +141,9 @@ eail_evas_obj_grab_focus(Evas_Object *widget)
 }
 
 /**
- * @param widget an Evas_Object to press on
- * @param x X coord
- * @param y y coord
+ * @param widget Evas_Object instance to press on
+ * @param x x coordinate
+ * @param y y coordinate
  */
 void
 eail_mouse_press_on_coords(Evas_Object *widget, int x, int y)
@@ -157,9 +156,9 @@ eail_mouse_press_on_coords(Evas_Object *widget, int x, int y)
 }
 
 /**
- * @param widget an Evas_Object to press on
- * @param x X coord
- * @param y y coord
+ * @param widget Evas_Object instance to press on
+ * @param x x coordinate
+ * @param y y coordinate
  */
 void
 eail_mouse_release_on_coords(Evas_Object *widget, int x, int y)
@@ -172,9 +171,9 @@ eail_mouse_release_on_coords(Evas_Object *widget, int x, int y)
 }
 
 /**
- * @param widget an Evas_Object to click on
- * @param x X coord
- * @param y y coord
+ * @param widget Evas_Object instance to click on
+ * @param x x coordinate
+ * @param y y coordinate
  */
 void
 eail_mouse_click_on_coords(Evas_Object *widget, int x, int y)
@@ -188,9 +187,9 @@ eail_mouse_click_on_coords(Evas_Object *widget, int x, int y)
 }
 
 /**
- * @param widget an Evas_Object to get values for
- * @param x address of int to put X coord in
- * @param y address of int to put Y coord in
+ * @param widget Evas_Object instance to get values for
+ * @param [out] x x coordinate
+ * @param [out] y Y coordinate
  */
 void
 eail_get_coords_widget_center(Evas_Object *widget, int *x, int *y)
@@ -203,11 +202,11 @@ eail_get_coords_widget_center(Evas_Object *widget, int *x, int *y)
 }
 
 /**
- * @param item an Elm_Object_Item*
+ * @param item Elm_Object_Item* instance
  *
- * @returns Eina_List * filled with raw Evas_Object* (not every returned
- * Evas_Object is widget - widget-only content is returned by
- * eail_get_edje_parts_for_item function)
+ * @returns Eina_List * representing the list of raw Evas_Object*
+ * (not every returned Evas_Object is a widget - widget-only content
+ * is returned by eail_get_edje_parts_for_item function)
  */
 Eina_List *
 eail_get_raw_evas_obj_list_from_item(Elm_Object_Item *item)
@@ -225,10 +224,13 @@ eail_get_raw_evas_obj_list_from_item(Elm_Object_Item *item)
 }
 
 /**
- * @param item Elm_Object_Item * to get strings from
- * @returns EinaList filled with const gchar* that are representing text
- * content of item. List have to be freed when no longer needed but DO NOT
+ *
+ * The returned list has to be freed when no longer needed but DO NOT
  * FREE CONTENT STRINGS.
+ *
+ * @param item Elm_Object_Item * to get strings from
+ * @returns Eina_List representing the list of string that represent text
+ * content of item
  */
 Eina_List *
 eail_item_get_content_strings(Elm_Object_Item *item)
@@ -258,11 +260,11 @@ eail_item_get_content_strings(Elm_Object_Item *item)
 
 /**
  * It does filtering inside and returs only parts that can be used later in
- * eail factory (only widgets will be returned)
+ * eail factory (only widgets will be returned).
  *
- * @param item Elm_Object_Item * to get objects from
+ * @param item Elm_Object_Item instance to get objects from
  *
- * @returns Eina_List* filled with Evas_Object* objects representing content
+ * @returns an Eina_List filled with Evas_Object* objects representing content
  * found inside item
  */
 Eina_List *
@@ -289,7 +291,7 @@ eail_get_edje_parts_for_item(Elm_Object_Item *item)
 
 /**
  *
- * @param widget am Evas_Object
+ * @param widget Evas_Object instance
  * @param type type of scroll action
  *
  * @returns TRUE if scroll action was successful, FALSE otherwise
@@ -318,7 +320,7 @@ eail_handle_scroll(Evas_Object *widget,
 
 /**
  *
- * @param widget an Evas_Object*
+ * @param widget Evas_Object* instance
  * @param data additional action data
  * @returns TRUE if scroll action was successful, FALSE otherwise
  */
@@ -331,7 +333,7 @@ eail_action_scroll_up(Evas_Object *widget,
 
 /**
  *
- * @param widget an Evas_Object*
+ * @param widget Evas_Object* instance
  * @param data additional action data
  *
  * @returns TRUE if scroll action was successful, FALSE otherwise
@@ -345,7 +347,7 @@ eail_action_scroll_down(Evas_Object *widget,
 
 /**
  *
- * @param widget an Evas_Object*
+ * @param widget Evas_Object* instance
  * @param data additional action data
  *
  * @returns TRUE if scroll action was successful, FALSE otherwise
@@ -359,7 +361,7 @@ eail_action_scroll_left(Evas_Object *widget,
 
 /**
  *
- * @param widget an Evas_Object*
+ * @param widget Evas_Object* instance
  * @param data additional action data
  *
  * @returns TRUE if scroll action was successful, FALSE otherwise
@@ -372,9 +374,9 @@ eail_action_scroll_right(Evas_Object *widget,
 }
 
 /**
- * @param atk_obj an AtkObject that emits the signal
+ * @param atk_obj AtkObject instance that emits the signal
  * @param signal_name name of signal
- * @param object_type an GType of object
+ * @param object_type GType of object
  */
 void
 eail_emit_atk_signal(AtkObject *atk_obj, const gchar *signal_name,
@@ -394,7 +396,7 @@ eail_emit_atk_signal(AtkObject *atk_obj, const gchar *signal_name,
 /**
  * @param added boolean used for marking if child is added. TRUE if child was
  * added, FALSE when child was removed
- * @param atk_obj an AtkObject that emits the signal
+ * @param atk_obj AtkObject instance that emits the signal
  * @param child_number index number of changed child
  */
 void
@@ -435,12 +437,12 @@ eail_emit_children_changed_obj(gboolean added,
 
 }
 /**
- * @brief handles 'selected' state changes for item
+ * @brief Handles 'selected' state changes for item
  *
- * @param item an Elm_Object* item
+ * @param item Elm_Object instance
  * @param selected value of 'selected' state
- * @param parent an AtkObject* that holds item inside
- * @param role an AtkRole for item
+ * @param parent AtkObject that holds item inside
+ * @param role role of item
  */
 static void
 _eail_handle_selected_for_item(Elm_Object_Item *item,
@@ -469,7 +471,7 @@ _eail_handle_selected_for_item(Elm_Object_Item *item,
  * @brief Function that calls apropriate handling for selected event
  *
  * @param data passed to callback
- * @param obj object that raised event
+ * @param obj Evas_Object that raised event
  * @param event_info additional event info
  * @param selected selected state
  */
@@ -494,7 +496,7 @@ _eail_list_item_do_handle_selected_event(void *data,
 /**
  *
  * @param data passed to callback
- * @param obj object that raised event
+ * @param obj Evas_Object that raised event
  * @param event_info additional event info
  */
 void
@@ -508,7 +510,7 @@ eail_list_item_handle_selected_event(void *data,
 /**
  *
  * @param data passed to callback
- * @param obj object that raised event
+ * @param obj Evas_Object that raised event
  * @param event_info additional event info
  */
 void

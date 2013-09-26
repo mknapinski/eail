@@ -35,7 +35,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailPrefs
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_PREFS(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj), \
                                     EAIL_TYPE_PREFS, EailPrefs))
@@ -49,7 +49,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailPrefs class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_PREFS(obj)          (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
                                     EAIL_TYPE_PREFS))
@@ -80,7 +80,7 @@ typedef struct _EailPrefsClass EailPrefsClass;
 /** @brief Definition of object structure for Atk EailPrefs*/
 struct _EailPrefs
 {
-   /** @brief Parent object that functionality is being extended*/
+   /** @brief Parent widget whose functionality is being extended*/
    EailWidget parent;
 };
 

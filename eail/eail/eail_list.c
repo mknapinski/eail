@@ -19,7 +19,7 @@
 
 /**
  * @file eail_list.c
- * @brief Implementation of list widget
+ * @brief EailList implementation
  */
 
 #include <Elementary.h>
@@ -50,8 +50,8 @@ G_DEFINE_TYPE_WITH_CODE(EailList,
 /**
  * @brief Initializer for AtkObjectClass
  *
- * @param obj an AtkObject
- * @param data Initialization data
+ * @param obj AtkObject instance
+ * @param data initialization data
  */
 static void
 eail_list_initialize(AtkObject *obj, gpointer data)
@@ -79,10 +79,11 @@ eail_list_initialize(AtkObject *obj, gpointer data)
  * @brief Prepares Eina_List filled with Elm_Object_Item* objects
  * representing items in the list
  *
- * @param list an EailList
+ * Call eina_list_free on the returned when results processing has been finished.
  *
- * @return filled list with list items. Call eina_list_free on that list when
- * results processing has been finished
+ * @param list EailList instance
+ *
+ * @return Eina_List representing a list of the list's item
  */
 static Eina_List *
 eail_list_get_items(EailList *list)
@@ -102,14 +103,13 @@ eail_list_get_items(EailList *list)
 }
 
 /**
- * @brief Implementation AtkObject->get_n_children callback
+ * @brief Gets the number of accessible children of the accessible
  *
- * ATK doc says:\n
- * Gets the number of accessible children of the accessible.
+ * Implementation of AtkObject->get_n_children callback.
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  *
- * @returns an integer representing the number of accessible children of
+ * @returns integer representing the number of accessible children of
  * the accessible
  */
 static gint
@@ -127,18 +127,18 @@ eail_list_get_n_children(AtkObject *obj)
 }
 
 /**
- * @brief Implementation AtkObject->ref_child callback
+ * @brief Gets a reference to the specified accessible child of the object.
  *
- * ATK doc says:\n
- * Gets a reference to the specified accessible child of the object. The
- * accessible children are 0-based so the first accessible child is at index 0,
+ * The accessible children are 0-based so the first accessible child is at index 0,
  * the second at index 1 and so on.
  *
- * @param obj an AtkObject
+ * Implementation of AtkObject->ref_child callback.
+ *
+ * @param obj AtkObject instance
  * @param i child index
  *
- * @returns an AtkObject representing the specified accessible child of the
- * accessible.
+ * @returns AtkObject representing the specified accessible child of the
+ * accessible
  */
 static AtkObject *
 eail_list_ref_child(AtkObject *obj, gint i)
@@ -161,15 +161,15 @@ eail_list_ref_child(AtkObject *obj, gint i)
 }
 
 /**
- * @brief Implementation AtkObject->ref_state_set callback
+ * @brief Gets a reference to the state set of the accessible
  *
- * ATK doc says:\n
- * Gets a reference to the state set of the accessible; the caller must
- * unreference it when it is no longer needed.
+ * The caller must unreference it when it is no longer needed.
  *
- * @param obj an AtkObject
+ * Implementation of AtkObject->ref_state_set callback.
  *
- * @returns reference to an AtkStateSet which is the state set of the
+ * @param obj AtkObject instance
+ *
+ * @returns AtkStateSet representing the state set of the
  * accessible
  */
 static AtkStateSet *
@@ -191,7 +191,7 @@ eail_list_ref_state_set(AtkObject *obj)
 /**
  * @brief Initializer for GObject EailList instance
  *
- * @param list an EailList
+ * @param list EailList instance
  */
 static void
 eail_list_init(EailList *list)
@@ -199,9 +199,11 @@ eail_list_init(EailList *list)
 }
 
 /**
- * @brief Initializer for GObject class (defines callbacks for base AtkObject)
+ * @brief Initializer for GObject class
  *
- * @param klass an EailList class
+ * Defines callbacks for base AtkObject.
+ *
+ * @param klass EailListClass instance
  */
 static void
 eail_list_class_init(EailListClass *klass)
@@ -219,12 +221,14 @@ eail_list_class_init(EailListClass *klass)
  */
 
 /**
- * @brief Implementation of EailItemParent->get_item_role callback
+ * @brief Gets the role of item
  *
- * @param parent an EailItemParent
- * @param item an EailItem
+ * Implementation of EailItemParent->get_item_role callback.
  *
- * @returns role of target item in the list
+ * @param parent EailItemParent instance
+ * @param item EailItem instance
+ *
+ * @returns AtkRole representing the role of the specified item in the list
  */
 static AtkRole
 eail_list_get_item_role(EailItemParent  *parent,
@@ -242,12 +246,14 @@ eail_list_get_item_role(EailItemParent  *parent,
 }
 
 /**
- * @brief Implementation of EailItemParent->ref_item_state_set callback
+ * @brief Gets a reference to the state set of item
  *
- * @param parent an EailItemParent
- * @param item an EailItem
- * @param state_set an AtkStateSet
- * @returns items state set
+ * Implementation of EailItemParent->ref_item_state_set callback.
+ *
+ * @param parent EailItemParent instance
+ * @param item EailItem instance
+ * @param state_set AtkStateSet instance
+ * @returns AtkStateSet representing the state set of item
  */
 static AtkStateSet *
 eail_list_ref_item_state_set(EailItemParent *parent,
@@ -274,10 +280,10 @@ eail_list_ref_item_state_set(EailItemParent *parent,
 }
 
 /**
- * @brief Implementation of EailItemParent->ref_item_state_set callback
+ * @brief Grabs focus of list
  *
- * @param parent an EailItemParent
- * @param item an EailItem
+ * @param parent EailItemParent instance
+ * @param item EailItem instance
  * @returns TRUE on success, FALSE otherwise
  */
 static gboolean
@@ -289,11 +295,13 @@ eail_list_grab_item_focus(EailItemParent    *parent,
 }
 
 /**
- * @brief Implementation of EailItemParent->get_evas_obj callback
+ * @brief Gets nested Evas_Object of given EailItem
  *
- * @param parent an EailItemParent
- * @param item an EailItem
- * @returns item object
+ * Implementation of EailItemParent->get_evas_obj callback.
+ *
+ * @param parent EailItemParent instance
+ * @param item EailItem instance
+ * @returns Evas_Object representing item
  */
 static Evas_Object *
 eail_list_get_evas_obj(EailItemParent   *parent,
@@ -311,11 +319,13 @@ eail_list_get_evas_obj(EailItemParent   *parent,
 }
 
 /**
- * @brief Implementation of EailItemParent->get_actions_supported callback
+ * @brief Gets supported actions
  *
- * @param parent an EailItemParent
- * @param item an EailItem
- * @returns enum representing supported actions
+ * Implementation of EailItemParent->get_actions_supported callback.
+ *
+ * @param parent EailItemParent instance
+ * @param item EailItem instance
+ * @returns integer representing supported actions
  */
 static gint
 eail_list_get_actions_supported(EailItemParent   *parent,
@@ -325,12 +335,12 @@ eail_list_get_actions_supported(EailItemParent   *parent,
 }
 
 /**
- * @brief Get name of list child
+ * @brief Gets the name of a list's child
  *
- * @param parent EailList instance
- * @param item EailList child instance
+ * @param parent EailItemParent instance
+ * @param item EailItem child instance
  *
- * @returns const gchar * representing name of the child
+ * @returns string representing the name of the child
  */
 static const gchar *
 eail_list_item_name_get(EailItemParent *parent, EailItem *item)
@@ -345,7 +355,7 @@ eail_list_item_name_get(EailItemParent *parent, EailItem *item)
 /**
  * @brief Initialization of EailItemParentIface callbacks
  *
- * @param iface an EailItemParent interface
+ * @param iface EailItemParent instance
  */
 static void
 eail_item_parent_interface_init(EailItemParentIface *iface)
@@ -363,15 +373,14 @@ eail_item_parent_interface_init(EailItemParentIface *iface)
  */
 
 /**
- * @brief Implementation of AtkSelection->add_selection callback
+ * @brief Adds the specified accessible child of the object to the object's selection
  *
- * As described in ATK doc:\n
- * Adds the specified accessible child of the object to the object's selection.
+ * Implementation of AtkSelection->add_selection callback.
  *
- * @param selection an AtkSelection
+ * @param selection AtkSelection instance
  * @param i index of object
  *
- * @returns TRUE if operation ended successfully, FALSE otherwise
+ * @returns TRUE on success, FALSE otherwise
  */
 static gboolean
 eail_list_add_selection(AtkSelection *selection,
@@ -389,20 +398,20 @@ eail_list_add_selection(AtkSelection *selection,
 }
 
 /**
- * @brief Implementation of AtkSelection->ref_selection callback
+ * @brief Gets a reference to the accessible object representing the specified selected
+ * child of the object.
  *
- * As described in ATK doc:\n
- * Gets a reference to the accessible object representing the specified selected
- * child of the object. Note: callers should not rely on NULL or on a zero value
+ * Note: callers should not rely on NULL or on a zero value
  * for indication of whether AtkSelectionIface is implemented, they should use
  * type checking/interface checking macros or the atk_get_accessible_value()
  * convenience method.
  *
- * @param selection an AtkSelection
+ * Implementation of AtkSelection->ref_selection callback.
+ *
+ * @param selection AtkSelection instance
  * @param i index of object
  *
- * @returns an AtkObject representing the selected accessible , or NULL if
- * selection does not implement this interface
+ * @returns AtkObject representing the selected accessible
  */
 static AtkObject *
 eail_list_ref_selection(AtkSelection *selection,
@@ -414,17 +423,17 @@ eail_list_ref_selection(AtkSelection *selection,
 }
 
 /**
- * @brief Implementation of AtkSelection->get_selection_count callback
+ * @brief Gets the number of accessible children currently selected.
  *
- * As described in ATK doc:\n
- * Gets the number of accessible children currently selected. Note: callers
- * should not rely on NULL or on a zero value for indication of whether
+ * Note: callers should not rely on NULL or on a zero value for indication of whether
  * AtkSelectionIface is implemented, they should use type checking/interface
  * checking macros or the atk_get_accessible_value() convenience method.
-
- * @param selection an AtkSelection
  *
- * @returns gint representing number of selected elements
+ * Implementation of AtkSelection->get_selection_count callback.
+ *
+ * @param selection AtkSelection instance
+ *
+ * @returns integer representing the number of selected elements
  */
 static gint
 eail_list_get_selection_count(AtkSelection *selection)
@@ -439,19 +448,18 @@ eail_list_get_selection_count(AtkSelection *selection)
 }
 
 /**
- * @brief Implementation of AtkSelection->is_child_selected callback
+ * @brief Determines if the current child of this object is selected.
  *
- * As described in ATK doc:\n
- * Determines if the current child of this object is selected Note: callers
- * should not rely on NULL or on a zero value for indication of whether
+ * Note: callers should not rely on NULL or on a zero value for indication of whether
  * AtkSelectionIface is implemented, they should use type checking/interface
  * checking macros or the atk_get_accessible_value() convenience method.
  *
- * @param selection an AtkSelection
+ * Implementation of AtkSelection->is_child_selected callback.
+ *
+ * @param selection AtkSelection instance
  * @param i index of object
  *
- * @returns a gboolean representing if the specified child is selected, or
- * FALSE if selection does not implement this interface.
+ * @returns gboolean representing whether the specified child is selected
  */
 static gboolean
 eail_list_is_child_selected(AtkSelection *selection,
@@ -480,15 +488,14 @@ eail_list_is_child_selected(AtkSelection *selection,
 }
 
 /**
- * @brief Implementation of AtkSelection->remove_selection callback
+ * @brief Removes the specified child of the object from the object's selection
  *
- * As described in ATK doc:\n
- * Removes the specified child of the object from the object's selection.
+ * Implementation of AtkSelection->remove_selection callback.
  *
- * @param selection an AtkSelection
- * @param i slection index
+ * @param selection AtkSelection instance
+ * @param i selection index
  *
- * @returns TRUE if success, FALSE otherwise.
+ * @returns TRUE on success, FALSE otherwise
  */
 static gboolean
 eail_list_remove_selection(AtkSelection *selection,
@@ -516,10 +523,10 @@ eail_list_remove_selection(AtkSelection *selection,
  * @brief Helper function that selects/unselects all items in the list depending
  * on "selected" param value
  *
- * @param object an Evas_Object
+ * @param object Evas_Object instance
  * @param selected selected state (TRUE means selected)
  *
- * @returns TRUE if success, FALSE otherwise.
+ * @returns TRUE on success, FALSE otherwise
  */
 static gboolean
 eail_list_mark_all_selected_state(const Evas_Object *object, Eina_Bool selected)
@@ -540,15 +547,14 @@ eail_list_mark_all_selected_state(const Evas_Object *object, Eina_Bool selected)
 }
 
 /**
- * @brief Implementation of AtkSelection->select_all_selection callback
+ * @brief Causes every child of the object to be selected if the object supports
+ * multiple selections
  *
- * As described in ATK doc:\n
- * Causes every child of the object to be selected if the object supports
- * multiple selections.
+ * Implementation of AtkSelection->select_all_selection callback.
  *
- * @param selection an AtkSelection
+ * @param selection AtkSelection instance
  *
- * @returns TRUE if success, FALSE otherwise.
+ * @returns TRUE on success, FALSE otherwise
  */
 static gboolean
 eail_list_select_all_selection(AtkSelection *selection)
@@ -563,15 +569,14 @@ eail_list_select_all_selection(AtkSelection *selection)
 }
 
 /**
- * @brief Implementation of AtkSelection->clear_selection callback
+ * @brief Clears the selection in the object so that no child in the object is
+ * selected
  *
- * As described in ATK doc:\n
- * Clears the selection in the object so that no children in the object are
- * selected.
+ * Implementation of AtkSelection->clear_selection callback.
  *
- * @param selection an AtkSelection
+ * @param selection AtkSelection instance
  *
- * @returns TRUE if success, FALSE otherwise.
+ * @returns TRUE on success, FALSE otherwise
  */
 static gboolean
 eail_list_clear_selection(AtkSelection *selection)
@@ -585,7 +590,7 @@ eail_list_clear_selection(AtkSelection *selection)
 /**
  * @brief Initializer of AtkSelectionIface interface
  *
- * @param iface an AtkSelection interface
+ * @param iface AtkSelectionIface instance
  */
 static void atk_selection_interface_init(AtkSelectionIface *iface)
 {

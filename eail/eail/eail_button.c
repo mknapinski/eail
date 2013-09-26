@@ -43,12 +43,14 @@ G_DEFINE_TYPE_WITH_CODE(EailButton,
                                               atk_text_interface_init));
 
 /**
- * @brief Implementation of get_image_position from AtkImage interface
+ * @brief Gets the position of the image in the form of a point specifying the images top-left corner
  *
- * @param image EailButton instance
- * @param [out] x horizontal coordinate
- * @param [out] y vertical coordinate
- * @param coord_type coord type
+ * Implementation of get_image_position from AtkImage interface.
+ *
+ * @param image AtkImage instance
+ * @param [out] x horizontal coordinate or -1 if value cannot be obtained
+ * @param [out] y vertical coordinate or -1 if value cannot be obtained
+ * @param coord_type specifies whether the coordinates are relative to the screen or to the component's top level window
  */
 static void
 eail_button_get_image_position(AtkImage     *image,
@@ -82,11 +84,16 @@ eail_button_get_image_position(AtkImage     *image,
 }
 
 /**
- * @brief Implementation of get_image_size from AtkImage interface
+ * @brief Gets the width and height in pixels for the specified image
  *
- * @param image EailButton instance
- * @param [out] width width image
- * @param [out] height height image
+ * The values of width and height are returned as -1 if they
+ * cannot be obtained (for instance, if the object is not onscreen).
+ *
+ * Implementation of get_image_size from AtkImage interface.
+ *
+ * @param image AtkImage instance
+ * @param [out] width image width or -1 if value cannot be obtained
+ * @param [out] height image height or -1 if value cannot be obtained
  */
 static void
 eail_button_get_image_size(AtkImage *image,
@@ -119,9 +126,9 @@ eail_button_get_image_size(AtkImage *image,
 }
 
 /**
- * @brief AtkImage iterface initializer
+ * @brief AtkImage interface initializer
  *
- * @param iface an AtkImageIface
+ * @param iface AtkImageIface instance
  */
 static void
 atk_image_interface_init(AtkImageIface *iface)
@@ -133,14 +140,14 @@ atk_image_interface_init(AtkImageIface *iface)
 /**
  * @brief Gets text bounded by start_offset and end_offset
  *
- * Use g_free() to free the returned string
+ * Use g_free() to free the returned string.
  *
- * @param text an AtkText
+ * @param text AtkText instance
  * @param start_offset start position
  * @param end_offset end position, -1 for the end of the string
  *
- * @return string containing text from start_offset up to, but not including
- * end_offset
+ * @return string containing the text from start_offset up to,
+ * but not including end_offset
  */
 static gchar*
 eail_button_get_text(AtkText   *text,
@@ -157,11 +164,11 @@ eail_button_get_text(AtkText   *text,
 }
 
 /**
- * @brief Gets character at offset
+ * @brief Gets the character at offset
  *
- * @param text an AtkText
+ * @param text AtkText instance
  * @param offset character offset
- * @returns character at offset
+ * @returns char representing the character at offset
  */
 static gunichar
 eail_button_get_character_at_offset(AtkText    *text,
@@ -178,10 +185,10 @@ eail_button_get_character_at_offset(AtkText    *text,
 }
 
 /**
- * @brief Gets text length
+ * @brief Gets the text length
  *
- * @param text an AtkText
- * @returns text length
+ * @param text AtkText instance
+ * @returns integer representing the text length
  */
 static gint
 eail_button_get_character_count(AtkText *text)
@@ -204,7 +211,7 @@ eail_button_get_character_count(AtkText *text)
 /**
  * @brief AtkText interface initializer
  *
- * @param iface an AtkTextIface
+ * @param iface AtkTextIface instance
  */
 static void
 atk_text_interface_init(AtkTextIface *iface)
@@ -215,10 +222,10 @@ atk_text_interface_init(AtkTextIface *iface)
 }
 
 /**
- * @brief Notifies atk about button press event
+ * @brief Notifies ATK about button press event
  *
- * @param data data that was passed to event
- * @param obj an Evas_Object that received event
+ * @param data data passed to event
+ * @param obj Evas_Object instance that received event
  * @param event_info additional event info
  */
 static void
@@ -228,10 +235,10 @@ eail_button_atk_notify_press(void *data, Evas_Object *obj, void *event_info)
 }
 
 /**
- * @brief Notifies atk about button release event
+ * @brief Notifies ATK about button release event
  *
  * @param data passed to callback
- * @param obj object that raised event
+ * @param obj Evas_Object instance that raised event
  * @param event_info additional event info
  */
 static void
@@ -242,9 +249,9 @@ eail_button_atk_notify_release(void *data, Evas_Object *obj, void *event_info)
 }
 
 /**
- * @brief Click action callback
+ * @brief 'click' action callback
  *
- * @param action an AtkAction
+ * @param action AtkAction instance
  * @param data user data passed to callback
  *
  * @returns TRUE if action was successfull, FALSE otherwise
@@ -267,9 +274,9 @@ eail_button_action_click_cb(AtkAction *action, void *data)
 }
 
 /**
- * @brief Press action callback
+ * @brief 'press' action callback
  *
- * @param action an AtkAction
+ * @param action AtkAction instance
  * @param data user data passed to callback
  *
  * @returns TRUE if action was successfull, FALSE otherwise
@@ -292,9 +299,9 @@ eail_button_action_press_cb(AtkAction *action, void *data)
 }
 
 /**
- * @brief Release action callback
+ * @brief 'release' action callback
  *
- * @param action an AtkAction
+ * @param action AtkAction instance
  * @param data user data passed to callback
  *
  * @returns TRUE if action was successfull, FALSE otherwise
@@ -319,7 +326,7 @@ eail_button_action_release_cb(AtkAction *action, void *data)
 /**
  * @brief Sets EailButton actions
  *
- * @param action_widget an EailActionWidget
+ * @param action_widget EailActionWidget instance
  */
 static void
 eail_button_actions_init(EailActionWidget *action_widget)
@@ -338,7 +345,7 @@ eail_button_actions_init(EailActionWidget *action_widget)
 /**
  * @brief EailButton object initialization
  *
- * @param obj EailButton object
+ * @param obj AtkObject instance
  * @param data user set additional initialization data
  */
 static void
@@ -356,11 +363,12 @@ eail_button_initialize(AtkObject *obj, gpointer data)
 }
 
 /**
- * @brief Gets list of child widget
+ * @brief Gets the list of widget's children
  *
- * @param widget EailWidget object
+ * @param widget EailWidget instance
  *
- * @returns list of child, NULL if no children
+ * @returns Eina_list representing the list of children
+ * or NULL if widget has no children
  */
 static Eina_List *
 eail_button_get_widget_children(EailWidget *widget)
@@ -380,11 +388,11 @@ eail_button_get_widget_children(EailWidget *widget)
 }
 
 /**
- * @brief Gets obj accessible name
+ * @brief Gets the accessible name of obj
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  *
- * @returns obj name
+ * @returns string representing the accessible name of obj
  */
 static const gchar*
 eail_button_get_name(AtkObject *obj)
@@ -407,7 +415,7 @@ eail_button_get_name(AtkObject *obj)
 /**
  * @brief GObject type initialization function
  *
- * @param klass EailButton class
+ * @param klass EailButtonClass instance
  */
 static void
 eail_button_class_init(EailButtonClass *klass)
@@ -423,7 +431,7 @@ eail_button_class_init(EailButtonClass *klass)
 /**
  * @brief EailButton instance initializer
  *
- * @param button an EailButton
+ * @param button EailButton instance
  */
 static void
 eail_button_init(EailButton *button)

@@ -19,7 +19,7 @@
 
 /**
  * @file eail_segment_control.c
- * @brief Implementation of Segment Control widget
+ * @brief EailSegmentControl implementation
  */
 
 #include <atk/atk.h>
@@ -47,7 +47,7 @@ G_DEFINE_TYPE_WITH_CODE(EailSegmentControl, eail_segment_control, EAIL_TYPE_WIDG
 /**
  * @brief Initializer for AtkObjectClass
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  * @param data additional initialization data
  */
 static void
@@ -60,7 +60,7 @@ eail_segment_control_initialize(AtkObject *obj, gpointer data)
 /**
  * @brief Initializer for GObject class
  *
- * @param segment_control an EailSegmentControl
+ * @param segment_control EailSegmentControl instance
  */
 static void
 eail_segment_control_init(EailSegmentControl *segment_control)
@@ -68,14 +68,13 @@ eail_segment_control_init(EailSegmentControl *segment_control)
 }
 
 /**
- * @brief Implementation AtkObject->get_n_children callback
+ * @brief Gets the number of accessible children of the accessible
  *
- * ATK doc says:\n
- * Gets the number of accessible children of the accessible.
+ * Implementation of AtkObject->get_n_children callback.
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  *
- * @returns an integer representing the number of accessible children of
+ * @returns integer representing the number of accessible children of
  * the accessible
  */
 static gint
@@ -90,18 +89,18 @@ eail_segment_control_get_n_children(AtkObject *obj)
 }
 
 /**
- * @brief Implementation AtkObject->ref_child callback
+ * @brief Gets a reference to the specified accessible child of the object.
  *
- * ATK doc says:\n
- * Gets a reference to the specified accessible child of the object. The
- * accessible children are 0-based so the first accessible child is at index 0,
- * the second at index 1 and so on.
+ * The accessible children are 0-based so the first accessible child is
+ * at index 0, the second at index 1 and so on.
  *
- * @param obj an AtkObject
+ * Implementation AtkObject->ref_child callback.
+ *
+ * @param obj AtkObject instance
  * @param i child index
  *
- * @returns an AtkObject representing the specified accessible child of the
- * accessible.
+ * @returns AtkObject representing the specified accessible child of the
+ * accessible
  */
 static AtkObject *
 eail_segment_control_ref_child(AtkObject *obj, gint i)
@@ -125,7 +124,7 @@ eail_segment_control_ref_child(AtkObject *obj, gint i)
 
 /**
  * @brief Destructor for Segment Control object
- * @param object a GObject
+ * @param object GObject instance
  */
 static void
 eail_segment_control_finalize(GObject *object)
@@ -134,10 +133,11 @@ eail_segment_control_finalize(GObject *object)
 }
 
 /**
- * @brief Initializer for GObject EailSegmentControl class (defines callbacks
- * for base AtkObject)
+ * @brief Initializer for GObject EailSegmentControl class
  *
- * @param klass an EailSegmentControl class
+ * Defines callbacks for base AtkObject.
+ *
+ * @param klass EailSegmentControlClass instance
  */
 static void
 eail_segment_control_class_init(EailSegmentControlClass *klass)
@@ -151,15 +151,14 @@ eail_segment_control_class_init(EailSegmentControlClass *klass)
 }
 
 /**
- * @brief Implementation of AtkSelection->add_selection callback
+ * @brief Adds the specified accessible child of the object to the object's selection
  *
- * As described in ATK doc:\n
- * Adds the specified accessible child of the object to the object's selection.
+ * Implementation of AtkSelection->add_selection callback.
  *
- * @param selection an AtkSelection
+ * @param selection AtkSelection instance
  * @param i index of object
  *
- * @returns TRUE if operation ended successfully, FALSE otherwise
+ * @returns TRUE on success, FALSE otherwise
  */
 static gboolean
 eail_selection_add_selection(AtkSelection *selection,
@@ -174,15 +173,14 @@ eail_selection_add_selection(AtkSelection *selection,
 }
 
 /**
- * @brief Implementation of AtkSelection->clear_selection callback
+ * @brief Clears the selection in the object so that no children in the object are
+ * selected
  *
- * As described in ATK doc:\n
- * Clears the selection in the object so that no children in the object are
- * selected.
+ * Implementation of AtkSelection->clear_selection callback.
  *
- * @param selection an AtkSelection
+ * @param selection AtkSelection instance
  *
- * @returns TRUE if success, FALSE otherwise.
+ * @returns TRUE on success, FALSE otherwise
  */
 static gboolean
 eail_selection_clear_selection(AtkSelection *selection)
@@ -195,19 +193,20 @@ eail_selection_clear_selection(AtkSelection *selection)
 }
 
 /**
- * @brief Implementation of AtkSelection->ref_selection callback
+ * @brief Gets a reference to the accessible object representing the specified selected
+ * child of the object.
  *
- * As described in ATK doc:\n
- * Gets a reference to the accessible object representing the specified selected
- * child of the object. Note: callers should not rely on NULL or on a zero value
+ * Note: callers should not rely on NULL or on a zero value
  * for indication of whether AtkSelectionIface is implemented, they should use
  * type checking/interface checking macros or the atk_get_accessible_value()
  * convenience method.
  *
- * @param selection an AtkSelection
+ * Implementation of AtkSelection->ref_selection callback.
+ *
+ * @param selection AtkSelection instance
  * @param i index of object
  *
- * @returns an AtkObject representing the selected accessible , or NULL if
+ * @returns AtkObject representing the selected accessible or NULL if
  * selection does not implement this interface
  */
 static AtkObject *
@@ -224,17 +223,18 @@ eail_selection_ref_selection(AtkSelection *selection,
 }
 
 /**
- * @brief Implementation of AtkSelection->get_selection_count callback
+ * @brief Gets the number of accessible children currently selected.
  *
- * As described in ATK doc:\n
- * Gets the number of accessible children currently selected. Note: callers
- * should not rely on NULL or on a zero value for indication of whether
- * AtkSelectionIface is implemented, they should use type checking/interface
- * checking macros or the atk_get_accessible_value() convenience method.
-
- * @param selection an AtkSelection
+ * Note: callers should not rely on NULL or on a zero value for indication
+ * of whether AtkSelectionIface is implemented, they should use type
+ * checking/interface checking macros or the atk_get_accessible_value()
+ * convenience method.
  *
- * @returns gint representing number of selected elements
+ * Implementation of AtkSelection->get_selection_count callback.
+ *
+ * @param selection AtkSelection instance
+ *
+ * @returns integer representing the number of selected elements
  */
 static gint
 eail_selection_get_selection_count(AtkSelection *selection)
@@ -246,19 +246,20 @@ eail_selection_get_selection_count(AtkSelection *selection)
 }
 
 /**
- * @brief Implementation of AtkSelection->is_child_selected callback
+ * @brief Determines if the current child of this object is selected.
  *
- * As described in ATK doc:\n
- * Determines if the current child of this object is selected Note: callers
- * should not rely on NULL or on a zero value for indication of whether
- * AtkSelectionIface is implemented, they should use type checking/interface
- * checking macros or the atk_get_accessible_value() convenience method.
+ * Note: callers should not rely on NULL or on a zero value for indication
+ * of whether AtkSelectionIface is implemented, they should use type
+ * checking/interface checking macros or the atk_get_accessible_value()
+ * convenience method.
  *
- * @param selection an AtkSelection
+ * Implementation of AtkSelection->is_child_selected callback.
+ *
+ * @param selection AtkSelection instance
  * @param i index of object
  *
- * @returns a gboolean representing if the specified child is selected, or
- * FALSE if selection does not implement this interface.
+ * @returns gboolean representing whether the specified child is selected or
+ * FALSE if selection does not implement this interface
  */
 static gboolean
 eail_selection_is_child_selected(AtkSelection *selection,
@@ -272,15 +273,14 @@ eail_selection_is_child_selected(AtkSelection *selection,
 }
 
 /**
- * @brief Implementation of AtkSelection->remove_selection callback
+ * @brief Removes the specified child of the object from the object's selection
  *
- * As described in ATK doc:\n
- * Removes the specified child of the object from the object's selection.
+ * Implementation of AtkSelection->remove_selection callback.
  *
- * @param selection an AtkSelection
+ * @param selection AtkSelection instance
  * @param i selection index
  *
- * @returns TRUE if success, FALSE otherwise.
+ * @returns TRUE on success, FALSE otherwise
  */
 static gboolean
 eail_selection_remove_selection(AtkSelection *selection,
@@ -295,15 +295,14 @@ eail_selection_remove_selection(AtkSelection *selection,
 }
 
 /**
- * @brief Implementation of AtkSelection->select_all_selection callback
+ * @brief Causes every child of the object to be selected if the object supports
+ * multiple selections
  *
- * As described in ATK doc:\n
- * Causes every child of the object to be selected if the object supports
- * multiple selections.
+ * Implementation of AtkSelection->select_all_selection callback.
  *
- * @param selection an AtkSelection
+ * @param selection AtkSelection instance
  *
- * @returns TRUE if success, FALSE otherwise.
+ * @returns TRUE on success, FALSE otherwise
  */
 static gboolean
 eail_selection_select_all_selection(AtkSelection *selection)
@@ -314,7 +313,7 @@ eail_selection_select_all_selection(AtkSelection *selection)
 /**
  * @brief Initializer of AtkSelectionIface interface
  *
- * @param iface an AtkSelection interface
+ * @param iface AtkSelection interface
  */
 static void atk_selection_interface_init(AtkSelectionIface *iface)
 {
@@ -328,12 +327,12 @@ static void atk_selection_interface_init(AtkSelectionIface *iface)
 }
 
 /**
- * @brief Get name of segment control child
+ * @brief Get the name of a segment control's child
  *
- * @param parent instance
- * @param item child instance
+ * @param parent EailIemParent instance
+ * @param item EailItem instance
  *
- * @returns const gchar * representing name of the child
+ * @returns string representing the name of the child
  */
 static const gchar *
 eail_segment_control_item_name_get(EailItemParent *parent, EailItem *item)
@@ -345,9 +344,9 @@ eail_segment_control_item_name_get(EailItemParent *parent, EailItem *item)
 }
 
 /**
- * @brief Initialization for EailItemParentIface interface
+ * @brief Initialization of EailItemParentIface interface
  *
- * @param iface an EailItemParent interface
+ * @param iface EailItemParent interface
  */
 static void
 eail_item_parent_interface_init(EailItemParentIface *iface)

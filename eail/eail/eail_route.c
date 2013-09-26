@@ -40,7 +40,7 @@ G_DEFINE_TYPE_WITH_CODE(EailRoute,
 /**
  * @brief EailRoute object initialization
  *
- * @param obj EailRoute object
+ * @param obj AtkObject instance
  * @param data user set additional initialization data
  */
 static void
@@ -64,7 +64,7 @@ eail_route_init(EailRoute *route)
 /**
  * @brief GObject type initialization function
  *
- * @param klass EailRoute class
+ * @param klass EailRouteClass instance
  */
 static void
 eail_route_class_init(EailRouteClass *klass)
@@ -79,10 +79,10 @@ eail_route_class_init(EailRouteClass *klass)
  */
 
 /**
- * @brief Gets obj current value
+ * @brief Gets the current value of obj
  *
- * @param obj EailRoute instance
- * @param value EailRoute current value
+ * @param obj AtkValue instance
+ * @param [out] value obj's current value
  */
 static void
 eail_route_get_current_value(AtkValue *obj,
@@ -111,7 +111,7 @@ eail_route_get_current_value(AtkValue *obj,
 /**
  * @brief AtkValue interface initialization
  *
- * @param iface an AtkValue interface
+ * @param iface AtkValueIface instance
  */
 static void
 atk_value_interface_init(AtkValueIface *iface)

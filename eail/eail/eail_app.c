@@ -19,7 +19,7 @@
 
 /**
  * @file eail_app.c
- * @brief Implementation of elementary application
+ * @brief Elementary application implementation
  */
 
 #include <Elementary.h>
@@ -49,7 +49,7 @@ G_DEFINE_TYPE_WITH_CODE(EailApp, eail_app, ATK_TYPE_OBJECT,
 /**
  * @brief Initializer for AtkObjectClass
  *
- * @param obj an AtkObject to be initialized
+ * @param obj AtkObject instance to be initialized
  * @param data additional initialization data (Evas_Object*)
  */
 static void
@@ -74,7 +74,7 @@ eail_app_initialize(AtkObject *obj, gpointer data)
 
 /**
  * @brief Destructor for EailApp object
- * @param obj obj to be freed
+ * @param obj GObject to be freed
  */
 static void
 eail_app_class_finalize(GObject *obj)
@@ -83,14 +83,13 @@ eail_app_class_finalize(GObject *obj)
 }
 
 /**
- * @brief Implementation AtkObject->get_n_children callback
+ * @brief Gets the number of accessible children of the accessible
  *
- * ATK doc says:\n
- * Gets the number of accessible children of the accessible.
+ * Implementation of AtkObject->get_n_children callback.
  *
- * @param obj an AtkObject (EailApp)
+ * @param obj AtkObject instance
  *
- * @returns an integer representing the number of accessible children of
+ * @returns integer representing the number of accessible children of
  * the accessible
  */
 static gint
@@ -100,18 +99,18 @@ eail_app_get_n_children(AtkObject *obj)
 }
 
 /**
- * @brief Implementation AtkObject->ref_child callback
+ * @brief Gets a reference to the specified accessible child of the object.
  *
- * ATK doc says:\n
- * Gets a reference to the specified accessible child of the object. The
- * accessible children are 0-based so the first accessible child is at index 0,
+ * The accessible children are 0-based so the first accessible child is at index 0,
  * the second at index 1 and so on.
  *
- * @param obj an AtkObject (EailApp)
+ * Implementation of AtkObject->ref_child callback.
+ *
+ * @param obj AtkObject instance
  * @param i index number
  *
- * @returns an AtkObject representing the specified accessible child of the
- * accessible.
+ * @returns AtkObject representing the specified accessible child of the
+ * accessible
  */
 static AtkObject *
 eail_app_ref_child(AtkObject *obj, gint i)
@@ -130,7 +129,7 @@ eail_app_ref_child(AtkObject *obj, gint i)
 
 /**
  * @brief Initializer for GObject class
- * @param app an object to be initialized
+ * @param app EailApp instance to be initialized
  */
 static void
 eail_app_init(EailApp *app)
@@ -138,10 +137,11 @@ eail_app_init(EailApp *app)
 }
 
 /**
- * @brief Initializer for GObject EailAppClass class (defines callbacks for base
- * AtkObject)
+ * @brief Initializer for GObject EailAppClass class
  *
- * @param klass an EailAppClass class to be filled
+ * Defines callbacks for base AtkObject.
+ *
+ * @param klass EailAppClass instance to be filled
  */
 static void
 eail_app_class_init(EailAppClass *klass)

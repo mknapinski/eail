@@ -96,9 +96,10 @@
 static Eina_List *eail_cached_objs = NULL;
 
 /**
- * @brief Creates EailFactoryObj instance for given widget and adds it to cache
- * @param atk_obj an AtkObject
- * @param evas_obj an Evas_Object
+ * @brief Creates an EailFactoryObj instance for the given widget and adds it to cache
+ *
+ * @param atk_obj AtkObject instance
+ * @param evas_obj Evas_Object instance
  */
 static void
 _eail_factory_append_wdgt_to_cache(AtkObject *atk_obj, Evas_Object *evas_obj)
@@ -111,12 +112,12 @@ _eail_factory_append_wdgt_to_cache(AtkObject *atk_obj, Evas_Object *evas_obj)
 }
 
 /**
- * @brief Tries to find AtkObject representing given Evas_Object* in cache
+ * @brief Tries to find an AtkObject representing the given Evas_Object* in cache
  *
- * @param widget an Evas_Object to find in cache
+ * @param widget Evas_Object instance to find in cache
  *
- * @returns an EailFactoryObj * object or NULL if widget representation was not
- * found
+ * @returns EailFactoryObj representing the given Evas_Object
+ * or NULL if the widget's representation was not found
  */
 static EailFactoryObj *
 _eail_factory_find_obj_for_widget(const Evas_Object *widget)
@@ -137,12 +138,14 @@ _eail_factory_find_obj_for_widget(const Evas_Object *widget)
 }
 
 /**
- * @brief Creates accessible AtkObject for Evas_Object*
+ * @brief Creates an accessible AtkObject for Evas_Object*
  *
- * @param widget an Evas_Object*
+ * Returned AtkObject should be unreferenced when no longer needed to free memory.
  *
- * @returns reference to AtkObject* which is accessible representation of given
- * Evas_Object. It should be unreferenced when no longer needed to free memory
+ * @param widget Evas_Object* instance
+ *
+ * @returns AtkObject representing the accessible representation of the specified
+ * Evas_Object
  */
 static AtkObject *
 _eail_factory_create_accessible(Evas_Object *widget)
@@ -420,13 +423,14 @@ _eail_factory_create_accessible(Evas_Object *widget)
 
 
 /**
- * @brief Creates new EailItem instance with given ATK role
+ * @brief Creates a new EailItem instance with the given ATK role
  *
- * @param item an Elm_Object_Item
- * @param parent AtkObject that holds EailItem instance
- * @param role AtkRole that will be used by EailItem
+ * @param item Elm_Object_Item instance
+ * @param parent AtkObject instance that holds EailItem instance
+ * @param role AtkRole instance that will be used by EailItem
  *
- * @returns new EailItem instance or NULL in case of error
+ * @returns EailItem representing the new EailItem instance
+ * or NULL in case of an error
  */
 static AtkObject *
 _eail_factory_create_item_atk_obj(Elm_Object_Item *item,
@@ -444,8 +448,8 @@ _eail_factory_create_item_atk_obj(Elm_Object_Item *item,
 }
 
 /**
- * @param atk_obj an AtkObject
- * @param item an Elm_Object_Item item
+ * @param atk_obj AtkObject instance
+ * @param item Elm_Object_Item instance
  */
 void
 eail_factory_append_item_to_cache(AtkObject *atk_obj, Elm_Object_Item *item)
@@ -458,8 +462,8 @@ eail_factory_append_item_to_cache(AtkObject *atk_obj, Elm_Object_Item *item)
 }
 
 /**
- * @param item an Elm_Object_Item* to be found
- * @returns an EailFactoryObj * object or NULL if item representation was not
+ * @param item Elm_Object_Item* instance to be found
+ * @returns EailFactoryObj instance or NULL if item's representation was not
  * found
  */
 EailFactoryObj *
@@ -482,17 +486,17 @@ eail_factory_find_obj_for_item(const Elm_Object_Item *item)
 
 /**
  *
- * If AtkObject was already created for given item, instance will be returned
- * from cache instead of creating new one (it is needed to allow setting and
- * storing name/description changes by multiple clients).
+ * If AtkObject was already created for the given item, instance will be returned
+ * from cache instead of creating a new one (it is needed to allow the setting and
+ * storing of name/description changes by multiple clients).
  *
- * @param item an Elm_Object_Item that will be used as source for AtkObject
+ * @param item Elm_Object_Item instance that will be used as a source for the AtkObject
  * representation
- * @param role an AtkRole role for given item
- * @param parent object that has given item inside its content (eg. for
+ * @param role role for given item
+ * @param parent AtkObject instance that has the given item inside its content (eg. for
  * list-item this will be EailList instance)
  *
- * @returns AtkObject * representation or NULL in case of failure
+ * @returns AtkObject representing the item or NULL in case of a failure
  */
 AtkObject *
 eail_factory_get_item_atk_obj(Elm_Object_Item *item,
@@ -512,7 +516,7 @@ eail_factory_get_item_atk_obj(Elm_Object_Item *item,
    factory_obj = eail_factory_find_obj_for_item(item);
    if (factory_obj)
       {
-         /* already found implementation, not need to create new obj, returning
+         /* already found implementation, no need to create new obj, returning
           * existing one from cache */
           if (!factory_obj->atk_obj)
             {
@@ -532,7 +536,7 @@ eail_factory_get_item_atk_obj(Elm_Object_Item *item,
 
 /**
  *
- * @param item an Elm_Object_Item* item to be deregistered
+ * @param item Elm_Object_Item* instance to be deregistered
  */
 void
 eail_factory_unregister_item_from_cache(Elm_Object_Item *item)
@@ -549,7 +553,7 @@ eail_factory_unregister_item_from_cache(Elm_Object_Item *item)
 
 /**
  *
- * @param widget an Evas_Object* widget to be deregistered
+ * @param widget Evas_Object* instance to be deregistered
  */
 void
 eail_factory_unregister_wdgt_from_cache(Evas_Object *widget)
@@ -565,10 +569,13 @@ eail_factory_unregister_wdgt_from_cache(Evas_Object *widget)
 }
 
 /**
- * @param widget an Evas_Object*
+ * @param widget Evas_Object* instance
  *
- * @returns reference to AtkObject* which is accessible representation of given
- * Evas_Object. It should be unreferenced when no longer needed to free memory
+ * The returned AtkObject should be unreferenced when no longer needed
+ * to free memory.
+ *
+ * @returns AtkObject which is the accessible representation of the specified
+ * Evas_Object
  */
 AtkObject *
 eail_factory_get_accessible(Evas_Object *widget)
@@ -593,7 +600,7 @@ eail_factory_get_accessible(Evas_Object *widget)
    factory_widget = _eail_factory_find_obj_for_widget(widget);
    if (factory_widget)
      {
-        /* already found implementation, not need to create new obj, returning
+        /* already found implementation, no need to create new obj, returning
          * existing one from cache */
          if (!factory_widget->atk_obj)
            {

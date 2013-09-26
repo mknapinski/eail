@@ -19,7 +19,7 @@
 
 /**
  * @file eail_naviframe_page.c
- * @brief naviframe content page as AtkObject implementation
+ * @brief EailNaviframePage implementation
  */
 
 #include "eail_naviframe_page.h"
@@ -31,7 +31,7 @@
 static void atk_component_interface_init(AtkComponentIface *iface);
 
 /**
- * Defines EailNaviframPage type
+ * Defines EailNaviframePage type
  */
 G_DEFINE_TYPE_WITH_CODE(EailNaviframePage,
                         eail_naviframe_page,
@@ -40,11 +40,11 @@ G_DEFINE_TYPE_WITH_CODE(EailNaviframePage,
                                               atk_component_interface_init));
 
 /**
- * @brief
+ * @brief Creates a new instance of an accessible naviframe page
  *
- * @param naviframe an AtkObject
- * @param navi_tab_item an Elm_Object_Item item
- * @returns accessible naviframe page
+ * @param naviframe AtkObject instance
+ * @param navi_tab_item Elm_Object_Item instance
+ * @returns AtkObject representing the accessible naviframe page
  */
 AtkObject *
 eail_naviframe_page_new(AtkObject *naviframe, Elm_Object_Item *navi_tab_item)
@@ -92,11 +92,12 @@ eail_naviframe_page_new(AtkObject *naviframe, Elm_Object_Item *navi_tab_item)
 }
 
 /**
- * @brief Implementation atk_object_get_name
- * Returns accessible name if assigned, title or subtitle otherwise
+ * @brief Returns the accessible name if assigned, title or subtitle otherwise
  *
- * @param obj EailNaviframePage instance
- * @returns obj accessible name if assigned, title or subtitle otherwise
+ * Implementation of atk_object_get_name from AtkObject.
+ *
+ * @param obj AtkObject instance
+ * @returns string representing the accessible name if assigned, title or subtitle otherwise
  */
 static const char *
 eail_naviframe_page_name_get(AtkObject *obj)
@@ -118,9 +119,9 @@ eail_naviframe_page_name_get(AtkObject *obj)
 }
 
 /**
- * @brief Init EailNaviframePage
+ * @brief Initiates EailNaviframePage
  *
- * @param naviframe_page object instance
+ * @param naviframe_page EailNaviframePage instance
  */
 static void
 eail_naviframe_page_init(EailNaviframePage *naviframe_page)
@@ -128,9 +129,9 @@ eail_naviframe_page_init(EailNaviframePage *naviframe_page)
 }
 
 /**
- * @brief Initialize EailNaviframPage
+ * @brief Initializes EailNaviframPage
  *
- * @param obj object instance
+ * @param obj AtkObject instance
  * @param data user data
  */
 static void
@@ -143,9 +144,9 @@ eail_naviframe_page_initialize(AtkObject *obj, gpointer data)
 }
 
 /**
- * @brief Finalize object
+ * @brief Finalizes object
  *
- * @param obj object instance
+ * @param obj AtkObject instance
  */
 static void
 eail_naviframe_page_finalize(GObject *obj)
@@ -161,11 +162,11 @@ eail_naviframe_page_finalize(GObject *obj)
 }
 
 /**
- * @brief Gets object children number
+ * @brief Gets the number of accessible children of obj
  *
- * @param obj object instance
+ * @param obj AtkObject instance
  *
- * @returns number of children
+ * @returns integer representing the number of children
  */
 static gint
 eail_naviframe_page_n_children_get(AtkObject *obj)
@@ -179,11 +180,11 @@ eail_naviframe_page_n_children_get(AtkObject *obj)
 }
 
 /**
- * @brief Get object parent
+ * @brief Gets obj's parent
  *
- * @param obj object instance
+ * @param obj AtkObject instance
  *
- * @returns object parent
+ * @returns AtkObject representing the parent of obj
  */
 static AtkObject *
 eail_naviframe_page_parent_get(AtkObject *obj)
@@ -198,12 +199,12 @@ eail_naviframe_page_parent_get(AtkObject *obj)
 }
 
 /**
- * @brief Get referred child object
+ * @brief Gets a reference to the specified child of obj
  *
- * @param obj object instance
+ * @param obj AtkObject instance
  * @param i child index
  *
- * @returns referred child object
+ * @returns AtkObject representing the specified child
  */
 static AtkObject *
 eail_naviframe_page_ref_child(AtkObject *obj, gint i)
@@ -223,11 +224,11 @@ eail_naviframe_page_ref_child(AtkObject *obj, gint i)
 }
 
 /**
- * @brief Get index of object in parent object
+ * @brief Gets the index of obj in parent object
  *
- * @param obj object instance
+ * @param obj AtkObject instance
  *
- * @returns object index
+ * @returns integer representing the index of object
  */
 static gint
 eail_naviframe_page_index_in_parent_get(AtkObject *obj)
@@ -260,11 +261,11 @@ eail_naviframe_page_index_in_parent_get(AtkObject *obj)
 }
 
 /**
- * @brief Get state set of accessible object
+ * @brief Gets the state set of the accessible object
  *
- * @param obj object instance
+ * @param obj AtkObject instance
  *
- * @returns referred AtkStateSet object
+ * @returns AtkStateSet representing the state set of the accessible object
  */
 static AtkStateSet *
 eail_naviframe_page_ref_state_set(AtkObject *obj)
@@ -298,7 +299,7 @@ eail_naviframe_page_ref_state_set(AtkObject *obj)
 /**
  * @brief EailNaviframePage class initializer
  *
- * @param klass EailNaviframePage class
+ * @param klass EailNaviframePageClass instance
  */
 static void
 eail_naviframe_page_class_init(EailNaviframePageClass *klass)
@@ -318,14 +319,16 @@ eail_naviframe_page_class_init(EailNaviframePageClass *klass)
 }
 
 /**
- * @brief Implementation of get_extents from AtkComponetnt interface
+ * @brief Gets the rectangle which gives the extent of the component
  *
- * @param component object instance
- * @param x address of gint to store x coordinate
- * @param y address of gint to store y coordinate
- * @param width address of gint to store width
- * @param height address of gint to store height
- * @param coord_type  coordinates type as ATK defines
+ * Implementation of get_extents from AtkComponent interface.
+ *
+ * @param component AtkComponent instance
+ * @param [out] x x coordinate
+ * @param [out] y y coordinate
+ * @param [out] width width of the rectangle
+ * @param [out] height height of the rectangle
+ * @param coord_type specifies whether the coordinates are relative to the screen or to the component's top level window
  */
 static void
 eail_naviframe_page_get_extents(AtkComponent *component,
@@ -359,9 +362,9 @@ eail_naviframe_page_get_extents(AtkComponent *component,
 }
 
 /**
- * @brief AtkComponetn interface initialization
+ * @brief AtkComponent interface initialization
  *
- * @param iface EailNaviframPage object
+ * @param iface AtkComponentIface instance
  */
 static void atk_component_interface_init(AtkComponentIface *iface)
 {

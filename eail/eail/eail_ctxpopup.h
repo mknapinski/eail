@@ -36,7 +36,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailCtxpopup
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_CTXPOPUP(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj), \
                                         EAIL_TYPE_CTXPOPUP, EailCtxpopup))
@@ -50,7 +50,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailCtxpopup class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_CTXPOPUP(obj)          (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
                                         EAIL_TYPE_CTXPOPUP))
@@ -82,9 +82,10 @@ typedef struct _EailCtxpopupClass EailCtxpopupClass;
 /** @brief Definition of object structure for Atk EailCtxpopup*/
 struct _EailCtxpopup
 {
-   EailWidget parent; /*!< parent class object*/
-
-   char *dismiss_description; /*!< 'dismiss' action description*/
+   /** @brief Parent widget whose functionality is being extended */
+   EailWidget parent;
+   /** @brief "dismiss" action description*/
+   char *dismiss_description;
 };
 
 /** @brief Definition of class structure for Atk EailCtxpopup*/

@@ -35,7 +35,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailPhotocam
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_PHOTOCAM(obj)              (G_TYPE_CHECK_INSTANCE_CAST ((obj), \
                                          EAIL_TYPE_PHOTOCAM, EailPhotocam))
@@ -49,7 +49,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailPhotocam class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_PHOTOCAM(obj)           (G_TYPE_CHECK_INSTANCE_TYPE ((obj), \
                                          EAIL_TYPE_PHOTOCAM))
@@ -79,7 +79,7 @@ typedef struct _EailPhotocamClass  EailPhotocamClass;
 /** @brief Definition of object structure for Atk EailPhotocam*/
 struct _EailPhotocam
 {
-   EailScrollableWidget parent;/**< @brief widget that is being extended*/
+   EailScrollableWidget parent;/**< @brief Parent widget whose functionality is being extended*/
    char *description;/**< @brief 'description' string property*/
 };
 

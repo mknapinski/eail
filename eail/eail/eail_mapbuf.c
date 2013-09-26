@@ -34,7 +34,7 @@ G_DEFINE_TYPE(EailMapbuf, eail_mapbuf, EAIL_TYPE_WIDGET);
 /**
  * @brief EailMapbuf initializer
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  * @param data initialization data
  */
 static void
@@ -44,10 +44,10 @@ eail_mapbuf_initialize(AtkObject *obj, gpointer data)
    obj->role = ATK_ROLE_IMAGE_MAP;
 }
 /**
- * @brief Gets widget children
+ * @brief Gets widget's children
  *
- * @param widget an EailWidget
- * @return widget children list
+ * @param widget EailWidget instance
+ * @return Eina_List containing widget's children
  */
 static Eina_List*
 eail_mapbuf_children_get(EailWidget *widget)
@@ -67,12 +67,12 @@ eail_mapbuf_children_get(EailWidget *widget)
 }
 
 /**
- * @brief Gets object state set
+ * @brief Gets object's state set
  *
- * The caller must unreference it when it is no longed needed
+ * The caller must unreference it when it is no longed needed.
  *
- * @param object an AtkObject
- * @return object state set
+ * @param object AtkObject instance
+ * @return AtkStateSet* containing object's state set
  */
 static AtkStateSet*
 eail_mapbuf_ref_state_set(AtkObject *object)
@@ -95,7 +95,7 @@ eail_mapbuf_ref_state_set(AtkObject *object)
 /**
  * @brief EailMapbuf instance initializer
  *
- * @param mapbuf an EailMapbuf
+ * @param mapbuf EailMapbuf instance
  */
 static void
 eail_mapbuf_init(EailMapbuf *mapbuf)
@@ -105,7 +105,7 @@ eail_mapbuf_init(EailMapbuf *mapbuf)
 /**
  * @brief EailMapbuf class initializer
  *
- * @param klass an EailMapbuf class
+ * @param klass EailMapbufClass instance
  */
 static void
 eail_mapbuf_class_init(EailMapbufClass *klass)

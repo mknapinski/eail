@@ -19,7 +19,7 @@
 
 /**
  * @file eail_radio_button.c
- * @brief Implementation of EailRadioButton object
+ * @brief EailRadioButton implementation
  */
 
 #include <atk/atk.h>
@@ -40,8 +40,9 @@ G_DEFINE_TYPE_WITH_CODE(EailRadioButton,
                                               atk_action_interface_init));
 
 /**
- * @brief Callback for on_change event
- * We be called to notify AtkObject about state change
+ * @brief Callback for 'on_change' event
+ *
+ * Called to notify AtkObject about state change.
  *
  * @param data user data passed to callback
  * @param obj source object
@@ -58,11 +59,15 @@ _on_change(void *data, Evas_Object *obj, void *event_info)
 }
 
 /**
- * @brief Implementation of ref_state_set from AtkObject interface
+ * @brief Gets a reference to the state set of the accessible
  *
- * @param obj EailRadioButton instance
+ * The caller must unreference it when it is no longer needed.
  *
- * @returns state of AtkObject
+ * Implementation of ref_state_set from AtkObject interface.
+ *
+ * @param obj AtkObject instance
+ *
+ * @returns AtkStateSet representing the state set of the accessible
  */
 static AtkStateSet*
 eail_radio_button_ref_state_set(AtkObject *obj)
@@ -91,7 +96,7 @@ eail_radio_button_ref_state_set(AtkObject *obj)
 /**
  * @brief Initialize EailRadionButton as AtkObject
  *
- * @param obj EailRadioButton instance
+ * @param obj AtkObject instance
  * @param data user data passed to initialization
  */
 static void
@@ -126,7 +131,7 @@ eail_radio_button_init(EailRadioButton *radio_button)
 /**
  * @brief EailRadioButton finalize function
  *
- * @param object EailRadioButton instance
+ * @param object GObject instance
  */
 static void
 eail_radio_button_finalize(GObject *object)
@@ -139,7 +144,7 @@ eail_radio_button_finalize(GObject *object)
 /**
  * @brief Object class initialization
  *
- * @param klass EailRadioButton class
+ * @param klass EailRadioButtonClass instance
  */
 static void
 eail_radio_button_class_init(EailRadioButtonClass *klass)
@@ -152,11 +157,16 @@ eail_radio_button_class_init(EailRadioButtonClass *klass)
 }
 
 /**
- * @brief Implementation of get_n_actions from AtkAction interface
+ * @brief Gets the number of accessible actions available on the object
  *
- * @param action EailRadioButton instance
+ * If there are more than one, the first one is considered
+ * the "default" action of the object.
  *
- * @returns number of actions
+ * Implementation of get_n_actions from AtkAction interface.
+ *
+ * @param action AtkAction instance
+ *
+ * @returns integer representing the number of available actions
  */
 static int
 eail_radio_button_n_action_get(AtkAction *action)
@@ -165,12 +175,14 @@ eail_radio_button_n_action_get(AtkAction *action)
 }
 
 /**
- * @brief Implementation of get_action_name from AtkAction interface
+ * @brief Gets the name of the specified action of the object
  *
- * @param action EailRadioButton instance
+ * Implementation of get_action_name from AtkAction interface.
+ *
+ * @param action AtkAction instance
  * @param i index of action
  *
- * @returns action name
+ * @returns string representing the name of the specified action
  */
 static const char*
 eail_radio_button_action_name_get(AtkAction *action, int i)
@@ -191,13 +203,15 @@ eail_radio_button_action_name_get(AtkAction *action, int i)
 }
 
 /**
- * @brief Implementation of set_description from AtkAction
+ * @brief Sets a description of the specified action of the object
  *
- * @param action EailRadioButton instance
+ * Implementation of set_description from AtkAction.
+ *
+ * @param action AtkAction instance
  * @param i action index
- * @param description action description to set
+ * @param description action's description to set
  *
- * @returns TRUE on success FALSE otherwise
+ * @returns TRUE on success, FALSE otherwise
  */
 static gboolean
 eail_radio_button_description_set(AtkAction *action, gint i, const char *description)
@@ -211,12 +225,14 @@ eail_radio_button_description_set(AtkAction *action, gint i, const char *descrip
 }
 
 /**
- * @brief Implementation of get_description from AtkAction interface
+ * @brief Gets the description of the specified action of the object
  *
- * @param action EailRadioButton instance
+ * Implementation of get_description from AtkAction interface.
+ *
+ * @param action AtkAction instance
  * @param i index of action
  *
- * @returns action descritpion
+ * @returns string representing the description of the specified action
  */
 static const char*
 eail_radio_button_description_get(AtkAction *action, gint i)
@@ -228,12 +244,14 @@ eail_radio_button_description_get(AtkAction *action, gint i)
 }
 
 /**
- * @brief Implementation of set_description from AtkAction interface
+ * @brief Performs the specified action on the object
  *
- * @param action EailRadioButton instance
+ * Implementation of do_action from AtkAction interface.
+ *
+ * @param action AtkAction instance
  * @param i action index
  *
- * @returns TRUE on success FALSE otherwise
+ * @returns TRUE on success, FALSE otherwise
  */
 static gboolean
 eail_radio_button_do_action(AtkAction *action, int i)
@@ -258,7 +276,7 @@ eail_radio_button_do_action(AtkAction *action, int i)
 /**
  * @brief AtkAction interface initialization
  *
- * @param iface EailRadioButton object
+ * @param iface AtkActionIface instance
  */
 static void
 atk_action_interface_init(AtkActionIface *iface)

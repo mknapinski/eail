@@ -35,7 +35,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailDiskselector
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_DISKSELECTOR(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), \
                                            EAIL_TYPE_DISKSELECTOR, EailDiskselector))
@@ -49,7 +49,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailDiskselector class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_DISKSELECTOR(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), \
                                            EAIL_TYPE_DISKSELECTOR))
@@ -80,7 +80,7 @@ typedef struct _EailDiskselectorClass EailDiskselectorClass;
 /** @brief Definition of object structure for Atk EailDiskselector*/
 struct _EailDiskselector
 {
-   /** @brief Parent object that functionality is being extended*/
+   /** @brief Parent widget whose functionality is being extended*/
    EailScrollableWidget parent;
 };
 

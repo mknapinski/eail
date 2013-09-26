@@ -83,7 +83,7 @@ eail_box_children_rm_event(void *data,
 /**
  * @brief EailBox initializer
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  * @param data initialization data
  */
 static void
@@ -109,10 +109,10 @@ eail_box_initialize(AtkObject *obj, gpointer data)
 }
 
 /**
- * @brief Gets widget children
+ * @brief Gets widget's children
  *
- * @param widget an EailWidget
- * @return widget children list
+ * @param widget EailWidget instance
+ * @return Eina_List containing widget's children
  */
 static Eina_List *
 eail_box_get_widget_children(EailWidget *widget)
@@ -129,7 +129,7 @@ eail_box_get_widget_children(EailWidget *widget)
 /**
  * @brief EailBox instance initializer
  *
- * @param box an EailBox
+ * @param box EailBox instance
  */
 static void
 eail_box_init(EailBox *box)
@@ -139,7 +139,7 @@ eail_box_init(EailBox *box)
 /**
  * @brief EailBox class initializer
  *
- * @param klass an EailBoxClass
+ * @param klass EailBoxClass instance
  */
 static void
 eail_box_class_init(EailBoxClass *klass)

@@ -19,7 +19,7 @@
 
 /**
  * @file eail_index.c
- * @brief Implementation of Index widget
+ * @brief EailIndex implementation
  */
 
 /* enabling beta API support for Eo parts*/
@@ -68,7 +68,7 @@ G_DEFINE_TYPE_WITH_CODE(EailIndex,
 /**
  * @brief Initializer for AtkObject
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  * @param data initialization data
  */
 static void
@@ -81,7 +81,7 @@ eail_index_initialize(AtkObject *obj, gpointer data)
 /**
  * @brief EailIndex GObject instance initializer
  *
- * @param button an EailIndex
+ * @param button EailIndex instance
  */
 static void
 eail_index_init(EailIndex *button)
@@ -89,11 +89,11 @@ eail_index_init(EailIndex *button)
 }
 
 /**
- * @brief Gets list of Elm_Object_Item* that is contained in index widget
+ * @brief Gets the list of Elm_Object_Item* that are contained in an index widget
  *
- * @param obj and EailIndex AtkObject
+ * @param obj AtkObject instance
  *
- * @returns const Eina_List * with Elm_Object_Item* for every index
+ * @returns const Eina_List with Elm_Object_Item* for every index
  */
 static const Eina_List *
 eail_index_get_index_items(AtkObject *obj) {
@@ -108,13 +108,13 @@ eail_index_get_index_items(AtkObject *obj) {
    return index_sd->items;
 }
 /**
- * @brief Implementation AtkObject->get_n_children callback
+ * @brief Gets the number of accessible children of the accessible.
  *
- * ATK doc says:\n
- * Gets the number of accessible children of the accessible.
- * @param obj an AtkObject
+ * Implementation of AtkObject->get_n_children callback.
  *
- * @returns an integer representing the number of accessible children of
+ * @param obj AtkObject instance
+ *
+ * @returns integer representing the number of accessible children of
  * the accessible
  */
 static gint
@@ -124,18 +124,18 @@ eail_index_get_n_children(AtkObject *obj)
 }
 
 /**
- * @brief Implementation AtkObject->ref_child callback
+ * @brief Gets a reference to the specified accessible child of the object.
  *
- * ATK doc says:\n
- * Gets a reference to the specified accessible child of the object. The
- * accessible children are 0-based so the first accessible child is at index 0,
+ * The accessible children are 0-based so the first accessible child is at index 0,
  * the second at index 1 and so on.
  *
- * @param obj an AtkObject
+ * Implementation of AtkObject->ref_child callback.
+ *
+ * @param obj AtkObject instance
  * @param i index of a child
  *
- * @returns an AtkObject representing the specified accessible child of the
- * accessible.
+ * @returns AtkObject representing the specified accessible child of the
+ * accessible
  */
 static AtkObject *
 eail_index_ref_child(AtkObject *obj, gint i)
@@ -156,17 +156,14 @@ eail_index_ref_child(AtkObject *obj, gint i)
 }
 
 /**
- * @brief Gets name of EailIndex
+ * @brief Gets the accessible name of the accessible.
  *
- * Implementation of AtkObject->get_name callback
+ * Implementation of AtkObject->get_name callback.
  *
- * ATK doc says:
- * Gets the accessible name of the accessible.
+ * @param obj AtkObject instance
  *
- * @param obj an AtkObject
- *
- * @returns a character string representing the accessible description of
- * the accessible.
+ * @returns string containing the accessible description of
+ * the accessible
  */
 static const gchar *
 eail_index_get_name(AtkObject *obj)
@@ -197,10 +194,11 @@ eail_index_finalize(GObject *object)
 }
 
 /**
- * @brief Initializer for EailIndex GObject class (defines callbacks for
- * base AtkObject)
+ * @brief Initializer for EailIndex GObject class
  *
- * @param klass an EailIndex class
+ * Defines callbacks for base AtkObject.
+ *
+ * @param klass EailIndex instance
  */
 static void
 eail_index_class_init(EailIndexClass *klass)
@@ -215,11 +213,13 @@ eail_index_class_init(EailIndexClass *klass)
 }
 
 /**
- * @brief Implementation of EailItemParent->is_content_get_supported callback
+ * @brief Checks if content get is supported
  *
- * @param parent an EailItemParent
- * @param item an EailItem
- * @returns FALSE
+ * Implementation of EailItemParent->is_content_get_supported callback.
+ *
+ * @param parent EailItemParent instance
+ * @param item EailItem instance
+ * @returns always FALSE
  */
 gboolean
 eail_index_content_get_support(EailItemParent   *parent,
@@ -231,9 +231,9 @@ eail_index_content_get_support(EailItemParent   *parent,
 /**
  * @brief Gets item's name
  *
- * @param parent an EailItemParent
- * @param item an EailItem
- * @return item's name
+ * @param parent EailItemParent instance
+ * @param item EailItem instance
+ * @return string containing item's name
  */
 const gchar *
 eail_index_get_item_name(EailItemParent   *parent,
@@ -247,7 +247,7 @@ eail_index_get_item_name(EailItemParent   *parent,
 /**
  * @brief Initialization of EailItemParentIface callbacks
  *
- * @param iface an EailItemParentIface
+ * @param iface EailItemParentIface instance
  */
 static void
 eail_item_parent_interface_init(EailItemParentIface *iface)
@@ -257,15 +257,14 @@ eail_item_parent_interface_init(EailItemParentIface *iface)
 }
 
 /**
- * @brief Implementation of AtkSelection->add_selection callback
+ * @brief Adds the specified accessible child of the object to the object's selection.
  *
- * As described in ATK doc:\n
- * Adds the specified accessible child of the object to the object's selection.
+ * Implementation of AtkSelection->add_selection callback.
  *
- * @param selection an AtkSelection
+ * @param selection AtkSelection instance
  * @param i index of object
  *
- * @returns TRUE if operation ended successfully, FALSE otherwise
+ * @returns TRUE if operation was successful, FALSE otherwise
  */
 static gboolean
 eail_index_add_selection(AtkSelection *selection,
@@ -282,19 +281,20 @@ eail_index_add_selection(AtkSelection *selection,
 }
 
 /**
- * @brief Implementation of AtkSelection->ref_selection callback
+ * @brief Gets a reference to the accessible object representing the specified selected
+ * child of the object.
  *
- * As described in ATK doc:\n
- * Gets a reference to the accessible object representing the specified selected
- * child of the object. Note: callers should not rely on NULL or on a zero value
+ * Note: callers should not rely on NULL or on a zero value
  * for indication of whether AtkSelectionIface is implemented, they should use
  * type checking/interface checking macros or the atk_get_accessible_value()
  * convenience method.
  *
- * @param selection an AtkSelection
+ * Implementation of AtkSelection->ref_selection callback.
+ *
+ * @param selection AtkSelection instance
  * @param i index of object
  *
- * @returns an AtkObject representing the selected accessible , or NULL if
+ * @returns AtkObject representing the selected accessible or NULL if
  * selection does not implement this interface
  */
 static AtkObject *
@@ -307,13 +307,12 @@ eail_index_ref_selection(AtkSelection *selection,
 }
 
 /**
- * @brief Implementation of AtkSelection->clear_selection callback
- *
- * As described in ATK doc:\n
- * Clears the selection in the object so that no children in the object are
+ * @brief Clears the selection in the object so that no children in the object are
  * selected.
  *
- * @param selection an AtkSelection
+ * Implementation of AtkSelection->clear_selection callback.
+ *
+ * @param selection aAtkSelection instance
  *
  * @returns TRUE if success, FALSE otherwise.
  */
@@ -336,17 +335,17 @@ eail_index_clear_selection(AtkSelection *selection)
 }
 
 /**
- * @brief Implementation of AtkSelection->get_selection_count callback
+ * @brief Gets the number of accessible children currently selected.
  *
- * As described in ATK doc:\n
- * Gets the number of accessible children currently selected. Note: callers
- * should not rely on NULL or on a zero value for indication of whether
+ * Note: callers should not rely on NULL or on a zero value for indication of whether
  * AtkSelectionIface is implemented, they should use type checking/interface
  * checking macros or the atk_get_accessible_value() convenience method.
-
- * @param selection an AtkSelection
  *
- * @returns gint representing number of selected elements
+ * Implementation of AtkSelection->get_selection_count callback.
+ *
+ * @param selection AtkSelection instance
+ *
+ * @returns integer representing the number of selected elements
  */
 static gint
 eail_index_get_selection_count(AtkSelection *selection)
@@ -361,19 +360,19 @@ eail_index_get_selection_count(AtkSelection *selection)
 }
 
 /**
- * @brief Implementation of AtkSelection->is_child_selected callback
+ * @brief Determines if the current child of this object is selected.
  *
- * As described in ATK doc:\n
- * Determines if the current child of this object is selected Note: callers
- * should not rely on NULL or on a zero value for indication of whether
+ * Note: callers should not rely on NULL or on a zero value for indication of whether
  * AtkSelectionIface is implemented, they should use type checking/interface
  * checking macros or the atk_get_accessible_value() convenience method.
  *
- * @param selection an AtkSelection
+ * Implementation of AtkSelection->is_child_selected callback.
+ *
+ * @param selection AtkSelection instance
  * @param i index of object
  *
- * @returns a gboolean representing if the specified child is selected, or
- * FALSE if selection does not implement this interface.
+ * @returns TRUE if the specified child is selected or
+ * FALSE if selection does not implement this interface
  */
 static gboolean
 eail_index_is_child_selected(AtkSelection *selection,
@@ -403,7 +402,7 @@ eail_index_is_child_selected(AtkSelection *selection,
 /**
  * @brief Initializer of AtkSelectionIface interface
  *
- * @param iface an AtkSelectionIface
+ * @param iface AtkSelectionIface
  */
 static void atk_selection_interface_init(AtkSelectionIface *iface)
 {

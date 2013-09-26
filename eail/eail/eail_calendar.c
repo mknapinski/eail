@@ -39,9 +39,9 @@ G_DEFINE_TYPE_WITH_CODE(EailCalendar,
 /**
  * @brief EailCalendar object initialization
  *
- * Main task is to set role for AtkObject.
+ * Sets role of AtkObject.
  *
- * @param  obj an AtkObject
+ * @param  obj AtkObject instance
  * @param  data initialization data
  */
 static void eail_calendar_initialize(AtkObject *obj, gpointer data)
@@ -54,9 +54,9 @@ static void eail_calendar_initialize(AtkObject *obj, gpointer data)
  * @brief EailCalendar instance initialization
  *
  * EailCalendar does not have any fields to initialize in struct EailCalendar
- * thus this function is emp but still it has to be defined.
+ * thus this function is empty but still it has to be defined.
  *
- * @param  calendar EailCalendar instance
+ * @param calendar EailCalendar instance
  */
 static void
 eail_calendar_init(EailCalendar *calendar)
@@ -66,10 +66,10 @@ eail_calendar_init(EailCalendar *calendar)
 /**
  * @brief EailCalendar class initialization function
  *
- * Purpose of this function is to initialize AtkObjectClass method pointers
+ * Unitializes AtkObjectClass method pointers
  * with class's implementations.
  *
- * @param  klass EailCalendar class
+ * @param klass EailCalendarClass instance
  */
 static void
 eail_calendar_class_init(EailCalendarClass *klass)
@@ -81,9 +81,9 @@ eail_calendar_class_init(EailCalendarClass *klass)
 }
 
 /**
- * @brief Gets obj current value
+ * @brief Gets the current value of obj
  *
- * Gets callendar date
+ * Gets calendar date.
  *
  * Example:
  * @code
@@ -92,8 +92,8 @@ eail_calendar_class_init(EailCalendarClass *klass)
  * eail_calendar_get_current_value(ATK_VALUE(obj), &value);
  * @endcode
  *
- * @param obj an AtkValue
- * @param [out] value obj current value for date
+ * @param obj AtkValue instance
+ * @param [out] value obj's current value for date
  */
 static void
 eail_calendar_get_current_value(AtkValue *obj,
@@ -113,9 +113,9 @@ eail_calendar_get_current_value(AtkValue *obj,
 }
 
 /**
- * @brief Gets obj maxiumum value
+ * @brief Gets the maxiumum value of obj
  *
- * Gets maximum date that can be set for callendar.
+ * Gets the maximum date that can be set for calendar.
  *
  * Example:
  * @code
@@ -124,8 +124,8 @@ eail_calendar_get_current_value(AtkValue *obj,
  * eail_calendar_get_maximum_value(ATK_VALUE(obj), &value);
  * @endcode
  *
- * @param  obj an AtkValue
- * @param [out] value obj maxiumum value
+ * @param  obj AtkValue instance
+ * @param [out] value obj's maxiumum value
  */
 static void
 eail_calendar_get_maximum_value(AtkValue *obj,
@@ -158,9 +158,9 @@ eail_calendar_get_maximum_value(AtkValue *obj,
 }
 
 /**
- * @brief Gets obj minimum value
+ * @brief Gets the minimum value of obj
  *
- * Gets minimum date than can be set for callendar
+ * Gets the minimum date than can be set for calendar.
  *
  * Example:
  * @code
@@ -169,8 +169,8 @@ eail_calendar_get_maximum_value(AtkValue *obj,
  * eail_calendar_get_minimum_value(ATK_VALUE(obj), &value);
  * @endcode
  *
- * @param obj an AtkObject
- * @param [out] value obj minimum value
+ * @param obj AtkObject instance
+ * @param [out] value obj's minimum value
  */
 static void
 eail_calendar_get_minimum_value(AtkValue *obj,
@@ -203,7 +203,7 @@ eail_calendar_get_minimum_value(AtkValue *obj,
 }
 
 /**
- * @brief Sets obj value
+ * @brief Sets the value of obj
  *
  * Sets calendar date.
  *
@@ -226,9 +226,9 @@ eail_calendar_get_minimum_value(AtkValue *obj,
  * eail_calendar_set_current_value(ATK_VALUE(obj), &value);
  * @endcode
  *
- * @param  obj an AtkValue
- * @param  value obj new value
- * @return TRUE if new value is set successfully, FALSE otherwise
+ * @param  obj AtkValue instance
+ * @param  value obj's new value
+ * @return TRUE if new value was set successfully, FALSE otherwise
  */
 static gboolean
 eail_calendar_set_current_value(AtkValue     *obj,
@@ -272,9 +272,9 @@ eail_calendar_set_current_value(AtkValue     *obj,
 }
 
 /**
- * @brief Gets obj minimum increment
+ * @brief Gets the minimum increment of obj
  *
- * Gets minimum calendar increment i.e one second.
+ * Gets the minimum calendar increment i.e one second.
  *
  * Example:
  *
@@ -284,8 +284,8 @@ eail_calendar_set_current_value(AtkValue     *obj,
  * eail_calendar_get_minimum_increment(ATK_VALUE(obj), &value);
  * @endcode
  *
- * @param obj an AtkValue
- * @param [out] value obj minimum increment
+ * @param obj AtkValue instance
+ * @param [out] value obj's minimum increment
  */
 static void
 eail_calendar_get_minimum_increment(AtkValue *obj,
@@ -308,7 +308,7 @@ eail_calendar_get_minimum_increment(AtkValue *obj,
  * implementation i.e hooks method pointers in the interface structure
  * to the implementing class's implementation.
  *
- * @param iface an AtkObject than implements AtkValueInterface
+ * @param iface AtkObject instance than implements AtkValueInterface
  */
 static void
 atk_value_interface_init(AtkValueIface *iface)

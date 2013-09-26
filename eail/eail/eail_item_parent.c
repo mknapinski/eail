@@ -26,6 +26,7 @@
 #include "eail_item_parent.h"
 
 /**
+ * @brief Gets GType for initialized interface
  *
  * @returns GType for initialized interface
  */
@@ -52,10 +53,12 @@ eail_item_parent_get_type(void)
 }
 
 /**
- * @param parent object that holds EailItem in its content
- * @param item an EailItem object
+ * @brief Gets the name of item
  *
- * @return gchar* representing name of item or NULL if not available
+ * @param parent object that holds EailItem in its content
+ * @param item EailItem instance
+ *
+ * @return string representing the name of item or NULL if the name is not available
  */
 const gchar *
 eail_item_parent_get_item_name(EailItemParent   *parent,
@@ -74,10 +77,12 @@ eail_item_parent_get_item_name(EailItemParent   *parent,
 }
 
 /**
- * @param parent object that holds EailItem in its content
- * @param item an EailItem object
+ * @brief Gets the role of item
  *
- * @returns ATK role for given EailItem
+ * @param parent object that holds EailItem in its content
+ * @param item EailItem object
+ *
+ * @returns AtkRole representing the role of the specified EailItem
  */
 AtkRole
 eail_item_parent_get_item_role(EailItemParent   *parent,
@@ -96,10 +101,12 @@ eail_item_parent_get_item_role(EailItemParent   *parent,
 }
 
 /**
- * @param parent object that holds EailItem in its content
- * @param item an EailItem object
+ * @brief Gets the index of item in parent object
  *
- * @returns gint representing index of item in parent object
+ * @param parent object that holds EailItem in its content
+ * @param item EailItem instance
+ *
+ * @returns integer representing the index of item in parent object
  */
 gint
 eail_item_parent_get_item_index_in_parent(EailItemParent    *parent,
@@ -118,10 +125,12 @@ eail_item_parent_get_item_index_in_parent(EailItemParent    *parent,
 }
 
 /**
- * @param parent object that holds EailItem in its content
- * @param item an EailItem object
+ * @brief Gets the number of accessible children
  *
- * @returns gint representing index of item in parent object or -1 if
+ * @param parent object that holds EailItem in its content
+ * @param item EailItem instance
+ *
+ * @returns integer representing the number of accessible children or -1 if
  * not implemented
  */
 gint
@@ -141,11 +150,17 @@ eail_item_parent_get_n_children(EailItemParent    *parent,
 }
 
 /**
+ * @brief Gets a reference to the specified accessible child of the object.
+ *
+ * The accessible children are 0-based so the first accessible child
+ * is at index 0, the second at index 1 and so on.
+ *
  * @param parent object that holds EailItem in its content
- * @param item an EailItem object
+ * @param item EailItem instance
  * @param index gint representing index of child to ref
  *
- * @returns AtkObject * for given index or NULL if not implemented
+ * @returns AtkObject representing the specified accessible child
+ * or NULL if not implemented
  */
 AtkObject *
 eail_item_parent_ref_n_child(EailItemParent    *parent,
@@ -165,11 +180,13 @@ eail_item_parent_ref_n_child(EailItemParent    *parent,
 }
 
 /**
- * @param parent object that holds EailItem in its content
- * @param item an EailItem object
- * @param state_set current state_set
+ * @brief Gets a reference to the state set of EailItem
  *
- * @returns AtkStateSet representing state set of given EailItem
+ * @param parent object that holds EailItem in its content
+ * @param item EailItem instance
+ * @param state_set current state set
+ *
+ * @returns AtkStateSet representing the state set of given EailItem
  */
 AtkStateSet *
 eail_item_parent_ref_item_state_set(EailItemParent  *parent,
@@ -189,10 +206,12 @@ eail_item_parent_ref_item_state_set(EailItemParent  *parent,
 }
 
 /**
- * @param parent object that holds EailItem in its content
- * @param item an EailItem object
+ * @brief Grabs focus of EailItem
  *
- * @returns TRUE if operation was successfull, FALSE otherwise
+ * @param parent object that holds EailItem in its content
+ * @param item EailItem instance
+ *
+ * @returns TRUE on success, FALSE otherwise
  */
 gboolean
 eail_item_parent_grab_item_focus(EailItemParent *parent,
@@ -211,15 +230,16 @@ eail_item_parent_grab_item_focus(EailItemParent *parent,
 }
 
 /**
- * ATK doc says:
- * Gets the rectangle which gives the extent of the component.
+ * @brief Gets the rectangle which gives the extent of the component
+ *
+ * Implementation of atk_component_get_extents.
  *
  * @param parent object that holds EailItem in its content
- * @param item an EailItem object
- * @param x address of gint to put x coordinate
- * @param y address of gint to put y coordinate
- * @param width addrress of gint to put width
- * @param height address of gint to put height
+ * @param item EailItem object
+ * @param [out] x x coordinate
+ * @param [out] y y coordinate
+ * @param [out] width width of the rectangle
+ * @param [out] height height of the rectangle
  * @param coord_type specifies whether the coordinates are relative to the
  * screen or to the components top level window
  */
@@ -243,10 +263,12 @@ eail_item_parent_get_item_extents(EailItemParent    *parent,
 }
 
 /**
- * @param parent object that holds EailItem in its content
- * @param item an EailItem object
+ * @brief Gets nested Evas_Object of given EailItem
  *
- * @returns nested Evas_Object for given EailItem
+ * @param parent object that holds EailItem in its content
+ * @param item EailItem instance
+ *
+ * @returns nested Evas_Object representing the given EailItem
  */
 Evas_Object * eail_item_parent_get_evas_obj(EailItemParent   *parent,
                                             EailItem         *item)
@@ -264,10 +286,12 @@ Evas_Object * eail_item_parent_get_evas_obj(EailItemParent   *parent,
 }
 
 /**
- * @param parent object that holds EailItem in its content
- * @param item an EailItem object
+ * @brief Gets supported actions
  *
- * @returns filled gint representing supported actions
+ * @param parent object that holds EailItem in its content
+ * @param item EailItem instance
+ *
+ * @returns integer representing supported actions
  */
 gint
 eail_item_parent_get_actions_supported(EailItemParent *parent,
@@ -286,8 +310,10 @@ eail_item_parent_get_actions_supported(EailItemParent *parent,
 }
 
 /**
+ * @brief Checks if content get is supported
+ *
  * @param parent object that holds EailItem in its content
- * @param item an EailItem object
+ * @param item EailItem instance
  *
  * @returns TRUE if content get is supported, FALSE otherwise. Default
  * implementation returns TRUE (used if no redefinition in EailItemParent

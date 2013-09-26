@@ -19,8 +19,7 @@
 
 /**
  * @file eail_item.c
- * @brief Implementation of widget that is being used to represent
- * list/toolbar/menu items/genlist items/genlist items...
+ * @brief EailItem implementation
  *
  * In general - this object represents all kinds of objects that have form of
  * a Elm_Obj_Item* and need ATK accessible representation. It stores
@@ -66,8 +65,8 @@ G_DEFINE_TYPE_WITH_CODE(EailItem,
 /**
  * @brief Initializer for AtkObjectClass
  *
- * @param obj an AtkObject for EailItem
- * @param data additional initialization data (Elm_Object_Item *)
+ * @param obj AtkObject instance
+ * @param data additional initialization data
  */
 static void
 eail_item_initialize(AtkObject *obj, gpointer data)
@@ -85,7 +84,7 @@ eail_item_initialize(AtkObject *obj, gpointer data)
  *
  * @param item EailItem to take nested Elm_Object_Item from
  *
- * @returns nested Elm_Object_Item * object or NULL in case of error
+ * @returns Elm_Object_Item * representing nested item or NULL if an error occured
  */
 Elm_Object_Item *
 eail_item_get_item(EailItem *item)
@@ -100,15 +99,12 @@ eail_item_get_item(EailItem *item)
  */
 
 /**
- * @brief Gets name of EailItem
+ * @brief Gets the accessible name of the accessible.
  *
- * Implementation of AtkObject->get_name callback
+ * Implementation of AtkObject->get_name callback.
  *
- * ATK doc says:
- * Gets the accessible name of the accessible.
- *
- * @param obj an AtkObject for EailItem
- * @returns a character string representing the accessible description of
+ * @param obj AtkObject for EailItem
+ * @returns string representing the accessible description of
  * the accessible.
  */
 static const gchar *
@@ -129,10 +125,12 @@ eail_item_get_name(AtkObject *obj)
 }
 
 /**
- * @brief Implementation of AtkObject->get_role callback
+ * @brief Gets the role of the accessible
  *
- * @param obj an AtkObject for EailItem
- * @returns ATK role of target item in the list
+ * Implementation of AtkObject->get_role callback.
+ *
+ * @param obj AtkObject for EailItem
+ * @returns AtkRole representing the parameter's role
  */
 static AtkRole
 eail_item_get_role(AtkObject *obj)
@@ -146,13 +144,12 @@ eail_item_get_role(AtkObject *obj)
 }
 
 /**
- * @brief Implementation of AtkObject->get_index_in_parent callback
+ * @brief Gets the 0-based index of this accessible in its parent.
  *
- * ATK doc says:
- * Gets the 0-based index of this accessible in its parent; returns -1 if the
- * accessible does not have an accessible parent.
- * @param obj an AtkObject for EailItem
- * @returns an integer which is the index of the accessible in its parent
+ * Implementation of AtkObject->get_index_in_parent callback.
+ *
+ * @param obj AtkObject for EailItem
+ * @returns integer representing the index of the accessible in its parent or -1 if the accessible does not have an accessible parent
  */
 static gint
 eail_item_get_index_in_parent(AtkObject *obj)
@@ -166,15 +163,15 @@ eail_item_get_index_in_parent(AtkObject *obj)
 }
 
 /**
- * @brief Implementation of AtkObject->ref_state_set callback
+ * @brief Gets a reference to the state set of the accessible.
  *
- * ATK doc says:
- * Gets a reference to the state set of the accessible; the caller must
- * unreference it when it is no longer needed.
+ * The caller must unreference it when it is no longer needed.
  *
- * @param obj an AtkObject for EailItem
- * @returns a reference to an AtkStateSet which is the state set of the
- * accessible.
+ * Implementation of AtkObject->ref_state_set callback.
+ *
+ * @param obj AtkObject for EailItem
+ * @returns AtkStateSet containing a reference to the state set of the
+ * accessible
  */
 static AtkStateSet *
 eail_item_ref_state_set(AtkObject *obj)
@@ -205,7 +202,7 @@ eail_item_ref_state_set(AtkObject *obj)
 
 /**
  * @brief Initializer for GObject class
- * @param item an EailItem object
+ * @param item EailItem instance
  */
 static void
 eail_item_init(EailItem *item)
@@ -213,8 +210,8 @@ eail_item_init(EailItem *item)
 }
 
 /**
- * @brief Finalize implementation for GObject class
- * @param obj an AtkObject for EailItem that needs to be finalized
+ * @brief Finalizes implementation for GObject class
+ * @param obj AtkObject for EailItem instance that needs to be finalized
  */
 static void
 eail_item_class_finalize(GObject *obj)
@@ -229,14 +226,14 @@ eail_item_class_finalize(GObject *obj)
 }
 
 /**
- * @brief Helper function used for adding content Evas_Object* part if part
- * with given name is available
+ * @brief Helper function used for adding Evas_Object* content to the item's list
+ * if the content is available.
  *
- * @param eail_obj_item item used for lookup for given content part
- * @param items list of items that will be extended by found part
- * @param part_str name of part to be found
+ * @param eail_obj_item item used for browsing for given content part
+ * @param items list of items that will be extended by the content part
+ * @param part_str name of content part to be found
  *
- * @returns filled list with Evas_Object* objects
+ * @returns Eina_List filled with Evas_Object* objects
  */
 static Eina_List *
 _eail_item_append_part_if_exist(Elm_Object_Item *eail_obj_item,
@@ -254,9 +251,9 @@ _eail_item_append_part_if_exist(Elm_Object_Item *eail_obj_item,
 }
 
 /**
- * @brief Checks if content_get is supported by given EailItem object
+ * @brief Checks if content_get is supported by the given EailItem object
  *
- * @param atk_object an AtkObject
+ * @param atk_object AtkObject instance
  *
  * @returns TRUE if content_get is supported, FALSE otherwise
  */
@@ -274,11 +271,11 @@ _eail_item_is_content_get_supported(AtkObject *atk_object)
 }
 
 /**
- * @brief Gets list of item content parts with well documented content strings
+ * @brief Gets list of item's content parts with well documented content strings
  *
  * @param eail_item item to get content from
  *
- * @returns list filled with Evas_Object* that has been found
+ * @returns Eina_List filled with the content parts that have been found
  */
 static Eina_List *
 _eail_item_get_basic_parts(EailItem *eail_item)
@@ -306,12 +303,12 @@ _eail_item_get_basic_parts(EailItem *eail_item)
 }
 
 /**
- * @brief Helper function that adds unique entries from one list to another
+ * @brief Helper function for adding unique entries from one list to another
  *
- * @param item_list source list, unique items will be appended here
- * @param additional_items list with potential items to add
+ * @param item_list list which unique items will be appended to
+ * @param additional_items source list with items to be added to item_list
  *
- * @returns result list filled with unique entries from both lists
+ * @returns Eina_List filled with unique entries from both lists
  */
 static Eina_List *
 _eail_add_unique_listsparts(Eina_List *item_list,
@@ -330,12 +327,13 @@ _eail_add_unique_listsparts(Eina_List *item_list,
 }
 
 /**
- * @brief Gets content part items from given EailItem object
+ * @brief Gets content part items from the given EailItem object
+ *
+ * List should be freed when results will be processed.
  *
  * @param eail_item EailItem object used to get content from
  *
- * @returns content parts (Evas_Object *) for given item. List should be freed
- * when results will be processed.
+ * @returns Eina_List containing content parts for the given item.
  */
 static Eina_List *
 _eail_item_get_part_items(EailItem *eail_item)
@@ -364,14 +362,13 @@ _eail_item_get_part_items(EailItem *eail_item)
 }
 
 /**
- * @brief Implementation AtkObject->get_n_children callback
+ * @brief Gets the number of accessible children of the accessible.
  *
- * ATK doc says:\n
- * Gets the number of accessible children of the accessible.
+ * Implementation AtkObject->get_n_children callback.
  *
- * @param obj an AtkObject (EailItem)
+ * @param obj AtkObject (EailItem) instance
  *
- * @returns an integer representing the number of accessible children of
+ * @returns integer representing the number of accessible children of
  * the accessible
  */
 static gint
@@ -397,18 +394,18 @@ eail_item_get_n_children(AtkObject *obj)
 }
 
 /**
- * @brief Implementation AtkObject->ref_child callback
+ * @brief Gets a reference to the specified accessible child of the object.
  *
- * ATK doc says:\n
- * Gets a reference to the specified accessible child of the object. The
- * accessible children are 0-based so the first accessible child is at index 0,
+ * The accessible children are 0-based so the first accessible child is at index 0,
  * the second at index 1 and so on.
  *
- * @param obj an AtkObject for EailItem
- * @param i index of item to ref
+ * Implementation of AtkObject->ref_child callback.
  *
- * @returns an AtkObject representing the specified accessible child of the
- * accessible.
+ * @param obj AtkObject for EailItem instance
+ * @param i index of item to reference
+ *
+ * @returns AtkObject representing the specified accessible child of the
+ * accessible
  */
 static AtkObject *
 eail_item_ref_child(AtkObject *obj, gint i)
@@ -448,8 +445,11 @@ eail_item_ref_child(AtkObject *obj, gint i)
 }
 
 /**
- * @brief Initializer for GObject class (defines callbacks for base AtkObject)
- * @param klass an EailItemClass
+ * @brief Initializer for GObject class
+ *
+ * Defines callbacks for base AtkObject.
+ *
+ * @param klass EailItemClass instance
  */
 static void
 eail_item_class_init(EailItemClass *klass)
@@ -473,13 +473,12 @@ eail_item_class_init(EailItemClass *klass)
  */
 
 /**
- * @brief Implementation of AtkComponent->grab_focus callback
+ * @brief Grabs focus for this component.
  *
- * ATK doc says:
- * Grabs focus for this component.
+ * Implementation of AtkComponent->grab_focus callback.
  *
- * @param component an AtkComponent (EailItem)
- * @returns TRUE if successful, FALSE otherwise.
+ * @param component AtkComponent (EailItem) instance
+ * @returns TRUE on success, FALSE otherwise.
  */
 static gboolean
 eail_item_grab_focus(AtkComponent *component)
@@ -494,16 +493,15 @@ eail_item_grab_focus(AtkComponent *component)
 }
 
 /**
- * @brief Implementation of AtkComponent->get_extents callback
+ * @brief Gets the rectangle which gives the extent of the component.
  *
- * ATK doc says:
- * Gets the rectangle which gives the extent of the component.
+ * Implementation of AtkComponent->get_extents callback.
  *
- * @param component an AtkComponent
- * @param x address of gint to put x coordinate
- * @param y address of gint to put y coordinate
- * @param width ddress of gint to put width
- * @param height address of gint to put height
+ * @param component AtkComponent instance
+ * @param [out] x rectangle upper left x coordinate
+ * @param [out] y rectangle upper left y coordinate
+ * @param [out] width width of the rectangle
+ * @param [out] height height of the rectangle
  * @param coord_type specifies whether the coordinates are relative to the
  * screen or to the components top level window
  */
@@ -529,9 +527,9 @@ eail_item_get_extents(AtkComponent    *component,
 }
 
 /**
- * @brief AtkComponetn interface initialization
+ * @brief AtkComponent interface initialization
  *
- * @param iface EailNaviframPage object
+ * @param iface EailNaviframPage instance
  */
 static void
 atk_component_interface_init(AtkComponentIface *iface)
@@ -547,7 +545,7 @@ atk_component_interface_init(AtkComponentIface *iface)
 /**
  * @brief Gets actions supported by given EailItem object
  *
- * @param action an AtkAction
+ * @param action AtkAction instance
  *
  * @returns EailActionSupported enum entry that shows what kind of actions are
  * supported
@@ -566,11 +564,12 @@ _eail_item_get_actions_supported(AtkAction *action)
 }
 
 /**
- * @brief Returns number of implemented ATK Actions.
- * Implementation of AtkActionIface get_n_actions callback
+ * @brief Returns the number of implemented ATK actions.
+ *
+ * Implementation of AtkActionIface get_n_actions callback.
  *
  * @param action object that implements AtkAction interface
- * @returns number of implemented actions
+ * @returns integer representing number of implemented actions
  */
 static int
 eail_item_n_actions_get(AtkAction *action)
@@ -593,11 +592,11 @@ eail_item_n_actions_get(AtkAction *action)
 }
 
 /**
- * @brief Returns EailActionObj of action with given index
+ * @brief Returns the accessible name of the specified action
  *
  * @param action object that implements AtkAction interface
  * @param i index (number) of action
- * @returns i-th action name
+ * @returns string containing the accessible name of the specified action
  */
 static const char*
 eail_item_action_name_get(AtkAction *action, int i)
@@ -631,11 +630,11 @@ eail_item_action_name_get(AtkAction *action, int i)
 }
 
 /**
- * @brief Gets clickable Evas_Object for given EailItem
+ * @brief Gets the clickable Evas_Object for the given EailItem
  *
- * @param atk_item an EailItem object
+ * @param atk_item EailItem instance
  *
- * @returns Evas_Object * to click on or NULL of no clickable content was found
+ * @returns clickable Evas_Object or NULL of no clickable content was found
  */
 static Evas_Object *
 _eail_item_get_clickable_evas_obj(AtkObject *atk_item)
@@ -677,10 +676,10 @@ _eail_item_get_clickable_evas_obj(AtkObject *atk_item)
 
 
 /**
- * @brief Performs action with name on given item
+ * @brief Performs an action with the given name on given item
  *
- * @param atk_item item object to do action on
- * @param action_name name of action (eg. 'click', 'press'...)
+ * @param atk_item item object to perform the action on
+ * @param action_name name of the action (eg. 'click', 'press'...)
  *
  * @returns TRUE if operation was successful, FALSE otherwise
  */
@@ -733,8 +732,8 @@ _eail_item_perform_action(AtkObject *atk_item, const gchar *action_name)
 /**
  * \brief Launches action with given index
  *
- * @param action object that implements AtkAction interface
- * @param i index (number) of action
+ * @param action AtkAction instance
+ * @param i index (number) of the action
  *
  * @returns TRUE if action was successfully launched, FALSE otherwise
  */
@@ -754,7 +753,7 @@ eail_item_do_action(AtkAction *action, int i)
 
 /**
  * @brief Initializer for AtkActionIface
- * @param iface an AtkActionIface to fill
+ * @param iface AtkActionIface instance to fill
  */
 static void
 atk_action_interface_init(AtkActionIface *iface)
@@ -769,14 +768,16 @@ atk_action_interface_init(AtkActionIface *iface)
 /**
  * @brief Gets text content from item
  *
- * Implementation of AtkTextIface->get_text callback\n
+ * Implementation of AtkTextIface->get_text callback.
  *
- * @param text an AtkText
+ * Use g_free() to free the returned.
+ *
+ * @param text AtkText instance
  * @param start_offset start position
  * @param end_offset end position, or -1 for the end of the string.
  *
  * @returns a newly allocated string containing the text from start_offset
- * up to, but not including end_offset. Use g_free() to free the returned
+ * up to, but not including end_offset.
  * string.
  */
 static gchar*
@@ -818,14 +819,14 @@ eail_item_get_text(AtkText   *text,
 }
 
 /**
- * @brief Gets character from item at given offset
+ * @brief Gets character from an item at the given offset
  *
- * Implementation of AtkTextIface->get_character_at_offset callback
+ * Implementation of AtkTextIface->get_character_at_offset callback.
  *
- * @param text an AtkText
- * @param offset an offset
+ * @param text AtkText instance
+ * @param offset offset to get the character from
  *
- * @returns the character at offset.
+ * @returns char located at offset
  */
 static gunichar
 eail_item_get_character_at_offset(AtkText *text, gint offset)
@@ -846,12 +847,13 @@ eail_item_get_character_at_offset(AtkText *text, gint offset)
 }
 
 /**
- * @brief Gets character count from text content in item
- * Implementation of AtkTextIface->get_character_count callback
+ * @brief Gets the character count from text content in item
  *
- * @param text an AtkText
+ * Implementation of AtkTextIface->get_character_count callback.
  *
- * @returns the character count
+ * @param text AtkText instance
+ *
+ * @returns integer representing the character count
  */
 static gint
 eail_item_get_character_count(AtkText *text)
@@ -872,7 +874,7 @@ eail_item_get_character_count(AtkText *text)
 
 /**
  * @brief Initializer for AtkTextinterface
- * @param iface an AtkTextIface to fill
+ * @param iface AtkTextIface instance to fill
  */
 static void
 atk_text_interface_init(AtkTextIface *iface)

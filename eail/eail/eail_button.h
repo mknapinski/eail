@@ -37,7 +37,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailButton
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_BUTTON(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj), \
                                       EAIL_TYPE_BUTTON, EailButton))
@@ -53,7 +53,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailButton class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_BUTTON(obj)          (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
                                       EAIL_TYPE_BUTTON))
@@ -86,7 +86,7 @@ typedef struct _EailButtonClass EailButtonClass;
 /** @brief Definition of object structure for Atk EailButton*/
 struct _EailButton
 {
-   /** @brief parent AtkObject that functionality is being extended */
+   /** @brief Parent widget whose functionality is being extended */
    EailActionWidget parent;
 };
 

@@ -19,7 +19,7 @@
 
 /**
  * @file eail_prefs.c
- * @brief EailPrefs widget implementation.
+ * @brief EailPrefs implementation
  */
 
 #include <Elementary.h>
@@ -36,9 +36,9 @@
 G_DEFINE_TYPE(EailPrefs, eail_prefs, EAIL_TYPE_WIDGET);
 
 /**
- * @brief EailPrefs initializer.
+ * @brief EailPrefs initializer
  *
- * @param obj EailPrefs instance
+ * @param obj AtkObject instance
  * @param data initialization data
  */
 static void
@@ -59,10 +59,10 @@ eail_prefs_init(EailPrefs *prefs)
 }
 
 /**
- * @brief Gets children for prefs object
+ * @brief Gets the list of children of the prefs object
  *
  * @param parent parent widget
- * @param items empty list (used as output value)
+ * @param [out] items list of object's children
  */
 static void eail_prefs_children_get(Evas_Object *parent,
                                     Eina_List **items)
@@ -89,11 +89,12 @@ static void eail_prefs_children_get(Evas_Object *parent,
 }
 
 /**
- * @brief Gets list of children for given widget
+ * @brief Gets the list of children for the specified widget
  *
- * @param widget an EailWidget (EailPrefs) to take children from
+ * @param widget EailWidget instance
  *
- * @returns filled Eina_List with widget children or NULL if no children found
+ * @returns Eina_List representing the widget's children
+ * or NULL if the widget's has no children
  */
 static Eina_List *
 eail_prefs_get_widget_children(EailWidget *widget)
@@ -112,11 +113,11 @@ eail_prefs_get_widget_children(EailWidget *widget)
 }
 
 /**
- * @brief EailPrefs class initializer.
+ * @brief EailPrefs class initializer
  *
- * Here basic callbacks for AtkObject are defined
+ * Definition of basic callbacks for AtkObject.
  *
- * @param klass EailPrefs class
+ * @param klass EailPrefsClass instance
  */
 static void
 eail_prefs_class_init(EailPrefsClass *klass)

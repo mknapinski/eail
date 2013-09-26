@@ -35,7 +35,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailFlipselector
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_FLIPSELECTOR(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), \
                                              EAIL_TYPE_FLIPSELECTOR, EailFlipselector))
@@ -49,7 +49,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailFlipselector class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_FLIPSELECTOR(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
                                              EAIL_TYPE_FLIPSELECTOR))
@@ -80,7 +80,7 @@ typedef struct _EailFlipselectorClass EailFlipselectorClass;
 /** @brief Definition of object structure for Atk EailFlipselector*/
 struct _EailFlipselector
 {
-   EailWidget parent;/**< @brief widget that functionality is being extended*/
+   EailWidget parent;/**< @brief Parent widget whose functionality is being extended*/
 
    char *next_description;/**< @brief 'next' action description string */
    char *prev_description;/**< @brief 'prev' action description string */

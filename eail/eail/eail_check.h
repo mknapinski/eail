@@ -35,7 +35,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailCheck
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_CHECK(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj), \
                                      EAIL_TYPE_CHECK, EailCheck))
@@ -49,7 +49,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailCheck class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_CHECK(obj)          (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
                                      EAIL_TYPE_CHECK))
@@ -80,7 +80,7 @@ typedef struct _EailCheckClass EailCheckClass;
 /** @brief Definition of object structure for Atk EailCheck*/
 struct _EailCheck
 {
-   EailActionWidget parent; /*!< @brief parent object that functionality is being extended*/
+   EailActionWidget parent; /*!< @brief Parent widget whose functionality is being extended*/
 };
 
 /** @brief Definition of class structure for Atk EailCheck*/

@@ -35,7 +35,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailImage
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IMAGE(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), \
                                      EAIL_TYPE_IMAGE, EailImage))
@@ -49,7 +49,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailImage class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_IMAGE(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), \
                                      EAIL_TYPE_IMAGE))
@@ -80,10 +80,10 @@ typedef struct _EailImageClass  EailImageClass;
 /** @brief Definition of object structure for Atk EailImage*/
 struct _EailImage
 {
-   /** @brief Parent object that functionality is being extended*/
+   /** @brief Parent widget whose functionality is being extended*/
    EailActionWidget parent;
 
-   char *description; /*!< @brief image description*/
+   char *description; /*!< @brief Image description*/
 };
 
 /** @brief Definition of class structure for Atk EailImage*/

@@ -38,7 +38,7 @@ G_DEFINE_TYPE_WITH_CODE(EailSpinner,
                                               atk_value_interface_init));
 
 /**
- * @brief EailSpinner interface initializer.
+ * @brief EailSpinner interface initializer
  *
  * @param spinner EailSpinner instance
  */
@@ -48,9 +48,9 @@ eail_spinner_init(EailSpinner *spinner)
 }
 
 /**
- * @brief EailSpinner initializer.
+ * @brief EailSpinner initializer
  *
- * @param obj an AtkObject instance
+ * @param obj AtkObject instance
  * @param data initialization data
  */
 void
@@ -61,10 +61,10 @@ eail_spinner_initialize(AtkObject *obj, gpointer data)
 }
 
 /**
- * @brief Gets accessible name of accessible.
+ * @brief Gets the accessible name of the accessible
  *
- * @param accessible an AtkObject instance
- * @return accessible name
+ * @param accessible AtkObject instance
+ * @return string representing the accessible name of the accessible
  */
 const gchar*
 eail_spinner_get_name(AtkObject *accessible)
@@ -83,9 +83,9 @@ eail_spinner_get_name(AtkObject *accessible)
 }
 
 /**
- * @brief EailSpinner class initializer.
+ * @brief EailSpinner class initializer
  *
- * @param klass EailSpinner class
+ * @param klass EailSpinnerClass instance
  */
 static void
 eail_spinner_class_init(EailSpinnerClass *klass)
@@ -97,10 +97,10 @@ eail_spinner_class_init(EailSpinnerClass *klass)
 }
 
 /**
- * @brief Gets obj current value.
+ * @brief Gets the current value of obj
  *
- * @param obj an AtkValue instance
- * @param [out] value obj current value
+ * @param obj AtkValue instance
+ * @param [out] value obj's current value
  */
 static void
 eail_spinner_get_current_value(AtkValue *obj,
@@ -117,10 +117,10 @@ eail_spinner_get_current_value(AtkValue *obj,
 }
 
 /**
- * @brief Gets obj maxiumum value.
+ * @brief Gets the maximum value of obj
  *
- * @param obj an AtkValue instance
- * @param [out] value obj maxiumum value
+ * @param obj AtkValue instance
+ * @param [out] value obj's maxiumum value
  */
 static void
 eail_spinner_get_maximum_value(AtkValue *obj,
@@ -139,10 +139,10 @@ eail_spinner_get_maximum_value(AtkValue *obj,
 }
 
 /**
- * @brief Gets obj minimum value.
+ * @brief Gets the minimum value of obj
  *
- * @param obj an AtkValue instance
- * @param [out] value obj minimum value
+ * @param obj AtkValue instance
+ * @param [out] value obj's minimum value
  */
 static void
 eail_spinner_get_minimum_value(AtkValue *obj,
@@ -161,11 +161,11 @@ eail_spinner_get_minimum_value(AtkValue *obj,
 }
 
 /**
- * @brief Sets obj value.
+ * @brief Sets the current value of obj
  *
- * @param obj an AtkValue instance
- * @param value obj new value
- * @return TRUE if new value is set successfully, FALSE otherwise
+ * @param obj AtkValue instance
+ * @param value obj's new value
+ * @return TRUE if new value was set successfully, FALSE otherwise
  */
 static gboolean
 eail_spinner_set_current_value(AtkValue     *obj,
@@ -189,10 +189,10 @@ eail_spinner_set_current_value(AtkValue     *obj,
 }
 
 /**
- * @brief Gets obj minimum increment.
+ * @brief Gets the minimum increment of obj
  *
- * @param obj an AtkValue instance
- * @param [out] value obj minimum increment
+ * @param obj AtkValue instance
+ * @param [out] value obj's minimum increment
  */
 static void
 eail_spinner_get_minimum_increment(AtkValue *obj,
@@ -209,9 +209,9 @@ eail_spinner_get_minimum_increment(AtkValue *obj,
 }
 
 /**
- * @brief AtkValue interface initializer.
+ * @brief AtkValue interface initializer
  *
- * @param iface an AtkValueIface instance
+ * @param iface AtkValueIface instance
  */
 static void
 atk_value_interface_init(AtkValueIface *iface)

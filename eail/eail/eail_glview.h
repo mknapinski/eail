@@ -36,7 +36,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailGlview
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_GLVIEW(obj)            (G_TYPE_CHECK_INSTANCE_CAST((obj), \
                                      EAIL_TYPE_GLVIEW, EailGlview))
@@ -50,7 +50,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailGlview class
  *
- * @param obj an AtkObject
+ * @param obj aAtkObject instance
  */
 #define EAIL_IS_GLVIEW(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
                                      EAIL_TYPE_GLVIEW))
@@ -81,7 +81,7 @@ typedef struct _EailGlviewClass EailGlviewClass;
 /** @brief Definition of object structure for Atk EailGlview*/
 struct _EailGlview
 {
-   /** @brief Parent object that functionality is being extended*/
+   /** @brief Parent widget whose functionality is being extended*/
    EailWidget parent;
 };
 

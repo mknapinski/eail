@@ -35,7 +35,7 @@
  * @brief Macro upcasts an instance (obj) of a subclass to the EailScrollableWidget
  * type
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_SCROLLABLE_WIDGET(obj)      (G_TYPE_CHECK_INSTANCE_CAST((obj), \
                                          EAIL_TYPE_SCROLLABLE_WIDGET, \
@@ -52,7 +52,7 @@
 /**
  * @brief Tests whether object (obj) is an instance of EailScrollableWidget class
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  */
 #define EAIL_IS_SCROLLABLE_WIDGET(obj) \
                                        (G_TYPE_CHECK_INSTANCE_TYPE((obj), \
@@ -86,7 +86,7 @@ typedef struct _EailScrollableWidgetClass EailScrollableWidgetClass;
 /** @brief Definition of object structure for Atk EailScrollableWidget*/
 struct _EailScrollableWidget
 {
-   /** @brief Parent object that functionality is being extended*/
+   /** @brief Parent widget whose functionality is being extended*/
    EailActionWidget parent;
 };
 

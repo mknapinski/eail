@@ -39,7 +39,7 @@ G_DEFINE_TYPE(EailFileselector, eail_fileselector, EAIL_TYPE_LAYOUT);
 /**
  * @brief Initializer for Fileselector AtkObjectClass
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  * @param data initialization data
  */
 static void
@@ -50,11 +50,11 @@ eail_fileselector_initialize(AtkObject *obj, gpointer data)
 }
 
 /**
- * @brief Gets obj accessible name
+ * @brief Gets obj's accessible name
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  *
- * @returns obj name
+ * @returns string representing obj's name
  */
 static const gchar*
 eail_fileselector_get_name(AtkObject *obj)
@@ -77,7 +77,7 @@ eail_fileselector_get_name(AtkObject *obj)
 /**
  * @brief EailFileselector GObject instance initializer
  *
- * @param fileselector an EailFileselector
+ * @param fileselector EailFileselector instance
  */
 static void
 eail_fileselector_init(EailFileselector *fileselector)
@@ -96,10 +96,11 @@ eail_fileselector_finalize(GObject *object)
 }
 
 /**
- * @brief Initializer for EailFileselector GObject class (defines callbacks for
- * base AtkObject)
+ * @brief Initializer for EailFileselector GObject class
  *
- * @param klass an EailFileselectorClass
+ * Defines callbacks for base AtkObject.
+ *
+ * @param klass EailFileselectorClass instance
  */
 static void
 eail_fileselector_class_init(EailFileselectorClass *klass)

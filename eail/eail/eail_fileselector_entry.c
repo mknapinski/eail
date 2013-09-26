@@ -19,7 +19,7 @@
 
 /**
  * @file eail_fileselector_entry.c
- * @brief Implementation of fileselector entry widget
+ * @brief EailFileselectorEntry implementation
  */
 
 #include <Elementary.h>
@@ -42,7 +42,7 @@ static void eail_fileselector_entry_actions_init(EailActionWidget *widget);
  * @brief Definition of EailFileselectorEntry as GObject
  *
  * EailFileselectorEntry is extended EAIL_TYPE_ACTION_WIDGET with ATK_TYPE_TEXT
- * interface implemented
+ * interface implemented.
  */
 G_DEFINE_TYPE_WITH_CODE(EailFileselectorEntry,
                         eail_fileselector_entry,
@@ -53,7 +53,7 @@ G_DEFINE_TYPE_WITH_CODE(EailFileselectorEntry,
 /**
  * @brief Initializer for AtkObject
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  * @param data initialization data
  */
 static void
@@ -71,7 +71,7 @@ eail_fileselector_entry_initialize(AtkObject *obj, gpointer data)
 /**
  * @brief Initializer for EailEntry GObject implementation
  *
- * @param fileselector_entry an EailFileselectorEntry
+ * @param fileselector_entry EailFileselectorEntry instance
  */
 static void
 eail_fileselector_entry_init(EailFileselectorEntry *fileselector_entry)
@@ -79,18 +79,16 @@ eail_fileselector_entry_init(EailFileselectorEntry *fileselector_entry)
 }
 
 /**
- * @brief Gets name of FileselectorEntry
+ * @brief Gets the accessible name of FileselectorEntry
  *
- * Implementation of AtkObject->get_name callback<br>
- * Name is label-text on button
+ * Name is the label-text on the button.
  *
- * ATK doc says:
- * Gets the accessible name of the accessible.
+ * Implementation of get_name from AtkObject interface.
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  *
- * @returns a character string representing the accessible description of
- * the accessible.
+ * @returns character string representing the accessible name of
+ * the accessible
  */
 static const gchar *
 eail_fileselector_entry_get_name(AtkObject *obj)
@@ -110,10 +108,11 @@ eail_fileselector_entry_get_name(AtkObject *obj)
 }
 
 /**
- * @brief Gets nested button from widget (file selector button)
+ * @brief Gets nested button from FileSelectorEntry
  *
- * @param obj an AtkObject (EailFileselectorEntry)
- * @returns Evas_Object for file selector button or NULL if not found
+ * @param obj AtkObject instance
+ * @returns Evas_Object representing the file selector button
+ * or NULL if one was not found
  */
 static Evas_Object *
 _eail_fileselector_entry_get_nested_button(AtkObject *obj)
@@ -131,11 +130,11 @@ _eail_fileselector_entry_get_nested_button(AtkObject *obj)
 }
 
 /**
- * @brief Helper func for returning list of nested widgets in fileselector entry
+ * @brief Helper function for returning list of nested widgets in fileselector entry
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  *
- * @return list of Evas_Object* objects with nested widgets
+ * @return Eina_list representing the list of Evas_Object* objects with nested widgets
  */
 static Eina_List *
 _eail_fileselector_entry_get_items(AtkObject *obj)
@@ -155,13 +154,13 @@ _eail_fileselector_entry_get_items(AtkObject *obj)
 }
 
 /**
- * @brief Implementation AtkObject->get_n_children callback
+ * @brief Gets the number of accessible children of the accessible
  *
- * ATK doc says:\n
- * Gets the number of accessible children of the accessible.
- * @param obj an AtkObject
+ * Implementation of get_n_children from AtkObject interface.
  *
- * @returns an integer representing the number of accessible children of
+ * @param obj AtkObject instance
+ *
+ * @returns integer representing the number of accessible children of
  * the accessible
  */
 static gint
@@ -179,18 +178,18 @@ eail_fileselector_entry_get_n_children(AtkObject *obj)
 }
 
 /**
- * @brief Implementation AtkObject->ref_child callback
+ * @brief Gets a reference to the specified accessible child of the object
  *
- * ATK doc says:\n
- * Gets a reference to the specified accessible child of the object. The
- * accessible children are 0-based so the first accessible child is at index 0,
- * the second at index 1 and so on.
+ * The accessible children are 0-based so the first accessible child
+ * is at index 0, the second at index 1 and so on.
  *
- * @param obj an AtkObject
- * @param i index of a child
+ * Implementation of get_n_children from AtkObject interface.
  *
- * @returns an AtkObject representing the specified accessible child of the
- * accessible.
+ * @param obj AtkObject instance
+ * @param i index of the child
+ *
+ * @returns AtkObject representing the specified accessible child of the
+ * accessible
  */
 static AtkObject *
 eail_fileselector_entry_ref_child(AtkObject *obj, gint i)
@@ -211,9 +210,9 @@ eail_fileselector_entry_ref_child(AtkObject *obj, gint i)
 }
 
 /**
- * @brief Destructor for FileselectorEntry class
+ * @brief Destructor of FileselectorEntry class
  *
- * @param object GObject object to be finalized
+ * @param object GObject instance to be finalized
  */
 static void
 eail_fileselector_entry_finalize(GObject *object)
@@ -222,10 +221,11 @@ eail_fileselector_entry_finalize(GObject *object)
 }
 
 /**
- * @brief Initializer for EailFileselectorEntry GObject class (defines
- * callbacks for base AtkObject)
+ * @brief Initializer for EailFileselectorEntry GObject class
  *
- * @param klass an EailFileselectorEntryClass
+ * Defines callbacks for base AtkObject.
+ *
+ * @param klass EailFileselectorEntryClass instance
  */
 static void
 eail_fileselector_entry_class_init(EailFileselectorEntryClass *klass)
@@ -246,15 +246,16 @@ eail_fileselector_entry_class_init(EailFileselectorEntryClass *klass)
 /**
  * @brief Gets text content from item
  *
- * Implementation of AtkTextIface->get_text callback\n
+ * Implementation of get_text from AtkTextIface.
  *
- * @param text an AtkText
+ * Use g_free() to free the returned string.
+ *
+ * @param text AtkText instance
  * @param start_offset start position
- * @param end_offset end position, or -1 for the end of the string.
+ * @param end_offset end position, or -1 for the end of the string
  *
- * @returns a newly allocated string containing the text from start_offset
- * up to, but not including end_offset. Use g_free() to free the returned
- * string.
+ * @returns newly allocated string containing the text from start_offset
+ * up to, but not including end_offset
  */
 static gchar*
 eail_fileselector_entry_get_text(AtkText  *text,
@@ -275,14 +276,14 @@ eail_fileselector_entry_get_text(AtkText  *text,
 }
 
 /**
- * @brief Gets character from popup at given offset
+ * @brief Gets the character from popup at the given offset
  *
- * Implementation of AtkTextIface->get_character_at_offset callback
+ * Implementation of get_character_at_offset from AtkTextIface.
  *
- * @param text an AtkText
- * @param offset an offset
+ * @param text AtkText instance
+ * @param offset character offset
  *
- * @returns the character at offset.
+ * @returns char representing the character at offset
  */
 static gunichar
 eail_fileselector_entry_get_character_at_offset(AtkText *text,
@@ -303,12 +304,13 @@ eail_fileselector_entry_get_character_at_offset(AtkText *text,
 }
 
 /**
- * @brief Gets character count from text content in item
- * Implementation of AtkTextIface->get_character_count callback
+ * @brief Gets the number of characters from text content in item
  *
- * @param text an AtkText
+ * Implementation of get_character_count from AtkTextIface.
  *
- * @returns the character count
+ * @param text AtkText instance
+ *
+ * @returns integer representing the number of characters in text nontent
  */
 static gint
 eail_fileselector_entry_get_character_count(AtkText *text)
@@ -329,7 +331,7 @@ eail_fileselector_entry_get_character_count(AtkText *text)
 /**
  * @brief Initializer for AtkTextIface interface
  *
- * @param iface an AtkTextIface
+ * @param iface AtkTextIface instance
  */
 static void
 atk_text_interface_init(AtkTextIface *iface)
@@ -346,10 +348,10 @@ atk_text_interface_init(AtkTextIface *iface)
 /**
  * @brief Calls callback with given name
  *
- * @param action an AtkAction
+ * @param action AtkAction instance
  * @param action_name action name to be called
  *
- * @returns TRUE if was successful, FALSE otherwise
+ * @returns TRUE on success, FALSE otherwise
  */
 static gboolean
 eail_fileselector_entry_do_action(AtkAction *action,
@@ -367,9 +369,9 @@ eail_fileselector_entry_do_action(AtkAction *action,
 }
 
 /**
- * @brief Handle for action click
+ * @brief Handle for 'click' action
  *
- * @param action an AtkAction
+ * @param action AtkAction instance
  * @param data additional action data (not used here)
  *
  * @return TRUE if action was triggered successfully, FALSE otherwise
@@ -381,12 +383,12 @@ eail_action_click(AtkAction *action, void *data)
 }
 
 /**
- * @brief Calls action for with given name for actions based on x-y coordinates
+ * @brief Calls action with given name for actions based on x-y coordinates
  *
- * @param action an AtkAction
- * @param name action name to be called
+ * @param action AtkAction instance
+ * @param name name string of the action to be called
  *
- * @returns TRUE if was successful, FALSE otherwise
+ * @returns TRUE on success, FALSE otherwise
  */
 static gboolean
 _eail_action_handle_coords_action(AtkAction *action, gchar *name)
@@ -422,9 +424,9 @@ _eail_action_handle_coords_action(AtkAction *action, gchar *name)
    return TRUE;
 }
 /**
- * @brief Handle for action longpress
+ * @brief Handle for 'longpress' action
  *
- * @param action an AtkAction
+ * @param action AtkAction instance
  * @param data additional action data (not used here)
  *
  * @return TRUE if action was triggered successfully, FALSE otherwise
@@ -436,9 +438,9 @@ eail_action_longpress(AtkAction *action, void *data)
 }
 
 /**
- * @brief Handle for action press
+ * @brief Handle for 'press' action
  *
- * @param action an AtkAction
+ * @param action AtkAction instance
  * @param data additional action data (not used here)
  *
  * @return TRUE if action was triggered successfully, FALSE otherwise
@@ -453,9 +455,9 @@ eail_action_press(AtkAction *action, void *data)
 }
 
 /**
- * @brief Handle for action release
+ * @brief Handle for 'release' action
  *
- * @param action an AtkAction
+ * @param action AtkAction instance
  * @param data additional action data (not used here)
  *
  * @return TRUE if action was triggered successfully, FALSE otherwise

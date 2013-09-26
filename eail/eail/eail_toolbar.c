@@ -19,7 +19,7 @@
 
 /**
  * @file eail_toolbar.c
- * @brief Implementation of toolbar widget
+ * @brief EailToolbar implementation
  */
 
 #include <atk/atk.h>
@@ -47,9 +47,9 @@ G_DEFINE_TYPE_WITH_CODE(EailToolbar, eail_toolbar, EAIL_TYPE_WIDGET,
  * @brief Implementation of the *AtkObject* interface
  *
  * Basic initialization for AtkObject (parent initialization, role definition
- * etc.)
+ * etc.).
  *
- * @param obj an AtkObject
+ * @param obj AtkObject instance
  * @param data additional data passed to initialization
  */
 static void
@@ -62,7 +62,7 @@ eail_toolbar_initialize(AtkObject *obj, gpointer data)
 /**
  * @brief EailToolbar instance initializer
  *
- * @param toolbar an EailToolbar
+ * @param toolbar EailToolbar instance
  */
 static void
 eail_toolbar_init(EailToolbar *toolbar)
@@ -73,8 +73,8 @@ eail_toolbar_init(EailToolbar *toolbar)
 /**
  * @brief Gets toolbar items
  *
- * @param toolbar an EailToolbar
- * @return list of Elm_Object_Item* objects
+ * @param toolbar EailToolbar instance
+ * @return Eina_List representing the list of Elm_Object_Item objects
  * */
 static Eina_List *
 eail_toolbar_get_items(EailToolbar *toolbar)
@@ -94,13 +94,13 @@ eail_toolbar_get_items(EailToolbar *toolbar)
 }
 
 /**
- * @brief Implementation AtkObject->get_n_children callback
+ * @brief Gets the number of accessible children of the accessible
  *
- * ATK doc says:\n
- * Gets the number of accessible children of the accessible.
- * @param obj an AtkObject
+ * Implementation of AtkObject->get_n_children callback.
  *
- * @returns an integer representing the number of accessible children of
+ * @param obj AtkObject instance
+ *
+ * @returns integer representing the number of accessible children of
  * the accessible
  */
 static gint
@@ -118,18 +118,18 @@ eail_toolbar_get_n_children(AtkObject *obj)
 }
 
 /**
- * @brief Implementation AtkObject->ref_child callback
+ * @brief Gets a reference to the specified accessible child of the object.
  *
- * ATK doc says:\n
- * Gets a reference to the specified accessible child of the object. The
- * accessible children are 0-based so the first accessible child is at index 0,
+ * The accessible children are 0-based so the first accessible child is at index 0,
  * the second at index 1 and so on.
  *
- * @param obj an AtkObject
+ * Implementation of AtkObject->ref_child callback.
+ *
+ * @param obj AtkObject instance
  * @param i index of a child
  *
- * @returns an AtkObject representing the specified accessible child of the
- * accessible.
+ * @returns AtkObject representing the specified accessible child of the
+ * accessible
  */
 static AtkObject *
 eail_toolbar_ref_child(AtkObject *obj, gint i)
@@ -165,10 +165,11 @@ eail_toolbar_finalize(GObject *object)
 }
 
 /**
- * @brief Initializer for EailToolbar GObject class (defines callbacks for
- * base AtkObject)
+ * @brief Initializer for EailToolbar GObject class
  *
- * @param klass an EailToolbar class
+ * Defines callbacks for base AtkObject.
+ *
+ * @param klass EailToolbarClass instance
  */
 static void
 eail_toolbar_class_init(EailToolbarClass *klass)
@@ -184,9 +185,9 @@ eail_toolbar_class_init(EailToolbarClass *klass)
 /**
  * @brief Gets the object of item
  *
- * @param parent an EailItemParent
- * @param item an EailItem
- * @returns item object
+ * @param parent EailItemParent instance
+ * @param item EailItem instance
+ * @returns Evas_Object representing the item
  */
 static Evas_Object *
 eail_toolbar_get_evas_obj(EailItemParent   *parent,
@@ -204,11 +205,13 @@ eail_toolbar_get_evas_obj(EailItemParent   *parent,
 }
 
 /**
- * @brief Implementation of EailItemParent->get_actions_supported callback
+ * @brief Gets supported actions
  *
- * @param parent an EailItemParent
- * @param item an EailItem
- * @returns enum representing supported actions
+ * Implementation of EailItemParent->get_actions_supported callback.
+ *
+ * @param parent EailItemParent instance
+ * @param item EailItem instance
+ * @returns integer representing supported actions
  */
 static gint
 eail_toolbar_get_actions_supported(EailItemParent   *parent,
@@ -218,12 +221,12 @@ eail_toolbar_get_actions_supported(EailItemParent   *parent,
 }
 
 /**
- * @brief Gets item accessible name
+ * @brief Gets the accessible name of the item
  *
- * @param parent an EailItemParent
- * @param item an EailItem
+ * @param parent EailItemParent instance
+ * @param item EailItem instance
  *
- * @returns item accessible name
+ * @returns string representing the accessible name of the item
  */
 static const gchar *
 eail_toolbar_item_name_get(EailItemParent *parent, EailItem *item)
@@ -241,7 +244,7 @@ eail_toolbar_item_name_get(EailItemParent *parent, EailItem *item)
  * interface implementation i.e hooks method pointers in the interface structure
  * to the implementing class's implementation.
  *
- * @param iface an EailItemParent interface
+ * @param iface EailItemParent interface
  */
 static void
 eail_item_parent_interface_init(EailItemParentIface *iface)
