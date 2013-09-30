@@ -79,8 +79,8 @@ eail_photo_initialize(AtkObject *obj, gpointer data)
 static void
 eail_photo_class_init(EailPhotoClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
-   class->initialize = eail_photo_initialize;
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
+   atk_class->initialize = eail_photo_initialize;
 }
 
 /**

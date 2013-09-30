@@ -149,12 +149,12 @@ eail_panes_ref_child(AtkObject *obj, int i)
 static void
 eail_panes_class_init(EailPanesClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
 
-   class->initialize = eail_panes_initialize;
-   class->get_n_children = eail_panes_n_children_get;
-   class->ref_child = eail_panes_ref_child;
-   class->ref_state_set = eail_panes_ref_state_set;
+   atk_class->initialize = eail_panes_initialize;
+   atk_class->get_n_children = eail_panes_n_children_get;
+   atk_class->ref_child = eail_panes_ref_child;
+   atk_class->ref_state_set = eail_panes_ref_state_set;
 }
 
 /**

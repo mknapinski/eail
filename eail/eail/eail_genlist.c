@@ -280,12 +280,12 @@ eail_genlist_init(EailGenlist *genlist)
 static void
 eail_genlist_class_init(EailGenlistClass *klass)
 {
-    AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+    AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
 
-    class->initialize = eail_genlist_initialize;
-    class->get_n_children = eail_genlist_get_n_children;
-    class->ref_child = eail_genlist_ref_child;
-    class->ref_state_set = eail_genlist_ref_state_set;
+    atk_class->initialize = eail_genlist_initialize;
+    atk_class->get_n_children = eail_genlist_get_n_children;
+    atk_class->ref_child = eail_genlist_ref_child;
+    atk_class->ref_state_set = eail_genlist_ref_state_set;
 }
 
 /*

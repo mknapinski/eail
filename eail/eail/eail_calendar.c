@@ -74,10 +74,10 @@ eail_calendar_init(EailCalendar *calendar)
 static void
 eail_calendar_class_init(EailCalendarClass *klass)
 {
-   AtkObjectClass *class;
+   AtkObjectClass *atk_class;
 
-   class = ATK_OBJECT_CLASS(klass);
-   class->initialize = eail_calendar_initialize;
+   atk_class = ATK_OBJECT_CLASS(klass);
+   atk_class->initialize = eail_calendar_initialize;
 }
 
 /**

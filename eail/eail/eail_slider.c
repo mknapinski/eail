@@ -152,12 +152,12 @@ eail_slider_init(EailSlider *slider)
 static void
 eail_slider_class_init(EailSliderClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
    EailWidgetClass *widget_class = EAIL_WIDGET_CLASS(klass);
 
    widget_class->get_widget_children = eail_slider_get_widget_children;
-   class->initialize = eail_slider_initialize;
-   class->get_name = eail_slider_get_name;
+   atk_class->initialize = eail_slider_initialize;
+   atk_class->get_name = eail_slider_get_name;
 }
 
 /*

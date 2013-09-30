@@ -69,9 +69,9 @@ eail_route_init(EailRoute *route)
 static void
 eail_route_class_init(EailRouteClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
 
-   class->initialize = eail_route_initialize;
+   atk_class->initialize = eail_route_initialize;
 }
 
 /*

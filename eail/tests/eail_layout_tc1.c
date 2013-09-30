@@ -86,11 +86,10 @@ _init_layout(Evas_Object *win)
    elm_layout_end_set(ly, bt);
 
    ly = elm_layout_add(win);
-   snprintf(buf, sizeof(buf), "%s/test.edj","./data/");
+   g_snprintf(buf, sizeof(buf), "%s/test.edj","./data/");
    elm_layout_file_set(ly, buf, "layout");
    evas_object_size_hint_weight_set(ly, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
    elm_box_pack_end(box, ly);
-   //elm_win_resize_object_add(win, ly);
    evas_object_show(ly);
 
    bt = elm_button_add(win);

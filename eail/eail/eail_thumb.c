@@ -89,9 +89,9 @@ eail_thumb_ref_state_set(AtkObject *obj)
 static void
 eail_thumb_class_init(EailThumbClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
-   class->initialize = eail_thumb_initialize;
-   class->ref_state_set = eail_thumb_ref_state_set;
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
+   atk_class->initialize = eail_thumb_initialize;
+   atk_class->ref_state_set = eail_thumb_ref_state_set;
 }
 
 /**

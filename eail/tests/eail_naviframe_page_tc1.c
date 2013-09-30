@@ -13,8 +13,6 @@
 #include <Elementary.h>
 #include <atk/atk.h>
 
-//#define DEBUG 1
-
 #include "eail_test_utils.h"
 
 INIT_TEST("EailNaviframe")
@@ -97,7 +95,7 @@ _page4(Evas_Object *nf)
    elm_object_item_part_text_set(it, "subtitle", "Title area visibility test");
 
    ic = elm_icon_add(nf);
-   snprintf(buf, sizeof(buf), "%s",
+   g_snprintf(buf, sizeof(buf), "%s",
             img8);
    elm_image_file_set(ic, buf, NULL);
    evas_object_size_hint_aspect_set(ic, EVAS_ASPECT_CONTROL_VERTICAL, 1, 1);
@@ -127,7 +125,7 @@ _page3(Evas_Object *nf)
                                 content,
                                 NULL);
    ic = elm_icon_add(nf);
-   snprintf(buf, sizeof(buf), "%s", img8);
+   g_snprintf(buf, sizeof(buf), "%s", img8);
    elm_image_file_set(ic, buf, NULL);
    evas_object_size_hint_aspect_set(ic, EVAS_ASPECT_CONTROL_VERTICAL, 1, 1);
 
@@ -186,7 +184,6 @@ _test_naviframe_page(AtkObject *obj, int index)
 
    g_assert(child_count > 0);
    AtkStateSet *state_set = atk_object_ref_state_set(obj);
-   /*g_assert(atk_state_set_is_empty == TRUE);*/
    if (index == 4)
      {
         AtkStateType states[3] = {ATK_STATE_SHOWING, ATK_STATE_VISIBLE,

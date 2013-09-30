@@ -88,15 +88,15 @@ _init_slideshow(Evas_Object *win)
    const char *data_dir;
 
    data_dir = "./data";
-   snprintf(img1, sizeof(img1), "%s/01.jpg", data_dir);
-   snprintf(img2, sizeof(img2), "%s/02.jpg", data_dir);
-   snprintf(img3, sizeof(img3), "%s/03.jpg", data_dir);
-   snprintf(img4, sizeof(img4), "%s/04.jpg", data_dir);
-   snprintf(img5, sizeof(img5), "%s/05.jpg", data_dir);
-   snprintf(img6, sizeof(img6), "%s/06.jpg", data_dir);
-   snprintf(img7, sizeof(img7), "%s/07.jpg", data_dir);
-   snprintf(img8, sizeof(img8), "%s/08.jpg", data_dir);
-   snprintf(img9, sizeof(img9), "%s/09.jpg", data_dir);
+   g_snprintf(img1, sizeof(img1), "%s/01.jpg", data_dir);
+   g_snprintf(img2, sizeof(img2), "%s/02.jpg", data_dir);
+   g_snprintf(img3, sizeof(img3), "%s/03.jpg", data_dir);
+   g_snprintf(img4, sizeof(img4), "%s/04.jpg", data_dir);
+   g_snprintf(img5, sizeof(img5), "%s/05.jpg", data_dir);
+   g_snprintf(img6, sizeof(img6), "%s/06.jpg", data_dir);
+   g_snprintf(img7, sizeof(img7), "%s/07.jpg", data_dir);
+   g_snprintf(img8, sizeof(img8), "%s/08.jpg", data_dir);
+   g_snprintf(img9, sizeof(img9), "%s/09.jpg", data_dir);
 
    evas_object_resize(win, 600, 400);
 

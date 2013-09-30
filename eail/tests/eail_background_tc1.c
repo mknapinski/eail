@@ -71,7 +71,7 @@ _init_background(Evas_Object *win)
    bg = elm_bg_add(win);
    elm_bg_load_size_set(bg, 20, 20);
    elm_bg_option_set(bg, ELM_BG_OPTION_STRETCH);
-   snprintf(buf, sizeof(buf), IMG_PATH);
+   g_snprintf(buf, sizeof(buf), IMG_PATH);
    elm_bg_file_set(bg, buf, NULL);
    evas_object_size_hint_weight_set(bg, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
    elm_win_resize_object_add(win, bg);

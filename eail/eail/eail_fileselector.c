@@ -105,9 +105,9 @@ eail_fileselector_finalize(GObject *object)
 static void
 eail_fileselector_class_init(EailFileselectorClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
    GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
-   class->initialize = eail_fileselector_initialize;
-   class->get_name = eail_fileselector_get_name;
+   atk_class->initialize = eail_fileselector_initialize;
+   atk_class->get_name = eail_fileselector_get_name;
    gobject_class->finalize = eail_fileselector_finalize;
 }

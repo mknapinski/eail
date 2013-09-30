@@ -13,7 +13,6 @@
 #include <Elementary.h>
 #include <atk/atk.h>
 
-//#define DEBUG 1
 
 #include "eail_test_utils.h"
 
@@ -144,7 +143,7 @@ _initialize_and_show_popup(Evas_Object *win)
    popup = elm_popup_add(win);
 
    icon1 = elm_icon_add(popup);
-   snprintf(buf, sizeof(buf), "%s/images/logo_small.png",
+   g_snprintf(buf, sizeof(buf), "%s/images/logo_small.png",
             elm_app_data_dir_get());
    elm_image_file_set(icon1, buf, NULL );
 
@@ -161,9 +160,6 @@ _initialize_and_show_popup(Evas_Object *win)
    elm_object_text_set(btn1, "OK");
 
    /* NOTE: cannot add due to bug with popup inserting content for button3 */
-   /*elm_object_part_content_set(popup, "button3", btn1);
-     evas_object_smart_callback_add(btn1, "clicked", _response_cb, popup);
-     */
 
    /* Creating the second action button */
    btn2 = elm_button_add(popup);

@@ -420,11 +420,11 @@ eail_button_get_name(AtkObject *obj)
 static void
 eail_button_class_init(EailButtonClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
    EailWidgetClass *widget_class = EAIL_WIDGET_CLASS(klass);
 
-   class->initialize = eail_button_initialize;
-   class->get_name = eail_button_get_name;
+   atk_class->initialize = eail_button_initialize;
+   atk_class->get_name = eail_button_get_name;
    widget_class->get_widget_children = eail_button_get_widget_children;
 }
 

@@ -109,11 +109,11 @@ eail_frame_init(EailFrame *frame)
 static void
 eail_frame_class_init(EailFrameClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
    EailWidgetClass *widget_class = EAIL_WIDGET_CLASS(klass);
 
    widget_class->get_widget_children = eail_frame_get_widget_children;
 
-   class->initialize = eail_frame_initialize;
-   class->get_name = eail_frame_get_name;
+   atk_class->initialize = eail_frame_initialize;
+   atk_class->get_name = eail_frame_get_name;
 }

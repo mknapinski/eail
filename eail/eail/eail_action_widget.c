@@ -128,9 +128,9 @@ eail_action_widget_finalize(GObject *object)
 static void
 eail_action_widget_class_init(EailActionWidgetClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
    GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
-   class->initialize = eail_action_widget_initialize;
+   atk_class->initialize = eail_action_widget_initialize;
    gobject_class->finalize = eail_action_widget_finalize;
 }
 

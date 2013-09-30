@@ -145,11 +145,11 @@ eail_progressbar_init(EailProgressbar *progressbar)
 static void
 eail_progressbar_class_init(EailProgressbarClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
    EailWidgetClass *widget_class = EAIL_WIDGET_CLASS(klass);
 
-   class->initialize = eail_progressbar_initialize;
-   class->get_name = eail_progressbar_get_name;
+   atk_class->initialize = eail_progressbar_initialize;
+   atk_class->get_name = eail_progressbar_get_name;
    widget_class->get_widget_children = eail_progressbar_get_widget_children;
 }
 

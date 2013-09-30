@@ -243,12 +243,12 @@ eail_gengrid_init(EailGengrid *gengrid)
 static void
 eail_gengrid_class_init(EailGengridClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
 
-   class->initialize = eail_gengrid_initialize;
-   class->get_n_children = eail_gengrid_n_items_get;
-   class->ref_child = eail_gengrid_ref_child;
-   class->ref_state_set = eail_gengrid_ref_state_set;
+   atk_class->initialize = eail_gengrid_initialize;
+   atk_class->get_n_children = eail_gengrid_n_items_get;
+   atk_class->ref_child = eail_gengrid_ref_child;
+   atk_class->ref_state_set = eail_gengrid_ref_state_set;
 }
 
 /**
@@ -480,7 +480,6 @@ eail_gengrid_n_rows_get(AtkTable *table)
    widget = eail_widget_get_widget(EAIL_WIDGET(table));
    if (!widget) return -1;
 
-   /*_get_last_coords(widget, &rows, &columns);*/
    _get_n_rows_columns(widget, &rows, &columns);
    return rows;
 }
@@ -504,7 +503,6 @@ eail_gengrid_n_columns_get(AtkTable *table)
 
    widget = eail_widget_get_widget(EAIL_WIDGET(table));
 
-   /*_get_last_coords(widget, &rows, &columns);*/
    _get_n_rows_columns(widget, &rows, &columns);
 
    return columns;

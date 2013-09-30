@@ -208,12 +208,12 @@ eail_list_init(EailList *list)
 static void
 eail_list_class_init(EailListClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
 
-   class->initialize = eail_list_initialize;
-   class->get_n_children = eail_list_get_n_children;
-   class->ref_child = eail_list_ref_child;
-   class->ref_state_set = eail_list_ref_state_set;
+   atk_class->initialize = eail_list_initialize;
+   atk_class->get_n_children = eail_list_get_n_children;
+   atk_class->ref_child = eail_list_ref_child;
+   atk_class->ref_state_set = eail_list_ref_state_set;
 }
 
 /*

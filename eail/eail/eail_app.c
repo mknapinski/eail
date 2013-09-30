@@ -146,13 +146,13 @@ eail_app_init(EailApp *app)
 static void
 eail_app_class_init(EailAppClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
    GObjectClass *g_object_class = G_OBJECT_CLASS(klass);
 
-   class->initialize = eail_app_initialize;
-   class->get_n_children = eail_app_get_n_children;
-   class->ref_child = eail_app_ref_child;
-   class->get_parent = NULL;
+   atk_class->initialize = eail_app_initialize;
+   atk_class->get_n_children = eail_app_get_n_children;
+   atk_class->ref_child = eail_app_ref_child;
+   atk_class->get_parent = NULL;
 
    g_object_class->finalize = eail_app_class_finalize;
 }

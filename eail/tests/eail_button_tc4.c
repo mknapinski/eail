@@ -13,8 +13,6 @@
 #include <Elementary.h>
 #include <atk/atk.h>
 
-//#define DEBUG 1
-
 #include "eail_test_utils.h"
 
 #define BUTTON_TEXT2   "button2"

@@ -667,10 +667,10 @@ eail_multibuttonentry_ref_child(AtkObject *obj, gint i)
 static void
 eail_multibuttonentry_class_init(EailMultibuttonentryClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
 
-   class->initialize = eail_multibuttonentry_initialize;
-   class->get_n_children = eail_multibuttonentry_get_n_children;
-   class->ref_child = eail_multibuttonentry_ref_child;
-   class->ref_state_set = eail_multibuttonentry_ref_state_set;
+   atk_class->initialize = eail_multibuttonentry_initialize;
+   atk_class->get_n_children = eail_multibuttonentry_get_n_children;
+   atk_class->ref_child = eail_multibuttonentry_ref_child;
+   atk_class->ref_state_set = eail_multibuttonentry_ref_state_set;
 }

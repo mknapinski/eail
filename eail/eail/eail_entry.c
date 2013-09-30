@@ -174,11 +174,11 @@ eail_entry_init(EailEntry *entry)
 static void
 eail_entry_class_init(EailEntryClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
    GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
 
-   class->initialize = eail_entry_initialize;
-   class->ref_state_set = eail_entry_ref_state_set;
+   atk_class->initialize = eail_entry_initialize;
+   atk_class->ref_state_set = eail_entry_ref_state_set;
    gobject_class->finalize = eail_entry_finalize;
 }
 
@@ -866,10 +866,8 @@ _eail_get_line_at (Evas_Object *entry,
    text = evas_textblock_text_markup_to_utf8(
        textblock, evas_object_textblock_text_markup_get(textblock));
    index = g_utf8_offset_to_pointer (text, offset) - text;
-   //iter = pango_layout_get_iter (layout);
    do
      {
-        //line = pango_layout_iter_get_line (iter);
         start_index = _eail_get_line_start(cur);
         end_index = start_index + _eail_get_line_end(cur);
 

@@ -223,13 +223,13 @@ eail_hoversel_ref_child(AtkObject *obj,
 static void
 eail_hoversel_class_init(EailHoverselClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
    GObjectClass *object_class = G_OBJECT_CLASS(klass);
 
-   class->initialize = eail_hoversel_initialize;
-   class->ref_state_set = eail_hoversel_ref_state_set;
-   class->get_n_children = eail_hoversel_get_n_children;
-   class->ref_child = eail_hoversel_ref_child;
+   atk_class->initialize = eail_hoversel_initialize;
+   atk_class->ref_state_set = eail_hoversel_ref_state_set;
+   atk_class->get_n_children = eail_hoversel_get_n_children;
+   atk_class->ref_child = eail_hoversel_ref_child;
 
    object_class->finalize = eail_hoversel_finalize;
 }

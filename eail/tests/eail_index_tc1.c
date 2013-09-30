@@ -90,7 +90,7 @@ char *gli_text_get(void *data, Evas_Object *obj, const char *part )
 {
    char buf[256];
    int j = (uintptr_t)data;
-   snprintf(buf, sizeof(buf), "%c%c",
+   g_snprintf(buf, sizeof(buf), "%c%c",
             'A' + ((j >> 4) & 0xf),
             'a' + ((j     ) & 0xf)
             );
@@ -110,7 +110,6 @@ void
 _index_changed_cb(void *data, Evas_Object *obj, void *event_info)
 {
    // this is called on every change, no matter how often
-   // elm_genlist_item_bring_in(event_info);
 }
 
 void
@@ -180,7 +179,7 @@ _init_index(Evas_Object *win)
           {
              char buf[32];
 
-             snprintf(buf, sizeof(buf), "%c", 'A' + ((j >> 4) & 0xf));
+             g_snprintf(buf, sizeof(buf), "%c", 'A' + ((j >> 4) & 0xf));
              elm_index_item_append(id, buf, id_cb, glit);
              if (*buf == 'G')  /* Just init dt->item later used in API test */
                api->dt.item = glit;

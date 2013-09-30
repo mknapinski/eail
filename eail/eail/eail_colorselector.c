@@ -68,8 +68,8 @@ eail_colorselector_init(EailColorselector *selector)
 static void
 eail_colorselector_class_init(EailColorselectorClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
-   class->initialize = eail_colorselector_initialize;
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
+   atk_class->initialize = eail_colorselector_initialize;
 }
 
 /**

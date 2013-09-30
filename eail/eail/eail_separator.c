@@ -88,7 +88,7 @@ eail_separator_init(EailSeparator *separator)
 static void
 eail_separator_class_init(EailSeparatorClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
-   class->initialize = eail_separator_initialize;
-   class->ref_state_set = eail_separator_ref_state_set;
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
+   atk_class->initialize = eail_separator_initialize;
+   atk_class->ref_state_set = eail_separator_ref_state_set;
 }

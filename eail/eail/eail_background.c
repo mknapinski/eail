@@ -66,11 +66,11 @@ static void eail_background_get_image_size(AtkImage *image,
 static void
 eail_background_class_init(EailBackgroundClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
    GObjectClass *object_class = G_OBJECT_CLASS(klass);
 
-   class->initialize = eail_background_initialize;
-   class->get_attributes = eail_background_get_attributes;
+   atk_class->initialize = eail_background_initialize;
+   atk_class->get_attributes = eail_background_get_attributes;
 
    object_class->finalize = eail_background_finalize;
 }
@@ -144,7 +144,7 @@ eail_background_get_attributes(AtkObject *obj)
    if (!file)
      {
         elm_bg_color_get(widget, &r, &g, &b);
-        sprintf(color, "#%02x%02x%02x", r, g, b);
+        g_snprintf(color, sizeof(color), "#%02x%02x%02x", r, g, b);
         attr = g_new(AtkAttribute, 1);
         attr->name = g_strdup("color");
         attr->value = g_strdup(color);

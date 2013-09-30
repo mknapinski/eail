@@ -51,13 +51,15 @@ _item_label_get(void *data, Evas_Object *obj, const char *part)
    time_t t = (time_t)ecore_time_unix_get();
    char buf[256];
    int i = (int)(long)data;
+   struct tm timeinfo;
+   localtime_r(&t, &timeinfo);
 
    if (!strcmp(part, "elm.text"))
-     snprintf(buf, sizeof(buf), "Item # %i", i);
+     g_snprintf(buf, sizeof(buf), "Item # %i", i);
    else
      {
         int n;
-        snprintf(buf, sizeof(buf), "realized at %s", ctime(&t));
+        strftime(buf, sizeof(buf), "realized at %c", &timeinfo);
         n = strlen(buf);
         buf[n - 1] = '\0';
      }
@@ -83,7 +85,7 @@ _group_label_get(void *data, Evas_Object *obj, const char *part)
    char buf[256];
    int i = (int)(long)data;
 
-   snprintf(buf, sizeof(buf), "Group %d (item #%d)", i / 7, i);
+   g_snprintf(buf, sizeof(buf), "Group %d (item #%d)", i / 7, i);
 
    return strdup(buf);
 }

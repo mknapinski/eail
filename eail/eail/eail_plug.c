@@ -91,10 +91,10 @@ eail_plug_init(EailPlug *plug)
 static void
 eail_plug_class_init(EailPlugClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
    GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
 
-   class->initialize = eail_plug_initialize;
+   atk_class->initialize = eail_plug_initialize;
    gobject_class->finalize = eail_plug_finalize;
 }
 

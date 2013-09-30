@@ -13,8 +13,6 @@
 #include <Elementary.h>
 #include <atk/atk.h>
 
-//#define DEBUG 1
-
 #include "eail_test_utils.h"
 
 INIT_TEST("EailProgressbar")
@@ -35,22 +33,22 @@ _do_test(AtkObject *obj)
    atk_value_get_minimum_value(ATK_VALUE(obj), &value);
    minimum = g_value_get_double(&value);
    _printf("atk_value_get_minimum_value: %0.2f\n", minimum);
-   g_assert((float)progressbar_min == (float)minimum);
+   g_assert(float_equal(progressbar_min, minimum));
 
    atk_value_get_maximum_value(ATK_VALUE(obj), &value);
    maximum = g_value_get_double(&value);
    _printf("atk_value_get_maximum_value: %0.2f\n", maximum);
-   g_assert((float)progressbar_max == (float)maximum);
+   g_assert(float_equal(progressbar_max, maximum));
 
    atk_value_get_current_value(ATK_VALUE(obj), &value);
    current = g_value_get_double(&value);
    _printf("atk_value_get_current_value: %0.2f\n", current);
-   g_assert((float)progressbar_set == (float)current);
+   g_assert(float_equal(progressbar_set, current));
 
    atk_value_get_minimum_increment(ATK_VALUE(obj), &value);
    minimum_increment = g_value_get_double(&value);
    _printf("atk_value_get_minimum_increment: %0.2f\n", minimum_increment);
-   g_assert((float)G_MINDOUBLE == (float)minimum_increment);
+   g_assert(float_equal(G_MINDOUBLE, minimum_increment));
 
    g_value_set_double(&value, val_test_set);
    g_assert(atk_value_set_current_value(ATK_VALUE(obj), &value));
@@ -60,7 +58,7 @@ _do_test(AtkObject *obj)
    current = g_value_get_double(&value);
    _printf("atk_value_get_current_value: %0.2f\n", current);
 
-   g_assert((float)val_test_set == (float)current);
+   g_assert(float_equal(val_test_set, current));
 
    g_value_set_double(&value, minimum - 0.01);
    g_assert(!atk_value_set_current_value(ATK_VALUE(obj), &value));

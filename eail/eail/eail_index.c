@@ -203,12 +203,12 @@ eail_index_finalize(GObject *object)
 static void
 eail_index_class_init(EailIndexClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
    GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
-   class->initialize = eail_index_initialize;
-   class->get_n_children = eail_index_get_n_children;
-   class->ref_child = eail_index_ref_child;
-   class->get_name = eail_index_get_name;
+   atk_class->initialize = eail_index_initialize;
+   atk_class->get_n_children = eail_index_get_n_children;
+   atk_class->ref_child = eail_index_ref_child;
+   atk_class->get_name = eail_index_get_name;
    gobject_class->finalize = eail_index_finalize;
 }
 

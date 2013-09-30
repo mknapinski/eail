@@ -63,7 +63,7 @@ eail_conformant_init(EailConformant *conformant)
 static void
 eail_conformant_class_init(EailConformantClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
 
-   class->initialize = eail_conformant_initialize;
+   atk_class->initialize = eail_conformant_initialize;
 }

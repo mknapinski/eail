@@ -161,11 +161,11 @@ eail_map_init(EailMap *map)
 static void
 eail_map_class_init(EailMapClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
    GObjectClass *g_object_class = G_OBJECT_CLASS(klass);
 
-   class->initialize = eail_map_initialize;
-   class->get_name = eail_map_name_get;
+   atk_class->initialize = eail_map_initialize;
+   atk_class->get_name = eail_map_name_get;
 
    g_object_class->finalize = eail_map_finalize;
 }

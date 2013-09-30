@@ -8,6 +8,9 @@
 extern "C" {
 #endif
 
+#define float_epsilon 0.00001
+#define float_equal(a,b) (fabs((a) - (b)) < float_epsilon)
+
 #define INIT_TEST(type_name) \
     static int eailu_test_code_called; \
     static void _on_done(void *data, Evas_Object *obj, void *event_info) \

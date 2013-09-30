@@ -37,6 +37,9 @@ extern "C" {
 #define EAIL_STR_SCROLL_LEFT "scroll_left" /**< @brief String for 'scroll left'*/
 #define EAIL_STR_SCROLL_RIGHT "scroll_right" /**< @brief String for 'scroll right'*/
 
+#define float_epsilon 0.00001
+#define float_equal(a,b) (fabs((a) - (b)) < float_epsilon)
+
 /**
  * @enum EAIL_SCROLL_TYPE Type of scroll direction
  */

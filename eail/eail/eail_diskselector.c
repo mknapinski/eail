@@ -166,11 +166,11 @@ eail_diskselector_finalize(GObject *object)
 static void
 eail_diskselector_class_init(EailDiskselectorClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
    GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
-   class->initialize = eail_diskselector_initialize;
-   class->get_n_children = eail_diskselector_get_n_children;
-   class->ref_child = eail_diskselector_ref_child;
+   atk_class->initialize = eail_diskselector_initialize;
+   atk_class->get_n_children = eail_diskselector_get_n_children;
+   atk_class->ref_child = eail_diskselector_ref_child;
    gobject_class->finalize = eail_diskselector_finalize;
 }
 

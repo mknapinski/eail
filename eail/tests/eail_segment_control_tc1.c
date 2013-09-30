@@ -13,8 +13,6 @@
 #include <Elementary.h>
 #include <atk/atk.h>
 
-//#define DEBUG 1
-
 #include "eail_test_utils.h"
 
 #define EAIL_TEST_SELECTED_INDEX 3

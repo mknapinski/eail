@@ -90,10 +90,10 @@ eail_spinner_get_name(AtkObject *accessible)
 static void
 eail_spinner_class_init(EailSpinnerClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
 
-   class->initialize = eail_spinner_initialize;
-   class->get_name = eail_spinner_get_name;
+   atk_class->initialize = eail_spinner_initialize;
+   atk_class->get_name = eail_spinner_get_name;
 }
 
 /**

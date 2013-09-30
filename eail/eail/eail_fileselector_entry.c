@@ -230,12 +230,12 @@ eail_fileselector_entry_finalize(GObject *object)
 static void
 eail_fileselector_entry_class_init(EailFileselectorEntryClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
    GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
-   class->initialize = eail_fileselector_entry_initialize;
-   class->get_name = eail_fileselector_entry_get_name;
-   class->get_n_children = eail_fileselector_entry_get_n_children;
-   class->ref_child = eail_fileselector_entry_ref_child;
+   atk_class->initialize = eail_fileselector_entry_initialize;
+   atk_class->get_name = eail_fileselector_entry_get_name;
+   atk_class->get_n_children = eail_fileselector_entry_get_n_children;
+   atk_class->ref_child = eail_fileselector_entry_ref_child;
    gobject_class->finalize = eail_fileselector_entry_finalize;
 }
 

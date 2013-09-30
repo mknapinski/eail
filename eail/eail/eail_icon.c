@@ -91,8 +91,8 @@ eail_icon_init(EailIcon *icon)
 static void
 eail_icon_class_init(EailIconClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
 
-   class->initialize = eail_icon_initialize;
-   class->get_name = eail_icon_get_name;
+   atk_class->initialize = eail_icon_initialize;
+   atk_class->get_name = eail_icon_get_name;
 }

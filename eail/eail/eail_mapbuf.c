@@ -110,11 +110,11 @@ eail_mapbuf_init(EailMapbuf *mapbuf)
 static void
 eail_mapbuf_class_init(EailMapbufClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
    EailWidgetClass *widget_class = EAIL_WIDGET_CLASS(klass);
 
-   class->initialize = eail_mapbuf_initialize;
-   class->ref_state_set = eail_mapbuf_ref_state_set;
+   atk_class->initialize = eail_mapbuf_initialize;
+   atk_class->ref_state_set = eail_mapbuf_ref_state_set;
 
    widget_class->get_widget_children = eail_mapbuf_children_get;
 }

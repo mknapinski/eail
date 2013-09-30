@@ -45,7 +45,7 @@ _grid_label_get(void *data, Evas_Object *obj, const char *part)
 {
    const Example_Item *it = data;
    char buf[256];
-   snprintf(buf, sizeof(buf), "Photo %s", it->path);
+   g_snprintf(buf, sizeof(buf), "Photo %s", it->path);
    return strdup(buf);
 }
 
@@ -57,7 +57,7 @@ _grid_content_get(void *data, Evas_Object *obj, const char *part)
      {
         Evas_Object *icon = elm_bg_add(obj);
         char buf[256];
-        snprintf(buf, sizeof(buf),"%s", it->path);
+        g_snprintf(buf, sizeof(buf),"%s", it->path);
         elm_bg_file_set(icon, buf, NULL);
         evas_object_size_hint_aspect_set(icon, EVAS_ASPECT_CONTROL_VERTICAL, 1, 1);
         evas_object_show(icon);

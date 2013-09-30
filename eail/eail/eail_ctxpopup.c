@@ -164,12 +164,12 @@ eail_ctxpopup_ref_child(AtkObject *obj, gint i)
 static void
 eail_ctxpopup_class_init(EailCtxpopupClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
    GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
 
-   class->initialize = eail_ctxpopup_initialize;
-   class->get_n_children = eail_ctxpopup_get_n_children;
-   class->ref_child = eail_ctxpopup_ref_child;
+   atk_class->initialize = eail_ctxpopup_initialize;
+   atk_class->get_n_children = eail_ctxpopup_get_n_children;
+   atk_class->ref_child = eail_ctxpopup_ref_child;
    gobject_class->finalize = eail_ctxpopup_finalize;
 }
 

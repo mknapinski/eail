@@ -190,12 +190,12 @@ eail_menu_init(EailMenu *menu)
 static void
 eail_menu_class_init(EailMenuClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
 
-   class->initialize = eail_menu_initialize;
-   class->get_n_children = eail_menu_get_n_children;
-   class->ref_child = eail_menu_ref_child;
-   class->get_name = eail_menu_get_name;
+   atk_class->initialize = eail_menu_initialize;
+   atk_class->get_n_children = eail_menu_get_n_children;
+   atk_class->ref_child = eail_menu_ref_child;
+   atk_class->get_name = eail_menu_get_name;
 }
 
 /* Child MenuItem handling  - implementation of EailItemParent interface*/

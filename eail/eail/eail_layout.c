@@ -131,10 +131,10 @@ eail_layout_init(EailLayout *layout)
 static void
 eail_layout_class_init(EailLayoutClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
    EailWidgetClass *widget_class = EAIL_WIDGET_CLASS(klass);
 
-   class->initialize = eail_layout_initialize;
+   atk_class->initialize = eail_layout_initialize;
    widget_class->get_widget_children = eail_layout_widget_children_get;
 }
 

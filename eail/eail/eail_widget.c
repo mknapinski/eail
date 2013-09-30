@@ -140,6 +140,25 @@ eail_widget_on_focused_out(void *data, Evas *e, Evas_Object *obj, void *event_in
 }
 
 /**
+ * @brief Callback used to tracking bounds-change changes for widgets
+ *
+ * @param data data passed to callback
+ * @param e an Evas that has been focused out
+ * @param obj an Evas_Object that has been focused out
+ * @param event_info additional event info
+ */
+void
+eail_widget_on_bounds_change(void *data, Evas *e, Evas_Object *obj, void *event_info)
+{
+   g_return_if_fail(ATK_IS_COMPONENT(data));
+
+   AtkRectangle rect;
+   evas_object_geometry_get(obj, &rect.x, &rect.y, &rect.width, &rect.height);
+   g_signal_emit_by_name (ATK_OBJECT(data), "bounds_changed", &rect);
+}
+
+
+/**
  * @brief Default callback for on_focused used for tracking focus changes of
  * smart widgets
  *
@@ -212,6 +231,10 @@ eail_widget_initialize(AtkObject *obj, gpointer data)
     evas_object_event_callback_add(widget->widget, EVAS_CALLBACK_HIDE,
                                    eail_widget_on_hide, widget);
 
+    evas_object_event_callback_add(widget->widget, EVAS_CALLBACK_RESIZE,
+                                   eail_widget_on_bounds_change, widget);
+    evas_object_event_callback_add(widget->widget, EVAS_CALLBACK_MOVE,
+                                   eail_widget_on_bounds_change, widget);
     /* for window don't need that event, it would result double generating
      * focus-in event*/
     if (!ATK_IS_WINDOW(obj))
@@ -433,18 +456,18 @@ eail_widget_class_finalize(GObject *obj)
 static void
 eail_widget_class_init(EailWidgetClass *klass)
 {
-    AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+    AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
     GObjectClass *g_object_class = G_OBJECT_CLASS(klass);
 
     klass->get_widget_children = eail_widget_get_real_widget_children;
 
-    class->initialize = eail_widget_initialize;
-    class->get_n_children = eail_widget_get_n_children;
-    class->ref_child = eail_widget_ref_child;
-    class->get_parent = eail_widget_get_parent;
-    class->get_index_in_parent = eail_widget_get_index_in_parent;
-    class->ref_state_set = eail_widget_ref_state_set;
-    class->get_attributes = eail_widget_get_attributes;
+    atk_class->initialize = eail_widget_initialize;
+    atk_class->get_n_children = eail_widget_get_n_children;
+    atk_class->ref_child = eail_widget_ref_child;
+    atk_class->get_parent = eail_widget_get_parent;
+    atk_class->get_index_in_parent = eail_widget_get_index_in_parent;
+    atk_class->ref_state_set = eail_widget_ref_state_set;
+    atk_class->get_attributes = eail_widget_get_attributes;
 
     g_object_class->finalize = eail_widget_class_finalize;
 }

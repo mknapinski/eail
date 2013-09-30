@@ -13,8 +13,6 @@
 #include <Elementary.h>
 #include <atk/atk.h>
 
-//#define DEBUG 1
-
 #include "eail_test_utils.h"
 
 #define EAIL_TYPE_FOR_CHECK "EailNotify"
@@ -68,7 +66,6 @@ _init_notify(Evas_Object *win)
 
    notify = elm_notify_add(win);
    elm_notify_allow_events_set(notify, EINA_FALSE);
-   //elm_notify_timeout_set(notify, 5);
    elm_object_content_set(notify, label);
    evas_object_size_hint_weight_set(notify, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
    evas_object_show(notify);

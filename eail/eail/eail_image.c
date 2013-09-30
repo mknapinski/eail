@@ -166,11 +166,11 @@ eail_image_ref_state_set(AtkObject *obj)
 static void
 eail_image_class_init(EailImageClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
    GObjectClass *g_object_class = G_OBJECT_CLASS(klass);
 
-   class->initialize = eail_image_initialize;
-   class->ref_state_set = eail_image_ref_state_set;
+   atk_class->initialize = eail_image_initialize;
+   atk_class->ref_state_set = eail_image_ref_state_set;
 
    g_object_class->finalize = eail_image_finalize;
 }

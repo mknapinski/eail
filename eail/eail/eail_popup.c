@@ -145,7 +145,7 @@ _eail_get_nested_popup_button(AtkObject *obj, gint index)
    popup_widget = _eail_get_popup_widget_from_atkobj(obj);
    if (!popup_widget) return NULL;
 
-   snprintf(buf, sizeof(buf), EAIL_POPUP_BUTTON_FORMAT, (index + 1));
+   g_snprintf(buf, sizeof(buf), EAIL_POPUP_BUTTON_FORMAT, (index + 1));
    ret_button = elm_object_part_content_get(popup_widget, buf);
 
    return ret_button;

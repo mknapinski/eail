@@ -87,10 +87,10 @@ eail_hover_init(EailHover *hover)
 static void
 eail_hover_class_init(EailHoverClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
    GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
 
-   class->initialize = eail_hover_initialize;
+   atk_class->initialize = eail_hover_initialize;
 
    gobject_class->finalize = eail_hover_finalize;
 }

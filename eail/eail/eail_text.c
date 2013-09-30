@@ -101,10 +101,10 @@ eail_text_init(EailText *text)
 static void
 eail_text_class_init(EailTextClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
 
-   class->initialize = eail_text_initialize;
-   class->get_name = eail_text_get_name;
+   atk_class->initialize = eail_text_initialize;
+   atk_class->get_name = eail_text_get_name;
 }
 
 /*

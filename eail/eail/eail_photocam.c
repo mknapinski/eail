@@ -195,11 +195,11 @@ eail_photocam_finalize(GObject *object)
 static void
 eail_photocam_class_init(EailPhotocamClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
    GObjectClass *g_object_class = G_OBJECT_CLASS(klass);
 
-   class->initialize = eail_photocam_initialize;
-   class->ref_state_set = eail_photocam_ref_state_set;
+   atk_class->initialize = eail_photocam_initialize;
+   atk_class->ref_state_set = eail_photocam_ref_state_set;
 
    g_object_class->finalize = eail_photocam_finalize;
 }

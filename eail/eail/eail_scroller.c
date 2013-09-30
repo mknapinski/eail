@@ -121,11 +121,11 @@ eail_scroller_init(EailScroller *scroller)
 static void
 eail_scroller_class_init(EailScrollerClass *klass)
 {
-    AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+    AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
     EailWidgetClass *widget_class = EAIL_WIDGET_CLASS(klass);
 
     widget_class->get_widget_children = eail_scroller_get_widget_children;
 
-    class->initialize = eail_scroller_initialize;
-    class->get_name = eail_scroller_get_name;
+    atk_class->initialize = eail_scroller_initialize;
+    atk_class->get_name = eail_scroller_get_name;
 }

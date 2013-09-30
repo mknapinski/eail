@@ -316,7 +316,7 @@ eail_window_ref_state_set(AtkObject *obj)
    EINA_LIST_FOREACH(children, l, child)
      {
         evas_object_size_hint_weight_get(child, &x, &y);
-        if (x != EVAS_HINT_EXPAND || y != EVAS_HINT_EXPAND)
+        if (!float_equal(x, EVAS_HINT_EXPAND) || !float_equal(y, EVAS_HINT_EXPAND))
           {
              resizable = EINA_FALSE;
              break;
@@ -350,13 +350,13 @@ eail_window_init(EailWindow *window)
 static void
 eail_window_class_init(EailWindowClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
    EailWidgetClass *widget_class = EAIL_WIDGET_CLASS(klass);
 
    widget_class->get_widget_children = eail_window_get_widget_children;
 
-   class->initialize = eail_window_initialize;
-   class->ref_state_set = eail_window_ref_state_set;
+   atk_class->initialize = eail_window_initialize;
+   atk_class->ref_state_set = eail_window_ref_state_set;
 }
 
 /**

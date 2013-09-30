@@ -73,9 +73,9 @@ eail_clock_init(EailClock *clock)
 static void
 eail_clock_class_init(EailClockClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
 
-   class->initialize = eail_clock_initialize;
+   atk_class->initialize = eail_clock_initialize;
 }
 
 /*

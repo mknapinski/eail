@@ -156,12 +156,12 @@ eail_video_finalize(GObject *object)
 static void
 eail_video_class_init(EailVideoClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
    GObjectClass *g_object_class = G_OBJECT_CLASS(klass);
 
-   class->initialize = eail_video_initialize;
-   class->get_name = eail_video_name_get;
-   class->ref_state_set = eail_video_ref_state_set;
+   atk_class->initialize = eail_video_initialize;
+   atk_class->get_name = eail_video_name_get;
+   atk_class->ref_state_set = eail_video_ref_state_set;
 
    g_object_class->finalize = eail_video_finalize;
 }

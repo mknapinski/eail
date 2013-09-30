@@ -51,7 +51,6 @@ _init_map(Evas_Object *win)
    evas_object_size_hint_weight_set(map, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
    evas_object_show(map);
 
-   //evas_object_smart_callback_add(map, "loaded", _on_map_loaded, NULL);
    elm_map_zoom_set(map, 6);
    elm_map_region_show(map, 19.45, 51.75);
    evas_object_resize(win, 512, 512);

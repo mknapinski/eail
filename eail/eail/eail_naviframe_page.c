@@ -305,15 +305,15 @@ static void
 eail_naviframe_page_class_init(EailNaviframePageClass *klass)
 {
    GObjectClass *g_object_class = G_OBJECT_CLASS(klass);
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
 
-   class->initialize = eail_naviframe_page_initialize;
-   class->get_name = eail_naviframe_page_name_get;
-   class->get_parent = eail_naviframe_page_parent_get;
-   class->get_n_children = eail_naviframe_page_n_children_get;
-   class->ref_child = eail_naviframe_page_ref_child;
-   class->ref_state_set = eail_naviframe_page_ref_state_set;
-   class->get_index_in_parent = eail_naviframe_page_index_in_parent_get;
+   atk_class->initialize = eail_naviframe_page_initialize;
+   atk_class->get_name = eail_naviframe_page_name_get;
+   atk_class->get_parent = eail_naviframe_page_parent_get;
+   atk_class->get_n_children = eail_naviframe_page_n_children_get;
+   atk_class->ref_child = eail_naviframe_page_ref_child;
+   atk_class->ref_state_set = eail_naviframe_page_ref_state_set;
+   atk_class->get_index_in_parent = eail_naviframe_page_index_in_parent_get;
 
    g_object_class->finalize = eail_naviframe_page_finalize;
 }

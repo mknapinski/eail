@@ -13,8 +13,6 @@
 #include <Elementary.h>
 #include <atk/atk.h>
 
-//#define DEBUG 1
-
 #include "eail_test_utils.h"
 
 INIT_TEST("EailWeb")
@@ -73,17 +71,10 @@ _init_webview(Evas_Object *win)
 {
    Evas_Object *web;//, *box;
 
-   //   box = elm_box_add(win);
-   //   evas_object_size_hint_weight_set(box, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-   //   elm_win_resize_object_add(win, box);
-   //   evas_object_show(box);
-
    web = elm_web_add(win);
    evas_object_size_hint_weight_set(web, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
    evas_object_size_hint_align_set(web, EVAS_HINT_FILL, 0.5);
    _default_web_content_set(web);
-
-   //elm_box_pack_end(box, web);
 
    evas_object_show(web);
 }

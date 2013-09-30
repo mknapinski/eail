@@ -144,10 +144,10 @@ eail_box_init(EailBox *box)
 static void
 eail_box_class_init(EailBoxClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
    EailWidgetClass *widget_class = EAIL_WIDGET_CLASS(klass);
 
    widget_class->get_widget_children = eail_box_get_widget_children;
 
-   class->initialize = eail_box_initialize;
+   atk_class->initialize = eail_box_initialize;
 }

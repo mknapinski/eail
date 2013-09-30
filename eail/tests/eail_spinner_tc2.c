@@ -13,8 +13,6 @@
 #include <Elementary.h>
 #include <atk/atk.h>
 
-//#define DEBUG 1
-
 #include "eail_test_utils.h"
 
 INIT_TEST("EailSpinner")
@@ -110,23 +108,31 @@ _do_test(AtkObject *obj)
    atk_value_get_minimum_increment(ATK_VALUE(obj), &value);
    minimum_increment = g_value_get_double(&value);
 
-   if ((float)sp[0].set == (float)current && (float)sp[0].min == (float)minimum &&
-       (float)sp[0].max == (float)maximum && (float)sp[0].step == (float)minimum_increment)
+   if (float_equal(sp[0].set, current) &&
+       float_equal(sp[0].min, minimum) &&
+       float_equal(sp[0].max, maximum) &&
+       float_equal(sp[0].step, minimum_increment))
      {
         _printf("spinner 1: initialized values - correctly\n");
      }
-   else if ((float)sp[1].set == (float)current && (float)sp[1].min == (float)minimum &&
-            (float)sp[1].max == (float)maximum && (float)sp[1].step == (float)minimum_increment)
+   else if (float_equal(sp[1].set, current) &&
+            float_equal(sp[1].min, minimum) &&
+            float_equal(sp[1].max, maximum) &&
+            float_equal(sp[1].step, minimum_increment))
      {
         _printf("spinner 2: initialized values - correctly\n");
      }
-   else if ((float)sp[2].set == (float)current && (float)sp[2].min == (float)minimum &&
-            (float)sp[2].max == (float)maximum && (float)sp[2].step == (float)minimum_increment)
+   else if (float_equal(sp[2].set, current) &&
+            float_equal(sp[2].min, minimum) &&
+            float_equal(sp[2].max, maximum) &&
+            float_equal(sp[2].step, minimum_increment))
      {
         _printf("spinner 3: initialized values - correctly\n");
      }
-   else if ((float)sp[3].set == (float)current && (float)sp[3].min == (float)minimum &&
-            (float)sp[3].max == (float)maximum && (float)sp[3].step == (float)minimum_increment)
+   else if (float_equal(sp[3].set, current) &&
+            float_equal(sp[3].min, minimum) &&
+            float_equal(sp[3].max, maximum) &&
+            float_equal(sp[3].step, minimum_increment))
      {
         _printf("spinner 4: initialized values - correctly\n");
      }
@@ -144,7 +150,7 @@ _do_test(AtkObject *obj)
    current = g_value_get_double(&value);
    _printf("atk_value_get_current_value: %0.2f\n", current);
 
-   g_assert((float)val_test_set == (float)current);
+   g_assert(float_equal(val_test_set, current));
 
    g_value_set_double(&value, minimum - 1);
    g_assert(!atk_value_set_current_value(ATK_VALUE(obj), &value));

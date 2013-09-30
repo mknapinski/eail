@@ -25,17 +25,17 @@ _do_test(AtkObject *obj)
    double d_value;
    atk_value_get_maximum_value(ATK_VALUE(obj), &value);
    d_value = g_value_get_double(&value);
-   g_assert(d_value == 1.0);
+   g_assert(float_equal(d_value,1.0));
    atk_value_get_minimum_value(ATK_VALUE(obj), &value);
    d_value = g_value_get_double(&value);
-   g_assert(d_value == 0.0);
+   g_assert(float_equal(d_value, 0.0));
    g_value_set_double(&value, 0.3);
    gboolean success = atk_value_set_current_value(ATK_VALUE(obj), &value);
    g_assert(success);
    atk_value_get_current_value(ATK_VALUE(obj), &value);
    g_assert(G_VALUE_HOLDS_DOUBLE(&value));
    d_value = g_value_get_double(&value);
-   g_assert(d_value == 0.3);
+   g_assert(float_equal(d_value,0.3));
 
    eailu_test_atk_focus(obj, TRUE);
 

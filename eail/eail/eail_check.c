@@ -404,11 +404,11 @@ eail_check_initialize(AtkObject *obj, gpointer data)
 static void
 eail_check_class_init(EailCheckClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
    EailWidgetClass *widget_class = EAIL_WIDGET_CLASS(klass);
 
-   class->initialize = eail_check_initialize;
-   class->ref_state_set = eail_check_ref_state_set;
-   class->get_name = eail_check_get_name;
+   atk_class->initialize = eail_check_initialize;
+   atk_class->ref_state_set = eail_check_ref_state_set;
+   atk_class->get_name = eail_check_get_name;
    widget_class->get_widget_children = eail_check_get_widget_children;
 }

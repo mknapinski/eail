@@ -70,9 +70,9 @@ eail_datetime_init(EailDatetime *datetime)
 static void
 eail_datetime_class_init(EailDatetimeClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
 
-   class->initialize = eail_datetime_initialize;
+   atk_class->initialize = eail_datetime_initialize;
 }
 
 /**

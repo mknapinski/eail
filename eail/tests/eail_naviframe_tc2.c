@@ -13,8 +13,6 @@
 #include <Elementary.h>
 #include <atk/atk.h>
 
-//#define DEBUG 1
-
 #include "eail_test_utils.h"
 
 INIT_TEST("EailNaviframe")
@@ -101,7 +99,7 @@ _page4(Evas_Object *nf)
    elm_object_item_part_text_set(it, "subtitle", "Title area visibility test");
 
    ic = elm_icon_add(nf);
-   snprintf(buf, sizeof(buf), "%s",
+   g_snprintf(buf, sizeof(buf), "%s",
             img8);
    elm_image_file_set(ic, buf, NULL);
    evas_object_size_hint_aspect_set(ic, EVAS_ASPECT_CONTROL_VERTICAL, 1, 1);
@@ -131,7 +129,7 @@ _page3(Evas_Object *nf)
                                 content,
                                 NULL);
    ic = elm_icon_add(nf);
-   snprintf(buf, sizeof(buf), "%s", img8);
+   g_snprintf(buf, sizeof(buf), "%s", img8);
    elm_image_file_set(ic, buf, NULL);
    evas_object_size_hint_aspect_set(ic, EVAS_ASPECT_CONTROL_VERTICAL, 1, 1);
 
@@ -200,7 +198,6 @@ _do_test(AtkObject *obj)
    _printf("action count %d\n", atk_action_get_n_actions(action));
    g_assert(actions_n == 1);
    action_name = atk_action_get_name(action, 0);
-   //printf("%s\n", action_name);
    g_assert(!strcmp("click", action_name));
    result = atk_action_set_description(action, 0, "click_title description");
    g_assert(result);

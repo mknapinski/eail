@@ -119,11 +119,11 @@ eail_label_get_name(AtkObject *obj)
 static void
 eail_label_class_init(EailLabelClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
 
-   class->initialize = eail_label_initialize;
-   class->ref_state_set = eail_label_ref_state_set;
-   class->get_name = eail_label_get_name;
+   atk_class->initialize = eail_label_initialize;
+   atk_class->ref_state_set = eail_label_ref_state_set;
+   atk_class->get_name = eail_label_get_name;
 }
 
 /**

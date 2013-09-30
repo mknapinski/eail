@@ -245,12 +245,12 @@ eail_item_parent_interface_init(EailItemParentIface *iface)
 static void
 eail_flipselector_class_init(EailFlipselectorClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
    GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
 
-   class->initialize = eail_flipselector_initialize;
-   class->get_n_children = eail_flipselector_get_n_children;
-   class->ref_child = eail_flipselector_ref_child;
+   atk_class->initialize = eail_flipselector_initialize;
+   atk_class->get_n_children = eail_flipselector_get_n_children;
+   atk_class->ref_child = eail_flipselector_ref_child;
    gobject_class->finalize = eail_flipselector_finalize;
 }
 

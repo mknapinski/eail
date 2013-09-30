@@ -103,9 +103,9 @@ eail_action_slider_init(EailActionSlider *action_slider)
 static void
 eail_action_slider_class_init(EailActionSliderClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
 
-   class->initialize = eail_action_slider_initialize;
+   atk_class->initialize = eail_action_slider_initialize;
 }
 
 /*

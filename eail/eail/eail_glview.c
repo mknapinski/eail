@@ -61,6 +61,6 @@ eail_glview_init(EailGlview *glview)
 static void
 eail_glview_class_init(EailGlviewClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
-   class->initialize = eail_glview_initialize;
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
+   atk_class->initialize = eail_glview_initialize;
 }

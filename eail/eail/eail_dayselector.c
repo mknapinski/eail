@@ -172,10 +172,10 @@ eail_dayselector_finalize(GObject *object)
 static void
 eail_dayselector_class_init(EailDayselectorClass *klass)
 {
-   AtkObjectClass *class = ATK_OBJECT_CLASS(klass);
+   AtkObjectClass *atk_class = ATK_OBJECT_CLASS(klass);
    GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
-   class->initialize = eail_dayselector_initialize;
-   class->get_n_children = eail_dayselector_get_n_children;
-   class->ref_child = eail_dayselector_ref_child;
+   atk_class->initialize = eail_dayselector_initialize;
+   atk_class->get_n_children = eail_dayselector_get_n_children;
+   atk_class->ref_child = eail_dayselector_ref_child;
    gobject_class->finalize = eail_dayselector_finalize;
 }

@@ -62,19 +62,19 @@ _do_test(AtkObject *obj)
 
    atk_value_get_minimum_value(ATK_VALUE(obj), &value);
    minimum = g_value_get_double(&value);
-   g_assert((float)slider_min == (float)minimum);
+   g_assert(float_equal(slider_min,minimum));
 
    atk_value_get_maximum_value(ATK_VALUE(obj), &value);
    maximum = g_value_get_double(&value);
-   g_assert((float)slider_max == (float)maximum);
+   g_assert(float_equal(slider_max,maximum));
 
    atk_value_get_current_value(ATK_VALUE(obj), &value);
    current = g_value_get_double(&value);
-   g_assert((float)slider_set == (float)current);
+   g_assert(float_equal(slider_set,current));
 
    atk_value_get_minimum_increment(ATK_VALUE(obj), &value);
    minimum_increment = g_value_get_double(&value);
-   g_assert((float)G_MINDOUBLE == (float)minimum_increment);
+   g_assert(float_equal(G_MINDOUBLE,minimum_increment));
 
    g_value_set_double(&value, val_test_set);
    g_assert(atk_value_set_current_value(ATK_VALUE(obj), &value));
@@ -82,7 +82,7 @@ _do_test(AtkObject *obj)
    atk_value_get_current_value(ATK_VALUE(obj), &value);
    current = g_value_get_double(&value);
 
-   g_assert((float)val_test_set == (float)current);
+   g_assert(float_equal(val_test_set,current));
 
    g_value_set_double(&value, minimum - 1);
    g_assert(!atk_value_set_current_value(ATK_VALUE(obj), &value));
@@ -91,7 +91,7 @@ _do_test(AtkObject *obj)
    g_assert(!atk_value_set_current_value(ATK_VALUE(obj), &value));
 
    atk_value_get_minimum_increment(ATK_VALUE(obj), &value);
-   g_assert(g_value_get_double(&value) == 0);
+   g_assert(float_equal(g_value_get_double(&value),0));
 
    eailu_test_code_called = 1;
 }
