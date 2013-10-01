@@ -25,6 +25,7 @@
 #include <Elementary.h>
 
 #include "eail_clock.h"
+#include "eail_utils.h"
 
 static void atk_value_interface_init(AtkValueIface *iface);
 
@@ -36,6 +37,23 @@ G_DEFINE_TYPE_WITH_CODE(EailClock,
                         EAIL_TYPE_WIDGET,
                         G_IMPLEMENT_INTERFACE(ATK_TYPE_VALUE,
                                               atk_value_interface_init));
+
+/**
+ * @brief handler for changed event
+ *
+ * @param data passed to callback
+ * @param obj object that raised event
+ * @param event_info additional event info
+ */
+
+void
+_eail_clock_handle_changed_event(void *data,
+                                     Evas_Object *obj,
+                                     void *event_info)
+{
+   eail_emit_atk_signal
+                  (ATK_OBJECT(data), "visible-data-changed", ATK_TYPE_OBJECT);
+}
 
 /*
  * Implementation of the *AtkObject* interface
@@ -50,9 +68,15 @@ G_DEFINE_TYPE_WITH_CODE(EailClock,
 static void
 eail_clock_initialize(AtkObject *obj, gpointer data)
 {
+   Evas_Object *nested_widget = NULL;
    ATK_OBJECT_CLASS(eail_clock_parent_class)->initialize(obj, data);
 
    obj->role = ATK_ROLE_TEXT;
+   g_return_if_fail(EAIL_IS_WIDGET(obj));
+
+   nested_widget = eail_widget_get_widget(EAIL_WIDGET(obj));
+   evas_object_smart_callback_add(nested_widget, "changed",
+                                  _eail_clock_handle_changed_event, obj);
 }
 
 /**
