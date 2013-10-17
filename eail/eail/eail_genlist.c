@@ -336,7 +336,7 @@ eail_genlist_get_item_index_in_parent(EailItemParent    *parent,
         return -1;
     }
 
-    return elm_genlist_item_index_get(it);
+    return elm_genlist_item_index_get(it)-1;
 }
 
 /**
