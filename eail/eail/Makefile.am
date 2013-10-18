@@ -201,14 +201,17 @@ libeailinclude_HEADERS = \
 	eail_utils.h \
 	eail_grid.h \
 	eail_route.h \
+	eail_dayselector.h \
 	eail_gengrid.h \
 	eail_progressbar.h \
 	eail_diskselector.h \
 	eail_segment_control.h \
+	eail_conformant.h \
 	eail_notify.h \
 	eail_popup.h \
 	eail_ctxpopup.h \
 	eail_toolbar.h \
+	eail_multibuttonentry.h \
 	eail_web.h \
 	eail_index.h \
 	eail_fileselector_entry.h \
