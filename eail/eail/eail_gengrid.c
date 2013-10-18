@@ -284,7 +284,7 @@ eail_gengrid_item_index_in_parent_get(EailItemParent *parent, EailItem *item)
 
    if (!it) return -1;
 
-   return elm_gengrid_item_index_get(it);
+   return elm_gengrid_item_index_get(it)-1;
 }
 
 /**
