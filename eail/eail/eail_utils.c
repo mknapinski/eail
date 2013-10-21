@@ -465,6 +465,7 @@ _eail_handle_selected_for_item(Elm_Object_Item *item,
      }
 
    atk_object_notify_state_change(atk_item_obj, ATK_STATE_SELECTED, selected);
+   g_signal_emit_by_name (parent, "selection_changed");
 }
 
 /**
