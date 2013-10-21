@@ -61,7 +61,7 @@ eail_frame_get_widget_children(EailWidget *widget)
    if (obj)
      {
         content = elm_object_part_content_get(obj, "default");
-        if (content)
+        if (elm_object_widget_check(content))
           list = eina_list_append(list, content);
      }
 
