@@ -238,6 +238,8 @@ eail_window_get_widget_children(EailWidget *widget)
    Eina_List *win_childs = NULL;
    Eina_List *widgets = NULL;
    Evas *e;
+   Eina_List *l;
+   Evas_Object *item;
 
    /*in elementary >= 1.7.99 we get edje object if object are stacked
      in containers like box, grid etc we need to get children from this
@@ -248,6 +250,11 @@ eail_window_get_widget_children(EailWidget *widget)
    if (!g_strcmp0(evas_object_type_get(o), "edje"))
      {
         widgets = _parse_edje(o);
+        EINA_LIST_FOREACH(widgets, l, item)
+          {
+             if(!elm_object_widget_check(item))
+               widgets = eina_list_remove(widgets, item);
+          }
      }
    /* Sometimes we have a mix of widgets grouped in containters with
     * those directly on elm_win objct. So list evas objects laying on
