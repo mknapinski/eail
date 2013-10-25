@@ -224,6 +224,23 @@ eail_get_raw_evas_obj_list_from_item(Elm_Object_Item *item)
 }
 
 /**
+ * @param item Elm_Object_Item* instance
+ *
+ * @returns Evas_Object* representing the edje object related to item
+ */
+Evas_Object *
+eail_get_edje_obj_from_item(Elm_Object_Item *item)
+{
+   Evas_Object *edje = NULL;
+
+   edje = VIEW(item);
+   if (!edje)
+      DBG("Edje object for item not found.");
+
+   return edje;
+}
+
+/**
  *
  * The returned list has to be freed when no longer needed but DO NOT
  * FREE CONTENT STRINGS.

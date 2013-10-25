@@ -662,16 +662,8 @@ _eail_item_get_clickable_evas_obj(AtkObject *atk_item)
    if (widget) return widget;
 
    /* if no nested widget, then getting evas clickable area */
-   parts = eail_get_raw_evas_obj_list_from_item
-                                    (eail_item_get_item(EAIL_ITEM(atk_item)));
-
-   if (parts && eina_list_count(parts) > 0)
-     {
-        /* getting first widget from content */
-        widget = eina_list_nth(parts, 0);
-     }
-
-   return widget;
+   return eail_get_edje_obj_from_item
+                           (eail_item_get_item(EAIL_ITEM(atk_item)));
 }
 
 

@@ -96,6 +96,12 @@ void eail_get_coords_widget_center(Evas_Object *widget, int *x, int *y);
 Eina_List *eail_get_edje_parts_for_item(Elm_Object_Item *item);
 
 /**
+ * @brief Gets edje object for item
+ *
+ */
+Evas_Object *eail_get_edje_obj_from_item(Elm_Object_Item *item);
+
+/**
  * @brief Gets text content from item (each text is put into field in Eina_List
  * as const gchar*)
  */
