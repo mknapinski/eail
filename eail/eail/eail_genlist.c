@@ -462,7 +462,8 @@ eail_genlist_get_actions_supported(EailItemParent   *parent,
                                    EailItem         *item)
 {
    return EAIL_ACTION_SUPPORTED_CLICK | EAIL_ACTION_SUPPORTED_PRESS |
-            EAIL_ACTION_SUPPORTED_RELEASE;
+            EAIL_ACTION_SUPPORTED_RELEASE | EAIL_ACTION_SUPPORTED_EXPAND |
+              EAIL_ACTION_SUPPORTED_SHRINK;
 }
 
 /**

@@ -40,6 +40,8 @@ static void atk_text_interface_init(AtkTextIface *iface);
 #define EAIL_ITEM_CLICK_NAME "click" /**< @brief 'click' action name*/
 #define EAIL_ITEM_PRESS_NAME "press" /**< @brief 'press' action name*/
 #define EAIL_ITEM_RELEASE_NAME "release" /**< @brief 'release' action name*/
+#define EAIL_ITEM_EXPAND_NAME "expand" /**< @brief 'expand' action name*/
+#define EAIL_ITEM_SHRINK_NAME "shrink" /**< @brief 'shrink' action name*/
 #define EAIL_ITEM_PART_FIRST "start" /**< @brief 'start' action name*/
 #define EAIL_ITEM_PART_SECOND "end" /**< @brief 'end' action name*/
 #define EAIL_ITEM_PART_ICON "elm.swallow.icon" /**< @brief icon item part*/
@@ -588,6 +590,12 @@ eail_item_n_actions_get(AtkAction *action)
    if (_eail_item_get_actions_supported(action) & EAIL_ACTION_SUPPORTED_RELEASE)
      actions_num++;
 
+   if (_eail_item_get_actions_supported(action) & EAIL_ACTION_SUPPORTED_EXPAND)
+     actions_num++;
+
+   if (_eail_item_get_actions_supported(action) & EAIL_ACTION_SUPPORTED_SHRINK)
+     actions_num++;
+
    return actions_num;
 }
 
@@ -620,6 +628,14 @@ eail_item_action_name_get(AtkAction *action, int i)
       case 2:
          /*"release": the user pressed the item*/
          action_name = EAIL_ITEM_RELEASE_NAME;
+         break;
+      case 3:
+         /*"expand": the user expand the item*/
+         action_name = EAIL_ITEM_EXPAND_NAME;
+         break;
+      case 4:
+         /*"shrink": the user shrink the item*/
+         action_name = EAIL_ITEM_SHRINK_NAME;
          break;
       default:
          action_name = NULL;
@@ -666,6 +682,26 @@ _eail_item_get_clickable_evas_obj(AtkObject *atk_item)
                            (eail_item_get_item(EAIL_ITEM(atk_item)));
 }
 
+/**
+ * @brief Expand or shrink the item
+ *
+ * @param atk_item item object to expand
+ * @param expand info if item should be expanded or shrinked
+ *
+ * @returns TRUE if operation was successful, FALSE otherwise
+ */
+static gboolean _eail_item_expand(AtkObject *atk_item, Eina_Bool expand)
+{
+   Elm_Object_Item *item = eail_item_get_item(EAIL_ITEM(atk_item));
+
+   if(elm_genlist_item_type_get(item) != ELM_GENLIST_ITEM_TREE ||
+        elm_genlist_item_expanded_get(item) == expand)
+     {
+        return FALSE;
+     }
+   elm_genlist_item_expanded_set(item, expand);
+   return FALSE;
+}
 
 /**
  * @brief Performs an action with the given name on given item
@@ -693,24 +729,33 @@ _eail_item_perform_action(AtkObject *atk_item, const gchar *action_name)
         return FALSE;
      }
 
-   /* getting coordinates of center of the widget to make sure, that
-    * click will be performed on active widget area */
-   eail_get_coords_widget_center(widget, &x, &y);
-
    if (0 == g_strcmp0(action_name, EAIL_ITEM_CLICK_NAME))
      {
-       DBG("Calling 'click' on item");
-       eail_mouse_click_on_coords(widget, x, y);
+        DBG("Calling 'click' on item");
+        eail_get_coords_widget_center(widget, &x, &y);
+        eail_mouse_click_on_coords(widget, x, y);
      }
    else if (0 == g_strcmp0(action_name, EAIL_ITEM_PRESS_NAME))
      {
         DBG("Calling 'press' on item");
+        eail_get_coords_widget_center(widget, &x, &y);
         eail_mouse_press_on_coords(widget, x, y);
      }
    else if (0 == g_strcmp0(action_name, EAIL_ITEM_RELEASE_NAME))
      {
         DBG("Calling 'release' on item");
+        eail_get_coords_widget_center(widget, &x, &y);
         eail_mouse_release_on_coords(widget, x, y);
+     }
+   else if (0 == g_strcmp0(action_name, EAIL_ITEM_EXPAND_NAME))
+     {
+        DBG("Calling 'expand' on item");
+        return _eail_item_expand(atk_item, EINA_TRUE);
+     }
+   else if (0 == g_strcmp0(action_name, EAIL_ITEM_SHRINK_NAME))
+     {
+        DBG("Calling 'shrink' on item");
+        return _eail_item_expand(atk_item, EINA_FALSE);
      }
    else
      {

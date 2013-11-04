@@ -17,3 +17,7 @@
 2013-10-01
 
 	* Signal visible-data-changed support implemented for clock and datetime widgets
+
+2013-10-24  Michal Jagiello
+
+	* Add shrink and expand actions to genlist items
