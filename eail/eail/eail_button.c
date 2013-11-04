@@ -28,7 +28,6 @@
 #include "eail_priv.h"
 #include "eail_utils.h"
 
-static void atk_image_interface_init(AtkImageIface *iface);
 static void atk_text_interface_init(AtkTextIface *iface);
 
 /**
@@ -37,105 +36,8 @@ static void atk_text_interface_init(AtkTextIface *iface);
 G_DEFINE_TYPE_WITH_CODE(EailButton,
                         eail_button,
                         EAIL_TYPE_ACTION_WIDGET,
-                        G_IMPLEMENT_INTERFACE(ATK_TYPE_IMAGE,
-                                              atk_image_interface_init)
                         G_IMPLEMENT_INTERFACE(ATK_TYPE_TEXT,
                                               atk_text_interface_init));
-
-/**
- * @brief Gets the position of the image in the form of a point specifying the images top-left corner
- *
- * Implementation of get_image_position from AtkImage interface.
- *
- * @param image AtkImage instance
- * @param [out] x horizontal coordinate or -1 if value cannot be obtained
- * @param [out] y vertical coordinate or -1 if value cannot be obtained
- * @param coord_type specifies whether the coordinates are relative to the screen or to the component's top level window
- */
-static void
-eail_button_get_image_position(AtkImage     *image,
-                               gint         *x,
-                               gint         *y,
-                               AtkCoordType  coord_type)
-{
-   Evas_Object *button_image;
-   Evas_Object *widget;
-   AtkObject *obj;
-
-   widget = eail_widget_get_widget(EAIL_WIDGET(image));
-   if (!widget)
-     {
-        *x = G_MININT;
-        *y = G_MININT;
-        return;
-     }
-
-   button_image = elm_object_part_content_get(widget, "icon");
-   if (button_image)
-     {
-        obj = eail_factory_get_accessible(button_image);
-        atk_image_get_image_position(ATK_IMAGE(obj), x, y, coord_type);
-     }
-   else
-     {
-        *x = G_MININT;
-        *y = G_MININT;
-     }
-}
-
-/**
- * @brief Gets the width and height in pixels for the specified image
- *
- * The values of width and height are returned as -1 if they
- * cannot be obtained (for instance, if the object is not onscreen).
- *
- * Implementation of get_image_size from AtkImage interface.
- *
- * @param image AtkImage instance
- * @param [out] width image width or -1 if value cannot be obtained
- * @param [out] height image height or -1 if value cannot be obtained
- */
-static void
-eail_button_get_image_size(AtkImage *image,
-                           gint     *width,
-                           gint     *height)
-{
-   Evas_Object *widget;
-   Evas_Object *button_image;
-   AtkObject *obj;
-
-   widget = eail_widget_get_widget(EAIL_WIDGET(image));
-   if (!widget)
-     {
-        *width = -1;
-        *height = -1;
-        return;
-     }
-
-   button_image = elm_object_part_content_get(widget, "icon");
-   if (button_image)
-     {
-        obj = eail_factory_get_accessible(button_image);
-        atk_image_get_image_size(ATK_IMAGE(obj), width, height);
-     }
-   else
-     {
-        *width = -1;
-        *height = -1;
-     }
-}
-
-/**
- * @brief AtkImage interface initializer
- *
- * @param iface AtkImageIface instance
- */
-static void
-atk_image_interface_init(AtkImageIface *iface)
-{
-   iface->get_image_position = eail_button_get_image_position;
-   iface->get_image_size     = eail_button_get_image_size;
-}
 
 /**
  * @brief Gets text bounded by start_offset and end_offset

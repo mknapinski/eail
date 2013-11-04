@@ -21,3 +21,7 @@
 2013-10-24  Michal Jagiello
 
 	* Add shrink and expand actions to genlist items
+
+2013-10-31  Michal Jagiello
+
+	* Remove image interface from eail_button and eail_check widgets
