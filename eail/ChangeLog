@@ -10,6 +10,10 @@
 
         * Issues deteced by Static Code Analysis fixed
 
+2013-09-30
+
+	* Implement restore action in eail_window
+
 2013-10-01
 
 	* Signal visible-data-changed support implemented for clock and datetime widgets

@@ -41,6 +41,7 @@ static void eail_dynamic_content_interface_init(EailDynamicContentIface *iface);
 
 #define EAIL_WIN_ACTION_MAXIMALIZE "maximalize" /**< 'maximalize' action name */
 #define EAIL_WIN_ACTION_MINIMALIZE "minimalize" /**< 'minimalize' action name */
+#define EAIL_WIN_ACTION_RESTORE "restore" /**< 'restore' action name */
 
 /**
  * @brief EailWindow type definition
@@ -134,6 +135,21 @@ _eail_window_handle_delete_event(void *data,
 }
 
 /**
+ * @brief Restore event handler
+ *
+ * @param data passed to callback
+ * @param obj object that raised event
+ * @param event_info additional event info
+ */
+void
+_eail_window_handle_restore_event(void *data,
+                                   Evas_Object *obj,
+                                   void *event_info)
+{
+   eail_emit_atk_signal(ATK_OBJECT(data), "restore", EAIL_TYPE_WINDOW);
+}
+
+/**
  * @brief Initializes window focus handler
  *
  * @param obj AtkObject instance
@@ -159,6 +175,10 @@ eail_window_init_focus_handler(AtkObject *obj)
                                   _eail_window_handle_move_event, obj);
    evas_object_smart_callback_add(nested_widget, "delete,request",
                                   _eail_window_handle_delete_event, obj);
+   evas_object_smart_callback_add(nested_widget, "unmaximized",
+                                  _eail_window_handle_restore_event, obj);
+   evas_object_smart_callback_add(nested_widget, "normal",
+                                  _eail_window_handle_restore_event, obj);
 
    /* evas object events (not smart callbacks) */
    evas_object_event_callback_add(nested_widget, EVAS_CALLBACK_RESIZE,
@@ -420,6 +440,40 @@ eail_action_maximize(AtkAction *action, void *data)
 }
 
 /**
+ * @brief Handle for action restore
+ *
+ * @param action an AtkAction
+ * @param data additional action data (not used here)
+ *
+ * @return TRUE if action was triggered successfully, FALSE otherwise
+ */
+static gboolean
+eail_action_restore(AtkAction *action, void *data)
+{
+   Evas_Object *widget;
+   AtkObject *obj;
+
+   g_return_val_if_fail(EAIL_IS_WINDOW(action), FALSE);
+
+   widget = eail_widget_get_widget(EAIL_WIDGET(action));
+
+   if(elm_win_maximized_get(widget))
+     {
+        elm_win_maximized_set(widget, EINA_FALSE);
+     }
+
+   if(elm_win_iconified_get(widget))
+     {
+        elm_win_activate(widget);
+     }
+
+   obj = ATK_OBJECT(action);
+
+   eail_emit_atk_signal(obj, "restore", EAIL_TYPE_WINDOW);
+   return TRUE;
+}
+
+/**
  * @brief Adds window actions to the actions table
  *
  * @param action_widget widget that implements EailActionWidget interface
@@ -433,6 +487,9 @@ eail_window_actions_init(EailActionWidget *action_widget)
    eail_action_widget_action_append(action_widget,
                                     EAIL_WIN_ACTION_MINIMALIZE, NULL,
                                     eail_action_minimize);
+   eail_action_widget_action_append(action_widget,
+                                    EAIL_WIN_ACTION_RESTORE, NULL,
+                                    eail_action_restore);
 }
 
 /**
