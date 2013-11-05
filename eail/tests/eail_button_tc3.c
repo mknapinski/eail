@@ -1,9 +1,9 @@
 /*
- * Tested interface: AtkImage
+ * Tested interface: AtkObject
  *
  * Tested AtkObject: EailButton
  *
- * Description: Test AtkImage interface
+ * Description: Test whether EailIcon is only child of EailButton
  *
  * Test input: accessible object representing EailButton
  *
@@ -25,11 +25,8 @@ static void
 _do_test(AtkObject *obj)
 {
    const char *type_name_child;
-   int height = 0, width = 0;
-   int x = -1, y = -1;
-   AtkObject *xobj;
 
-   g_assert(ATK_IS_IMAGE(obj));
+   AtkObject *xobj;
 
    _printf("Button test: %s\n", BUTTON_TEXT2);
    // test children
@@ -40,14 +37,6 @@ _do_test(AtkObject *obj)
    type_name_child = g_type_name(G_TYPE_FROM_INSTANCE(xobj));
    _printf("type_name_child: %s\n", type_name_child);
    g_assert_cmpstr(type_name_child, ==, "EailIcon");
-
-   // test AtkImage
-   atk_image_get_image_position(ATK_IMAGE(obj), &x, &y, ATK_XY_SCREEN);
-   _printf("atk_image_get_image_position on screen: x: %d y %d\n", x, y);
-
-   atk_image_get_image_size(ATK_IMAGE(obj), &height, &width);
-   _printf("atk_image_get_image_size: height %d width %d\n", height, width);
-   g_assert(ICON_SIZE == height && ICON_SIZE == width);
 
    eailu_test_code_called = 1;
 }
