@@ -53,6 +53,8 @@ static gboolean eail_background_set_image_description(AtkImage *image,
 static void eail_background_get_image_size(AtkImage *image,
                                            gint *width,
                                            gint *height);
+const gchar *eail_background_get_image_locale(AtkImage *image);
+
 
 /*
  * Implementation of the *AtkObject* interface
@@ -204,6 +206,7 @@ atk_image_interface_init(AtkImageIface *iface)
    iface->set_image_description = eail_background_set_image_description;
    iface->get_image_size = eail_background_get_image_size;
    iface->get_image_position = eail_background_get_image_position;
+   iface->get_image_locale = eail_background_get_image_locale;
 }
 
 /**
@@ -298,4 +301,19 @@ eail_background_get_image_size(AtkImage *image,
      return;
 
    evas_object_geometry_get(widget, NULL, NULL, width, height);
+}
+
+/**
+ * @brief Gets background's locale (LC_MESSAGES variable)
+ *
+ * @param image AtkImage instance
+ * @return string corresponding to the POSIX LC_MESSAGES
+ * locale used by the image description, or NULL if
+ * the image does not specify a locale
+ *
+ */
+const gchar *
+eail_background_get_image_locale(AtkImage *image)
+{
+    return setlocale(LC_MESSAGES, NULL);
 }
