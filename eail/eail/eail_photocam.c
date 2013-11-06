@@ -294,6 +294,21 @@ eail_photocam_image_position_get(AtkImage *image,
 }
 
 /**
+ * @brief Gets photocam's locale (LC_MESSAGES variable)
+ *
+ * @param image AtkImage instance
+ * @return string corresponding to the POSIX LC_MESSAGES
+ * locale used by the image description, or NULL if
+ * the image does not specify a locale
+ *
+ */
+const gchar *
+eail_photocam_get_image_locale(AtkImage *image)
+{
+    return setlocale(LC_MESSAGES, NULL);
+}
+
+/**
  * @brief AktImage interface initializer
  *
  * @param iface AtkImageIface instance
@@ -307,4 +322,5 @@ atk_image_iface_init(AtkImageIface *iface)
    iface->get_image_description = eail_photocam_image_description_get;
    iface->set_image_description = eail_photocam_image_description_set;
    iface->get_image_position = eail_photocam_image_position_get;
+   iface->get_image_locale = eail_photocam_get_image_locale;
 }
