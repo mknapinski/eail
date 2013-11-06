@@ -202,6 +202,7 @@ eail_window_initialize(AtkObject *obj, gpointer data)
 
    obj->name = g_strdup(elm_win_title_get((Evas_Object *)data));
    obj->role = ATK_ROLE_WINDOW;
+   obj->accessible_parent = atk_get_root();
 
    eail_window_init_focus_handler(obj);
    eail_window_actions_init(EAIL_ACTION_WIDGET(obj));
@@ -360,6 +361,39 @@ eail_window_ref_state_set(AtkObject *obj)
 }
 
 /**
+ * @brief Get the index in parent of the accessible
+ *
+ * @param obj AtkObject instance
+ * @return Integer representing the index of the object in parent
+ */
+static int
+eail_window_get_index_in_parent(AtkObject *obj)
+{
+    AtkObject *parent = atk_object_get_parent(obj);
+
+    if(atk_object_get_n_accessible_children(parent) == 1)
+      {
+        return 0;
+      }
+    else
+      {
+        int i;
+        for(i = 0; i < atk_object_get_n_accessible_children(parent); i++)
+          {
+            AtkObject *child = atk_object_ref_accessible_child(parent, i);
+            if(child == obj)
+              {
+                g_object_unref(child);
+                return i;
+              }
+            g_object_unref(child);
+          }
+      }
+
+    return -1;
+}
+
+/**
  * @brief EailWindow instance initializer
  *
  * @param window EailWindow instance
@@ -384,6 +418,7 @@ eail_window_class_init(EailWindowClass *klass)
 
    atk_class->initialize = eail_window_initialize;
    atk_class->ref_state_set = eail_window_ref_state_set;
+   atk_class->get_index_in_parent = eail_window_get_index_in_parent;
 }
 
 /**
