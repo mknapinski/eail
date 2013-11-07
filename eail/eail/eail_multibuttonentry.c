@@ -192,6 +192,61 @@ eail_multibuttonentry_get_character_count(AtkText *text)
 }
 
 /**
+ * @brief Gets caret offset
+ *
+ * @param text an AtkText
+ * @return caret offset
+ */
+static gint
+eail_multibuttonentry_get_caret_offset(AtkText *text)
+{
+   Evas_Object *widget;
+   Evas_Object *entry;
+
+   widget = eail_widget_get_widget(EAIL_WIDGET(text));
+   if (!widget)
+     return 0;
+
+   entry = elm_multibuttonentry_entry_get(widget);
+   if (!entry)
+     return 0;
+
+   return elm_entry_cursor_pos_get(entry);
+}
+
+/**
+ * @brief Sets offset for caret
+ *
+ * Implementation of AtkTextIface->set_caret_offset callback
+ * ATK doc says:
+ * Sets the caret (cursor) position to the specified offset.
+ *
+ * @param text an AtkText
+ * @param offset starting position
+ *
+ * @returns TRUE if success, FALSE otherwise.
+ */
+static gboolean
+eail_multibuttonentry_set_caret_offset (AtkText *text,
+                             gint     offset)
+{
+   Evas_Object *widget;
+   Evas_Object *entry;
+
+   widget = eail_widget_get_widget(EAIL_WIDGET(text));
+   if (!widget)
+     return FALSE;
+
+   entry = elm_multibuttonentry_entry_get(widget);
+   if (!entry)
+     return FALSE;
+
+   elm_entry_cursor_pos_set(entry,offset);
+
+   return TRUE;
+}
+
+/**
  * @brief AktText initialization function
  *
  * @param iface AtkTextIface instance
@@ -202,6 +257,8 @@ atk_text_interface_init(AtkTextIface *iface)
    iface->get_text = eail_multibuttonentry_get_text;
    iface->get_character_at_offset = eail_multibuttonentry_get_character_at_offset;
    iface->get_character_count = eail_multibuttonentry_get_character_count;
+   iface->get_caret_offset = eail_multibuttonentry_get_caret_offset;
+   iface->set_caret_offset = eail_multibuttonentry_set_caret_offset;
 }
 
 /**
