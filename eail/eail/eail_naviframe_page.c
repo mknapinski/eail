@@ -102,7 +102,13 @@ eail_naviframe_page_new(AtkObject *naviframe, Elm_Object_Item *navi_tab_item)
 static const char *
 eail_naviframe_page_name_get(AtkObject *obj)
 {
+   const gchar *atk_name = NULL;
+
    g_return_val_if_fail(EAIL_IS_NAVIFRAME_PAGE(obj), NULL);
+
+   /* returning name from ATK default implementation if available */
+   atk_name = ATK_OBJECT_CLASS(eail_naviframe_page_parent_class)->get_name(obj);
+   if (atk_name) return atk_name;
 
    EailNaviframePage *page = EAIL_NAVIFRAME_PAGE(obj);
    if (page->name != NULL) return page->name;
@@ -111,7 +117,7 @@ eail_naviframe_page_name_get(AtkObject *obj)
    const char *subtitle = elm_object_item_part_text_get(page->page, "subtitle");
 
    if (subtitle != NULL)
-     page->name = eina_stringshare_printf("%s\n%s", title, subtitle);
+     page->name = eina_stringshare_printf("%s, %s", title, subtitle);
    else
      page->name = eina_stringshare_add(title);
 
