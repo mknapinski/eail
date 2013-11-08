@@ -675,6 +675,23 @@ eail_widget_add_focus_handler(AtkComponent *component,
 }
 
 /**
+ * @brief Gets alpha value
+ *
+ * @param component an AtkComponent
+ * @return alpha value
+ */
+static gdouble
+eail_widget_get_alpha(AtkComponent *component)
+{
+    Evas_Object *widget = eail_widget_get_widget(EAIL_WIDGET(component));
+
+    int alpha;
+    evas_object_color_get(widget, NULL, NULL, NULL, &alpha);
+
+    return (gdouble)alpha/255.0;
+}
+
+/**
  * @brief AtkComponent interface initialization
  *
  * @param iface EailNaviframPage instance
@@ -689,4 +706,5 @@ atk_component_interface_init(AtkComponentIface *iface)
    iface->set_size = eail_widget_set_size;
    iface->set_extents = eail_widget_set_extents;
    iface->add_focus_handler = eail_widget_add_focus_handler;
+   iface->get_alpha = eail_widget_get_alpha;
 }
