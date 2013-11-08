@@ -82,6 +82,10 @@ struct _EailMultibuttonentry
 {
    /** @brief Parent widget whose functionality is being extended*/
    EailActionWidget parent;
+   /** @brief Selection region start */
+   gint selection_start;
+   /** @brief Selection region end */
+   gint selection_end;
 };
 
 /** @brief Definition of object class for Atk EailMultibuttonentry*/
