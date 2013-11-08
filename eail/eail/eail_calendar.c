@@ -23,7 +23,9 @@
  */
 
 #include <Elementary.h>
+
 #include "eail_calendar.h"
+#include "eail_utils.h"
 
 static void atk_value_interface_init(AtkValueIface *iface);
 
@@ -37,6 +39,22 @@ G_DEFINE_TYPE_WITH_CODE(EailCalendar,
                                               atk_value_interface_init));
 
 /**
+ * @brief handler for changed event
+ *
+ * @param data passed to callback
+ * @param obj object that raised event
+ * @param event_info additional event info
+ */
+
+void
+_eail_calendar_handle_changed_event(void *data,
+                                        Evas_Object *obj,
+                                        void *event_info)
+{
+   eail_emit_atk_signal
+                  (ATK_OBJECT(data), "visible-data-changed", ATK_TYPE_OBJECT);
+}
+/**
  * @brief EailCalendar object initialization
  *
  * Sets role of AtkObject.
@@ -46,8 +64,15 @@ G_DEFINE_TYPE_WITH_CODE(EailCalendar,
  */
 static void eail_calendar_initialize(AtkObject *obj, gpointer data)
 {
+   Evas_Object *nested_widget = NULL;
    ATK_OBJECT_CLASS(eail_calendar_parent_class)->initialize(obj, data);
+
    obj->role = ATK_ROLE_CALENDAR;
+   g_return_if_fail(EAIL_IS_WIDGET(obj));
+
+   nested_widget = eail_widget_get_widget(EAIL_WIDGET(obj));
+   evas_object_smart_callback_add(nested_widget, "changed",
+                                  _eail_calendar_handle_changed_event, obj);
 }
 
 /**
