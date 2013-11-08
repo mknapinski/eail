@@ -182,6 +182,121 @@ eail_text_get_character_count(AtkText *text)
 }
 
 /**
+ * @brief Adds attribute to attribute set
+ *
+ * @param attrib_set AtkAttributeSet to add the attribute to
+ * @param attr AtkTextAttrribute to be added
+ * @param value attribute value
+ *
+ * Creates an AtkAttribute from attr and value, and adds it
+ * to attrib_set.
+ *
+ * @returns AtkAttributeSet containing set with added attribute
+ **/
+AtkAttributeSet*
+_eail_text_add_attribute(AtkAttributeSet *attrib_set,
+                         AtkTextAttribute attr,
+                         gchar           *value)
+{
+   AtkAttributeSet *return_set;
+   AtkAttribute *at = g_malloc (sizeof (AtkAttribute));
+   at->name = g_strdup (atk_text_attribute_get_name (attr));
+   at->value = value;
+   return_set = g_slist_prepend(attrib_set, at);
+   return return_set;
+}
+
+/**
+ * @brief Creates an AtkAttributeSet which consists of the default values of
+ * attributes for the text.
+ *
+ * This AtkAttributeSet should be freed by a call to
+ * atk_attribute_set_free()
+ *
+ * @param text AtkText instance
+ *
+ * @returns AtkAttributeSet containing default values of attributes
+ * at offset.
+ */
+AtkAttributeSet *
+eail_text_get_default_attributes(AtkText *text)
+{
+   AtkAttributeSet *at_set = NULL;
+
+   at_set = _eail_text_add_attribute
+       (at_set, ATK_TEXT_ATTR_WRAP_MODE,
+        g_strdup
+        (atk_text_attribute_get_value(ATK_TEXT_ATTR_WRAP_MODE, 0)));
+
+   at_set = _eail_text_add_attribute
+       (at_set, ATK_TEXT_ATTR_EDITABLE,
+        g_strdup
+        (atk_text_attribute_get_value
+         (ATK_TEXT_ATTR_EDITABLE, FALSE)));
+
+   return at_set;
+}
+
+/**
+ * @brief Creates an AtkAttributeSet which consists of the attributes
+ * explicitly set at the position offset in the text.
+ *
+ * start_offset and end_offset are set to the start and end of the range around offset
+ * where the attributes are invariant.
+ *
+ * Note that end_offset is the offset of the first character after the range.
+ *
+ * This AtkAttributeSet should be freed by a call to
+ * atk_attribute_set_free()
+ *
+ * @param text AtkText instance
+ * @param offset the offset at which to get the attributes
+ * @param [out] start_offset start offset of the range
+ * @param [out] end_offset end offset of the range
+ *
+ * @returns an AtkAttributeSet which contains the attributes explicitly set at
+ * offset.
+ */
+AtkAttributeSet *
+eail_text_get_run_attributes(AtkText *text,
+                             gint offset,
+                             gint *start_offset,
+                             gint *end_offset)
+{
+   AtkAttributeSet *at_set = NULL;
+   Evas_Object *widget = eail_widget_get_widget(EAIL_WIDGET(text));
+   gint len = eail_text_get_character_count(ATK_TEXT(text));
+
+   if (!widget || offset >= len)
+     {
+        *start_offset = -1;
+        *end_offset = -1;
+
+        return NULL;
+     }
+
+   *start_offset = 0;
+   *end_offset = len;
+
+   /* NOTE: Elm_Wrap_Type value is in 100% compatible with ATK wrap modes, so
+    * no additional conversion is needed*/
+   Elm_Wrap_Type wrap_type = ELM_WRAP_NONE;
+   at_set = _eail_text_add_attribute
+       (at_set, ATK_TEXT_ATTR_WRAP_MODE,
+        g_strdup
+        (atk_text_attribute_get_value
+         (ATK_TEXT_ATTR_WRAP_MODE, wrap_type)));
+
+
+   at_set = _eail_text_add_attribute
+       (at_set, ATK_TEXT_ATTR_EDITABLE,
+        g_strdup
+        (atk_text_attribute_get_value
+         (ATK_TEXT_ATTR_EDITABLE, FALSE)));
+
+   return at_set;
+}
+/**
  * @brief AtkText interface initializer
  *
  * @param iface AtkTextIface instance
@@ -192,4 +307,6 @@ atk_text_interface_init(AtkTextIface *iface)
    iface->get_text = eail_text_get_text;
    iface->get_character_at_offset = eail_text_get_character_at_offset;
    iface->get_character_count = eail_text_get_character_count;
+   iface->get_default_attributes = eail_text_get_default_attributes;
+   iface->get_run_attributes = eail_text_get_run_attributes;
 }
