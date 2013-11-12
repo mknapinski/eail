@@ -15,25 +15,25 @@
 
 #include "eail_test_utils.h"
 
-#define EAIL_ACTION_FOR_MAXIMALIZE "maximalize"
-#define EAIL_ACTION_FOR_MINIMALIZE "minimalize"
+#define EAIL_ACTION_FOR_MAXIMIZE "maximize"
+#define EAIL_ACTION_FOR_MINIMIZE "minimize"
 
 INIT_TEST("EailWindow")
 
-static int maximalize_test_passed = 0;
-static int minimalize_test_passed = 0;
+static int maximize_test_passed = 0;
+static int minimize_test_passed = 0;
 static int resize_test_passed = 0;
 
 static Evas_Object *global_win = NULL;
 
-void maximalize_callback()
+void maximize_callback()
 {
-   maximalize_test_passed = 1;
+   maximize_test_passed = 1;
 }
 
-void minimalize_callback()
+void minimize_callback()
 {
-   minimalize_test_passed = 1;
+   minimize_test_passed = 1;
 }
 
 void resize_callback()
@@ -45,9 +45,9 @@ static void
 _setup_signals(AtkObject *obj)
 {
    g_signal_connect(G_OBJECT(obj), "maximize",
-                    G_CALLBACK(maximalize_callback), NULL);
+                    G_CALLBACK(maximize_callback), NULL);
    g_signal_connect(G_OBJECT(obj), "minimize",
-                    G_CALLBACK(minimalize_callback), NULL);
+                    G_CALLBACK(minimize_callback), NULL);
    g_signal_connect(G_OBJECT(obj), "resize",
                     G_CALLBACK(resize_callback), NULL);
 }
@@ -60,11 +60,11 @@ _do_test(AtkObject *obj)
    g_assert(ATK_IS_ACTION(obj));
    g_assert(2 == atk_action_get_n_actions(ATK_ACTION(obj)));
 
-   eailu_test_action_activate(ATK_ACTION(obj), EAIL_ACTION_FOR_MAXIMALIZE);
-   eailu_test_action_activate(ATK_ACTION(obj), EAIL_ACTION_FOR_MINIMALIZE);
+   eailu_test_action_activate(ATK_ACTION(obj), EAIL_ACTION_FOR_MAXIMIZE);
+   eailu_test_action_activate(ATK_ACTION(obj), EAIL_ACTION_FOR_MINIMIZE);
 
-   g_assert(maximalize_test_passed);
-   g_assert(minimalize_test_passed);
+   g_assert(maximize_test_passed);
+   g_assert(minimize_test_passed);
 
    evas_object_resize(global_win, 450, 450);
    g_assert(resize_test_passed);

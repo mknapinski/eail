@@ -39,8 +39,8 @@ static void eail_dynamic_content_interface_init(EailDynamicContentIface *iface);
  */
 #define EAIL_WINDOW_FOCUS_NAME "focus,in"
 
-#define EAIL_WIN_ACTION_MAXIMALIZE "maximalize" /**< 'maximalize' action name */
-#define EAIL_WIN_ACTION_MINIMALIZE "minimalize" /**< 'minimalize' action name */
+#define EAIL_WIN_ACTION_MAXIMIZE "maximize" /**< 'maximize' action name */
+#define EAIL_WIN_ACTION_MINIMIZE "minimize" /**< 'minimize' action name */
 #define EAIL_WIN_ACTION_RESTORE "restore" /**< 'restore' action name */
 
 /**
@@ -517,10 +517,10 @@ static void
 eail_window_actions_init(EailActionWidget *action_widget)
 {
    eail_action_widget_action_append(action_widget,
-                                    EAIL_WIN_ACTION_MAXIMALIZE, NULL,
+                                    EAIL_WIN_ACTION_MAXIMIZE, NULL,
                                     eail_action_maximize);
    eail_action_widget_action_append(action_widget,
-                                    EAIL_WIN_ACTION_MINIMALIZE, NULL,
+                                    EAIL_WIN_ACTION_MINIMIZE, NULL,
                                     eail_action_minimize);
    eail_action_widget_action_append(action_widget,
                                     EAIL_WIN_ACTION_RESTORE, NULL,
