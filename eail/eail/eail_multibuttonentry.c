@@ -582,6 +582,22 @@ eail_multibuttonentry_item_handle_removed_event(void *data,
 }
 
 /**
+ * @brief handler for event which is raised when entry cusror position is being changed
+ *
+ * @param data passed to callback
+ * @param obj object that raised event
+ * @param event_info additional event info
+ */
+void
+_eail_multibuttonentry_handle_cursor_changed_event(void *data,
+                                 Evas_Object *obj,
+                                 void *event_info)
+{
+   g_signal_emit_by_name (ATK_OBJECT(data), "text_caret_moved",
+                                 elm_entry_cursor_pos_get(obj));
+}
+
+/**
  * @brief EailMultibuttonentry type initializer
  * @param obj AtkObject instance
  * @param data initialization data
@@ -606,6 +622,9 @@ eail_multibuttonentry_initialize(AtkObject *obj, gpointer data)
                           eail_multibuttonentry_item_handle_added_event, obj);
    evas_object_smart_callback_add(nested_widget, "item,deleted",
                           eail_multibuttonentry_item_handle_removed_event, obj);
+   evas_object_smart_callback_add(elm_multibuttonentry_entry_get(nested_widget),
+                          "cursor,changed",
+                          _eail_multibuttonentry_handle_cursor_changed_event, obj);
 }
 
 /**
