@@ -247,6 +247,64 @@ eail_multibuttonentry_set_caret_offset (AtkText *text,
 }
 
 /**
+ * @brief Get the bounding box containing the glyph
+ *  representing the character at a particular text offset.
+ *
+ * @param text AtkText instance
+ * @param offset The offset of the text character for which
+ * bounding information is required.
+ * @param x Pointer for the x cordinate of the bounding box
+ * @param y Pointer for the y cordinate of the bounding box
+ * @param width Pointer for the width of the bounding box
+ * @param height Pointer for the height of the bounding box
+ * @param coords specify whether coordinates are relative to the
+ * screen or widget window
+ *
+ */
+static void
+eail_multibuttonentry_get_character_extents(AtkText *text,
+                                            gint offset,
+                                            gint *x,
+                                            gint *y,
+                                            gint *width,
+                                            gint *height,
+                                            AtkCoordType coords)
+{
+   int result = -1;
+   Evas_Object *textblock = NULL;
+   Evas_Textblock_Cursor *cur = NULL;
+   Evas_Object *entry = NULL;
+
+   Evas_Object *widget = eail_widget_get_widget(EAIL_WIDGET(text));
+
+   if (!widget) return;
+
+   entry = elm_multibuttonentry_entry_get(widget);
+
+   if (!entry) return;
+
+   textblock = elm_entry_textblock_get(entry);
+   cur = evas_object_textblock_cursor_new(textblock);
+   evas_textblock_cursor_pos_set(cur, offset);
+
+   result = evas_textblock_cursor_char_geometry_get(cur, x, y, width, height);
+
+   evas_textblock_cursor_free(cur);
+
+   if (-1 == result) return;
+
+   if (coords == ATK_XY_SCREEN)
+   {
+      int ee_x, ee_y;
+      Ecore_Evas *ee= ecore_evas_ecore_evas_get(evas_object_evas_get(widget));
+
+      ecore_evas_geometry_get(ee, &ee_x, &ee_y, NULL, NULL);
+      *x += ee_x;
+      *y += ee_y;
+    }
+}
+
+/**
  * @brief AktText initialization function
  *
  * @param iface AtkTextIface instance
@@ -259,6 +317,7 @@ atk_text_interface_init(AtkTextIface *iface)
    iface->get_character_count = eail_multibuttonentry_get_character_count;
    iface->get_caret_offset = eail_multibuttonentry_get_caret_offset;
    iface->set_caret_offset = eail_multibuttonentry_set_caret_offset;
+   iface->get_character_extents = eail_multibuttonentry_get_character_extents;
 }
 
 /**
