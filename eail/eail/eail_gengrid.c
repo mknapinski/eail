@@ -753,23 +753,42 @@ eail_gengrid_selected_rows_get(AtkTable *table, gint **selected)
 {
    GArray *array;
    Evas_Object *widget;
-   int n_rows, n_selected;
+   gint row;
+   int n_rows, n_selected, i;
 
    g_return_val_if_fail(EAIL_IS_GENGRID(table), 0);
    widget = eail_widget_get_widget(EAIL_WIDGET(table));
 
-   if (!widget) return 0;
-   if (!elm_gengrid_multi_select_get(widget)) return 0;
+   if (!widget)
+     return 0;
+   if (!elm_gengrid_multi_select_get(widget)  && eail_gengrid_n_columns_get(table) > 1)
+     return 0;
 
    n_rows = eail_gengrid_n_rows_get(table);
+
    array = g_array_new(FALSE, FALSE, sizeof(gint));
-   for (int i = 0; i < n_rows; i++)
+   for (i = 0; i < n_rows; i++)
      {
-        gboolean success = eail_gengrid_is_row_selected(table, i);
-        if (success) g_array_append_val(array, i);
+        if (eail_gengrid_is_row_selected(table, i))
+          g_array_append_val(array, i);
      }
+
    n_selected = array->len;
-   *selected = (gint *) g_array_free(array, FALSE);
+
+   if (n_selected)
+   {
+     *selected = (gint *) g_malloc (n_selected * sizeof(gint));
+
+     for (i=0; i<n_selected;i++)
+     {
+       row = g_array_index(array,gint,i);
+       (*selected)[i] = row;
+     }
+
+     g_array_free(array, FALSE);
+
+   }
+
    return n_selected;
 }
 
