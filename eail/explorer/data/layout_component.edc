@@ -1,0 +1,531 @@
+group {
+		name: "explorer/component";
+		parts {
+			part {
+				name: "bg";
+				type: RECT;
+				description {
+					state: "default" 0.0;
+					color: 1 1 1 1;
+				}
+			}
+			part {
+				name: "elm.separator.1";
+				type: SWALLOW;
+				description {
+					fixed: 1 1;
+					state: "default" 0.0;
+					rel1 {
+						relative: 0.37 0.0;
+						to: "bg";
+					}
+					rel2 {
+						relative: 0.38 0.7;
+						to: "bg";
+					}
+				}
+			}
+			part {
+				name: "elm.editor.name.label1";
+				type: SWALLOW;
+				description {
+					fixed: 1 1;
+					state: "default" 0.0;
+					color: 1 1 1 255;
+					rel1 {
+						relative: 0.4 0.05;
+						to: "bg";
+					}
+					rel2 {
+						relative: 1.00 0.1;
+						to: "bg";
+					}
+				}
+			}
+			part {
+				name: "elm.editor.name.label2";
+				type: SWALLOW;
+				description {
+					fixed: 1 1;
+					state: "default" 0.0;
+					color: 1 1 1 255;
+					rel1 {
+						relative: 0.4 0.1;
+						to: "bg";
+					}
+					rel2 {
+						relative: 1.00 0.15;
+						to: "bg";
+					}
+				}
+			}
+			part {
+				name: "elm.editor.name.label3";
+				type: SWALLOW;
+				description {
+					fixed: 1 1;
+					state: "default" 0.0;
+					color: 1 1 1 255;
+					rel1 {
+						relative: 0.4 0.15;
+						to: "bg";
+					}
+					rel2 {
+						relative: 1.00 0.2;
+						to: "bg";
+					}
+				}
+			}
+			part {
+				name: "elm.editor.name.label4";
+				type: SWALLOW;
+				description {
+					fixed: 1 1;
+					state: "default" 0.0;
+					color: 1 1 1 255;
+					rel1 {
+						relative: 0.4 0.2;
+						to: "bg";
+					}
+					rel2 {
+						relative: 1.00 0.25;
+						to: "bg";
+					}
+				}
+			}
+			part {
+				name: "elm.editor.name.label5";
+				type: SWALLOW;
+				description {
+					fixed: 1 1;
+					state: "default" 0.0;
+					color: 1 1 1 255;
+					rel1 {
+						relative: 0.4 0.25;
+						to: "bg";
+					}
+					rel2 {
+						relative: 1.00 0.3;
+						to: "bg";
+					}
+				}
+			}
+			part {
+				name: "elm.editor.name.label6";
+				type: SWALLOW;
+				description {
+					fixed: 1 1;
+					state: "default" 0.0;
+					color: 1 1 1 255;
+					rel1 {
+						relative: 0.4 0.3;
+						to: "bg";
+					}
+					rel2 {
+						relative: 1.00 0.35;
+						to: "bg";
+					}
+				}
+			}
+			part {
+				name: "elm.editor.name.entry1";
+				type: SWALLOW;
+				description {
+				}
+			}
+			part {
+				name: "elm.editor.name.entry2";
+				type: SWALLOW;
+				description {
+				}
+			}
+			part {
+				name: "elm.editor.name.entry3";
+				type: SWALLOW;
+				description {
+				}
+			}
+			part {
+				name: "elm.editor.name.entry4";
+				type: SWALLOW;
+				description {
+				}
+			}
+			part {
+				name: "elm.editor.name.box1";
+				type: SWALLOW;
+				description {
+					fixed: 1 1;
+					state: "default" 0.0;
+					color: 1 1 1 255;
+					rel1 {
+						relative: 0.5 0.355;
+						to: "bg";
+					}
+					rel2 {
+						relative: 0.75 0.39;
+						to: "bg";
+					}
+				}
+			}
+			part {
+				name: "elm.editor.name.box2";
+				type: SWALLOW;
+				description {
+					fixed: 1 1;
+					state: "default" 0.0;
+					color: 1 1 1 255;
+					rel1 {
+						relative: 0.5 0.405;
+						to: "bg";
+					}
+					rel2 {
+						relative: 0.75 0.44;
+						to: "bg";
+					}
+				}
+			}
+			part {
+				name: "elm.editor.name.box3";
+				type: SWALLOW;
+				description {
+					fixed: 1 1;
+					state: "default" 0.0;
+					color: 1 1 1 255;
+					rel1 {
+						relative: 0.5 0.455;
+						to: "bg";
+					}
+					rel2 {
+						relative: 0.75 0.49;
+						to: "bg";
+					}
+				}
+			}
+			part {
+				name: "elm.editor.name.box4";
+				type: SWALLOW;
+				description {
+					fixed: 1 1;
+					state: "default" 0.0;
+					color: 1 1 1 255;
+					rel1 {
+						relative: 0.5 0.505;
+						to: "bg";
+					}
+					rel2 {
+						relative: 0.75 0.54;
+						to: "bg";
+					}
+				}
+			}
+			part {
+				name: "elm.editor.name.button";
+				type: SWALLOW;
+				description {
+					fixed: 1 1;
+					state: "default" 0.0;
+					color: 1 1 1 255;
+					rel1 {
+						relative: 0.05 0.45;
+						to: "bg";
+					}
+					rel2 {
+						relative: 0.25 0.4;
+						to: "bg";
+					}
+				}
+			}
+			part {
+				name: "elm.editor.name.button1";
+				type: SWALLOW;
+				description {
+					fixed: 1 1;
+					state: "default" 0.0;
+					color: 1 1 1 255;
+					rel1 {
+						relative: 0.05 0.55;
+						to: "bg";
+					}
+					rel2 {
+						relative: 0.25 0.5;
+						to: "bg";
+					}
+				}
+			}
+			part {
+				name: "text1";
+				type: TEXT;
+				scale: 1;
+				description {
+					fixed: 1 1;
+					state: "default" 0.0;
+					rel1 {
+						relative: 0.05 0.05;
+						to: "bg";
+					}
+					rel2 {
+						relative: 0.5 0.1;
+						to: "bg";
+					}
+					color: 1 1 1 255;
+					text {
+						size: 15;
+						font: "Sans";
+						align: 0.0 1.0;
+					}
+				}
+			}
+			part {
+				name: "text2";
+				type: TEXT;
+				scale:1;
+				description {
+					fixed: 1 1;
+					state: "default" 0.0;
+					rel1 {
+						relative: 0.05 0.1;
+						to: "bg";
+					}
+					rel2 {
+						relative: 0.5 0.15;
+						to: "bg";
+					}
+					color: 1 1 1 255;
+					text {
+						size:15;
+						font: "Sans";
+						align: 0.0 1.0;
+					}
+				}
+			}
+			part {
+				name: "text3";
+				type: TEXT;
+				scale:1;
+				description {
+					fixed: 1 1;
+					state: "default" 0.0;
+					rel1 {
+						relative: 0.05 0.015;
+						to: "bg";
+					}
+					rel2 {
+						relative: 0.3 0.2;
+						to: "bg";
+					}
+					color: 1 1 1 255;
+					text {
+						size:15;
+						font: "Sans";
+						align: 0.0 1.0;
+					}
+				}
+			}
+			part {
+				name: "text4";
+				type: TEXT;
+				scale:1;
+				description {
+					fixed: 1 1;
+					state: "default" 0.0;
+					rel1 {
+						relative: 0.05 0.015;
+						to: "bg";
+					}
+					rel2 {
+						relative: 0.3 0.25;
+						to: "bg";
+					}
+					color: 1 1 1 255;
+					text {
+						size:15;
+						font: "Sans";
+						align: 0.0 1.0;
+					}
+				}
+			}
+			part {
+				name: "text5";
+				type: TEXT;
+				scale:1;
+				description {
+					fixed: 1 1;
+					state: "default" 0.0;
+					rel1 {
+						relative: 0.05 0.15;
+						to: "bg";
+					}
+					rel2 {
+						relative: 0.3 0.3;
+						to: "bg";
+					}
+					color: 1 1 1 255;
+					text {
+						size:15;
+						font: "Sans";
+						align: 0.0 1.0;
+					}
+			}
+			part {
+				name: "text6";
+				type: TEXT;
+				scale:1;
+				description {
+					fixed: 1 1;
+					state: "default" 0.0;
+					rel1 {
+						relative: 0.05 0.015;
+						to: "bg";
+					}
+					rel2 {
+						relative: 0.3 0.35;
+						to: "bg";
+					}
+					color: 1 1 1 255;
+					text {
+						size:15;
+						font: "Sans";
+						align: 0.0 1.0;
+					}
+				}
+			}
+			part {
+				name: "text7";
+				type: TEXT;
+				scale:1;
+				description {
+					fixed: 1 1;
+					state: "default" 0.0;
+					rel1 {
+						relative: 0.05 0.015;
+						to: "bg";
+					}
+					rel2 {
+						relative: 0.3 0.4;
+						to: "bg";
+					}
+					color: 1 1 1 255;
+					text {
+						size:15;
+						font: "Sans";
+						align: 0.0 1.0;
+					}
+				}
+			}
+			part {
+				name: "text8";
+				type: TEXT;
+				scale:1;
+				description {
+					fixed: 1 1;
+					state: "default" 0.0;
+					rel1 {
+						relative: 0.40 0.64;
+						to: "bg";
+					}
+					rel2 {
+						relative: 1.00 0.15;
+						to: "bg";
+					}
+					color: 1 1 1 255;
+					text {
+						size:13;
+						font: "Sans";
+						align: 0.0 1.0;
+					}
+				}
+			}
+			part {
+				name: "text9";
+				type: TEXT;
+				scale:1;
+				description {
+					fixed: 1 1;
+					state: "default" 0.0;
+					rel1 {
+						relative: 0.40 0.74;
+						to: "bg";
+					}
+					rel2 {
+						relative: 1.00 0.15;
+						to: "bg";
+					}
+					color: 1 1 1 255;
+					text {
+						size:13;
+						font: "Sans";
+						align: 0.0 1.0;
+					}
+				}
+			}
+			part {
+				name: "text10";
+				type: TEXT;
+				scale:1;
+				description {
+					fixed: 1 1;
+					state: "default" 0.0;
+					rel1 {
+						relative: 0.05 0.015;
+						to: "bg";
+					}
+					rel2 {
+						relative: 0.3 0.50;
+						to: "bg";
+					}
+					color: 1 1 1 255;
+					text {
+						size:15;
+						font: "Sans";
+						align: 0.0 1.0;
+					}
+				}
+			}
+			part {
+				name: "text11";
+				type: TEXT;
+				scale:1;
+				description {
+					fixed: 1 1;
+					state: "default" 0.0;
+					rel1 {
+						relative: 0.40 0.84;
+						to: "bg";
+					}
+					rel2 {
+						relative: 1.00 0.15;
+						to: "bg";
+					}
+					color: 1 1 1 255;
+					text {
+						size:13;
+						font: "Sans";
+						align: 0.0 1.0;
+					}
+				}
+			}
+			part {
+				name: "text12";
+				type: TEXT;
+				scale:1;
+				description {
+					fixed: 1 1;
+					state: "default" 0.0;
+					rel1 {
+						relative: 0.40 0.94;
+						to: "bg";
+					}
+					rel2 {
+						relative: 1.00 0.15;
+						to: "bg";
+					}
+					color: 1 1 1 255;
+					text {
+						size:13;
+						font: "Sans";
+						align: 0.0 1.0;
+					}
+				}
+			}
+}

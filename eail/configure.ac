@@ -102,10 +102,36 @@ if ! test -z "$with_elementary_modules" ; then
            AM_CONDITIONAL(ENABLE_ELM_MODULE, true )
 fi
 
+AC_ARG_ENABLE([explorer], AC_HELP_STRING([--enable-explorer], [Build Eail visual debugging tool]))
+AM_CONDITIONAL([ENABLE_EXPLORER], false)
+AS_IF([test "x$enable_explorer" = "xyes"],
+  [
+    # Checks for programs.
+    AC_SUBST(EDJE_CC, "no")
+    AC_PATH_PROG(EDJE_CC, edje_cc)
+
+    if test x"$EDJE_CC" == x"no" ; then
+        AC_MSG_ERROR([No 'edje_cc' program found in PATH.])
+    fi
+
+    # Checks for libraries.
+    # Checks for header files.
+    PKG_CHECK_MODULES([EAILEXPLORER], [
+        elementary >= 1.7.0
+        atk >= 2.2.0
+    ])
+    AM_CONDITIONAL([ENABLE_EXPLORER], true)
+  ]
+)
+
 AC_OUTPUT([
     eail.pc
     Makefile
     eail/Makefile
     tests/Makefile
     doc/Makefile
+    explorer/Makefile
+    explorer/src/Makefile
+    explorer/src/bin/Makefile
+    explorer/data/Makefile
 ])

@@ -1,0 +1,15 @@
+
+collections {
+
+#include "layout_main.edc"
+#include "layout_action.edc"
+#include "layout_image.edc"
+#include "layout_object.edc"
+#include "layout_selection.edc"
+#include "layout_value.edc"
+#include "layout_table.edc"
+#include "layout_text.edc"
+#include "layout_edit_text.edc"
+#include "layout_component.edc"
+
+}

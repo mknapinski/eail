@@ -1,0 +1,18 @@
+#!/bin/bash
+
+USAGE="eail-explorer.sh [--debug] <executable> <arg1> <arg2> ... <argN>"
+
+if [ "$#" == "0" ] || [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
+	echo "$USAGE"
+	exit 1
+fi
+
+
+if [ $1 = "--debug" ]
+then
+    shift 1
+    gdb --eval-command="set environment ELM_MODULES=eail>eail/api" --eval-command="set environment LD_PRELOAD @libdir@/libeailexplorer.so" --eval-command=run  --args $@;
+else
+    export ELM_MODULES="eail>eail/api"
+    LD_PRELOAD=@libdir@/libeailexplorer.so $@
+fi

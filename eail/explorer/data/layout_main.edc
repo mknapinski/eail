@@ -1,0 +1,76 @@
+group {
+	name: "explorer/main";
+	parts {
+		part {
+			name: "bg";
+			type: RECT;
+			description {
+				state: "default" 0.0;
+				color: 255 255 255 255;
+			}
+		}
+		part {
+			name: "elm.browser";
+			type: SWALLOW;
+			description {
+				fixed: 1 1;
+				state: "default" 0.0;
+				rel1 {
+					relative: 0.0 0.0;
+					to: "bg";
+				}
+				rel2 {
+					relative: 0.3 0.95;
+					to: "bg";
+				}
+			}
+		}
+		part{
+			name: "elm.refresh.button";
+			type: SWALLOW;
+			description {
+				fixed: 1 1;
+				state: "default" 0.0;
+				rel1 {
+					relative: 0.0 0.95;
+					to: "bg";
+				}
+				rel2 {
+					relative: 0.3 1.0;
+					to: "bg";
+				}
+			}
+		}
+		part {
+			name: "elm.toolbar";
+			type: SWALLOW;
+			description {
+				fixed: 1 1;
+				state: "default" 0.0;
+				rel1 {
+					relative: 0.3 0.0;
+					to: "bg";
+				}
+				rel2 {
+					relative: 1.0 0.06;
+					to: "bg";
+				}
+			}
+		}
+		part {
+			name: "elm.layout";
+			type: SWALLOW;
+			description {
+				fixed: 1 1;
+				state: "default" 0.0;
+				rel1 {
+					relative: 0.3 0.06;
+					to: "bg";
+				}
+				rel2 {
+					relative: 1.0 1.0;
+				}
+			}
+		}
+	}
+}

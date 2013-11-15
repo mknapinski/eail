@@ -32,3 +32,16 @@ NOTE FOR TIZEN
 
 To use on Tizen 2.2 you have to set proper ELM_MODULES variable:
 export ELM_MODULES="prefs>prefs_iface:access_output>access/api:datetime_input_ctxpopup>datetime/api:eail>eail/api"
+
+------------------------------------------------------------------------------
+NOTE FOR EAIL-EXPLORER
+
+To build eail-explorer visual debugging tool use configure option:
+./configure --enable-explorer
+
+Running EAIL-Explorer
+
+To run your application with the EAIL-Explorer tool just type "eail-explorer.sh" in the terminal and pass the path to the selected application as an argument:
+
+example:
+eail-explorer.sh elementary_test

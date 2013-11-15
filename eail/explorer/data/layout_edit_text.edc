@@ -1,0 +1,309 @@
+group {
+		name: "explorer/editable_text";
+		parts {
+			part {
+				name: "bg";
+				type: RECT;
+				description {
+					state: "default" 0.0;
+					color: 1 1 1 1;
+				}
+			}
+			part {
+				name: "elm.editor.name.separator";
+				type: SWALLOW;
+				description {
+					fixed: 1 1;
+					state: "default" 0.0;
+					rel1 { 
+						relative: 0.58 0.0;
+						to: "bg";
+					}
+					rel2 { 
+						relative: 0.59 0.6;
+						to: "bg";
+					}
+				}
+			}
+			part {
+				name: "elm.editor.name.spinner1";
+				type: SWALLOW;
+				description {
+					fixed: 1 1;
+					state: "default" 0.0;
+					rel1 { 
+						relative: 0.27 0.365;
+						to: "bg";
+					}
+					rel2 { 
+						relative: 0.33 0.265;
+						to: "bg";
+					}
+				}
+			}
+			part {
+				name: "elm.editor.name.spinner2";
+				type: SWALLOW;
+				description {
+					fixed: 1 1;
+					state: "default" 0.0;
+					rel1 { 
+						relative: 0.27 0.425;
+						to: "bg";
+					}
+					rel2 { 
+						relative: 0.33 0.325;
+						to: "bg";
+					}
+				}
+			}
+			part {
+				name: "elm.editor.name.box1";
+				type: SWALLOW;
+				description {
+                    			fixed: 1 1;
+					state: "default" 0.0;
+					color: 1 1 1 255;
+					rel1 {
+						relative: 0.6 0.05;
+						to: "bg";
+					}
+					rel2 {
+						relative: 1.00 0.1;
+						to: "bg";
+					}
+				}
+			}
+			part {
+				name: "elm.editor.name.e1";
+				type: SWALLOW;
+				description {
+				}
+			}
+			part {
+				name: "elm.editor.name.button";
+				type: SWALLOW;
+				description {
+					fixed: 1 1;
+					state: "default" 0.0;
+					rel1 { 
+						relative: 0.25 0.05;
+						to: "bg";
+					}
+					rel2 { 
+						relative: 0.35 0.1;
+						to: "bg";
+					}
+				}
+			}
+			part {
+				name: "elm.editor.name.button1";
+				type: SWALLOW;
+				description {
+					fixed: 1 1;
+					state: "default" 0.0;
+					rel1 { 
+						relative: 0.25 0.1;
+						to: "bg";
+					}
+					rel2 { 
+						relative: 0.35 0.15;
+						to: "bg";
+					}
+				}
+			}
+			part {
+				name: "elm.editor.name.button2";
+				type: SWALLOW;
+				description {
+					fixed: 1 1;
+					state: "default" 0.0;
+					rel1 { 
+						relative: 0.25 0.18;
+						to: "bg";
+					}
+					rel2 { 
+						relative: 0.35 0.23;
+						to: "bg";
+					}
+				}
+			}
+			part {
+				name: "elm.editor.name.button3";
+				type: SWALLOW;
+				description {
+					fixed: 1 1;
+					state: "default" 0.0;
+					rel1 { 
+						relative: 0.25 0.23;
+						to: "bg";
+					}
+					rel2 { 
+						relative: 0.35 0.28;
+						to: "bg";
+					}
+				}
+			}
+			part {
+				name: "text1";
+				type: TEXT;
+				scale: 1;
+				description {
+					fixed: 1 1;
+					state: "default" 0.0;
+					rel1 {
+						relative: 0.05 0.05;
+						to: "bg";
+					}
+					rel2 {
+						relative: 0.2 0.1;
+						to: "bg";
+					}
+					color: 1 1 1 255;
+					text {
+						size: 15;
+						font: "Sans";
+						align: 0.0 0.5;
+					}
+				}
+			}
+			part {
+				name: "text2";
+				type: TEXT;
+				scale:1;
+				description {
+					fixed: 1 1;
+					state: "default" 0.0;
+					rel1 {
+						relative: 0.05 0.1;
+						to: "bg";
+					}
+					rel2 {
+						relative: 0.5 0.15;
+						to: "bg";
+					}
+					color: 1 1 1 255;
+					text {
+						size:15;
+						font: "Sans";
+						align: 0.0 0.5;
+					}
+				}
+			}
+			part {
+				name: "text3";
+				type: TEXT;
+				scale:1;
+				description {
+					fixed: 1 1;
+					state: "default" 0.0;
+					rel1 {
+						relative: 0.05 0.13;
+						to: "bg";
+					}
+					rel2 {
+						relative: 0.6 0.18;
+						to: "bg";
+					}
+					color: 1 1 1 255;
+					text {
+						size:11;
+						font: "Sans";
+						align: 0.0 1.0;
+					}
+				}
+			}
+			part {
+				name: "text4";
+				type: TEXT;
+				scale:1;
+				description {
+					fixed: 1 1;
+					state: "default" 0.0;
+					rel1 {
+						relative: 0.05 0.18;
+						to: "bg";
+					}
+					rel2 {
+						relative: 0.3 0.23;
+						to: "bg";
+					}
+					color: 1 1 1 255;
+					text {
+						size:15;
+						font: "Sans";
+						align: 0.0 0.5;
+					}
+				}
+			}
+			part {
+				name: "text5";
+				type: TEXT;
+				scale:1;
+				description {
+					fixed: 1 1;
+					state: "default" 0.0;
+					rel1 {
+						relative: 0.05 0.23;
+						to: "bg";
+					}
+					rel2 {
+						relative: 0.3 0.28;
+						to: "bg";
+					}
+					color: 1 1 1 255;
+					text {
+						size:15;
+						font: "Sans";
+						align: 0.0 0.5;
+					}
+				}
+			}
+			part {
+				name: "text6";
+				type: TEXT;
+				scale:1;
+				description {
+					fixed: 1 1;
+					state: "default" 0.0;
+					rel1 {
+						relative: 0.05 0.29;
+						to: "bg";
+					}
+					rel2 {
+						relative: 0.3 0.34;
+						to: "bg";
+					}
+					color: 1 1 1 255;
+					text {
+						size:15;
+						font: "Sans";
+						align: 0.0 0.5;
+					}
+				}
+			}
+			part {
+				name: "text7";
+				type: TEXT;
+				scale:1;
+				description {
+					fixed: 1 1;
+					state: "default" 0.0;
+					rel1 {
+						relative: 0.05 0.35;
+						to: "bg";
+					}
+					rel2 {
+						relative: 0.3 0.4;
+						to: "bg";
+					}
+					color: 1 1 1 255;
+					text {
+						size:15;
+						font: "Sans";
+						align: 0.0 0.5;
+					}
+				}
+			}
+	}
+}
