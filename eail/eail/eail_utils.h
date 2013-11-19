@@ -184,6 +184,61 @@ void eail_emit_children_changed_obj(gboolean added,
  */
 void eail_notify_child_focus_changes(void);
 
+/**
+ * @brief Helper function to get a slice of the text from textblock after offset
+ *
+ * Use g_free() to free the returned string.
+ *
+ * @param textblock Evas textblock
+ * @param offset character offset
+ * @param boundary_type AtkTextBoundary instance
+ * @param [out] start_offset start position of the returned text
+ * @param [out] end_offset end position of the returned text
+ * @returns newly allocated string containg a slice of text from textblock
+ */
+gchar *
+eail_get_text_after(const Evas_Object *textblock,
+                    gint offset,
+                    AtkTextBoundary boundary_type,
+                    gint *start_offset,
+                    gint *end_offset);
+/**
+ * @brief Helper function to get a slice of the text from textblock at offset
+ *
+ * Use g_free() to free the returned string.
+ *
+ * @param textblock Evas textblock
+ * @param offset character offset
+ * @param boundary_type AtkTextBoundary instance
+ * @param [out] start_offset start position of the returned text
+ * @param [out] end_offset end position of the return text
+ * @returns newly allocated string containing a slice of text from textblock
+ */
+gchar *
+eail_get_text_at(const Evas_Object *textblock,
+                 gint offset,
+                 AtkTextBoundary boundary_type,
+                 gint *start_offset,
+                 gint *end_offset);
+/**
+ * @brief Helper function to get a slice of the text from textblock before offset
+ *
+ * Use g_free() to free the returned string.
+ *
+ * @param textblock Evas textblock
+ * @param entry entry widget instance
+ * @param offset character offset
+ * @param boundary_type AtkTextBoundary instance
+ * @param [out] start_offset start position of the returned text
+ * @param [out] end_offset end position of the returned text
+ * @returns newly allocated string containing a slice of text from textblock
+ */
+gchar *
+eail_get_text_before(const Evas_Object *textblock,
+                     gint offset,
+                     AtkTextBoundary boundary_type,
+                     gint *start_offset,
+                     gint *end_offset);
 #ifdef __cplusplus
 }
 #endif

@@ -313,6 +313,113 @@ eail_label_get_run_attributes(AtkText *text,
 }
 
 /**
+ * @brief Gets the specified text after offset
+ *
+ * Use g_free() to free the returned string.
+ *
+ * @param text AtkText instance
+ * @param offset character offset
+ * @param boundary_type AtkTextBoundary instance
+ * @param [out] start_offset start offset of the returned string
+ * @param [out] end_offset offset of the first character after the returned
+ * substring
+ * @returns newly allocated string containing the text after offset bounded
+ * by the specified boundary_type
+ */
+static gchar *
+eail_label_get_text_after_offset(AtkText *text,
+                                 gint offset,
+                                 AtkTextBoundary boundary_type,
+                                 gint *start_offset,
+                                 gint *end_offset)
+{
+   Evas_Object *widget;
+   const Evas_Object *textblock;
+   Evas_Object *label_edje_layer;
+
+   widget = eail_widget_get_widget(EAIL_WIDGET(text));
+   if (!widget) return NULL;
+
+   label_edje_layer = elm_layout_edje_get(widget);
+   textblock = edje_object_part_object_get(label_edje_layer, "elm.text");
+
+   return eail_get_text_after(textblock, offset, boundary_type, start_offset,
+                              end_offset);
+
+}
+
+/**
+ * @brief Gets the specified text at offset
+ *
+ * Use g_free() to free the returned string.
+ *
+ * @param text AtkText instance
+ * @param offset character offset
+ * @param boundary_type AtkTextBoundary instance
+ * @param [out] start_offset start offset of the returned string
+ * @param [out] end_offset offset of the first character after the returned
+ * substring
+ * @returns newly allocated string containing the text after offset bounded
+ * by the specified boundary_type
+ */
+static gchar *
+eail_label_get_text_at_offset(AtkText *text,
+                              gint offset,
+                              AtkTextBoundary boundary_type,
+                              gint *start_offset,
+                              gint *end_offset)
+{
+   Evas_Object *widget;
+   const Evas_Object *textblock;
+   Evas_Object *label_edje_layer;
+
+   widget = eail_widget_get_widget(EAIL_WIDGET(text));
+   if (!widget) return NULL;
+
+   label_edje_layer = elm_layout_edje_get(widget);
+   textblock = edje_object_part_object_get(label_edje_layer, "elm.text");
+
+   return eail_get_text_at(textblock, offset, boundary_type, start_offset,
+                           end_offset);
+}
+
+/**
+ * @brief Gets the specified text before offset
+ *
+ * Use g_free() to free the returned string.
+ *
+ * @param text AtkText instance
+ * @param offset character offset
+ * @param boundary_type AtkTextBoundary instance
+ * @param [out] start_offset start offset of the returned string
+ * @param [out] end_offset offset of the first character after the returned
+ * substring
+ * @returns newly allocated string containing the text after offset bounded
+ * by the specified boundary_type
+ */
+static gchar *
+eail_label_get_text_before_offset(AtkText *text,
+                                  gint offset,
+                                  AtkTextBoundary boundary_type,
+                                  gint *start_offset,
+                                  gint *end_offset)
+{
+   Evas_Object *widget;
+   const Evas_Object *textblock;
+   Evas_Object *label_edje_layer;
+
+   widget = eail_widget_get_widget(EAIL_WIDGET(text));
+   if (!widget) return NULL;
+
+   label_edje_layer = elm_layout_edje_get(widget);
+   textblock = edje_object_part_object_get(label_edje_layer, "elm.text");
+
+   return eail_get_text_before(textblock, offset, boundary_type, start_offset,
+                               end_offset);
+}
+
+
+/**
  * @brief Initializes AtkTextIface interface
  *
  * @param iface AtkTextIface instance
@@ -325,5 +432,8 @@ atk_text_interface_init(AtkTextIface *iface)
    iface->get_text = eail_label_get_text;
    iface->get_run_attributes = eail_label_get_run_attributes;
    iface->get_default_attributes = eail_label_get_default_attributes;
+   iface->get_text_after_offset = eail_label_get_text_after_offset;
+   iface->get_text_at_offset = eail_label_get_text_at_offset;
+   iface->get_text_before_offset = eail_label_get_text_before_offset;
 }
 

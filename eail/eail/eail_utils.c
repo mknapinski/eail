@@ -606,3 +606,744 @@ eail_notify_child_focus_changes(void)
     * been fully established*/
    _eail_notify_focus_listeners_delayed(1600);
 }
+
+/**
+ * @brief Returns the position that is obtained by adding count to the
+ * given offset
+ *
+ * Count may be positive or negative.
+ *
+ * @param textblock Evas textblock
+ * @param offset character offset
+ * @param count number of characters to move from offset
+ * @returns integer representing the new position
+ */
+static gint
+_eail_move_chars(const Evas_Object *textblock,
+                 gint offset,
+                 gint count)
+{
+   Evas_Textblock_Cursor *cur;
+   gint dir;
+   gboolean res;
+
+   dir = count > 0 ? 1 : -1;
+   cur = evas_object_textblock_cursor_new(textblock);
+   evas_textblock_cursor_pos_set(cur, offset);
+
+   while(count)
+     {
+        res = dir > 0 ? evas_textblock_cursor_char_next(cur) :
+            evas_textblock_cursor_char_prev(cur);
+        if (!res) break;
+
+        count -= dir;
+     }
+
+   offset = evas_textblock_cursor_pos_get(cur);
+   evas_textblock_cursor_free(cur);
+
+   return offset;
+}
+
+/**
+ * @brief Gets the utf8 character at offset
+ *
+ * @param textblock Evas textblock
+ * @param offset character offset
+ * @returns char representing the utf8 character
+ */
+static gunichar
+_eail_get_unichar_at_offset(const Evas_Object *textblock,
+                            int offset)
+{
+   Evas_Textblock_Cursor *cur;
+   gchar *s;
+   gunichar c;
+
+   cur = evas_object_textblock_cursor_new(textblock);
+   evas_textblock_cursor_pos_set(cur, offset);
+   s = evas_textblock_cursor_content_get(cur);
+   c = g_utf8_get_char(s);
+
+   evas_textblock_cursor_free(cur);
+   g_free(s);
+
+   return c;
+}
+
+/**
+ * @brief Checks whether the character at offset in textblock is a word's start
+ *
+ * @param textblock Evas textblock
+ * @param offset character offset
+ * @returns TRUE on success, FALSE otherwise
+ */
+static gboolean
+_eail_is_word_start(const Evas_Object *textblock,
+                    gint offset)
+{
+   /* first character in a word */
+   Evas_Textblock_Cursor *cur = NULL;
+   cur = evas_object_textblock_cursor_new(textblock);
+   evas_textblock_cursor_pos_set(cur, offset);
+   evas_textblock_cursor_word_start(cur);
+   gint pos = evas_textblock_cursor_pos_get(cur);
+   evas_textblock_cursor_free(cur);
+
+   return pos == offset;
+}
+
+/**
+ * @brief Checks whether the character at offset in textblock is a word's end
+ *
+ * @param textblock Evas textblock
+ * @param offset character offset
+ * @return TRUE on success, FALSE otherwise
+ */
+static gboolean
+_eail_is_word_end(const Evas_Object *textblock,
+                  gint offset)
+{
+   /* is first non-word char after a word */
+   Evas_Textblock_Cursor *cur = NULL;
+   cur = evas_object_textblock_cursor_new(textblock);
+   evas_textblock_cursor_pos_set(cur, offset - 2);
+   evas_textblock_cursor_word_end(cur);
+   gint pos = evas_textblock_cursor_pos_get(cur);
+   evas_textblock_cursor_free(cur);
+
+   return (pos + 1 == offset);
+}
+
+/**
+ * @brief Checks whether the character at offset in textblock is inside a word
+ *
+ * @param textblock Evas textblock
+ * @param offset character offset
+ * @returns TRUE on success, FALSE otherwise
+ */
+static gboolean
+_eail_is_inside_word(const Evas_Object *textblock,
+                     gint offset)
+{
+   Evas_Textblock_Cursor *cur = NULL;
+   cur = evas_object_textblock_cursor_new(textblock);
+   evas_textblock_cursor_pos_set(cur, offset);
+   evas_textblock_cursor_word_start(cur);
+   gint pos_start = evas_textblock_cursor_pos_get(cur);
+   evas_textblock_cursor_char_prev(cur);
+   evas_textblock_cursor_word_end(cur);
+   gint pos_end = evas_textblock_cursor_pos_get(cur);
+   evas_textblock_cursor_free(cur);
+
+   return (pos_start <= offset && pos_end >= offset);
+}
+
+/**
+ * @brief Gets the texblock length
+ *
+ * @param textblock Evas textblock
+ * @returns integer representing the textblock length
+ */
+static gint
+_eail_get_len(const Evas_Object *textblock)
+{
+   Evas_Textblock_Cursor *cur;
+   int ctr = 0;
+
+   cur = evas_object_textblock_cursor_new(textblock);
+   while (evas_textblock_cursor_char_next(cur))
+     ++ctr;
+
+   evas_textblock_cursor_free(cur);
+
+   return ctr;
+}
+
+/**
+ * @brief Returns the position that is count words from the given offset
+ *
+ * Count may  be positive or negative. If count is positive, the returned
+ * position will be a word end, otherwise it will be a word start.
+ *
+ * @param textblock Evas textblock
+ * @param offset a character offset
+ * @param count the number of words to move from offset
+ * @returns integer representing the new position
+ */
+static gint
+_eail_move_words(const Evas_Object *textblock,
+                 gint offset,
+                 gint count)
+{
+   gint len = _eail_get_len(textblock);
+
+   while (count > 0 && offset < len)
+     {
+        do
+          offset++;
+        while (offset < len && !_eail_is_word_end(textblock, offset));
+
+        count--;
+     }
+   while (count < 0 && offset > 0)
+     {
+        do
+          offset--;
+        while (offset > 0 && !_eail_is_word_start(textblock, offset));
+
+        count++;
+     }
+
+   return offset;
+}
+
+/**
+ * @brief Checks whether the character is sentence break
+ *
+ * @param c character
+ * @returns TRUE on success, FALSE otherwise
+ */
+static gboolean
+_eail_is_sentence_break(gunichar c)
+{
+   if (c == '.' || c == '?' || c == '!') return TRUE;
+
+   return FALSE;
+}
+
+/**
+ * @brief Checks whether the character at offset in textblock is a sentence's start
+ *
+ * @param textblock Evas textblock
+ * @param offset character offset
+ * @returns TRUE on success, FALSE otherwise
+ */
+static gboolean
+_eail_is_sentence_start(const Evas_Object *textblock,
+                        gint offset)
+{
+   gunichar c;
+   gint len = _eail_get_len(textblock);
+
+   if (offset > len -1 || offset < 0) return FALSE;
+
+   if (0 == offset) return TRUE;
+
+   c = _eail_get_unichar_at_offset(textblock, offset - 1);
+   if (_eail_is_sentence_break(c)) return TRUE;
+
+   return FALSE;
+}
+
+/**
+ * @brief Checks whether the character at offset in textblock is a sentence's end
+ *
+ * @param textblock Evas textblock
+ * @param offset character offset
+ * @return TRUE on success, FALSE otherwise
+ */
+static gboolean
+_eail_is_sentence_end(const Evas_Object *textblock,
+                      gint offset)
+{
+   gunichar c;
+   gint len = _eail_get_len(textblock);
+
+   if (offset > len -1 || offset < 0) return FALSE;
+
+   if (offset == len -1) return TRUE;
+
+   c = _eail_get_unichar_at_offset(textblock, offset);
+   if (_eail_is_sentence_break(c)) return TRUE;
+
+   return FALSE;
+}
+
+/**
+ * @brief Checks whether the character at offset in textblock is inside a senetence
+ *
+ * @param textblock Evas textblock
+ * @param offset character offset
+ * @returns TRUE on success, FALSE otherwise
+ */
+static gboolean
+_eail_is_inside_sentence(const Evas_Object *textblock,
+                         gint offset)
+{
+   gunichar c;
+   gint len = _eail_get_len(textblock);
+
+   if ((offset > len -1 || offset < 0)) return FALSE;
+
+   c = _eail_get_unichar_at_offset(textblock, offset);
+
+   if (!_eail_is_sentence_break(c)) return TRUE;
+
+   return FALSE;
+}
+
+/**
+ * @brief Returns the position that is count sentences from the given offset
+ *
+ * Count may  be positive or negative. If count is positive, the returned
+ * position will be a sentence end, otherwise it will be a sentence start.
+ *
+ * @param textblock Evas textblock
+ * @param offset a character offset
+ * @param count the number of words to move from offset
+ * @returns integer representing the new position
+ */
+static gint
+_eail_move_sentences(const Evas_Object *textblock,
+                      gint offset,
+                      gint count)
+{
+   gint len = _eail_get_len(textblock);
+
+   while (count > 0 && offset < len)
+     {
+        do
+          offset++;
+        while (offset < len && !_eail_is_sentence_end(textblock, offset));
+
+        count--;
+     }
+   while (count < 0 && offset > 0)
+     {
+        do
+          offset--;
+        while (offset > 0 && !_eail_is_sentence_start(textblock, offset));
+
+        count++;
+     }
+
+   return offset;
+}
+
+/**
+ * @brief Checks whether the character at offset in textblock is a line's start
+ *
+ * @param textblock Evas textblock
+ * @param offset character offset
+ * @returns TRUE on success, FALSE otherwise
+ */
+static gboolean
+_eail_is_line_start(const Evas_Object *textblock,
+                    gint offset)
+{
+   Evas_Textblock_Cursor *cur = NULL;
+   cur = evas_object_textblock_cursor_new(textblock);
+   evas_textblock_cursor_pos_set(cur, offset);
+   evas_textblock_cursor_line_char_first(cur);
+   gint pos = evas_textblock_cursor_pos_get(cur);
+   evas_textblock_cursor_free(cur);
+
+   return pos == offset;
+}
+
+/**
+ * @brief Checks whether the character at offset in textblock is a line's end
+ *
+ * @param textblock Evas textblock
+ * @param offset character offset
+ * @return TRUE on success, FALSE otherwise
+ */
+static gboolean
+_eail_is_line_end(const Evas_Object *textblock,
+                  gint offset)
+{
+   /* is first non-word char after a word */
+   Evas_Textblock_Cursor *cur = NULL;
+   cur = evas_object_textblock_cursor_new(textblock);
+   evas_textblock_cursor_pos_set(cur, offset);
+   evas_textblock_cursor_line_char_last(cur);
+   gint pos = evas_textblock_cursor_pos_get(cur);
+   evas_textblock_cursor_free(cur);
+
+   return (pos == offset);
+}
+
+/**
+ * @brief Checks whether the character at offset in textblock is inside a line
+ *
+ * @param textblock Evas textblock
+ * @param offset character offset
+ * @returns TRUE on success, FALSE otherwise
+ */
+static gboolean
+_eail_is_inside_line(const Evas_Object *textblock,
+                     gint offset)
+{
+   Evas_Textblock_Cursor *cur = NULL;
+   cur = evas_object_textblock_cursor_new(textblock);
+   evas_textblock_cursor_pos_set(cur, offset);
+   evas_textblock_cursor_line_char_last(cur);
+   gint pos_end = evas_textblock_cursor_pos_get(cur);
+   evas_textblock_cursor_free(cur);
+   return pos_end != offset;
+}
+
+/**
+ * @brief Returns the position that is count lines from the given offset
+ *
+ * Count may  be positive or negative. If count is positive, the returned
+ * position will be a line end, otherwise it will be a line start.
+ *
+ * @param textblock Evas textblock
+ * @param offset a character offset
+ * @param count the number of words to move from offset
+ * @returns integer representing the new position
+ */
+static gint
+_eail_move_lines(const Evas_Object *textblock,
+                 gint offset,
+                 gint count)
+{
+   gint len = _eail_get_len(textblock);
+
+   while (count > 0 && offset < len)
+     {
+        do
+          offset++;
+        while (offset < len && !_eail_is_line_end(textblock, offset));
+
+        count--;
+     }
+   while (count < 0 && offset > 0)
+     {
+        do
+          offset--;
+        while (offset > 0 && !_eail_is_line_start(textblock, offset));
+
+        count++;
+     }
+
+   return offset;
+}
+
+/**
+ * @brief Gets a slice of the text from textblock after offset
+ *
+ * Use g_free() to free the returned string.
+ *
+ * @param textblock Evas textblock
+ * @param offset character offset
+ * @param boundary_type AtkTextBoundary instance
+ * @param [out] start_offset start position of the returned text
+ * @param [out] end_offset end position of the returned text
+ * @returns newly allocated string containg a slice of text from textblock
+ */
+gchar *
+eail_get_text_after(const Evas_Object *textblock,
+                    gint offset,
+                    AtkTextBoundary boundary_type,
+                    gint *start_offset,
+                    gint *end_offset)
+{
+   const gchar *text;
+   int len;
+   gint start, end;
+
+   text = evas_textblock_text_markup_to_utf8(
+       textblock, evas_object_textblock_text_markup_get(textblock));
+   if (!text)
+     {
+        *start_offset = 0;
+        *end_offset = 0;
+        return g_strdup("");
+     }
+
+   start = offset;
+   end = offset;
+   len = _eail_get_len(textblock);
+
+   switch (boundary_type)
+     {
+       case ATK_TEXT_BOUNDARY_CHAR:
+           start = _eail_move_chars(textblock, start, 1);
+           end = start;
+           end = _eail_move_chars(textblock, end, 1);
+           break;
+
+       case ATK_TEXT_BOUNDARY_WORD_START:
+           if (_eail_is_inside_word(textblock, end))
+             end = _eail_move_words(textblock, end, 1);
+           while (!_eail_is_word_start(textblock, end) && end < len)
+             end = _eail_move_chars(textblock, end, 1);
+           start = end;
+           if (end < len)
+             {
+                end = _eail_move_words(textblock, end, 1);
+                while (!_eail_is_word_start(textblock, end) && end < len)
+                  end = _eail_move_chars(textblock, end, 1);
+             }
+           break;
+
+       case ATK_TEXT_BOUNDARY_WORD_END:
+           end = _eail_move_words(textblock, end, 1);
+           start = end;
+           if (end < len)
+             end = _eail_move_words(textblock, end, 1);
+           break;
+
+       case ATK_TEXT_BOUNDARY_SENTENCE_START:
+           if (_eail_is_inside_sentence(textblock, end))
+             end = _eail_move_sentences(textblock, end, 1);
+           while (!_eail_is_sentence_start(textblock, end) && end < len)
+             end = _eail_move_chars(textblock, end, 1);
+           start = end;
+           if (end < len)
+             {
+                end = _eail_move_sentences(textblock, end, 1);
+                while (!_eail_is_sentence_start(textblock, end) && end < len)
+                  end = _eail_move_chars(textblock, end, 1);
+             }
+           break;
+
+       case ATK_TEXT_BOUNDARY_SENTENCE_END:
+           end = _eail_move_sentences(textblock, end, 1);
+           start = end;
+           if (end < len)
+             end = _eail_move_sentences(textblock, end, 1);
+           break;
+
+       case ATK_TEXT_BOUNDARY_LINE_START:
+           if (_eail_is_inside_line(textblock, end))
+             end = _eail_move_lines(textblock, end, 1);
+           while (!_eail_is_line_start(textblock, end) && end < len)
+             end = _eail_move_chars(textblock, end, 1);
+           start = end;
+           if (end < len)
+             {
+                end = _eail_move_lines(textblock, end, 1);
+                while (!_eail_is_line_start(textblock, end) && end < len)
+                  end = _eail_move_chars(textblock, end, 1);
+             }
+           break;
+
+       case ATK_TEXT_BOUNDARY_LINE_END:
+           end = _eail_move_lines(textblock, end, 1);
+           start = end;
+           if (end < len)
+             end = _eail_move_lines(textblock, end, 1);
+           break;
+     }
+
+   *start_offset = start;
+   *end_offset = end;
+   g_assert(start <= end);
+
+   return g_utf8_substring(text, start, end);
+}
+
+/**
+ * @brief Gets a slice of the text from textblock at offset
+ *
+ * Use g_free() to free the returned string.
+ *
+ * @param textblock Evas textblock
+ * @param offset character offset
+ * @param boundary_type AtkTextBoundary instance
+ * @param [out] start_offset start position of the returned text
+ * @param [out] end_offset end position of the return text
+ * @returns newly allocated string containing a slice of text from textblock
+ */
+gchar *
+eail_get_text_at(const Evas_Object *textblock,
+                 gint offset,
+                 AtkTextBoundary boundary_type,
+                 gint *start_offset,
+                 gint *end_offset)
+{
+   const gchar *text;
+   int len;
+   gint start, end;
+
+   text = evas_textblock_text_markup_to_utf8(
+       textblock, evas_object_textblock_text_markup_get(textblock));
+   if (!text)
+     {
+        *start_offset = 0;
+        *end_offset = 0;
+        return g_strdup("");
+     }
+
+   start = offset;
+   end = offset;
+   len = _eail_get_len(textblock);
+
+   switch (boundary_type)
+     {
+       case ATK_TEXT_BOUNDARY_CHAR:
+           end = _eail_move_chars(textblock, end, 1);
+           break;
+
+       case ATK_TEXT_BOUNDARY_WORD_START:
+           if (!_eail_is_word_start(textblock, start))
+             start = _eail_move_words(textblock, start, -1);
+           if (_eail_is_inside_word(textblock, end))
+             end = _eail_move_words(textblock, end, 1);
+           while (!_eail_is_word_start(textblock, end) && end < len)
+             end = _eail_move_chars(textblock, end, 1);
+           break;
+
+       case ATK_TEXT_BOUNDARY_WORD_END:
+           if (_eail_is_inside_word(textblock, start) &&
+               !_eail_is_word_start(textblock, start))
+             start = _eail_move_words(textblock, start, -1);
+           while (!_eail_is_word_end(textblock, start) && start > 0)
+             start = _eail_move_chars(textblock, start, -1);
+           end = _eail_move_words(textblock, end, 1);
+           break;
+
+       case ATK_TEXT_BOUNDARY_SENTENCE_START:
+           if (!_eail_is_sentence_start(textblock, start))
+             start = _eail_move_sentences(textblock, start, -1);
+           if (_eail_is_inside_sentence(textblock, end))
+             end = _eail_move_sentences(textblock, end, 1);
+           while (!_eail_is_sentence_start(textblock, end) && end < len)
+             end = _eail_move_chars(textblock, end, 1);
+           break;
+
+       case ATK_TEXT_BOUNDARY_SENTENCE_END:
+           if (_eail_is_inside_sentence(textblock, start) &&
+               !_eail_is_sentence_start(textblock, start))
+             start = _eail_move_sentences(textblock, start, -1);
+           while (!_eail_is_sentence_end(textblock, start) && start > 0)
+             start = _eail_move_chars(textblock, start, -1);
+           end = _eail_move_sentences(textblock, end, 1);
+           break;
+
+       case ATK_TEXT_BOUNDARY_LINE_START:
+           if (!_eail_is_line_start(textblock, start))
+             start = _eail_move_lines(textblock, start, -1);
+           if (_eail_is_inside_line(textblock, end))
+             end = _eail_move_lines(textblock, end, 1);
+           while (!_eail_is_line_start(textblock, end) && end < len)
+             end = _eail_move_chars(textblock, end, 1);
+           break;
+
+       case ATK_TEXT_BOUNDARY_LINE_END:
+           if (_eail_is_inside_line(textblock, start) &&
+               !_eail_is_line_start(textblock, start))
+             start = _eail_move_lines(textblock, start, -1);
+           while (!_eail_is_line_end(textblock, start) && start > 0)
+             start = _eail_move_chars(textblock, start, -1);
+           end = _eail_move_lines(textblock, end, 1);
+           break;
+     }
+
+   *start_offset = start;
+   *end_offset = end;
+   g_assert(start <= end);
+
+   return g_utf8_substring(text, start, end);
+}
+
+/**
+ * @brief Gets a slice of the text from textblock before offset
+ *
+ * Use g_free() to free the returned string.
+ *
+ * @param textblock Evas textblock
+ * @param offset character offset
+ * @param boundary_type AtkTextBoundary instance
+ * @param [out] start_offset start position of the returned text
+ * @param [out] end_offset end position of the returned text
+ * @returns newly allocated string containing a slice of text from textblock
+ */
+gchar *
+eail_get_text_before(const Evas_Object *textblock,
+                     gint offset,
+                     AtkTextBoundary boundary_type,
+                     gint *start_offset,
+                     gint *end_offset)
+{
+   const gchar *text;
+   gint start, end;
+
+   text = evas_textblock_text_markup_to_utf8(
+       textblock, evas_object_textblock_text_markup_get(textblock));
+   if (!text)
+     {
+        *start_offset = 0;
+        *end_offset = 0;
+        return g_strdup("");
+     }
+
+   start = offset;
+   end = offset;
+
+   switch (boundary_type)
+     {
+       case ATK_TEXT_BOUNDARY_CHAR:
+           start = _eail_move_chars(textblock, start, -1);
+           break;
+
+       case ATK_TEXT_BOUNDARY_WORD_START:
+           if (!_eail_is_word_start(textblock, start))
+             start = _eail_move_words(textblock, start, -1);
+           end = start;
+           start = _eail_move_words(textblock, start, -1);
+           break;
+
+       case ATK_TEXT_BOUNDARY_WORD_END:
+           if (_eail_is_inside_word(textblock, start) &&
+               !_eail_is_word_start(textblock, start))
+             start = _eail_move_words(textblock, start, -1);
+           while (!_eail_is_word_end(textblock, start) && start > 0)
+             start = _eail_move_chars(textblock, start, -1);
+           end = start;
+           start = _eail_move_words(textblock, start, -1);
+           while (!_eail_is_word_end(textblock, start) && start > 0)
+             start = _eail_move_chars(textblock, start, -1);
+           break;
+
+       case ATK_TEXT_BOUNDARY_SENTENCE_START:
+           if (!_eail_is_sentence_start(textblock, start))
+             start = _eail_move_sentences(textblock, start, -1);
+           end = start;
+           start = _eail_move_sentences(textblock, start, -1);
+           break;
+
+       case ATK_TEXT_BOUNDARY_SENTENCE_END:
+           if (_eail_is_inside_sentence(textblock, start) &&
+               !_eail_is_sentence_start(textblock, start))
+             start = _eail_move_sentences(textblock, start, -1);
+           while (!_eail_is_sentence_end(textblock, start) && start > 0)
+             start = _eail_move_chars(textblock, start, -1);
+           end = start;
+           start = _eail_move_sentences(textblock, start, -1);
+           while (!_eail_is_sentence_end(textblock, start) && start > 0)
+             start = _eail_move_chars(textblock, start, -1);
+           break;
+
+       case ATK_TEXT_BOUNDARY_LINE_START:
+           if (!_eail_is_line_start(textblock, start))
+             start = _eail_move_lines(textblock, start, -1);
+           end = start;
+           start = _eail_move_lines(textblock, start, -1);
+           break;
+
+       case ATK_TEXT_BOUNDARY_LINE_END:
+           if (_eail_is_inside_line(textblock, start) &&
+               !_eail_is_line_start(textblock, start))
+             start = _eail_move_lines(textblock, start, -1);
+           while (!_eail_is_line_end(textblock, start) && start > 0)
+             start = _eail_move_chars(textblock, start, -1);
+           end = start;
+           start = _eail_move_lines(textblock, start, -1);
+           while (!_eail_is_line_end(textblock, start) && start > 0)
+             start = _eail_move_chars(textblock, start, -1);
+           break;
+
+     }
+
+   *start_offset = start;
+   *end_offset = end;
+   g_assert(start <= end);
+
+   return g_utf8_substring(text, start, end);
+}
