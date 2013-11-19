@@ -418,6 +418,54 @@ eail_label_get_text_before_offset(AtkText *text,
                                end_offset);
 }
 
+/**
+ * @brief Gets the offset of the character located at coordinates x and y.
+ *  x and y are interpreted as being relative to the screen or this widget's window depending on coords.
+ *
+ * @param text AtkText instance
+ * @param screen x-position of character
+ * @param screen y-position of character
+ * @param specify whether coordinates are relative to the screen or widget window
+ *
+ * @returns the offset to the character which is located at the specified x and y coordinates.
+ */
+static gint
+eail_label_get_offset_at_point(AtkText *text,
+                                 gint x,
+                                 gint y,
+                                 AtkCoordType coords)
+{
+   int result = -1;
+   const Evas_Object *textblock = NULL;
+   Evas_Textblock_Cursor *cur = NULL;
+   Evas_Object *label_edje_layer = NULL;
+
+   Evas_Object *widget = eail_widget_get_widget(EAIL_WIDGET(text));
+
+   if (!widget) return -1;
+
+   label_edje_layer = elm_layout_edje_get(widget);
+
+   if (!label_edje_layer) return-1 ;
+
+   textblock = edje_object_part_object_get(label_edje_layer, "elm.text");
+   cur = evas_object_textblock_cursor_new(textblock);
+
+   if (coords == ATK_XY_SCREEN)
+   {
+      int ee_x, ee_y;
+      Ecore_Evas *ee= ecore_evas_ecore_evas_get(evas_object_evas_get(widget));
+      ecore_evas_geometry_get(ee, &ee_x, &ee_y, NULL, NULL);
+      x -= ee_x;
+      y -= ee_y;
+    }
+
+   evas_textblock_cursor_char_coord_set( cur, x, y);
+   result = evas_textblock_cursor_pos_get( cur );
+   evas_textblock_cursor_free(cur);
+
+   return result;
+}
 
 /**
  * @brief Initializes AtkTextIface interface
@@ -435,5 +483,6 @@ atk_text_interface_init(AtkTextIface *iface)
    iface->get_text_after_offset = eail_label_get_text_after_offset;
    iface->get_text_at_offset = eail_label_get_text_at_offset;
    iface->get_text_before_offset = eail_label_get_text_before_offset;
+   iface->get_offset_at_point = eail_label_get_offset_at_point;
 }
 
