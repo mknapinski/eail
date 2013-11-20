@@ -498,6 +498,124 @@ eail_label_get_character_extents(AtkText *text,
 }
 
 /**
+ * @brief Sum all rectangles on list
+ *
+ * (function for internal use ony)
+ *
+ * @param list list with Evas_Textblock_Rectangle
+ *
+ * @return an Evas_Textblock_Rectangle encloses all rectanges from list
+ */
+Evas_Textblock_Rectangle _internal_sum_rects_on_list(Eina_List *list)
+{
+    Evas_Textblock_Rectangle result;
+
+    Evas_Coord min_x = 0;
+    Evas_Coord min_y = 0;
+    Evas_Coord max_x = 0;
+    Evas_Coord max_y = 0;
+    int first_run = 1;
+
+    Eina_List *l = NULL;
+    Evas_Textblock_Rectangle *rectT = NULL;
+    EINA_LIST_FOREACH(list, l, rectT)
+    {
+        if (first_run)
+        {
+            min_x = rectT->x;
+            min_y = rectT->y;
+            max_x = rectT->x + rectT->w;
+            max_y = rectT->y + rectT->h;
+            first_run = 0;
+        }
+        else
+        {
+            Evas_Coord t_min_x = rectT->x;
+            Evas_Coord t_min_y = rectT->y;
+            Evas_Coord t_max_x = rectT->x + rectT->w;
+            Evas_Coord t_max_y = rectT->y + rectT->h;
+
+
+            if ( t_min_x < min_x )
+                min_x = t_min_x;
+            if ( t_min_y < min_y )
+                min_y = t_min_y;
+            if ( t_max_x > max_x )
+                max_x = t_max_x;
+            if ( t_max_y > max_y )
+                max_y = t_max_y;
+        }
+    }
+
+    result.x = min_x;
+    result.y = min_y;
+    result.w = max_x - min_x;
+    result.h = max_y - min_y;
+
+    return result;
+}
+
+/**
+ * Get the bounding box for text within the specified range.
+ *
+ * @param text an AtkText
+ * @param start_offset The offset of the first text character for which boundary information is required.
+ * @param end_offset The offset of the text character after the last character for which boundary information is required.
+ * @param coord_type Specify whether coordinates are relative to the screen or widget window.
+ * @param [out] rect A pointer to a AtkTextRectangle which is filled in by this function.
+ */
+void eail_label_get_range_extents(AtkText *text,
+                                 gint start_offset,
+                                 gint end_offset,
+                                 AtkCoordType coord_type,
+                                 AtkTextRectangle *rect)
+{
+    if (start_offset >= end_offset)
+       return;
+
+    Evas_Object *widget = eail_widget_get_widget(EAIL_WIDGET(text));
+    Evas_Textblock_Cursor *cur1 = NULL;
+    Evas_Textblock_Cursor *cur2 = NULL;
+    Evas_Object *label_edje_layer = NULL;
+    const Evas_Object *textblock = NULL;
+
+    label_edje_layer = elm_layout_edje_get(widget);
+    textblock = edje_object_part_object_get(label_edje_layer, "elm.text");
+    cur1 = evas_object_textblock_cursor_new(textblock);
+    cur2 = evas_object_textblock_cursor_new(textblock);
+
+    evas_textblock_cursor_pos_set(cur1, start_offset);
+    evas_textblock_cursor_pos_set(cur2, end_offset);
+
+    Eina_List *list = NULL;
+    list = evas_textblock_cursor_range_geometry_get(cur1, cur2);
+
+    if (list)
+    {
+        Evas_Textblock_Rectangle rect_list = _internal_sum_rects_on_list(list);
+        rect->x = rect_list.x;
+        rect->y = rect_list.y;
+        rect->width = rect_list.w;
+        rect->height = rect_list.h;
+
+        if (coord_type == ATK_XY_SCREEN)
+        {
+            int ee_x, ee_y;
+            Ecore_Evas *ee= ecore_evas_ecore_evas_get(evas_object_evas_get(widget));
+
+            ecore_evas_geometry_get(ee, &ee_x, &ee_y, NULL, NULL);
+            rect->x += ee_x;
+            rect->y += ee_y;
+        }
+    }
+
+    if (cur1)
+        evas_textblock_cursor_free(cur1);
+    if (cur2)
+        evas_textblock_cursor_free(cur2);
+}
+
+/**
  * @brief Initializes AtkTextIface interface
  *
  * @param iface AtkTextIface instance
@@ -515,5 +633,6 @@ atk_text_interface_init(AtkTextIface *iface)
    iface->get_text_before_offset = eail_label_get_text_before_offset;
    iface->get_offset_at_point = eail_label_get_offset_at_point;
    iface->get_character_extents = eail_label_get_character_extents;
+   iface->get_range_extents = eail_label_get_range_extents;
 }
 
