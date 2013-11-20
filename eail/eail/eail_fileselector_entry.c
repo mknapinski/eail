@@ -329,6 +329,136 @@ eail_fileselector_entry_get_character_count(AtkText *text)
 }
 
 /**
+ * @brief Gets the specified text after offset
+ *
+ * Use g_free() to free the returned string.
+ *
+ * @param text AtkText instance
+ * @param offset character offset
+ * @param boundary_type AtkTextBoundary instance
+ * @param [out] start_offset start offset of the returned string
+ * @param [out] end_offset offset of the first character after the returned
+ * substring
+ * @returns newly allocated string containing the text after offset bounded
+ * by the specified boundary_type
+ */
+static gchar *
+eail_fileselector_entry_get_text_after_offset(AtkText *text,
+                                              gint offset,
+                                              AtkTextBoundary boundary_type,
+                                              gint *start_offset,
+                                              gint *end_offset)
+{
+   Evas_Object *widget;
+   Evas_Object *textblock;
+   Evas_Object *entry = NULL;
+   Evas_Object *fileselector_entry_edje_layer = NULL;
+
+   widget = eail_widget_get_widget(EAIL_WIDGET(text));
+   if (!widget) return NULL;
+
+   fileselector_entry_edje_layer = elm_layout_edje_get(widget);
+   if (!fileselector_entry_edje_layer) return NULL;
+
+   entry = edje_object_part_swallow_get(fileselector_entry_edje_layer,
+                                        "elm.swallow.entry");
+   if (!entry) return NULL;
+
+   textblock = elm_entry_textblock_get(entry);
+   if (!textblock) return NULL;
+
+   return eail_get_text_after(textblock, offset, boundary_type, start_offset,
+                              end_offset);
+
+}
+
+/**
+ * @brief Gets the specified text at offset
+ *
+ * Use g_free() to free the returned string.
+ *
+ * @param text AtkText instance
+ * @param offset character offset
+ * @param boundary_type AtkTextBoundary instance
+ * @param [out] start_offset start offset of the returned string
+ * @param [out] end_offset offset of the first character after the returned
+ * substring
+ * @returns newly allocated string containing the text after offset bounded
+ * by the specified boundary_type
+ */
+static gchar *
+eail_fileselector_entry_get_text_at_offset(AtkText *text,
+                                           gint offset,
+                                           AtkTextBoundary boundary_type,
+                                           gint *start_offset,
+                                           gint *end_offset)
+{
+   Evas_Object *widget;
+   Evas_Object *textblock;
+   Evas_Object *entry = NULL;
+   Evas_Object *fileselector_entry_edje_layer = NULL;
+
+   widget = eail_widget_get_widget(EAIL_WIDGET(text));
+   if (!widget) return NULL;
+
+   fileselector_entry_edje_layer = elm_layout_edje_get(widget);
+   if (!fileselector_entry_edje_layer) return NULL;
+
+   entry = edje_object_part_swallow_get(fileselector_entry_edje_layer,
+                                        "elm.swallow.entry");
+   if (!entry) return NULL;
+
+   textblock = elm_entry_textblock_get(entry);
+   if (!textblock) return NULL;
+
+   return eail_get_text_at(textblock, offset, boundary_type, start_offset,
+                           end_offset);
+}
+
+/**
+ * @brief Gets the specified text before offset
+ *
+ * Use g_free() to free the returned string.
+ *
+ * @param text AtkText instance
+ * @param offset character offset
+ * @param boundary_type AtkTextBoundary instance
+ * @param [out] start_offset start offset of the returned string
+ * @param [out] end_offset offset of the first character after the returned
+ * substring
+ * @returns newly allocated string containing the text after offset bounded
+ * by the specified boundary_type
+ */
+static gchar *
+eail_fileselector_entry_get_text_before_offset(AtkText *text,
+                                               gint offset,
+                                               AtkTextBoundary boundary_type,
+                                               gint *start_offset,
+                                               gint *end_offset)
+{
+   Evas_Object *widget;
+   Evas_Object *textblock;
+   Evas_Object *entry = NULL;
+   Evas_Object *fileselector_entry_edje_layer = NULL;
+
+   widget = eail_widget_get_widget(EAIL_WIDGET(text));
+   if (!widget) return NULL;
+
+   fileselector_entry_edje_layer = elm_layout_edje_get(widget);
+   if (!fileselector_entry_edje_layer) return NULL;
+
+   entry = edje_object_part_swallow_get(fileselector_entry_edje_layer,
+                                        "elm.swallow.entry");
+   if (!entry) return NULL;
+
+   textblock = elm_entry_textblock_get(entry);
+   if (!textblock) return NULL;
+
+   return eail_get_text_before(textblock, offset, boundary_type, start_offset,
+                               end_offset);
+}
+
+/**
  * @brief Initializer for AtkTextIface interface
  *
  * @param iface AtkTextIface instance
@@ -339,6 +469,9 @@ atk_text_interface_init(AtkTextIface *iface)
     iface->get_text = eail_fileselector_entry_get_text;
     iface->get_character_at_offset = eail_fileselector_entry_get_character_at_offset;
     iface->get_character_count = eail_fileselector_entry_get_character_count;
+    iface->get_text_after_offset = eail_fileselector_entry_get_text_after_offset;
+    iface->get_text_at_offset = eail_fileselector_entry_get_text_at_offset;
+    iface->get_text_before_offset = eail_fileselector_entry_get_text_before_offset;
 }
 
 /*
