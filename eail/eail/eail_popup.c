@@ -421,6 +421,82 @@ eail_popup_get_character_count(AtkText *popup)
 }
 
 /**
+ * @brief Get the bounding box containing the glyph
+ *  representing the character at a particular text offset.
+ *
+ * @param text AtkText instance
+ * @param offset The offset of the text character for which
+ * bounding information is required.
+ * @param x Pointer for the x cordinate of the bounding box
+ * @param y Pointer for the y cordinate of the bounding box
+ * @param width Pointer for the width of the bounding box
+ * @param height Pointer for the height of the bounding box
+ * @param coords specify whether coordinates are relative to the
+ * screen or widget window
+ *
+ */
+static void
+eail_popup_get_character_extents(AtkText *text,
+                                 gint offset,
+                                 gint *x,
+                                 gint *y,
+                                 gint *width,
+                                 gint *height,
+                                 AtkCoordType coords)
+{
+   int result = -1;
+   const Evas_Object *textblock = NULL;
+   Evas_Textblock_Cursor *cur = NULL;
+   Evas_Object *label = NULL;
+   Evas_Object *layout = NULL;
+   Evas_Object *layout_edje_layer = NULL;
+   Evas_Object *label_edje_layer = NULL;
+   Evas_Object *popup_edje_layer = NULL;
+
+   Evas_Object *widget = eail_widget_get_widget(EAIL_WIDGET(text));
+   if (!widget) return;
+
+   popup_edje_layer = elm_layout_edje_get(widget);
+   if (!popup_edje_layer) return;
+
+   layout = edje_object_part_swallow_get(popup_edje_layer, "elm.swallow.content");
+   if (!layout) return;
+
+   layout_edje_layer = elm_layout_edje_get(layout);
+   if (!layout_edje_layer) return;
+
+   label = edje_object_part_swallow_get(layout_edje_layer, "elm.swallow.content");
+   if (!label) return;
+
+   label_edje_layer = elm_layout_edje_get(label);
+   if (!label_edje_layer) return;
+
+   textblock = edje_object_part_object_get(label_edje_layer, "elm.text");
+   if (!textblock) return;
+
+   cur = evas_object_textblock_cursor_new(textblock);
+   if (!cur) return;
+
+   evas_textblock_cursor_pos_set(cur, offset);
+
+   result = evas_textblock_cursor_char_geometry_get(cur, x, y, width, height);
+
+   evas_textblock_cursor_free(cur);
+
+   if (-1 == result) return;
+
+   if (coords == ATK_XY_SCREEN)
+   {
+      int ee_x, ee_y;
+      Ecore_Evas *ee= ecore_evas_ecore_evas_get(evas_object_evas_get(widget));
+
+      ecore_evas_geometry_get(ee, &ee_x, &ee_y, NULL, NULL);
+      *x += ee_x;
+      *y += ee_y;
+    }
+}
+
+/**
  * @brief Initializer for AtkTextIface interface class
  *
  * Defines callbacks for AtkTextIface.
@@ -433,4 +509,5 @@ atk_text_interface_init(AtkTextIface *iface)
     iface->get_text = eail_popup_get_text;
     iface->get_character_at_offset = eail_popup_get_character_at_offset;
     iface->get_character_count = eail_popup_get_character_count;
+    iface->get_character_extents = eail_popup_get_character_extents;
 }

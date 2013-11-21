@@ -27,6 +27,7 @@
 #include "eail_bubble.h"
 
 static void atk_action_interface_init(AtkActionIface *iface);
+static void atk_text_interface_init(AtkTextIface *iface);
 
 /**
  * @brief Definition of EailBubble type
@@ -34,6 +35,8 @@ static void atk_action_interface_init(AtkActionIface *iface);
 G_DEFINE_TYPE_WITH_CODE(EailBubble,
                         eail_bubble,
                         EAIL_TYPE_TEXT,
+                        G_IMPLEMENT_INTERFACE(ATK_TYPE_TEXT,
+                                              atk_text_interface_init)
                         G_IMPLEMENT_INTERFACE(ATK_TYPE_ACTION,
                                               atk_action_interface_init));
 
@@ -296,4 +299,84 @@ atk_action_interface_init(AtkActionIface *iface)
    iface->set_description = eail_bubble_description_set;
    iface->get_name        = eail_bubble_action_name_get;
    iface->do_action       = eail_bubble_do_action;
+}
+
+/**
+ * @brief Get the bounding box containing the glyph
+ *  representing the character at a particular text offset.
+ *
+ * @param text AtkText instance
+ * @param offset The offset of the text character for which
+ * bounding information is required.
+ * @param x Pointer for the x cordinate of the bounding box
+ * @param y Pointer for the y cordinate of the bounding box
+ * @param width Pointer for the width of the bounding box
+ * @param height Pointer for the height of the bounding box
+ * @param coords specify whether coordinates are relative to the
+ * screen or widget window
+ *
+ */
+static void
+eail_bubble_get_character_extents(AtkText *text,
+                                  gint offset,
+                                  gint *x,
+                                  gint *y,
+                                  gint *width,
+                                  gint *height,
+                                  AtkCoordType coords)
+{
+   int result = -1;
+   const Evas_Object *textblock = NULL;
+   Evas_Textblock_Cursor *cur = NULL;
+   Evas_Object *label = NULL;
+   Evas_Object *label_edje_layer = NULL;
+   Evas_Object *bubble_edje_layer = NULL;
+
+   Evas_Object *widget = eail_widget_get_widget(EAIL_WIDGET(text));
+   if (!widget) return;
+
+   bubble_edje_layer = elm_layout_edje_get(widget);
+   if (!bubble_edje_layer) return;
+
+   label= edje_object_part_swallow_get(bubble_edje_layer, "elm.swallow.content");
+   if (!label) return;
+
+   label_edje_layer = elm_layout_edje_get(label);
+   if (!label_edje_layer) return;
+
+   textblock = edje_object_part_object_get(label_edje_layer, "elm.text");
+   if (!textblock) return;
+
+   cur = evas_object_textblock_cursor_new(textblock);
+   if (!cur) return;
+
+   evas_textblock_cursor_pos_set(cur, offset);
+
+   result = evas_textblock_cursor_char_geometry_get(cur, x, y, width, height);
+
+   evas_textblock_cursor_free(cur);
+
+   if (-1 == result) return;
+
+   if (coords == ATK_XY_SCREEN)
+   {
+      int ee_x, ee_y;
+      Ecore_Evas *ee= ecore_evas_ecore_evas_get(evas_object_evas_get(widget));
+
+      ecore_evas_geometry_get(ee, &ee_x, &ee_y, NULL, NULL);
+      *x += ee_x;
+      *y += ee_y;
+    }
+}
+
+
+/**
+ * @brief Initializes AtkTextIface interface
+ *
+ * @param iface AtkTextIface instance
+ */
+static void
+atk_text_interface_init(AtkTextIface *iface)
+{
+   iface->get_character_extents = eail_bubble_get_character_extents;
 }
