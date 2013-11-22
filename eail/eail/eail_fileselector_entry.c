@@ -76,6 +76,8 @@ eail_fileselector_entry_initialize(AtkObject *obj, gpointer data)
 static void
 eail_fileselector_entry_init(EailFileselectorEntry *fileselector_entry)
 {
+   fileselector_entry->selection_start = 0;
+   fileselector_entry->selection_end = 0;
 }
 
 /**
@@ -523,6 +525,204 @@ eail_fileselector_entry_get_character_extents(AtkText *text,
     }
 }
 
+/*
+ * @brief Adds a selection bounded by the specified offsets
+ *
+ * @param text AtkText instance
+ * @param start_offset start position of the selection
+ * @param end_offset offset of the first character after selection
+ * @returns TRUE on success, FALSE otherwise
+ */
+static gboolean
+eail_fileselector_entry_add_selection(AtkText *text,
+                                      gint start_offset,
+                                      gint end_offset)
+{
+   Evas_Object *widget;
+   Evas_Object *entry;
+   Evas_Object *fileselector_entry_edje_layer = NULL;
+
+   widget = eail_widget_get_widget(EAIL_WIDGET(text));
+   if (!widget)
+     return FALSE;
+
+   fileselector_entry_edje_layer = elm_layout_edje_get(widget);
+   if (!fileselector_entry_edje_layer)
+     return FALSE;
+
+   entry = edje_object_part_swallow_get(fileselector_entry_edje_layer,
+                                        "elm.swallow.entry");
+   if (!entry)
+     return FALSE;
+
+   elm_entry_cursor_pos_set(entry, start_offset);
+   elm_entry_cursor_selection_begin(entry);
+   elm_entry_cursor_pos_set(entry, end_offset);
+   elm_entry_cursor_selection_end(entry);
+
+   EAIL_FILESELECTOR_ENTRY(text)->selection_start = start_offset;
+   EAIL_FILESELECTOR_ENTRY(text)->selection_end = end_offset;
+
+   return TRUE;
+}
+
+/**
+ * @brief Removes text selection
+ *
+ * This widget supports only one selection
+ * so selection_num should always be 0.
+ *
+ * @param text AtkText instance
+ * @param selection_num selection number
+ * @return TRUE on success, FALSE otherwise
+ */
+static gboolean
+eail_fileselector_entry_remove_selection(AtkText *text,
+                                         gint selection_num)
+{
+   Evas_Object *widget;
+   Evas_Object *entry;
+   Evas_Object *fileselector_entry_edje_layer = NULL;
+
+   widget = eail_widget_get_widget(EAIL_WIDGET(text));
+   if (!widget)
+     return FALSE;
+
+   fileselector_entry_edje_layer = elm_layout_edje_get(widget);
+   if (!fileselector_entry_edje_layer)
+     return FALSE;
+
+   entry = edje_object_part_swallow_get(fileselector_entry_edje_layer,
+                                        "elm.swallow.entry");
+   if (!entry)
+     return FALSE;
+
+   if (selection_num != 0 || !elm_entry_selection_get(entry))
+     return FALSE;
+
+   elm_entry_select_none(entry);
+   EAIL_FILESELECTOR_ENTRY(text)->selection_start = 0;
+   EAIL_FILESELECTOR_ENTRY(text)->selection_end = 0;
+
+   return TRUE;
+}
+
+/**
+ * @brief Sets text selection for fileselector_entry
+ *
+ * This widget supports only one selection
+ * so selection_num should always be 0.
+ *
+ * @param text AtkText instance
+ * @param selection_num selection number
+ * @param start_pos start position of the selected region
+ * @param end_pos end position of the selected region
+ *
+ * @returns TRUE on success, FALSE otherwise
+ */
+static gboolean
+eail_fileselector_entry_set_selection(AtkText *text,
+                                      gint     selection_num,
+                                      gint     start_pos,
+                                      gint     end_pos)
+{
+   if (0 != selection_num)
+     return FALSE;
+
+   return eail_fileselector_entry_add_selection(text, start_pos, end_pos);
+}
+
+/**
+ * @brief Gets text selection from fileselector_entry
+ *
+ * Use g_free() to free the returned string.
+ *
+ * This widget supports only one selection
+ * so selection_num should always be 0.
+ *
+ * @param text AtkText instance
+ * @param selection_num selection number
+ * @param start_offset start position of the selected region
+ * @param end_offset end position of the selected region
+ *
+ * @returns newly allocated string containing the selected text
+ */
+static gchar *
+eail_fileselector_entry_get_selection(AtkText *text,
+                                      gint     selection_num,
+                                      gint    *start_offset,
+                                      gint    *end_offset)
+{
+   const char* selection;
+   Evas_Object *widget;
+   Evas_Object *entry;
+   Evas_Object *fileselector_entry_edje_layer = NULL;
+
+   if (0 != selection_num)
+     return g_strdup("");
+
+   widget = eail_widget_get_widget(EAIL_WIDGET(text));
+   if (!widget)
+     return g_strdup("");
+
+   fileselector_entry_edje_layer = elm_layout_edje_get(widget);
+   if (!fileselector_entry_edje_layer)
+     return g_strdup("");
+
+   entry = edje_object_part_swallow_get(fileselector_entry_edje_layer,
+                                        "elm.swallow.entry");
+   if (!widget)
+     return g_strdup("");
+
+   selection = elm_entry_selection_get(entry);
+   if (selection)
+   {
+     *start_offset = EAIL_FILESELECTOR_ENTRY(text)->selection_start;
+     *end_offset = EAIL_FILESELECTOR_ENTRY(text)->selection_end;
+     return g_strdup(selection);
+   }
+
+   return g_strdup("");
+}
+
+
+/**
+ * @brief Gets the number of selected text regions
+ *
+ * Only one selection is supported by this widget
+ * so the returned value is 0 or 1.
+ *
+ * @param text AtkText instance
+ * @returns integer representing the number of
+ * selected text regions
+ */
+static gint
+eail_fileselector_entry_get_n_selections(AtkText *text)
+{
+   Evas_Object *widget;
+   Evas_Object *entry;
+   Evas_Object *fileselector_entry_edje_layer = NULL;
+
+   widget = eail_widget_get_widget(EAIL_WIDGET(text));
+   if (!widget)
+     return 0;
+
+   fileselector_entry_edje_layer = elm_layout_edje_get(widget);
+   if (!fileselector_entry_edje_layer)
+     return 0;
+
+   entry = edje_object_part_swallow_get(fileselector_entry_edje_layer,
+                                        "elm.swallow.entry");
+   if (!entry)
+     return 0;
+
+   if (elm_entry_selection_get(entry))
+     return 1;
+
+   return 0;
+}
+
+
 /**
  * @brief Initializer for AtkTextIface interface
  *
@@ -538,6 +738,11 @@ atk_text_interface_init(AtkTextIface *iface)
     iface->get_text_at_offset = eail_fileselector_entry_get_text_at_offset;
     iface->get_text_before_offset = eail_fileselector_entry_get_text_before_offset;
     iface->get_character_extents = eail_fileselector_entry_get_character_extents;
+    iface->get_selection = eail_fileselector_entry_get_selection;
+    iface->set_selection = eail_fileselector_entry_set_selection;
+    iface->get_n_selections = eail_fileselector_entry_get_n_selections;
+    iface->add_selection = eail_fileselector_entry_add_selection;
+    iface->remove_selection = eail_fileselector_entry_remove_selection;
 }
 
 /*

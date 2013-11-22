@@ -81,7 +81,10 @@ typedef struct _EailFileselectorEntryClass EailFileselectorEntryClass;
 struct _EailFileselectorEntry
 {
    EailActionWidget parent;/**< @brief Parent widget whose functionality is being extended */
-
+   /** @brief Selection region start */
+   gint selection_start;
+   /** @brief Selection region end */
+   gint selection_end;
 };
 
 /** @brief Definition of object structure for Atk EailEntry*/
