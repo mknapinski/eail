@@ -30,6 +30,7 @@
 #include "eail_factory.h"
 #include "eail_utils.h"
 #include "eail_priv.h"
+#include "eail_text.h"
 
 static void atk_text_interface_init(AtkTextIface *iface);
 
@@ -496,6 +497,92 @@ eail_popup_get_character_extents(AtkText *text,
     }
 }
 
+/*
+ * @brief Creates an AtkAttributeSet which consists of the attributes
+ * explicitly set at the position offset in the text.
+ *
+ * start_offset and end_offset are set to the start and end of the range around offset
+ * where the attributes are invariant.
+ *
+ * Note that end_offset is the offset of the first character after the range.
+ *
+ * This AtkAttributeSet should be freed by a call to
+ * atk_attribute_set_free()
+ *
+ * @param text AtkText instance
+ * @param offset the offset at which to get the attributes
+ * @param [out] start_offset start offset of the range
+ * @param [out] end_offset end offset of the range
+ *
+ * @returns an AtkAttributeSet which contains the attributes explicitly set at
+ * offset.
+ */
+static AtkAttributeSet *
+eail_popup_get_run_attributes(AtkText *text,
+                              gint offset,
+                              gint *start_offset,
+                              gint *end_offset)
+{
+   AtkAttributeSet *at_set = NULL;
+   Evas_Object *widget = eail_widget_get_widget(EAIL_WIDGET(text));
+   gint len = eail_popup_get_character_count(ATK_TEXT(text));
+
+   if (!widget || offset >= len)
+     {
+        *start_offset = -1;
+        *end_offset = -1;
+
+        return NULL;
+     }
+
+   *start_offset = 0;
+   *end_offset = len;
+
+   /* NOTE: Elm_Wrap_Type value is in 100% compatible with ATK wrap modes, so
+    * no additional conversion is needed*/
+   Elm_Wrap_Type wrap_type = elm_popup_content_text_wrap_type_get(widget);
+   at_set = eail_utils_text_add_attribute
+       (at_set, ATK_TEXT_ATTR_WRAP_MODE,
+        atk_text_attribute_get_value
+         (ATK_TEXT_ATTR_WRAP_MODE, wrap_type));
+
+   at_set = eail_utils_text_add_attribute
+       (at_set, ATK_TEXT_ATTR_EDITABLE,
+        atk_text_attribute_get_value
+         (ATK_TEXT_ATTR_EDITABLE, FALSE));
+
+   return at_set;
+}
+
+/**
+ * @brief Creates an AtkAttributeSet which consists of the default values of
+ * attributes for the text.
+ *
+ * This AtkAttributeSet should be freed by a call to
+ * atk_attribute_set_free()
+ *
+ * @param text AtkText instance
+ *
+ * @returns AtkAttributeSet containing default values of attributes
+ * at offset.
+ */
+static AtkAttributeSet *
+eail_popup_get_default_attributes(AtkText *text)
+{
+   AtkAttributeSet *at_set = NULL;
+
+   at_set = eail_utils_text_add_attribute
+       (at_set, ATK_TEXT_ATTR_WRAP_MODE,
+        atk_text_attribute_get_value(ATK_TEXT_ATTR_WRAP_MODE, 0));
+
+   at_set = eail_utils_text_add_attribute
+       (at_set, ATK_TEXT_ATTR_EDITABLE,
+        atk_text_attribute_get_value
+         (ATK_TEXT_ATTR_EDITABLE, FALSE));
+
+   return at_set;
+}
+
 /**
  * @brief Initializer for AtkTextIface interface class
  *
@@ -510,4 +597,6 @@ atk_text_interface_init(AtkTextIface *iface)
     iface->get_character_at_offset = eail_popup_get_character_at_offset;
     iface->get_character_count = eail_popup_get_character_count;
     iface->get_character_extents = eail_popup_get_character_extents;
+    iface->get_run_attributes = eail_popup_get_run_attributes;
+    iface->get_default_attributes = eail_popup_get_default_attributes;
 }

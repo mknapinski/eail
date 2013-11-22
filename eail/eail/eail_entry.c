@@ -567,31 +567,6 @@ eail_entry_get_character_count(AtkText *text)
 }
 
 /**
- * @brief Adds attribute to attribute set
- *
- * Creates an AtkAttribute from attr and value, and adds it
- * to attrib_set.
- *
- * @param attrib_set AtkAttributeSet instance to add the attribute to
- * @param attr AtkTextAttrribute instance which identifies the attribute to be added
- * @param value attribute value
- *
- * @returns: AtkAttributeSet representing the new attribute set
- **/
-AtkAttributeSet*
-eail_entry_add_attribute(AtkAttributeSet *attrib_set,
-                         AtkTextAttribute attr,
-                         gchar           *value)
-{
-   AtkAttributeSet *return_set;
-   AtkAttribute *at = g_malloc (sizeof (AtkAttribute));
-   at->name = g_strdup (atk_text_attribute_get_name (attr));
-   at->value = value;
-   return_set = g_slist_prepend(attrib_set, at);
-   return return_set;
-}
-
-/**
  * @brief Creates an AtkAttributeSet which consists of the default values of
  * attributes for the text
  *
@@ -603,21 +578,19 @@ eail_entry_add_attribute(AtkAttributeSet *attrib_set,
  * @returns AtkAttributeSet which contains the default values of attributes
  * at offset
  */
-AtkAttributeSet *
+static AtkAttributeSet *
 eail_entry_get_default_attributes(AtkText *text)
 {
    AtkAttributeSet *at_set = NULL;
 
-   at_set = eail_entry_add_attribute
+   at_set = eail_utils_text_add_attribute
        (at_set, ATK_TEXT_ATTR_WRAP_MODE,
-        g_strdup
-        (atk_text_attribute_get_value(ATK_TEXT_ATTR_WRAP_MODE, 0)));
+        atk_text_attribute_get_value(ATK_TEXT_ATTR_WRAP_MODE, 0));
 
-   at_set = eail_entry_add_attribute
+   at_set = eail_utils_text_add_attribute
        (at_set, ATK_TEXT_ATTR_EDITABLE,
-        g_strdup
-        (atk_text_attribute_get_value
-         (ATK_TEXT_ATTR_EDITABLE, TRUE)));
+        atk_text_attribute_get_value
+         (ATK_TEXT_ATTR_EDITABLE, TRUE));
 
    return at_set;
 }
@@ -641,7 +614,7 @@ eail_entry_get_default_attributes(AtkText *text)
  * @returns AtkAttributeSet which contains the attributes explicitly set at
  * offset
  */
-AtkAttributeSet *
+static AtkAttributeSet *
 eail_entry_get_run_attributes(AtkText *text,
                               gint offset,
                               gint *start_offset,
@@ -664,18 +637,16 @@ eail_entry_get_run_attributes(AtkText *text,
    /* NOTE: Elm_Wrap_Type value is in 100% compatible with ATK wrap modes, so
     * no additional conversion is needed*/
    Elm_Wrap_Type wrap_type = elm_entry_line_wrap_get(widget);
-   at_set = eail_entry_add_attribute
+   at_set = eail_utils_text_add_attribute
        (at_set, ATK_TEXT_ATTR_WRAP_MODE,
-        g_strdup
-        (atk_text_attribute_get_value
-         (ATK_TEXT_ATTR_WRAP_MODE, wrap_type)));
+        atk_text_attribute_get_value
+         (ATK_TEXT_ATTR_WRAP_MODE, wrap_type));
 
    Eina_Bool editable = elm_entry_editable_get(widget);
-   at_set = eail_entry_add_attribute
+   at_set = eail_utils_text_add_attribute
        (at_set, ATK_TEXT_ATTR_EDITABLE,
-        g_strdup
-        (atk_text_attribute_get_value
-         (ATK_TEXT_ATTR_EDITABLE, editable)));
+        atk_text_attribute_get_value
+         (ATK_TEXT_ATTR_EDITABLE, editable));
 
    return at_set;
 }

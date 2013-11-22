@@ -239,6 +239,22 @@ eail_get_text_before(const Evas_Object *textblock,
                      AtkTextBoundary boundary_type,
                      gint *start_offset,
                      gint *end_offset);
+/*
+ * @brief Helper function to add attribute to attribute set
+ *
+ * @param attrib_set AtkAttributeSet to add the attribute to
+ * @param attr AtkTextAttrribute to be added
+ * @param value attribute value
+ *
+ * Creates an AtkAttribute from attr and value, and adds it
+ * to attrib_set.
+ *
+ * @returns AtkAttributeSet containing set with added attribute
+ **/
+AtkAttributeSet*
+eail_utils_text_add_attribute(AtkAttributeSet *attrib_set,
+                              AtkTextAttribute attr,
+                              const gchar     *value);
 #ifdef __cplusplus
 }
 #endif

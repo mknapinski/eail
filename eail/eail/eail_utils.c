@@ -1347,3 +1347,28 @@ eail_get_text_before(const Evas_Object *textblock,
 
    return g_utf8_substring(text, start, end);
 }
+
+/*
+ * @brief Adds attribute to attribute set
+ *
+ * @param attrib_set AtkAttributeSet to add the attribute to
+ * @param attr AtkTextAttrribute to be added
+ * @param value attribute value
+ *
+ * Creates an AtkAttribute from attr and value, and adds it
+ * to attrib_set.
+ *
+ * @returns AtkAttributeSet containing set with added attribute
+ **/
+AtkAttributeSet*
+eail_utils_text_add_attribute(AtkAttributeSet *attrib_set,
+                              AtkTextAttribute attr,
+                              const gchar     *value)
+{
+   AtkAttributeSet *return_set;
+   AtkAttribute *at = g_malloc (sizeof (AtkAttribute));
+   at->name = g_strdup (atk_text_attribute_get_name (attr));
+   at->value = g_strdup(value);
+   return_set = g_slist_prepend(attrib_set, at);
+   return return_set;
+}
