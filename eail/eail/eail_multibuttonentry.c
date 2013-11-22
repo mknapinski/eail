@@ -477,6 +477,117 @@ eail_multibuttonentry_get_n_selections(AtkText *text)
    return 0;
 }
 
+/*
+ * @brief Gets the specified text after offset
+ *
+ * Use g_free() to free the returned string.
+ *
+ * @param text AtkText instance
+ * @param offset character offset
+ * @param boundary_type AtkTextBoundary instance
+ * @param [out] start_offset start offset of the returned string
+ * @param [out] end_offset offset of the first character after the returned
+ * substring
+ * @returns newly allocated string containing the text after offset bounded
+ * by the specified boundary_type
+ */
+static gchar *
+eail_multibuttonentry_get_text_after_offset(AtkText *text,
+                                            gint offset,
+                                            AtkTextBoundary boundary_type,
+                                            gint *start_offset,
+                                            gint *end_offset)
+{
+   Evas_Object *widget;
+   Evas_Object *textblock;
+   Evas_Object *entry = NULL;
+
+   widget = eail_widget_get_widget(EAIL_WIDGET(text));
+   if (!widget) return NULL;
+
+   entry = elm_multibuttonentry_entry_get(widget);
+   if (!entry) return NULL;
+
+   textblock = elm_entry_textblock_get(entry);
+
+   return eail_get_text_after(textblock, offset, boundary_type, start_offset,
+                              end_offset);
+
+}
+
+/**
+ * @brief Gets the specified text at offset
+ *
+ * Use g_free() to free the returned string.
+ *
+ * @param text AtkText instance
+ * @param offset character offset
+ * @param boundary_type AtkTextBoundary instance
+ * @param [out] start_offset start offset of the returned string
+ * @param [out] end_offset offset of the first character after the returned
+ * substring
+ * @returns newly allocated string containing the text after offset bounded
+ * by the specified boundary_type
+ */
+static gchar *
+eail_multibuttonentry_get_text_at_offset(AtkText *text,
+                                         gint offset,
+                                         AtkTextBoundary boundary_type,
+                                         gint *start_offset,
+                                         gint *end_offset)
+{
+   Evas_Object *widget;
+   Evas_Object *textblock;
+   Evas_Object *entry = NULL;
+
+   widget = eail_widget_get_widget(EAIL_WIDGET(text));
+   if (!widget) return NULL;
+
+   entry = elm_multibuttonentry_entry_get(widget);
+   if (!entry) return NULL;
+
+   textblock = elm_entry_textblock_get(entry);
+
+   return eail_get_text_at(textblock, offset, boundary_type, start_offset,
+                           end_offset);
+}
+
+/**
+ * @brief Gets the specified text before offset
+ *
+ * Use g_free() to free the returned string.
+ *
+ * @param text AtkText instance
+ * @param offset character offset
+ * @param boundary_type AtkTextBoundary instance
+ * @param [out] start_offset start offset of the returned string
+ * @param [out] end_offset offset of the first character after the returned
+ * substring
+ * @returns newly allocated string containing the text after offset bounded
+ * by the specified boundary_type
+ */
+static gchar *
+eail_multibuttonentry_get_text_before_offset(AtkText *text,
+                                             gint offset,
+                                             AtkTextBoundary boundary_type,
+                                             gint *start_offset,
+                                             gint *end_offset)
+{
+   Evas_Object *widget;
+   Evas_Object *textblock;
+   Evas_Object *entry = NULL;
+
+   widget = eail_widget_get_widget(EAIL_WIDGET(text));
+   if (!widget) return NULL;
+
+   entry = elm_multibuttonentry_entry_get(widget);
+   if (!entry) return NULL;
+
+   textblock = elm_entry_textblock_get(entry);
+
+   return eail_get_text_before(textblock, offset, boundary_type, start_offset,
+                               end_offset);
+}
 
 /**
  * @brief AktText initialization function
@@ -497,6 +608,9 @@ atk_text_interface_init(AtkTextIface *iface)
    iface->get_selection    = eail_multibuttonentry_get_selection;
    iface->set_selection    = eail_multibuttonentry_set_selection;
    iface->get_n_selections = eail_multibuttonentry_get_n_selections;
+   iface->get_text_after_offset = eail_multibuttonentry_get_text_after_offset;
+   iface->get_text_at_offset = eail_multibuttonentry_get_text_at_offset;
+   iface->get_text_before_offset = eail_multibuttonentry_get_text_before_offset;
 }
 
 /**
