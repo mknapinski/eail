@@ -26,16 +26,11 @@
 
 #include "eail_route.h"
 
-static void atk_value_interface_init(AtkValueIface *iface);
 
 /**
- * @brief Define EailRoute GObject type
- */
-G_DEFINE_TYPE_WITH_CODE(EailRoute,
-                        eail_route,
-                        EAIL_TYPE_WIDGET,
-                        G_IMPLEMENT_INTERFACE(ATK_TYPE_VALUE,
-                                              atk_value_interface_init));
+* @brief Define EailRoute GObject type
+*/
+ G_DEFINE_TYPE(EailRoute, eail_route, EAIL_TYPE_WIDGET);
 
 /**
  * @brief EailRoute object initialization
@@ -74,49 +69,4 @@ eail_route_class_init(EailRouteClass *klass)
    atk_class->initialize = eail_route_initialize;
 }
 
-/*
- * Implementation of the *AtkValue* interface
- */
 
-/**
- * @brief Gets the current value of obj
- *
- * @param obj AtkValue instance
- * @param [out] value obj's current value
- */
-static void
-eail_route_get_current_value(AtkValue *obj,
-                             GValue   *value)
-{
-   double longitude_min, longitude_max;
-   double latitude_min, latitude_max;
-   Evas_Object *widget;
-   gchar buf[200];
-
-   widget = eail_widget_get_widget(EAIL_WIDGET(obj));
-   if (!widget) return;
-
-   elm_route_longitude_min_max_get(widget, &longitude_min, &longitude_max);
-   elm_route_latitude_min_max_get(widget, &latitude_min, &latitude_max);
-
-   g_snprintf(buf, sizeof(buf), "<longitude><min>%0.6f</min><max>%0.6f</max></longitude>\n"
-                                "<latitude><min>%0.6f</min><max>%0.6f</max></latitude>",
-                                 longitude_min, longitude_max, latitude_min, latitude_max);
-
-   memset(value, 0, sizeof(GValue));
-   g_value_init(value, G_TYPE_STRING);
-   g_value_set_string(value, buf);
-}
-
-/**
- * @brief AtkValue interface initialization
- *
- * @param iface AtkValueIface instance
- */
-static void
-atk_value_interface_init(AtkValueIface *iface)
-{
-   g_return_if_fail(iface != NULL);
-
-   iface->get_current_value = eail_route_get_current_value;
-}
