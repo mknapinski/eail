@@ -155,254 +155,254 @@ _eail_factory_create_accessible(Evas_Object *widget)
 
    type = elm_object_widget_type_get(widget);
 
-   if (!strcmp(type, "elm_win"))
+   if ((!strcmp(type, "Elm_Win")) || (!strcmp(type, "elm_win")))
      {
         accessible = g_object_new(EAIL_TYPE_WINDOW, NULL);
      }
-   else if (!strcmp(type, "elm_bg"))
+   else if ((!strcmp(type, "Elm_Bg")) || (!strcmp(type, "elm_bg")))
      {
         accessible = g_object_new(EAIL_TYPE_BACKGROUND, NULL);
      }
-   else if (!strcmp(type, "elm_box"))
+   else if ((!strcmp(type, "Elm_Box")) || (!strcmp(type, "elm_box")))
      {
         accessible = g_object_new(EAIL_TYPE_BOX, NULL);
      }
-   else if (!strcmp(type, "elm_list"))
+   else if ((!strcmp(type, "Elm_List")) || (!strcmp(type, "elm_list")))
      {
         accessible = g_object_new(EAIL_TYPE_LIST, NULL);
      }
-   else if (!strcmp(type, "elm_genlist"))
+   else if ((!strcmp(type, "Elm_Genlist")) || (!strcmp(type, "elm_genlist")))
      {
         accessible = g_object_new(EAIL_TYPE_GENLIST, NULL);
      }
-   else if (!strcmp(type, "elm_label"))
+   else if ((!strcmp(type, "Elm_Label")) || (!strcmp(type, "elm_label")))
      {
         accessible = g_object_new(EAIL_TYPE_LABEL, NULL);
      }
-   else if (!strcmp(type, "elm_button"))
+   else if ((!strcmp(type, "Elm_Button")) || (!strcmp(type, "elm_button")))
      {
         accessible = g_object_new(EAIL_TYPE_BUTTON, NULL);
      }
-   else if (!strcmp(type, "elm_icon"))
+   else if ((!strcmp(type, "Elm_Icon")) || (!strcmp(type, "elm_icon")))
      {
         accessible = g_object_new(EAIL_TYPE_ICON, NULL);
      }
-   else if ((!strcmp(type, "entry")) || (!strcmp(type, "elm_entry")))
+   else if ((!strcmp(type, "entry")) || (!strcmp(type, "Elm_Entry")) || (!strcmp(type, "elm_entry")))
      {
         accessible = g_object_new(EAIL_TYPE_ENTRY, NULL);
      }
-   else if (!strcmp(type, "elm_frame"))
+   else if ((!strcmp(type, "Elm_Frame")) || (!strcmp(type, "elm_frame")))
      {
         accessible = g_object_new(EAIL_TYPE_FRAME, NULL);
      }
-   else if (!strcmp(type, "elm_scroller"))
+   else if ((!strcmp(type, "Elm_Scroller")) || (!strcmp(type, "elm_scroller")))
      {
         accessible = g_object_new(EAIL_TYPE_SCROLLER, NULL);
      }
-   else if (!strcmp(type, "elm_inwin"))
+   else if ((!strcmp(type, "Elm_Inwin")) || (!strcmp(type, "elm_inwin")))
      {
         accessible = g_object_new(EAIL_TYPE_INWIN, NULL);
      }
-   else if (!strcmp(type, "elm_slider"))
+   else if ((!strcmp(type, "Elm_Slider")) || (!strcmp(type, "elm_slider")))
      {
         accessible = g_object_new(EAIL_TYPE_SLIDER, NULL);
      }
-   else if (!strcmp(type, "elm_actionslider"))
+   else if ((!strcmp(type, "Elm_Actionslider")) || (!strcmp(type, "elm_actionslider")))
      {
         accessible = g_object_new(EAIL_TYPE_ACTION_SLIDER, NULL);
      }
-   else if (!strcmp(type, "elm_image"))
+   else if ((!strcmp(type, "Elm_Imgae")) || (!strcmp(type, "elm_image")))
      {
         accessible = g_object_new(EAIL_TYPE_IMAGE, NULL);
      }
-   else if (!strcmp(type, "elm_check"))
+   else if ((!strcmp(type, "Elm_Check")) || (!strcmp(type, "elm_check")))
      {
         accessible = g_object_new(EAIL_TYPE_CHECK, NULL);
      }
-   else if (!strcmp(type, "elm_radio"))
+   else if ((!strcmp(type, "Elm_Radio")) || (!strcmp(type, "elm_radio")))
      {
         accessible = g_object_new(EAIL_TYPE_RADIO_BUTTON, NULL);
      }
-   else if (!strcmp(type, "elm_menu"))
+   else if ((!strcmp(type, "Elm_Menu")) || (!strcmp(type, "elm_menu")))
      {
         accessible = g_object_new(EAIL_TYPE_MENU, NULL);
      }
-   else if (!strcmp(type, "elm_photo"))
+   else if ((!strcmp(type, "Elm_Photo")) || (!strcmp(type, "elm_photo")))
      {
         accessible = g_object_new(EAIL_TYPE_PHOTO, NULL);
      }
-   else if (!strcmp(type, "elm_photocam"))
+   else if ((!strcmp(type, "Elm_Photocam")) || (!strcmp(type, "elm_photocam")))
      {
         accessible = g_object_new(EAIL_TYPE_PHOTOCAM, NULL);
      }
-   else if (!strcmp(type, "elm_separator"))
+   else if ((!strcmp(type, "Elm_Separator")) || (!strcmp(type, "elm_separator")))
      {
         accessible = g_object_new(EAIL_TYPE_SEPARATOR, NULL);
      }
-   else if (!strcmp(type, "elm_spinner"))
+   else if ((!strcmp(type, "Elm_Spinner")) || (!strcmp(type, "elm_spinner")))
      {
         accessible = g_object_new(EAIL_TYPE_SPINNER, NULL);
      }
-   else if (!strcmp(type, "elm_clock"))
+   else if ((!strcmp(type, "Elm_Clock")) || (!strcmp(type, "elm_clock")))
      {
         accessible = g_object_new(EAIL_TYPE_CLOCK, NULL);
      }
-   else if (!strcmp(type, "elm_calendar"))
+   else if ((!strcmp(type, "Elm_Calendar")) || (!strcmp(type, "elm_calendar")))
      {
         accessible = g_object_new(EAIL_TYPE_CALENDAR, NULL);
      }
-   else if (!strcmp(type, "elm_grid"))
+   else if ((!strcmp(type, "Elm_Grid")) || (!strcmp(type, "elm_grid")))
      {
         accessible = g_object_new(EAIL_TYPE_GRID, NULL);
      }
-   else if (!strcmp(type, "elm_route"))
+   else if ((!strcmp(type, "Elm_Route")) || (!strcmp(type, "elm_route")))
      {
         accessible = g_object_new(EAIL_TYPE_ROUTE, NULL);
      }
-   else if (!strcmp(type, "elm_dayselector"))
+   else if ((!strcmp(type, "Elm_Dayselector")) || (!strcmp(type, "elm_dayselector")))
      {
         accessible = g_object_new(EAIL_TYPE_DAYSELECTOR, NULL);
      }
-   else if (!strcmp(type, "elm_gengrid"))
+   else if ((!strcmp(type, "Elm_Gengrid")) || (!strcmp(type, "elm_gengrid")))
      {
         accessible = g_object_new(EAIL_TYPE_GENGRID, NULL);
      }
-   else if (!strcmp(type, "elm_progressbar"))
+   else if ((!strcmp(type, "Elm_Progressbar")) || (!strcmp(type, "elm_progressbar")))
      {
         accessible = g_object_new(EAIL_TYPE_PROGRESSBAR, NULL);
      }
-   else if (!strcmp(type, "elm_diskselector"))
+   else if ((!strcmp(type, "Elm_Diskselector")) || (!strcmp(type, "elm_diskselector")))
      {
         accessible = g_object_new(EAIL_TYPE_DISKSELECTOR, NULL);
      }
-   else if (!strcmp(type, "elm_segment_control"))
+   else if ((!strcmp(type, "Elm_Segment_Control")) || (!strcmp(type, "elm_segment_control")))
      {
         accessible = g_object_new(EAIL_TYPE_SEGMENT_CONTROL, NULL);
      }
-   else if (!strcmp(type, "elm_conformant"))
+   else if ((!strcmp(type, "Elm_Conformant")) || (!strcmp(type, "elm_conformant")))
      {
         accessible = g_object_new(EAIL_TYPE_CONFORMANT, NULL);
      }
-   else if (!strcmp(type, "elm_notify"))
+   else if ((!strcmp(type, "Elm_Notify")) || (!strcmp(type, "elm_notify")))
      {
         accessible = g_object_new(EAIL_TYPE_NOTIFY, NULL);
      }
-   else if ((!strcmp(type, "popup")) || (!strcmp(type, "elm_popup")))
+   else if ((!strcmp(type, "popup")) || (!strcmp(type, "Elm_Popup")) || (!strcmp(type, "elm_popup")))
      {
         accessible = g_object_new(EAIL_TYPE_POPUP, NULL);
      }
-   else if ((!strcmp(type, "ctxpopup")) || ((!strcmp(type, "elm_ctxpopup"))))
+   else if ((!strcmp(type, "ctxpopup")) || (!strcmp(type, "Elm_Ctxpopup")) || (!strcmp(type, "elm_ctxpopup")))
      {
         accessible = g_object_new(EAIL_TYPE_CTXPOPUP, NULL);
      }
-   else if ((!strcmp(type, "toolbar")) || (!strcmp(type, "elm_toolbar")))
+   else if ((!strcmp(type, "toolbar")) || (!strcmp(type, "Elm_Toolbar")) || (!strcmp(type, "elm_toolbar")))
      {
         accessible = g_object_new(EAIL_TYPE_TOOLBAR, NULL);
      }
-   else if (!strcmp(type, "elm_multibuttonentry"))
+   else if ((!strcmp(type, "Elm_Multibuttonentry")) || (!strcmp(type, "elm_multibuttonentry")))
      {
         accessible = g_object_new(EAIL_TYPE_MULTIBUTTONENTRY, NULL);
      }
-   else if (!strcmp(type, "elm_web"))
+   else if ((!strcmp(type, "Elm_Web")) || (!strcmp(type, "elm_web")))
      {
         accessible = g_object_new(EAIL_TYPE_WEB, NULL);
      }
-   else if (!strcmp(type, "elm_index"))
+   else if ((!strcmp(type, "Elm_Index")) || (!strcmp(type, "elm_index")))
      {
         accessible = g_object_new(EAIL_TYPE_INDEX, NULL);
      }
-   else if (!strcmp(type, "elm_fileselector"))
+   else if ((!strcmp(type, "Elm_Fileselector")) || (!strcmp(type, "elm_fileselector")))
      {
         accessible = g_object_new(EAIL_TYPE_FILESELECTOR, NULL);
      }
-   else if ((!strcmp(type, "elm_fileselector_entry")) ||
+   else if ((!strcmp(type, "Elm_Fileselector_Entry")) || (!strcmp(type, "elm_fileselector_entry")) ||
             (!strcmp(type, "fileselector_entry")))
      {
         accessible = g_object_new(EAIL_TYPE_FILESELECTOR_ENTRY, NULL);
      }
-   else if (!strcmp(type, "elm_fileselector_button"))
+   else if ((!strcmp(type, "Elm_Fileselector_Button")) || (!strcmp(type, "elm_fileselector_button")))
      {
         /* NOTE: file selector button from accesibility point of view is
          * no different in handling than regular push button */
         accessible = g_object_new(EAIL_TYPE_BUTTON, NULL);
      }
-   else if (!strcmp(type, "elm_colorselector"))
+   else if ((!strcmp(type, "Elm_Colorselector")) || (!strcmp(type, "elm_colorselector")))
      {
         accessible = g_object_new(EAIL_TYPE_COLORSELECTOR, NULL);
      }
-   else if (!strcmp(type, "elm_naviframe"))
+   else if ((!strcmp(type, "Elm_Naviframe")) || (!strcmp(type, "elm_naviframe")))
      {
         accessible = g_object_new(EAIL_TYPE_NAVIFRAME, NULL);
      }
-   else if (!strcmp(type, "elm_datetime"))
+   else if ((!strcmp(type, "Elm_Datetime")) || (!strcmp(type, "elm_datetime")))
      {
         accessible = g_object_new(EAIL_TYPE_DATETIME, NULL);
      }
-   else if (!strcmp(type, "elm_hover"))
+   else if ((!strcmp(type, "Elm_Hover")) || (!strcmp(type, "elm_hover")))
      {
         accessible = g_object_new(EAIL_TYPE_HOVER, NULL);
      }
-   else if (!strcmp(type, "elm_panes"))
+   else if ((!strcmp(type, "Elm_Panes")) || (!strcmp(type, "elm_panes")))
      {
         accessible = g_object_new(EAIL_TYPE_PANES, NULL);
      }
-   else if ((!strcmp(type, "panel")) || (!strcmp(type, "elm_panel")))
+   else if ((!strcmp(type, "panel")) || (!strcmp(type, "Elm_Panel")) || (!strcmp(type, "elm_panel")))
      {
         accessible = g_object_new(EAIL_TYPE_PANEL, NULL);
      }
-   else if (!strcmp(type, "elm_thumb"))
+   else if ((!strcmp(type, "Elm_Thumb")) || (!strcmp(type, "elm_thumb")))
      {
         accessible = g_object_new(EAIL_TYPE_THUMB, NULL);
      }
-   else if (!strcmp(type, "elm_mapbuf"))
+   else if ((!strcmp(type, "Elm_Mapbuf")) || (!strcmp(type, "elm_mapbuf")))
      {
         accessible = g_object_new(EAIL_TYPE_MAPBUF, NULL);
      }
-   else if (!strcmp(type, "elm_slideshow"))
+   else if ((!strcmp(type, "Elm_Slideshow")) || (!strcmp(type, "elm_slideshow")))
      {
         accessible = g_object_new(EAIL_TYPE_SLIDESHOW, NULL);
      }
-   else if (!strcmp(type, "elm_hoversel"))
+   else if ((!strcmp(type, "Elm_Hoversel")) || (!strcmp(type, "elm_hoversel")))
      {
         accessible = g_object_new(EAIL_TYPE_HOVERSEL, NULL);
      }
-   else if (!strcmp(type, "elm_map"))
+   else if ((!strcmp(type, "Elm_Map")) || (!strcmp(type, "elm_map")))
      {
         accessible = g_object_new(EAIL_TYPE_MAP, NULL);
      }
-   else if (!strcmp(type, "elm_glview"))
+   else if ((!strcmp(type, "Elm_Glview")) || (!strcmp(type, "elm_glview")))
      {
         accessible = g_object_new(EAIL_TYPE_GLVIEW, NULL);
      }
-   else if (!strcmp(type, "elm_bubble"))
+   else if ((!strcmp(type, "Elm_Bubble")) || (!strcmp(type, "elm_bubble")))
      {
         accessible = g_object_new(EAIL_TYPE_BUBBLE, NULL);
      }
-   else if (!strcmp(type, "elm_plug"))
+   else if ((!strcmp(type, "Elm_Plug")) || (!strcmp(type, "elm_plug")))
      {
         accessible = g_object_new(EAIL_TYPE_PLUG, NULL);
      }
-   else if ((!strcmp(type, "elm_video")) || (!strcmp(type, "elm_player")))
+   else if ((!strcmp(type, "Elm_Video")) || (!strcmp(type, "elm_video")) || (!strcmp(type, "elm_player")))
      {
         accessible = g_object_new(EAIL_TYPE_VIDEO, NULL);
      }
-   else if (!strcmp(type, "elm_flip"))
+   else if ((!strcmp(type, "Elm_Flip")) || (!strcmp(type, "elm_flip")))
      {
         accessible = g_object_new(EAIL_TYPE_FLIP, NULL);
      }
-   else if (!strcmp(type, "elm_flipselector"))
+   else if ((!strcmp(type, "Elm_Flipselector")) || (!strcmp(type, "elm_flipselector")))
      {
         accessible = g_object_new(EAIL_TYPE_FLIPSELECTOR, NULL);
      }
-   else if (!strcmp(type, "elm_layout"))
+   else if ((!strcmp(type, "Elm_Layout")) || (!strcmp(type, "elm_layout")))
      {
         accessible = g_object_new(EAIL_TYPE_LAYOUT, NULL);
      }
-   else if (!strcmp(type, "elm_table"))
+   else if ((!strcmp(type, "Elm_Table")) || (!strcmp(type, "elm_table")))
      {
         accessible = g_object_new(EAIL_TYPE_TABLE, NULL);
      }
-   else if (!strcmp(type, "elm_prefs"))
+   else if ((!strcmp(type, "Elm_Prefs")) || (!strcmp(type, "elm_prefs")))
      {
         accessible = g_object_new(EAIL_TYPE_PREFS, NULL);
      }

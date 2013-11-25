@@ -25,3 +25,7 @@
 2013-10-31  Michal Jagiello
 
 	* Remove image interface from eail_button and eail_check widgets
+
+2013-11-25 Patryk Kaczmarek
+	
+	* Factory fixed to recognize widgets from elementary 1.8
