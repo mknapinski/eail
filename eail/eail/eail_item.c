@@ -209,6 +209,11 @@ eail_item_ref_state_set(AtkObject *obj)
 static void
 eail_item_init(EailItem *item)
 {
+   item->click_description = NULL;
+   item->press_description = NULL;
+   item->release_description = NULL;
+   item->expand_description = NULL;
+   item->shrink_description = NULL;
 }
 
 /**
@@ -223,6 +228,12 @@ eail_item_class_finalize(GObject *obj)
 
    if (obj_item)
      eail_factory_unregister_item_from_cache(obj_item);
+
+   if (eail_item->click_description) free(eail_item->click_description);
+   if (eail_item->press_description) free(eail_item->press_description);
+   if (eail_item->release_description) free(eail_item->release_description);
+   if (eail_item->expand_description) free(eail_item->expand_description);
+   if (eail_item->shrink_description) free(eail_item->shrink_description);
 
    G_OBJECT_CLASS(eail_item_parent_class)->finalize(obj);
 }
@@ -610,10 +621,14 @@ static const char*
 eail_item_action_name_get(AtkAction *action, int i)
 {
    const char* action_name;
+   gint actions_num;
 
    /* if parent item does not support click action, then return no action */
    if (_eail_item_get_actions_supported(action) == EAIL_ACTION_SUPPORTED_NONE)
      return NULL;
+
+   actions_num = atk_action_get_n_actions(action);
+   if (i >= actions_num) return NULL;
 
    switch (i)
      {
@@ -789,6 +804,121 @@ eail_item_do_action(AtkAction *action, int i)
 }
 
 /**
+ * @brief Gets the description string of the specified action
+ *
+ * Implementation of get_description from AtkAction interface.
+ *
+ * @param action EailBubble instance
+ * @param i action index
+ *
+ * @return string representing the specified action's description
+ */
+static const char*
+eail_item_description_get(AtkAction *action,
+                          gint i)
+{
+   EailItem *item = EAIL_ITEM(action);
+   const char *action_description;
+   gint actions_num;
+
+   if (!item) return NULL;
+
+   actions_num = atk_action_get_n_actions(action);
+   if (i >= actions_num) return NULL;
+
+   switch (i)
+     {
+      case 0:
+         /*"click": the user clicked the item*/
+         action_description = item->click_description;
+         break;
+      case 1:
+         /*"press": the user pressed the item*/
+         action_description = item->press_description;
+         break;
+      case 2:
+         /*"release": the user released the item*/
+         action_description = item->release_description;
+         break;
+      case 3:
+         /*"expand": the user expand the item*/
+         action_description = item->expand_description;
+         break;
+      case 4:
+         /*"shrink": the user shrink the item*/
+         action_description = item->shrink_description;
+         break;
+      default:
+         action_description = NULL;
+         break;
+     }
+
+   return action_description;
+}
+
+/**
+ * @brief Sets a description of the specified action of the object
+ *
+ * Implementation of set_description from AtkAction interface.
+ *
+ * @param action AtkAction instance
+ * @param i action index
+ * @param description action description
+ *
+ * @return TRUE on success, FALSE otherwise
+ */
+static gboolean
+eail_item_description_set(AtkAction *action,
+                          gint i,
+                          const char *description)
+{
+   EailItem *item = EAIL_ITEM(action);
+   char **value;
+   gint actions_num;
+
+   if (!item) return FALSE;
+
+   actions_num = atk_action_get_n_actions(action);
+   if (i >= actions_num) return FALSE;
+
+   switch (i)
+     {
+      case 0:
+         /*"click": the user clicked the item*/
+         value = &item->click_description;
+         break;
+      case 1:
+         /*"press": the user pressed the item*/
+         value = &item->press_description;
+         break;
+      case 2:
+         /*"release": the user released the item*/
+         value = &item->release_description;
+         break;
+      case 3:
+         /*"expand": the user expand the item*/
+         value = &item->expand_description;
+         break;
+      case 4:
+         /*"shrink": the user shrink the item*/
+         value = &item->shrink_description;
+         break;
+      default:
+         value = NULL;
+         break;
+     }
+
+   if (value)
+     {
+        free(*value);
+        *value = g_strdup(description);
+        return TRUE;
+     }
+
+   return FALSE;
+}
+
+/**
  * @brief Initializer for AtkActionIface
  * @param iface AtkActionIface instance to fill
  */
@@ -800,6 +930,8 @@ atk_action_interface_init(AtkActionIface *iface)
    iface->do_action     = eail_item_do_action;
    iface->get_n_actions = eail_item_n_actions_get;
    iface->get_name      = eail_item_action_name_get;
+   iface->get_description = eail_item_description_get;
+   iface->set_description = eail_item_description_set;
 }
 
 /**

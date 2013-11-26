@@ -87,6 +87,21 @@ struct _EailItem
    /** @brief Elementary item that is being represented by EailItem accessible
     * object*/
    Elm_Object_Item *item;
+
+   /** @brief "click" action description*/
+   char *click_description;
+
+   /** @brief "press" action description*/
+   char *press_description;
+
+   /** @brief "release" action description*/
+   char *release_description;
+
+   /** @brief "expand" action description*/
+   char *expand_description;
+
+   /** @brief "shrink" action description*/
+   char *shrink_description;
 };
 
 /** @brief Definition of class structure for Atk EailItem*/
