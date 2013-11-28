@@ -933,6 +933,63 @@ _set_column_selection(AtkTable *table, int column, Eina_Bool selection)
 }
 
 /**
+ * @brief Gets the selected columns of the table by initializing selected
+ * with the selected columns numbers
+ *
+ * This array should be freed by the caller.
+ *
+ * Implementation of get_selected_columns from AtkTable interface.
+ *
+ * @param table AtkTable instance
+ * @param [out] selected selected columns number
+ *
+ * @returns integer representing the selected columns count
+ */
+static gint
+eail_gengrid_selected_columns_get(AtkTable *table, gint **selected)
+{
+   GArray *array;
+   Evas_Object *widget;
+   gint col;
+   int n_cols, n_selected, i;
+
+   g_return_val_if_fail(EAIL_IS_GENGRID(table), 0);
+   widget = eail_widget_get_widget(EAIL_WIDGET(table));
+
+   if (!widget)
+     return 0;
+   if (!elm_gengrid_multi_select_get(widget)  && eail_gengrid_n_rows_get(table) > 1)
+     return 0;
+
+   n_cols = eail_gengrid_n_columns_get(table);
+
+   array = g_array_new(FALSE, FALSE, sizeof(gint));
+   for (i = 0; i < n_cols; i++)
+     {
+        if (eail_gengrid_is_column_selected(table, i))
+          g_array_append_val(array, i);
+     }
+
+   n_selected = array->len;
+
+   if (n_selected)
+   {
+     *selected = (gint *) g_malloc (n_selected * sizeof(gint));
+
+     for (i=0; i<n_selected;i++)
+     {
+       col = g_array_index(array,gint,i);
+       (*selected)[i] = col;
+     }
+
+     g_array_free(array, FALSE);
+
+   }
+
+   return n_selected;
+}
+
+/**
  * @brief Adds the specified column to the selection
  *
  * Implementation of add_column_selection from AtkTable interface.
@@ -1009,6 +1066,7 @@ atk_table_interface_init(AtkTableIface *iface)
    iface->add_row_selection = eail_gengrid_add_row_selection;
    iface->remove_row_selection = eail_gengrid_remove_row_selection;
    iface->is_column_selected = eail_gengrid_is_column_selected;
+   iface->get_selected_columns = eail_gengrid_selected_columns_get;
    iface->add_column_selection = eail_gengrid_add_column_selection;
    iface->remove_column_selection = eail_gengrid_remove_column_selection;
 
