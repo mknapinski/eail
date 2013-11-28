@@ -244,6 +244,29 @@ eail_panes_current_value_get(AtkValue *obj, GValue *value)
 }
 
 /**
+ * @brief Gets obj's minimum increment
+ *
+ * The minimum increment is limited only by the floating point
+ * precision of the platform.
+ *
+ * @param obj AtkValue instance
+ * @param [out] value minimum increment of obj
+ */
+static void
+eail_panes_minimum_increment_get(AtkValue *obj,
+                                 GValue   *value)
+{
+   Evas_Object *widget;
+
+   widget = eail_widget_get_widget(EAIL_WIDGET(obj));
+   if (!widget) return;
+
+   memset(value, 0, sizeof(GValue));
+   g_value_init(value, G_TYPE_DOUBLE);
+   g_value_set_double(value, 0);
+}
+
+/**
  * @brief AtkValue interface initializer
  *
  * @param iface AtkValueIface instance
@@ -257,4 +280,5 @@ atk_value_interface_init(AtkValueIface *iface)
    iface->set_current_value = eail_panes_current_value_set;
    iface->get_maximum_value = eail_panes_maximum_value_get;
    iface->get_minimum_value = eail_panes_minimum_value_get;
+   iface->get_minimum_increment = eail_panes_minimum_increment_get;
 }
