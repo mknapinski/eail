@@ -722,6 +722,65 @@ eail_fileselector_entry_get_n_selections(AtkText *text)
    return 0;
 }
 
+/**
+ * @brief Gets the caret offset
+ *
+ * @param text AtkText instance
+ * @return integer representing the caret offset
+ */
+static gint
+eail_fileselector_entry_get_caret_offset(AtkText *text)
+{
+   Evas_Object *widget;
+   Evas_Object *entry = NULL;
+   Evas_Object *fileselector_entry_edje_layer = NULL;
+
+   widget = eail_widget_get_widget(EAIL_WIDGET(text));
+   if (!widget) return 0;
+
+   fileselector_entry_edje_layer = elm_layout_edje_get(widget);
+   if (!fileselector_entry_edje_layer) return 0;
+
+   entry = edje_object_part_swallow_get(fileselector_entry_edje_layer,
+                                        "elm.swallow.entry");
+   if (!entry) return 0;
+
+   return elm_entry_cursor_pos_get(entry);
+}
+
+/**
+ * @brief Sets the caret (cursor) position to the specified offset.
+ *
+ * Implementation of AtkTextIface->set_caret_offset callback.
+ *
+ * @param text AtkText instance
+ * @param offset starting position
+ *
+ * @returns TRUE on success, FALSE otherwise
+ */
+static gboolean
+eail_fileselector_entry_set_caret_offset (AtkText *text,
+                             gint     offset)
+{
+   Evas_Object *widget;
+   Evas_Object *entry = NULL;
+   Evas_Object *fileselector_entry_edje_layer = NULL;
+
+   widget = eail_widget_get_widget(EAIL_WIDGET(text));
+   if (!widget) return FALSE;
+
+   fileselector_entry_edje_layer = elm_layout_edje_get(widget);
+   if (!fileselector_entry_edje_layer) return FALSE;
+
+   entry = edje_object_part_swallow_get(fileselector_entry_edje_layer,
+                                        "elm.swallow.entry");
+   if (!entry) return FALSE;
+
+   elm_entry_cursor_pos_set(entry, offset);
+
+   return TRUE;
+}
+
 
 /**
  * @brief Initializer for AtkTextIface interface
@@ -743,6 +802,8 @@ atk_text_interface_init(AtkTextIface *iface)
     iface->get_n_selections = eail_fileselector_entry_get_n_selections;
     iface->add_selection = eail_fileselector_entry_add_selection;
     iface->remove_selection = eail_fileselector_entry_remove_selection;
+    iface->get_caret_offset = eail_fileselector_entry_get_caret_offset;
+    iface->set_caret_offset = eail_fileselector_entry_set_caret_offset;
 }
 
 /*

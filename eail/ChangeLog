@@ -33,3 +33,7 @@
 2013-11-25
 
 	* Eail Explorer tool v1.0 added
+
+2013-11-29 Karol Furmaniak
+
+	* Fix set/get_caret_offset for elm_fileselector_entry
