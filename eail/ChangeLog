@@ -46,3 +46,7 @@
 	get_text_after_offset, get_text_at_offset, get_text_before_offset,
 	get_offset_at_point
 
+ 2013-11-29 Karol Furmaniak
+
+ 	* Fix get_text_before/at/after_offset for elm_popup
+

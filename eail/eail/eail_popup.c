@@ -102,6 +102,48 @@ _eail_get_popup_widget_from_atkobj(AtkObject *obj)
 }
 
 /**
+ * @brief Helper func to get Textblock form popup widget
+ *
+ * @param text AtkText instance
+ * @returns Textblock part of popup widget
+ */
+static const Evas_Object *
+_eail_get_textblock(AtkText *text)
+{
+   Evas_Object *widget;
+   const Evas_Object *textblock;
+   Evas_Object *label = NULL;
+   Evas_Object *layout = NULL;
+   Evas_Object *layout_edje_layer = NULL;
+   Evas_Object *label_edje_layer = NULL;
+   Evas_Object *popup_edje_layer = NULL;
+
+   widget = eail_widget_get_widget(EAIL_WIDGET(text));
+   if (!widget) return NULL;
+
+   popup_edje_layer = elm_layout_edje_get(widget);
+   if (!popup_edje_layer) return NULL;
+
+   layout = edje_object_part_swallow_get(popup_edje_layer, "elm.swallow.content");
+   if (!layout) return NULL;
+
+   layout_edje_layer = elm_layout_edje_get(layout);
+   if (!layout_edje_layer) return NULL;
+
+   label = edje_object_part_swallow_get(layout_edje_layer, "elm.swallow.content");
+   if (!label) return NULL;
+
+   label_edje_layer = elm_layout_edje_get(label);
+   if (!label_edje_layer) return NULL;
+
+   textblock = edje_object_part_object_get(label_edje_layer, "elm.text");
+   if (!textblock) return NULL;
+
+   return textblock;
+
+}
+
+/**
  * @brief Helper function for getting nested content in elm_popup widget
  *
  * @param obj AtkObject instance
@@ -446,33 +488,14 @@ eail_popup_get_character_extents(AtkText *text,
                                  AtkCoordType coords)
 {
    int result = -1;
-   const Evas_Object *textblock = NULL;
    Evas_Textblock_Cursor *cur = NULL;
-   Evas_Object *label = NULL;
-   Evas_Object *layout = NULL;
-   Evas_Object *layout_edje_layer = NULL;
-   Evas_Object *label_edje_layer = NULL;
-   Evas_Object *popup_edje_layer = NULL;
+   Evas_Object *widget;
+   const Evas_Object *textblock;
 
-   Evas_Object *widget = eail_widget_get_widget(EAIL_WIDGET(text));
+   widget = eail_widget_get_widget(EAIL_WIDGET(text));
    if (!widget) return;
 
-   popup_edje_layer = elm_layout_edje_get(widget);
-   if (!popup_edje_layer) return;
-
-   layout = edje_object_part_swallow_get(popup_edje_layer, "elm.swallow.content");
-   if (!layout) return;
-
-   layout_edje_layer = elm_layout_edje_get(layout);
-   if (!layout_edje_layer) return;
-
-   label = edje_object_part_swallow_get(layout_edje_layer, "elm.swallow.content");
-   if (!label) return;
-
-   label_edje_layer = elm_layout_edje_get(label);
-   if (!label_edje_layer) return;
-
-   textblock = edje_object_part_object_get(label_edje_layer, "elm.text");
+   textblock = _eail_get_textblock(text);
    if (!textblock) return;
 
    cur = evas_object_textblock_cursor_new(textblock);
@@ -584,6 +607,97 @@ eail_popup_get_default_attributes(AtkText *text)
 }
 
 /**
+ * @brief Gets the specified text after offset
+ *
+ * Use g_free() to free the returned string.
+ *
+ * @param text AtkText instance
+ * @param offset character offset
+ * @param boundary_type AtkTextBoundary instance
+ * @param [out] start_offset start offset of the returned string
+ * @param [out] end_offset offset of the first character after the returned
+ * substring
+ * @returns newly allocated string containing the text after offset bounded
+ * by the specified boundary_type
+ */
+static gchar *
+eail_popup_get_text_after_offset(AtkText *text,
+                                 gint offset,
+                                 AtkTextBoundary boundary_type,
+                                 gint *start_offset,
+                                 gint *end_offset)
+{
+   const Evas_Object *textblock;
+
+   textblock = _eail_get_textblock(text);
+   if (!textblock) return NULL;
+
+   return eail_get_text_after(textblock, offset, boundary_type, start_offset,
+                              end_offset);
+
+}
+
+/**
+ * @brief Gets the specified text at offset
+ *
+ * Use g_free() to free the returned string.
+ *
+ * @param text AtkText instance
+ * @param offset character offset
+ * @param boundary_type AtkTextBoundary instance
+ * @param [out] start_offset start offset of the returned string
+ * @param [out] end_offset offset of the first character after the returned
+ * substring
+ * @returns newly allocated string containing the text after offset bounded
+ * by the specified boundary_type
+ */
+static gchar *
+eail_popup_get_text_at_offset(AtkText *text,
+                              gint offset,
+                              AtkTextBoundary boundary_type,
+                              gint *start_offset,
+                              gint *end_offset)
+{
+   const Evas_Object *textblock;
+
+   textblock = _eail_get_textblock(text);
+   if (!textblock) return NULL;
+
+   return eail_get_text_at(textblock, offset, boundary_type, start_offset,
+                           end_offset);
+}
+
+/**
+ * @brief Gets the specified text before offset
+ *
+ * Use g_free() to free the returned string.
+ *
+ * @param text AtkText instance
+ * @param offset character offset
+ * @param boundary_type AtkTextBoundary instance
+ * @param [out] start_offset start offset of the returned string
+ * @param [out] end_offset offset of the first character after the returned
+ * substring
+ * @returns newly allocated string containing the text after offset bounded
+ * by the specified boundary_type
+ */
+static gchar *
+eail_popup_get_text_before_offset(AtkText *text,
+                                  gint offset,
+                                  AtkTextBoundary boundary_type,
+                                  gint *start_offset,
+                                  gint *end_offset)
+{
+   const Evas_Object *textblock;
+
+   textblock = _eail_get_textblock(text);
+   if (!textblock) return NULL;
+
+   return eail_get_text_before(textblock, offset, boundary_type, start_offset,
+                               end_offset);
+}
+
+/**
  * @brief Initializer for AtkTextIface interface class
  *
  * Defines callbacks for AtkTextIface.
@@ -599,4 +713,7 @@ atk_text_interface_init(AtkTextIface *iface)
     iface->get_character_extents = eail_popup_get_character_extents;
     iface->get_run_attributes = eail_popup_get_run_attributes;
     iface->get_default_attributes = eail_popup_get_default_attributes;
+    iface->get_text_after_offset = eail_popup_get_text_after_offset;
+    iface->get_text_at_offset = eail_popup_get_text_at_offset;
+    iface->get_text_before_offset = eail_popup_get_text_before_offset;
 }
