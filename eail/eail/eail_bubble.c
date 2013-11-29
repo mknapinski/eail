@@ -25,6 +25,7 @@
 #include <Elementary.h>
 
 #include "eail_bubble.h"
+#include "eail_utils.h"
 
 static void atk_action_interface_init(AtkActionIface *iface);
 static void atk_text_interface_init(AtkTextIface *iface);
@@ -301,6 +302,126 @@ atk_action_interface_init(AtkActionIface *iface)
    iface->do_action       = eail_bubble_do_action;
 }
 
+
+/**
+ * @brief Helper func to get Textblock form bubble widget
+ *
+ * @param text AtkText instance
+ * @returns Textblock part of bubble widget
+ */
+static const Evas_Object *
+_eail_get_textblock(AtkText *text)
+{
+   Evas_Object *widget= NULL;
+   const Evas_Object *textblock = NULL;
+   Evas_Object *label = NULL;
+   Evas_Object *label_edje_layer = NULL;
+   Evas_Object *bubble_edje_layer = NULL;
+
+   widget = eail_widget_get_widget(EAIL_WIDGET(text));
+   if (!widget) return NULL;
+
+   bubble_edje_layer = elm_layout_edje_get(widget);
+   if (!bubble_edje_layer) return NULL;
+
+   label= edje_object_part_swallow_get(bubble_edje_layer, "elm.swallow.content");
+   if (!label) return NULL;
+
+   label_edje_layer = elm_layout_edje_get(label);
+   if (!label_edje_layer) return NULL;
+
+   textblock = edje_object_part_object_get(label_edje_layer, "elm.text");
+   if (!textblock) return NULL;
+
+   return textblock;
+}
+
+/**
+ * @brief Gets text bounded by start_offset and end_offset
+ *
+ * Use g_free() to free the returned string
+ *
+ * @param text AtkText instance
+ * @param start_offset start position
+ * @param end_offset end position, -1 for the end of the string
+ * @return string containing text from start_offset up to, but not including
+ * end_offset
+ */
+static gchar*
+eail_bubble_get_text(AtkText   *text,
+                     gint       start_offset,
+                     gint       end_offset)
+{
+   gchar *string = NULL;
+   Evas_Object *widget = eail_widget_get_widget(EAIL_WIDGET(text));
+   Evas_Object *label = NULL;
+
+   if (!widget)
+      return NULL;
+   label = elm_object_content_get(widget);
+
+   if (label)
+     string = (gchar *)elm_object_text_get(label);
+
+   return eail_get_substring(string, start_offset, end_offset);
+}
+
+/**
+ * @brief Gets the character at offset
+ *
+ * @param text AtkText instance
+ * @param offset character offset
+ * @return char representing the character at offset
+ */
+static gunichar
+eail_bubble_get_character_at_offset(AtkText    *text,
+                                  gint        offset)
+{
+   gunichar character = '\0';
+   Evas_Object *widget = eail_widget_get_widget(EAIL_WIDGET(text));
+   Evas_Object *label = NULL;
+
+   if (!widget)
+      return character;
+
+   label = elm_object_content_get(widget);
+
+   if (label)
+     character = g_utf8_get_char(
+         g_utf8_offset_to_pointer(elm_object_text_get(label), offset));
+
+   return character;
+}
+
+/**
+ * @brief Gets the text's length
+ *
+ * @param text AtkText instance
+ * @return integer representing the text length
+ */
+static gint
+eail_bubble_get_character_count(AtkText *text)
+{
+   gint count = 0;
+   const gchar *string_text = NULL;
+
+   Evas_Object *widget = eail_widget_get_widget(EAIL_WIDGET(text));
+   Evas_Object *label = NULL;
+
+   if (!widget) return count;
+
+   label = elm_object_content_get(widget);
+   if (!label) return count;
+
+   string_text = elm_object_text_get(label);
+   if (!string_text) return count;
+
+   count = g_utf8_strlen(string_text, -1);
+
+   return count;
+}
+
+
 /**
  * @brief Get the bounding box containing the glyph
  *  representing the character at a particular text offset.
@@ -328,23 +449,11 @@ eail_bubble_get_character_extents(AtkText *text,
    int result = -1;
    const Evas_Object *textblock = NULL;
    Evas_Textblock_Cursor *cur = NULL;
-   Evas_Object *label = NULL;
-   Evas_Object *label_edje_layer = NULL;
-   Evas_Object *bubble_edje_layer = NULL;
 
    Evas_Object *widget = eail_widget_get_widget(EAIL_WIDGET(text));
    if (!widget) return;
 
-   bubble_edje_layer = elm_layout_edje_get(widget);
-   if (!bubble_edje_layer) return;
-
-   label= edje_object_part_swallow_get(bubble_edje_layer, "elm.swallow.content");
-   if (!label) return;
-
-   label_edje_layer = elm_layout_edje_get(label);
-   if (!label_edje_layer) return;
-
-   textblock = edje_object_part_object_get(label_edje_layer, "elm.text");
+   textblock = _eail_get_textblock(text);
    if (!textblock) return;
 
    cur = evas_object_textblock_cursor_new(textblock);
@@ -369,6 +478,144 @@ eail_bubble_get_character_extents(AtkText *text,
     }
 }
 
+/**
+ * @brief Gets the specified text after offset
+ *
+ * Use g_free() to free the returned string.
+ *
+ * @param text AtkText instance
+ * @param offset character offset
+ * @param boundary_type AtkTextBoundary instance
+ * @param [out] start_offset start offset of the returned string
+ * @param [out] end_offset offset of the first character after the returned
+ * substring
+ * @returns newly allocated string containing the text after offset bounded
+ * by the specified boundary_type
+ */
+static gchar *
+eail_bubble_get_text_after_offset(AtkText *text,
+                                  gint offset,
+                                  AtkTextBoundary boundary_type,
+                                  gint *start_offset,
+                                  gint *end_offset)
+{
+   const Evas_Object *textblock;
+
+   textblock = _eail_get_textblock(text);
+   if (!textblock) return NULL;
+
+   return eail_get_text_after(textblock, offset, boundary_type, start_offset,
+                              end_offset);
+
+}
+
+/**
+ * @brief Gets the specified text at offset
+ *
+ * Use g_free() to free the returned string.
+ *
+ * @param text AtkText instance
+ * @param offset character offset
+ * @param boundary_type AtkTextBoundary instance
+ * @param [out] start_offset start offset of the returned string
+ * @param [out] end_offset offset of the first character after the returned
+ * substring
+ * @returns newly allocated string containing the text after offset bounded
+ * by the specified boundary_type
+ */
+static gchar *
+eail_bubble_get_text_at_offset(AtkText *text,
+                               gint offset,
+                               AtkTextBoundary boundary_type,
+                               gint *start_offset,
+                               gint *end_offset)
+{
+   const Evas_Object *textblock;
+
+   textblock = _eail_get_textblock(text);
+   if (!textblock) return NULL;
+
+   return eail_get_text_at(textblock, offset, boundary_type, start_offset,
+                           end_offset);
+}
+
+/**
+ * @brief Gets the specified text before offset
+ *
+ * Use g_free() to free the returned string.
+ *
+ * @param text AtkText instance
+ * @param offset character offset
+ * @param boundary_type AtkTextBoundary instance
+ * @param [out] start_offset start offset of the returned string
+ * @param [out] end_offset offset of the first character after the returned
+ * substring
+ * @returns newly allocated string containing the text after offset bounded
+ * by the specified boundary_type
+ */
+static gchar *
+eail_bubble_get_text_before_offset(AtkText *text,
+                                   gint offset,
+                                   AtkTextBoundary boundary_type,
+                                   gint *start_offset,
+                                   gint *end_offset)
+{
+   const Evas_Object *textblock;
+
+   textblock = _eail_get_textblock(text);
+   if (!textblock) return NULL;
+
+   return eail_get_text_before(textblock, offset, boundary_type, start_offset,
+                               end_offset);
+}
+
+/**
+ * @brief Gets the offset of the character located at coordinates x and y.
+ *  x and y are interpreted as being relative to the screen or this
+ *  widget's window depending on coords.
+ *
+ * @param text AtkText instance
+ * @param screen x-position of character
+ * @param screen y-position of character
+ * @param specify whether coordinates are relative to the screen or widget window
+ *
+ * @returns the offset to the character which is located at the specified x and y coordinates.
+ */
+static gint
+eail_bubble_get_offset_at_point(AtkText *text,
+                                gint x,
+                                gint y,
+                                AtkCoordType coords)
+{
+   int result = -1;
+   const Evas_Object *textblock = NULL;
+   Evas_Textblock_Cursor *cur = NULL;
+
+   Evas_Object *widget = eail_widget_get_widget(EAIL_WIDGET(text));
+
+   if (!widget) return -1;
+
+   textblock = _eail_get_textblock(text);
+   if (!textblock) return -1;
+
+   cur = evas_object_textblock_cursor_new(textblock);
+
+   if (coords == ATK_XY_SCREEN)
+   {
+      int ee_x, ee_y;
+      Ecore_Evas *ee= ecore_evas_ecore_evas_get(evas_object_evas_get(widget));
+      ecore_evas_geometry_get(ee, &ee_x, &ee_y, NULL, NULL);
+      x -= ee_x;
+      y -= ee_y;
+    }
+
+   evas_textblock_cursor_char_coord_set( cur, x, y);
+   result = evas_textblock_cursor_pos_get( cur );
+   evas_textblock_cursor_free(cur);
+
+   return result;
+}
+
 
 /**
  * @brief Initializes AtkTextIface interface
@@ -378,5 +625,12 @@ eail_bubble_get_character_extents(AtkText *text,
 static void
 atk_text_interface_init(AtkTextIface *iface)
 {
+   iface->get_text = eail_bubble_get_text;
+   iface->get_character_at_offset = eail_bubble_get_character_at_offset;
+   iface->get_character_count = eail_bubble_get_character_count;
    iface->get_character_extents = eail_bubble_get_character_extents;
+   iface->get_text_after_offset = eail_bubble_get_text_after_offset;
+   iface->get_text_at_offset = eail_bubble_get_text_at_offset;
+   iface->get_text_before_offset = eail_bubble_get_text_before_offset;
+   iface->get_offset_at_point = eail_bubble_get_offset_at_point;
 }

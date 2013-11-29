@@ -37,3 +37,12 @@
 2013-11-29 Karol Furmaniak
 
 	* Fix set/get_caret_offset for elm_fileselector_entry
+
+2013-11-29 Karol Furmaniak
+
+	* Fix AtkText interface for elm_bubble.
+
+	Fixed funcs: get_text, get_character_at_offset, get_character_count,
+	get_text_after_offset, get_text_at_offset, get_text_before_offset,
+	get_offset_at_point
+
