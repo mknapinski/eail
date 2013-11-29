@@ -94,10 +94,10 @@ _eail_window_handle_minimize_event(void *data,
  * @param event_info additional event info
  */
 void
-_eail_window_handle_move_event(void *data,
-                               Evas_Object *obj,
-                               void *event_info)
+eail_window_on_move(void *data, Evas *e, Evas_Object *obj, void *event_info)
 {
+   g_return_if_fail(ATK_IS_OBJECT(data));
+
    eail_emit_atk_signal(ATK_OBJECT(data), "move", EAIL_TYPE_WINDOW);
 }
 
@@ -171,8 +171,6 @@ eail_window_init_focus_handler(AtkObject *obj)
                                   _eail_window_handle_maximize_event, obj);
    evas_object_smart_callback_add(nested_widget, "iconified",
                                   _eail_window_handle_minimize_event, obj);
-   evas_object_smart_callback_add(nested_widget, "moved",
-                                  _eail_window_handle_move_event, obj);
    evas_object_smart_callback_add(nested_widget, "delete,request",
                                   _eail_window_handle_delete_event, obj);
    evas_object_smart_callback_add(nested_widget, "unmaximized",
@@ -183,6 +181,8 @@ eail_window_init_focus_handler(AtkObject *obj)
    /* evas object events (not smart callbacks) */
    evas_object_event_callback_add(nested_widget, EVAS_CALLBACK_RESIZE,
                                   eail_window_on_resize, obj);
+   evas_object_event_callback_add(nested_widget, EVAS_CALLBACK_MOVE,
+                                  eail_window_on_move, obj);
 }
 
 /**
