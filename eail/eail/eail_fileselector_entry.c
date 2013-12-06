@@ -760,7 +760,7 @@ eail_fileselector_entry_get_caret_offset(AtkText *text)
  */
 static gboolean
 eail_fileselector_entry_set_caret_offset (AtkText *text,
-                             gint     offset)
+                                          gint offset)
 {
    Evas_Object *widget;
    Evas_Object *entry = NULL;
@@ -779,6 +779,103 @@ eail_fileselector_entry_set_caret_offset (AtkText *text,
    elm_entry_cursor_pos_set(entry, offset);
 
    return TRUE;
+}
+
+
+/**
+ * @brief Creates an AtkAttributeSet which consists of the default values of
+ * attributes for the text
+ *
+ * The returned AtkAttributeSet should be freed by a call to
+ * atk_attribute_set_free().
+ *
+ * @param text AtkText instance
+ *
+ * @returns AtkAttributeSet which contains the default values of attributes
+ * at offset
+ */
+static AtkAttributeSet *
+eail_fileselector_entry_get_default_attributes(AtkText *text)
+{
+   AtkAttributeSet *at_set = NULL;
+
+   at_set = eail_utils_text_add_attribute
+       (at_set, ATK_TEXT_ATTR_WRAP_MODE,
+        atk_text_attribute_get_value(ATK_TEXT_ATTR_WRAP_MODE, 0));
+
+   at_set = eail_utils_text_add_attribute
+       (at_set, ATK_TEXT_ATTR_EDITABLE,
+        atk_text_attribute_get_value
+         (ATK_TEXT_ATTR_EDITABLE, TRUE));
+
+   return at_set;
+}
+
+/**
+ * @brief Creates an AtkAttributeSet which consists of the attributes
+ * explicitly set at the position offset in the text
+ *
+ * start_offset and end_offset are set to the start and end of the range
+ * around offset where the attributes are invariant. Note that end_offset
+ * is the offset of the first character after the range.
+ *
+ * The returned AtkAttributeSet should be freed by a call to
+ * atk_attribute_set_free()
+ *
+ * @param text AtkText instance
+ * @param offset offset at which to get the attributes
+ * @param [out] start_offset start offset of the range
+ * @param [out] end_offset end offset of the range
+ *
+ * @returns AtkAttributeSet which contains the attributes explicitly set at
+ * offset
+ */
+static AtkAttributeSet *
+eail_fileselector_entry_get_run_attributes(AtkText *text,
+                                           gint offset,
+                                           gint *start_offset,
+                                           gint *end_offset)
+{
+   AtkAttributeSet *at_set = NULL;
+   Evas_Object *widget = eail_widget_get_widget(EAIL_WIDGET(text));
+   Evas_Object *entry;
+   Evas_Object *fileselector_entry_edje_layer = NULL;
+
+   if (!widget || offset >= eail_fileselector_entry_get_character_count(text))
+     {
+        *start_offset = -1;
+        *end_offset = -1;
+
+        return NULL;
+     }
+
+   fileselector_entry_edje_layer = elm_layout_edje_get(widget);
+   if (!fileselector_entry_edje_layer)
+     return NULL;
+
+   entry = edje_object_part_swallow_get(fileselector_entry_edje_layer,
+                                        "elm.swallow.entry");
+   if (!entry)
+     return NULL;
+
+   *start_offset = 0;
+   *end_offset = eail_fileselector_entry_get_character_count(text);
+
+   /* NOTE: Elm_Wrap_Type value is in 100% compatible with ATK wrap modes, so
+    * no additional conversion is needed*/
+   Elm_Wrap_Type wrap_type = elm_entry_line_wrap_get(entry);
+   at_set = eail_utils_text_add_attribute
+       (at_set, ATK_TEXT_ATTR_WRAP_MODE,
+        atk_text_attribute_get_value
+         (ATK_TEXT_ATTR_WRAP_MODE, wrap_type));
+
+   Eina_Bool editable = elm_entry_editable_get(entry);
+   at_set = eail_utils_text_add_attribute
+       (at_set, ATK_TEXT_ATTR_EDITABLE,
+        atk_text_attribute_get_value
+         (ATK_TEXT_ATTR_EDITABLE, editable));
+
+   return at_set;
 }
 
 
@@ -804,6 +901,8 @@ atk_text_interface_init(AtkTextIface *iface)
     iface->remove_selection = eail_fileselector_entry_remove_selection;
     iface->get_caret_offset = eail_fileselector_entry_get_caret_offset;
     iface->set_caret_offset = eail_fileselector_entry_set_caret_offset;
+    iface->get_run_attributes = eail_fileselector_entry_get_run_attributes;
+    iface->get_default_attributes = eail_fileselector_entry_get_default_attributes;
 }
 
 /*
