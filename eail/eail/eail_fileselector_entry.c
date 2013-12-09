@@ -880,6 +880,74 @@ eail_fileselector_entry_get_run_attributes(AtkText *text,
 
 
 /**
+ * @brief Gets the offset of the character located at coordinates
+ * x and y. x and y are interpreted as being relative to the
+ * screen or this widget's window depending on coords.
+ *
+ * @param text AtkText instance
+ * @param x screen x-position of character
+ * @param y screen y-position of character
+ * @param coords specify whether coordinates are relative to the
+ * screen or widget window
+ *
+ * @returns the offset to the character which is located at the
+ * specified x and y coordinates.
+ */
+static gint
+eail_fileselector_entry_get_offset_at_point(AtkText *text,
+                                            gint x,
+                                            gint y,
+                                            AtkCoordType coords)
+{
+   Eina_Bool result = EINA_FALSE;
+   Evas_Object *textblock = NULL;
+   Evas_Textblock_Cursor *cur = NULL;
+   gint offset = -1;
+   Evas_Object *entry = NULL;
+   Evas_Object *fileselector_entry_edje_layer = NULL;
+
+   Evas_Object *widget = eail_widget_get_widget(EAIL_WIDGET(text));
+
+   if (!widget) return offset;
+
+   fileselector_entry_edje_layer = elm_layout_edje_get(widget);
+   if (!fileselector_entry_edje_layer) return offset;
+
+   entry = edje_object_part_swallow_get(fileselector_entry_edje_layer,
+                                        "elm.swallow.entry");
+   if (!entry) return offset;
+
+   textblock = elm_entry_textblock_get(entry);
+   if (!textblock) return offset;
+
+   cur = evas_object_textblock_cursor_new(textblock);
+   if (!cur) return offset;
+
+   if (coords == ATK_XY_SCREEN)
+   {
+      int ee_x, ee_y;
+      Ecore_Evas *ee= ecore_evas_ecore_evas_get(evas_object_evas_get(widget));
+
+      ecore_evas_geometry_get(ee, &ee_x, &ee_y, NULL, NULL);
+      x -= ee_x;
+      y -= ee_y;
+    }
+
+   result = evas_textblock_cursor_char_coord_set(cur, x, y);
+
+   if (result == EINA_FALSE)
+   {
+      evas_textblock_cursor_free(cur);
+      return offset;
+   }
+
+   offset = evas_textblock_cursor_pos_get(cur);
+   evas_textblock_cursor_free(cur);
+
+   return offset;
+}
+
+/**
  * @brief Initializer for AtkTextIface interface
  *
  * @param iface AtkTextIface instance
@@ -903,6 +971,7 @@ atk_text_interface_init(AtkTextIface *iface)
     iface->set_caret_offset = eail_fileselector_entry_set_caret_offset;
     iface->get_run_attributes = eail_fileselector_entry_get_run_attributes;
     iface->get_default_attributes = eail_fileselector_entry_get_default_attributes;
+    iface->get_offset_at_point = eail_fileselector_entry_get_offset_at_point;
 }
 
 /*
