@@ -141,7 +141,7 @@ eail_toolbar_ref_child(AtkObject *obj, gint i)
    if (eina_list_count(items) > i)
      {
         child = eail_factory_get_item_atk_obj
-                             (eina_list_nth(items, i), ATK_ROLE_LIST_ITEM, obj);
+                             (eina_list_nth(items, i), ATK_ROLE_MENU_ITEM, obj);
 
         g_object_ref(child);
      }

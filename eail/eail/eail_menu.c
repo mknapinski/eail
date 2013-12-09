@@ -132,7 +132,7 @@ eail_menu_ref_child(AtkObject *obj, gint i)
    if (eina_list_count(items) > i)
      {
         child = eail_factory_get_item_atk_obj
-                 (eina_list_nth(items, i), ATK_ROLE_LIST_ITEM, obj);
+                 (eina_list_nth(items, i), ATK_ROLE_MENU_ITEM, obj);
 
         g_object_ref(child);
      }
@@ -367,7 +367,7 @@ eail_menu_item_ref_child(EailItemParent   *parent,
 
         /* creating new menu item from Elm_Object_Item */
         child = eail_factory_get_item_atk_obj
-                         (elm_obj_item, ATK_ROLE_LIST_ITEM, ATK_OBJECT(parent));
+                         (elm_obj_item, ATK_ROLE_MENU_ITEM, ATK_OBJECT(parent));
      }
    else if (eina_list_count(items) == i)
      {
