@@ -149,8 +149,12 @@ eail_list_ref_child(AtkObject *obj, gint i)
    items = eail_list_get_items(EAIL_LIST(obj));
    if (eina_list_count(items) > i)
      {
-        child = eail_factory_get_item_atk_obj
-                          (eina_list_nth(items, i), ATK_ROLE_LIST_ITEM, obj);
+        if (elm_list_item_separator_get(eina_list_nth(items, i)))
+           child = eail_factory_get_item_atk_obj
+                             (eina_list_nth(items, i), ATK_ROLE_SEPARATOR, obj);
+        else
+           child = eail_factory_get_item_atk_obj
+                             (eina_list_nth(items, i), ATK_ROLE_LIST_ITEM, obj);
 
         g_object_ref(child);
      }
@@ -239,10 +243,7 @@ eail_list_get_item_role(EailItemParent  *parent,
 
    if (!widget || !it) return ATK_ROLE_INVALID;
 
-   if (elm_list_item_separator_get(it))
-     return ATK_ROLE_SEPARATOR;
-
-   return ATK_ROLE_LIST_ITEM;
+   return ATK_OBJECT(item)->role;
 }
 
 /**
