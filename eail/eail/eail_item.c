@@ -458,6 +458,40 @@ eail_item_ref_child(AtkObject *obj, gint i)
 }
 
 /**
+ * @brief Gets obj's attributes set
+ *
+ * The caller must free attribute set when it is no longer needed.
+ *
+ * @param obj AtkObject instance
+ * @return AtkAttributeSet containing obj's attributes
+ */
+static AtkAttributeSet *
+eail_item_get_attributes(AtkObject *obj)
+{
+   AtkAttribute *attr;
+   AtkAttributeSet *attributes;
+   Elm_Object_Item *obj_item = NULL;
+
+   obj_item = eail_item_get_item(EAIL_ITEM(obj));
+   if (!obj_item) {
+      return NULL;
+   }
+
+   Evas_Object *widget = elm_object_item_widget_get(obj_item);
+
+   if (!widget) {
+      return NULL;
+   }
+
+   attr = g_new(AtkAttribute, 1);
+   attr->name = g_strdup("parent-type");
+   attr->value = g_strdup(elm_object_widget_type_get(widget));
+
+   attributes = g_slist_append(NULL, attr);
+
+   return attributes;
+}
+/**
  * @brief Initializer for GObject class
  *
  * Defines callbacks for base AtkObject.
@@ -477,6 +511,7 @@ eail_item_class_init(EailItemClass *klass)
    class->ref_state_set = eail_item_ref_state_set;
    class->get_n_children = eail_item_get_n_children;
    class->ref_child = eail_item_ref_child;
+   class->get_attributes = eail_item_get_attributes;
 
    g_object_class->finalize = eail_item_class_finalize;
 }
