@@ -238,6 +238,38 @@ eail_toolbar_item_name_get(EailItemParent *parent, EailItem *item)
 }
 
 /**
+ * @brief Gets index in parent
+ *
+ * @param parent EailItemParent instance
+ * @param item EailItem child instance
+ *
+ * @returns int representing the index in parent
+ */
+static gint
+eail_toolbar_get_item_index_in_parent(EailItemParent *parent, EailItem *item)
+{
+   Elm_Object_Item *it = eail_item_get_item(item);
+   Eina_List *items;
+   gint index = -1;
+   int i = 0;
+
+   if (!it) return -1;
+
+   items = eail_toolbar_get_items(EAIL_TOOLBAR(ATK_OBJECT(parent)));
+   for (i=0; i<eina_list_count(items); ++i)
+   {
+      if (eina_list_nth(items, i) == it)
+      {
+         index = i;
+         break;
+      }
+   }
+
+   eina_list_free(items);
+   return index;
+}
+
+/**
  * @brief Initialization of EailItemParentIface interface callbacks
  *
  * Function called upon instance creation. It initializes EailItemParent
@@ -252,4 +284,5 @@ eail_item_parent_interface_init(EailItemParentIface *iface)
    iface->get_item_name            = eail_toolbar_item_name_get;
    iface->get_evas_obj             = eail_toolbar_get_evas_obj;
    iface->get_actions_supported    = eail_toolbar_get_actions_supported;
+   iface->get_item_index_in_parent = eail_toolbar_get_item_index_in_parent;
 }

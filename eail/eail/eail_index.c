@@ -245,6 +245,35 @@ eail_index_get_item_name(EailItemParent   *parent,
 }
 
 /**
+ * @brief Gets index in parent
+ *
+ * @param parent EailItemParent instance
+ * @param item EailItem child instance
+ *
+ * @returns int representing the index in parent
+ */
+static gint
+eail_index_get_item_index_in_parent(EailItemParent *parent, EailItem *item)
+{
+   Elm_Object_Item *it = eail_item_get_item(item);
+   const Eina_List *items;
+   int i = 0;
+
+   if (!it) return -1;
+
+   items = eail_index_get_index_items(ATK_OBJECT(parent));
+   for (i=0; i<eina_list_count(items); ++i)
+   {
+      if (eina_list_nth(items, i) == it)
+      {
+         return i;
+      }
+   }
+
+   return -1;
+}
+
+/**
  * @brief Initialization of EailItemParentIface callbacks
  *
  * @param iface EailItemParentIface instance
@@ -254,6 +283,7 @@ eail_item_parent_interface_init(EailItemParentIface *iface)
 {
    iface->get_item_name = eail_index_get_item_name;
    iface->is_content_get_supported = eail_index_content_get_support;
+   iface->get_item_index_in_parent = eail_index_get_item_index_in_parent;
 }
 
 /**

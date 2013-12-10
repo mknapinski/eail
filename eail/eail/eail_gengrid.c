@@ -406,6 +406,24 @@ eail_gengrid_get_actions_supported(EailItemParent   *parent,
 }
 
 /**
+ * @brief Gets index in parent
+ *
+ * @param parent EailItemParent instance
+ * @param item EailItem child instance
+ *
+ * @returns int representing the index in parent
+ */
+static gint
+eail_gengrid_get_item_index_in_parent(EailItemParent *parent, EailItem *item)
+{
+   Elm_Object_Item *it = eail_item_get_item(item);
+
+   if (!it) return -1;
+
+   return elm_gengrid_item_index_get(it)-1;
+}
+
+/**
  * @brief EailItemParent interface initialization
  *
  * @param iface EailItemParentIface instance
@@ -421,6 +439,7 @@ eail_item_parent_interface_init(EailItemParentIface *iface)
    iface->grab_item_focus          = eail_gengrid_grab_item_focus;
    iface->get_item_extents         = eail_gengrid_item_extents_get;
    iface->get_actions_supported    = eail_gengrid_get_actions_supported;
+   iface->get_item_index_in_parent = eail_gengrid_get_item_index_in_parent;
 }
 
 /**

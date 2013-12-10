@@ -400,6 +400,23 @@ eail_menu_item_content_get_support(EailItemParent   *parent,
 }
 
 /**
+ * @brief Gets index in parent
+ *
+ * @param parent EailItemParent instance
+ * @param item EailItem child instance
+ *
+ * @returns int representing the index in parent
+ */
+static gint
+eail_menu_get_item_index_in_parent(EailItemParent *parent, EailItem *item)
+{
+   Elm_Object_Item *it = eail_item_get_item(item);
+   if (!it) return -1;
+
+   return elm_menu_item_index_get(it);
+}
+
+/**
  * @brief Initializes EailItemParentIface callbacks
  *
  * @param iface EailItemParentIface instance
@@ -413,4 +430,5 @@ eail_item_parent_interface_init(EailItemParentIface *iface)
    iface->ref_n_child = eail_menu_item_ref_child;
    iface->get_actions_supported = eail_menu_get_actions_supported;
    iface->is_content_get_supported = eail_menu_item_content_get_support;
+   iface->get_item_index_in_parent = eail_menu_get_item_index_in_parent;
 }
