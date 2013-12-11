@@ -140,9 +140,7 @@ eail_window_on_resize(void *data, Evas *e, Evas_Object *obj, void *event_info)
  * @param event_info additional event info
  */
 void
-_eail_window_handle_delete_event(void *data,
-                               Evas_Object *obj,
-                               void *event_info)
+_eail_window_handle_delete_event(void *data, Evas *e, Evas_Object *obj, void *event_info)
 {
    atk_object_notify_state_change(ATK_OBJECT(data), ATK_STATE_DEFUNCT, TRUE);
    eail_emit_atk_signal(ATK_OBJECT(data), "destroy", EAIL_TYPE_WINDOW);
@@ -186,8 +184,6 @@ eail_window_init_focus_handler(AtkObject *obj)
                                   _eail_window_handle_maximize_event, obj);
    evas_object_smart_callback_add(nested_widget, "iconified",
                                   _eail_window_handle_minimize_event, obj);
-   evas_object_smart_callback_add(nested_widget, "delete,request",
-                                  _eail_window_handle_delete_event, obj);
    evas_object_smart_callback_add(nested_widget, "unmaximized",
                                   _eail_window_handle_restore_event, obj);
    evas_object_smart_callback_add(nested_widget, "normal",
@@ -200,6 +196,8 @@ eail_window_init_focus_handler(AtkObject *obj)
                                   eail_window_on_move, obj);
    evas_object_event_callback_add(nested_widget, EVAS_CALLBACK_FOCUS_OUT,
                                   eail_window_on_deactivate, obj);
+   evas_object_event_callback_add(nested_widget, EVAS_CALLBACK_DEL,
+                                  _eail_window_handle_delete_event, obj);
 }
 
 /**
