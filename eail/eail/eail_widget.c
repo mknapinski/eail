@@ -1,4 +1,4 @@
-/*
+ /*
  * Copyright (c) 2013 Samsung Electronics Co., Ltd.
  *
  * This library is free software; you can redistribute it and/or
@@ -102,6 +102,7 @@ eail_widget_on_show(void *data, Evas *e, Evas_Object *obj, void *event_info)
    g_return_if_fail(ATK_IS_OBJECT(data));
 
    atk_object_notify_state_change(ATK_OBJECT(data), ATK_STATE_SHOWING, TRUE);
+   atk_object_notify_state_change(ATK_OBJECT(data), ATK_STATE_VISIBLE, TRUE);
 }
 
 /**
@@ -118,6 +119,7 @@ eail_widget_on_hide(void *data, Evas *e, Evas_Object *obj, void *event_info)
    g_return_if_fail(ATK_IS_OBJECT(data));
 
    atk_object_notify_state_change(ATK_OBJECT(data), ATK_STATE_SHOWING, FALSE);
+   atk_object_notify_state_change(ATK_OBJECT(data), ATK_STATE_VISIBLE, FALSE);
 }
 
 /**
