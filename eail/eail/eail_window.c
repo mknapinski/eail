@@ -102,6 +102,21 @@ eail_window_on_move(void *data, Evas *e, Evas_Object *obj, void *event_info)
 }
 
 /**
+ * @brief Deactivate event handler
+ *
+ * @param data data passed to callback
+ * @param obj Evas_Object instance that raised event
+ * @param event_info additional event info
+ */
+void
+eail_window_on_deactivate(void *data, Evas *e, Evas_Object *obj, void *event_info)
+{
+   g_return_if_fail(ATK_IS_OBJECT(data));
+
+   eail_emit_atk_signal(ATK_OBJECT(data), "deactivate", EAIL_TYPE_WINDOW);
+}
+
+/**
  * @brief Callback used for tracking resize-changes for window
  *
  * @param data data passed to callback
@@ -183,6 +198,8 @@ eail_window_init_focus_handler(AtkObject *obj)
                                   eail_window_on_resize, obj);
    evas_object_event_callback_add(nested_widget, EVAS_CALLBACK_MOVE,
                                   eail_window_on_move, obj);
+   evas_object_event_callback_add(nested_widget, EVAS_CALLBACK_FOCUS_OUT,
+                                  eail_window_on_deactivate, obj);
 }
 
 /**
