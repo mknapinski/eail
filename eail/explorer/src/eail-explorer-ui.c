@@ -743,9 +743,9 @@ void print_object(Evas_Object *eo, AtkObject *obj, Evas_Object *parent)
 		else
 		{
 			char *c = NULL;
-			if (asprintf(&c,"%d", atk_object_get_index_in_parent(parent_obj)) < 0)
+			if (asprintf(&c,"%d", atk_object_get_index_in_parent(obj)) < 0)
 				EINA_LOG_ERR(ERR_OBJECT_INDEX);
-			elm_object_text_set(elm_object_part_content_get(eo, "elm.editor.name.label6"), c);
+			elm_object_text_set(elm_object_part_content_get(eo, "elm.editor.name.label5"), c);
 			free(c);
 		}
 	}
