@@ -152,7 +152,6 @@ eail_app_class_init(EailAppClass *klass)
    atk_class->initialize = eail_app_initialize;
    atk_class->get_n_children = eail_app_get_n_children;
    atk_class->ref_child = eail_app_ref_child;
-   atk_class->get_parent = NULL;
 
    g_object_class->finalize = eail_app_class_finalize;
 }
