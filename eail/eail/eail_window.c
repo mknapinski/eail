@@ -180,6 +180,19 @@ _eail_window_handle_restore_event(void *data,
 }
 
 /**
+ * @brief Create event handler
+ *
+ * @param data passed to callback
+ * @param obj object that raised event
+ * @param event_info additional event info
+ */
+void
+_eail_window_handle_create_event(void *data, Evas *e, Evas_Object *obj, void *event_info)
+{
+   eail_emit_atk_signal(ATK_OBJECT(data), "create", EAIL_TYPE_WINDOW);
+}
+
+/**
  * @brief Initializes window focus handler
  *
  * @param obj AtkObject instance
@@ -217,6 +230,8 @@ eail_window_init_focus_handler(AtkObject *obj)
                                   eail_window_on_activate, obj);
    evas_object_event_callback_add(nested_widget, EVAS_CALLBACK_DEL,
                                   _eail_window_handle_delete_event, obj);
+   evas_object_event_callback_add(nested_widget, EVAS_CALLBACK_SHOW,
+                                  _eail_window_handle_create_event, obj);
 }
 
 /**
