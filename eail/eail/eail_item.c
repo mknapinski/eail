@@ -65,6 +65,39 @@ G_DEFINE_TYPE_WITH_CODE(EailItem,
                                               atk_text_interface_init));
 
 /**
+ * @brief Callback used for tracking show-changes for items
+ *
+ * @param data data passed to callback
+ * @param e Evas instance that has been shown
+ * @param obj Evas_Object instance that has been shown
+ * @param event_info additional event info
+ */
+static void
+eail_item_on_show(void *data, Evas *e, Evas_Object *obj, void *event_info)
+{
+   g_return_if_fail(ATK_IS_OBJECT(data));
+
+   atk_object_notify_state_change(ATK_OBJECT(data), ATK_STATE_SHOWING, TRUE);
+   atk_object_notify_state_change(ATK_OBJECT(data), ATK_STATE_VISIBLE, TRUE);
+}
+
+/**
+ * @brief Callback used for tracking hide-changes for items
+ *
+ * @param data data passed to callback
+ * @param e Evas instance that has been shown
+ * @param obj Evas_Object instance that has been shown
+ * @param event_info additional event info
+ */
+static void
+eail_item_on_hide(void *data, Evas *e, Evas_Object *obj, void *event_info)
+{
+   g_return_if_fail(ATK_IS_OBJECT(data));
+
+   atk_object_notify_state_change(ATK_OBJECT(data), ATK_STATE_SHOWING, FALSE);
+   atk_object_notify_state_change(ATK_OBJECT(data), ATK_STATE_VISIBLE, FALSE);
+}
+/**
  * @brief Initializer for AtkObjectClass
  *
  * @param obj AtkObject instance
@@ -79,6 +112,12 @@ eail_item_initialize(AtkObject *obj, gpointer data)
 
    item->item = (Elm_Object_Item *)data;
 
+   Evas_Object *widget = elm_object_item_widget_get(item->item);
+
+   evas_object_event_callback_add(widget, EVAS_CALLBACK_SHOW,
+                                  eail_item_on_show, item);
+   evas_object_event_callback_add(widget, EVAS_CALLBACK_HIDE,
+                                  eail_item_on_hide, item);
    /* NOTE: initializing role is being done only in eail_item_new(..) */
 }
 
