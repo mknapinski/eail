@@ -33,16 +33,22 @@ case "$host_os" in
 esac
 AC_SUBST([LT_ENABLE_AUTO_IMPORT])
 
-REQUIREMENT_EAIL="elementary >= 1.7.0 ecore-evas >= 1.7.0 ecore-file >= 1.7.0 ecore >= 1.7.0 evas >= 1.7.0 eina >= 1.7.0 atk >= 2.2.0 gobject-2.0 >= 2.30.0 gmodule-2.0 >= 2.30.0 gio-2.0"
+REQUIREMENT_EAIL="elementary >= 1.7.0 elementary < 1.8 ecore-evas >= 1.7.0 ecore-evas < 1.8 ecore-file >= 1.7.0 ecore-file < 1.8 ecore >= 1.7.0 ecore < 1.8 evas >= 1.7.0 evas < 1.8 eina >= 1.7.0 eina < 1.8 atk >= 2.2.0 gobject-2.0 >= 2.30.0 gmodule-2.0 >= 2.30.0 gio-2.0"
 AC_SUBST([REQUIREMENT_EAIL])
 
 PKG_CHECK_MODULES([EAIL], [
     eina >= 1.7.0
+    eina < 1.8
     evas >= 1.7.0
+    evas < 1.8
     ecore >= 1.7.0
+    ecore < 1.8
     ecore-file >= 1.7.0
+    ecore-file < 1.8
     ecore-evas >= 1.7.0
+    ecore-evas < 1.8
     elementary >= 1.7.0
+    elementary < 1.8
     gmodule-2.0 >= 2.30.0
     gobject-2.0 >= 2.30.0
     atk >= 2.2.0
